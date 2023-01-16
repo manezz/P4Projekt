@@ -3,7 +3,7 @@
     public class User
     {
         [Key]
-        public int Userd { get; set; }
+        public int UserId { get; set; }
 
         [ForeignKey("Login.LoginId")]
         public int LoginId { get; set; }
