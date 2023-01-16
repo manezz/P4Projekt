@@ -12,8 +12,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230116090025_Initial")]
-    partial class Initial
+    [Migration("20230116122732_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,30 @@ namespace WebApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("LikedTime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("UserId", "PostId");
+
+                    b.ToTable("Liked");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 1,
+                            LikedTime = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9658)
+                        });
+                });
 
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
@@ -57,6 +81,42 @@ namespace WebApi.Migrations
                             LoginId = 2,
                             Email = "Test2@mail.dk",
                             Password = "password"
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
+                {
+                    b.Property<int>("PostId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostInput")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("Posts");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9646),
+                            Likes = 0,
+                            PostInput = "testestestest",
+                            UserId = 1
                         });
                 });
 
@@ -98,7 +158,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-                            Created = new DateTime(2023, 1, 16, 10, 0, 24, 982, DateTimeKind.Local).AddTicks(182),
+                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9628),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -107,7 +167,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-                            Created = new DateTime(2023, 1, 16, 10, 0, 24, 982, DateTimeKind.Local).AddTicks(186),
+                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9632),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2

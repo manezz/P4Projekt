@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

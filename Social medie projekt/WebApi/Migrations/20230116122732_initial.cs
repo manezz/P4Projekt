@@ -8,11 +8,24 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Liked",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    LikedTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Liked", x => new { x.UserId, x.PostId });
+                });
+
             migrationBuilder.CreateTable(
                 name: "Login",
                 columns: table => new
@@ -25,6 +38,22 @@ namespace WebApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Login", x => x.LoginId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    PostInput = table.Column<string>(type: "text", nullable: false),
+                    Likes = table.Column<int>(type: "int", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.PostId);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,6 +80,11 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Liked",
+                columns: new[] { "PostId", "UserId", "LikedTime" },
+                values: new object[] { 1, 2, new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9658) });
+
+            migrationBuilder.InsertData(
                 table: "Login",
                 columns: new[] { "LoginId", "Email", "Password" },
                 values: new object[,]
@@ -60,12 +94,17 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "Created", "Likes", "PostInput", "UserId" },
+                values: new object[] { 1, new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9646), 0, "testestestest", 1 });
+
+            migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "Address", "Created", "FirstName", "LastName", "LoginId" },
                 values: new object[,]
                 {
-                    { 1, "testvej 1", new DateTime(2023, 1, 16, 10, 0, 24, 982, DateTimeKind.Local).AddTicks(182), "test", "1", 1 },
-                    { 2, "testvej 2", new DateTime(2023, 1, 16, 10, 0, 24, 982, DateTimeKind.Local).AddTicks(186), "test", "2", 2 }
+                    { 1, "testvej 1", new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9628), "test", "1", 1 },
+                    { 2, "testvej 2", new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9632), "test", "2", 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -78,6 +117,12 @@ namespace WebApi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Liked");
+
+            migrationBuilder.DropTable(
+                name: "Posts");
+
             migrationBuilder.DropTable(
                 name: "User");
 

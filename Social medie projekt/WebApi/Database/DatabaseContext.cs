@@ -5,6 +5,9 @@
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
         public DbSet<Login> Login { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<Posts> Posts { get; set; }
+        public DbSet<Liked> Liked { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +47,23 @@
                     Address = "testvej 2",
                     Created = DateTime.Now
                 });
-                
+
+            modelBuilder.Entity<Posts>().HasData(
+                new Posts
+                {
+                    PostId = 1,
+                    UserId = 1,
+                    PostInput = "testestestest",
+                    Created = DateTime.Now
+                });
+
+            modelBuilder.Entity<Liked>().HasData(
+                new Liked
+                {
+                    UserId = 2,
+                    PostId = 1,
+                    LikedTime = DateTime.Now
+                });
         }
     }
 }
