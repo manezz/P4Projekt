@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
       profilepage works!
     </p>
   `,
-  styles: [
+  styles: [``
   ]
 })
 export class ProfilepageComponent {

@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
       loginpage works!
     </p>
   `,
-  styles: [
+  styles: [``
   ]
 })
 export class LoginpageComponent {

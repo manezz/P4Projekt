@@ -1,17 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-indexpage',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <p>
-      indexpage works!
-    </p>
+    <h1>
+      Indexpage works!
+    </h1>
   `,
-  styles: [
-  ]
+  styles: [`
+  `]
+  
 })
 export class IndexpageComponent {
 
