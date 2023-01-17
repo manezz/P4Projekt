@@ -6,12 +6,17 @@ import { CommonModule } from '@angular/common';
   // standalone: false,
   // imports: [CommonModule],
   template: `
-    <p>
-      footer works!
-    </p>
+    <p> THE social media</p>
+    <p> Copyright:</p>
+    <p> Bjarke | Leonard | Wiktor</p>
   `,
-  styles: [
-  ]
+  styles: [`
+  p{
+    font-size: 12px;
+    text-align: center;
+    margin: 0 0 5px 0;
+  }
+  `]
 })
 export class FooterComponent {
 
