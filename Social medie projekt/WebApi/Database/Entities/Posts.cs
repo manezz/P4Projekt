@@ -13,7 +13,7 @@
         public string PostInput { get; set; } = string.Empty;
 
         [Column(TypeName = "int")]
-        public int Likes { get; set; } = 0;
+        public int? Likes { get; set; } = 0;
 
         [Column(TypeName ="datetime")]
         public DateTime Created { get; set; } = DateTime.Now;

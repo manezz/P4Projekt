@@ -4,4 +4,5 @@ global using Microsoft.EntityFrameworkCore;
 global using WebApi.Database.Entities;
 global using WebApi.Database;
 global using WebApi.Repository;
+global using WebApi.DTOs;
 
