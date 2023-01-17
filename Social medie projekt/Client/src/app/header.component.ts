@@ -1,23 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
-  selector: 'app-indexpage',
+  selector: 'app-header',
   standalone: true,
   imports: [CommonModule],
   template: `
-    <h1>
-      Indexpage works!
-    </h1>
+    <a routerLink="/">Login</a>
+    <a routerLink="/main">Home</a>
+    <a routerLink="/profile">Profile</a>
   `,
   styles: [`
-  h1{
-    color: white;
+  a{
+    background-color: white;
   }
   `]
-  
 })
-export class IndexpageComponent {
+export class HeaderComponent {
 
 }
