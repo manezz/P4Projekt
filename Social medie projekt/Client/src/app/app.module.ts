@@ -7,18 +7,22 @@ import { AppComponent } from './app.component';
 import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { HeaderComponent } from './header.component';
+import { FooterComponent } from './footer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    IndexpageComponent,
+    LoginpageComponent,
+    ProfilepageComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    IndexpageComponent,
-    LoginpageComponent,
-    ProfilepageComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

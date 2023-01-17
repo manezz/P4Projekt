@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profilepage',
-  standalone: true,
-  imports: [CommonModule],
+  // standalone: true,
+  // imports: [CommonModule],
   template: `
-    <p>
-      profilepage works!
-    </p>
+    <h1>
+      Profilepage works!
+    </h1>
   `,
-  styles: [``
-  ]
+  styles: [`
+  h1{
+    color: white;
+  }
+  `]
 })
 export class ProfilepageComponent {
 

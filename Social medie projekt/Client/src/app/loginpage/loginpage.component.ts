@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loginpage',
-  standalone: true,
-  imports: [CommonModule],
+  // standalone: true,
+  // imports: [CommonModule],
   template: `
-    <p>
-      loginpage works!
-    </p>
+    <h1>
+      Loginpage works!
+    </h1>
   `,
-  styles: [``
-  ]
+  styles: [`
+  h1{
+    color: white;
+  }
+  `]
 })
 export class LoginpageComponent {
 

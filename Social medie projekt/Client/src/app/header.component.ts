@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
-  imports: [CommonModule],
+  // standalone: true,
+  // imports: [CommonModule],
   template: `
     <a routerLink="/">Login</a>
     <a routerLink="/main">Home</a>

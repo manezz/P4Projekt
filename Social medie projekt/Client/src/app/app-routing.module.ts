@@ -8,7 +8,7 @@ const routes: Routes = [
   // { path: "", loadComponent: () => import('./indexpage/indexpage.component').then(it => it.IndexpageComponent)}
   { path: '', component: LoginpageComponent },
   { path: 'main', component: IndexpageComponent },
-  { path: 'profile/', component: ProfilepageComponent },
+  { path: 'profile', component: ProfilepageComponent },
 ];
 
 @NgModule({

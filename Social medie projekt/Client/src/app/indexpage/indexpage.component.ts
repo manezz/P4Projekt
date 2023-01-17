@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-indexpage',
-  standalone: true,
-  imports: [CommonModule],
+  // standalone: false,
+  // imports: [CommonModule],
   template: `
     <h1>
       Indexpage works!
