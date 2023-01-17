@@ -1,25 +1,17 @@
-.topBar {
+  .topBar {
     display: flex;
     padding: 8px;
     background-color: rgb(0, 158, 111);
     height: 80px;
   }
-  
   .left {
     display: flex;
   }
-  
   .right {
     display: flex;
     margin-left: auto;
     margin-right: 5%;
-  }
-  
-  h1 {
-    padding: 0 8px;
-    align-self: center;
-  }
-  
+  }  
   a {
     padding: 24px;
     color: black;
@@ -27,7 +19,6 @@
     text-decoration: none;
     align-self: center;
   }
-  
   a:hover {
     background-color: rgb(4, 105, 0);
     border-radius: 25%;
