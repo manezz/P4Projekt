@@ -11,9 +11,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<IPostService, PostService>();
+
+
 var app = builder.Build();
 
-builder.Services.AddScoped<IPostRepository, PostRepository>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

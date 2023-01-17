@@ -6,5 +6,7 @@
         public int UserId { get; set; }
         public string PostInput { get; set; }
 
+        public int? Likes { get; set; }
+
     }
 }

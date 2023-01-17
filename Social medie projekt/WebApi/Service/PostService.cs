@@ -26,7 +26,8 @@
             {
                 PostId = post.PostId,
                 UserId = post.UserId,
-                PostInput = post.PostInput
+                PostInput = post.PostInput,
+                Likes = post.Likes
             };
         }
 
@@ -79,7 +80,7 @@
         {
             List<Posts> posts = await _postRepository.GetAllAsync();
 
-            if(posts != null)
+            if(posts == null)
             {
                 throw new ArgumentNullException();
             }
@@ -88,7 +89,8 @@
             {
                 PostId = post.PostId,
                 UserId = post.UserId,
-                PostInput = post.PostInput
+                PostInput = post.PostInput,
+                Likes = post.Likes
 
             }).ToList();
         }
