@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     <div class="formControl">
       <img src="/assets/images/socialmachine.png" width="600">
       <div class="formDiv">
-        <label>Username</label>
+        <label>Email</label>
         <input type="text"/>
       </div>
       <div class="formDiv">
