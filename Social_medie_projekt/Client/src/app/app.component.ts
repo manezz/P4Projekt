@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+
   template: `
   <div class="container">
     <div class="header">
@@ -37,6 +38,7 @@ import { Component } from '@angular/core';
     padding: 3px 5px;
   }
   `]
+
 })
 export class AppComponent {
   title = 'Client';
