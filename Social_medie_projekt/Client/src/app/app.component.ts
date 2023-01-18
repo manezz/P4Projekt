@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthService } from './_services/auth.service';
+
 
 @Component({
   selector: 'app-root',
@@ -29,6 +32,7 @@ import { Component } from '@angular/core';
   .content{
     position: relative;
     margin-top: 40px;
+    margin-bottom: 200px;
     padding: 3px 5px;
   }
   .footer{
@@ -39,6 +43,22 @@ import { Component } from '@angular/core';
   `]
 })
 export class AppComponent {
-  title = 'Client';
-  loggedIn = true
+
+  constructor(private auth: AuthService) { }
+
+  title = 'Client'
+  currentUser: any
+  loggedIn: any
+  
+  
+
+  ngOnInit(): void{
+    this.auth.currentUser.subscribe(x => { this.currentUser = x})
+
+    // if (this.currentUser != null) {
+    //   this.loggedIn = true
+    // }
+  }
 }
+
+

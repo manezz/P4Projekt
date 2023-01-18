@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class PostService {
 
-  private readonly apiUrl = environment.apiUrl + '<INSERT URL HERE>';
+  private readonly apiUrl = environment.apiUrl ;
 
   constructor(private http: HttpClient) { }
 

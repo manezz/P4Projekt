@@ -11,6 +11,7 @@ import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
 import { FooterComponent } from './footer.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { FooterComponent } from './footer.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule
 
   ],
   providers: [],
