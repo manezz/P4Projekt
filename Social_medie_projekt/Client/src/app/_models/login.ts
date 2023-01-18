@@ -1,9 +1,10 @@
 import { User } from "./user";
+import { Role } from "./role";
 
 export interface Login {
-    id: number;
+    loginId: number;
     email: string;
     password: string;
-    roletype: number;
-    user: User;
+    type?: Role;
+    token?: string;
 }
