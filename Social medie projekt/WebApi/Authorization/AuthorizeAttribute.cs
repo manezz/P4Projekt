@@ -5,7 +5,7 @@ namespace WebApi.Authorization
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-  
+
         private readonly IList<Role> _roles;
 
         public AuthorizeAttribute(params Role[] roles)
@@ -15,7 +15,7 @@ namespace WebApi.Authorization
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            bool allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnnymousAttribute>().Any();
+            bool allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
             if (allowAnonymous)
             {
                 return;

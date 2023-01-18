@@ -5,7 +5,6 @@
         public string GenerateJwtToken(Login login);
         public int? ValidateJwtToken(string token);
     }
-
     public class JwtUtils : IJwtUtils
     {
         private readonly AppSettings _appSettings;
@@ -31,7 +30,7 @@
 
         public int? ValidateJwtToken(string token)
         {
-            if(token == null)
+            if (token == null)
             {
                 return null;
             }
@@ -54,7 +53,7 @@
 
                 return loginId;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
