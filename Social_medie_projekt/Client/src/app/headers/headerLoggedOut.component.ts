@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-headerLoggedOut',
   template: `
     <nav>
       <div class="nav">
         <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
         <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
-        <a class="linkRight" routerLink="/"        >Logout</a>
-        <a class="linkRight" routerLink="/profile" >Profile</a>
+        <!-- <a class="linkRight" routerLink="/"        >Logout</a>
+        <a class="linkRight" routerLink="/profile" >Profile</a> -->
       </div>
     </nav>
   `,
@@ -42,6 +42,6 @@ import { CommonModule } from '@angular/common';
   }
   `]
 })
-export class HeaderComponent {
+export class HeaderLoggedOutComponent {
 
 }

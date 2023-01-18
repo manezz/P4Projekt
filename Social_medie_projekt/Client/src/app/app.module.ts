@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
-import { HeaderComponent } from './header.component';
+import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
+import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
 import { FooterComponent } from './footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    HeaderLoggedInComponent,
+    HeaderLoggedOutComponent,
     FooterComponent,
     IndexpageComponent,
     LoginpageComponent,
