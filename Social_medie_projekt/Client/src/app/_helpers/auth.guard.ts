@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate{
     if (currentUser) {
       //send user to login page if user doesn't have permission
       if (route.data['roles'] && route.data['roles'].indexOf(currentUser.loginResponse.type) === -1) {
-        this.router.navigate(['customer/login'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate([''], { queryParams: { returnUrl: state.url } });
         return false;
       }
       //current user exists, logged in, retun true
