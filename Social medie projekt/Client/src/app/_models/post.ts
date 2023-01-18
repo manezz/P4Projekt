@@ -2,12 +2,15 @@ import { User } from "./user"
 
 export interface Post {
     postId: number;
-    // userId: number;
-    user: User;
+    userId: number;
     title: string;
     date: string;
     desc?: string;
     pictureURL?: string;
     tag?: Array<string>;
+
+    // ??
     likedByUser: boolean;
+
+    user: User;
 }
