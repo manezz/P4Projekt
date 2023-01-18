@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-
   template: `
   <div class="container">
     <div class="header">
-      <app-header></app-header>
+      <app-header *ngIf="loggedIn"></app-header>
+      <app-headerLoggedOut *ngIf="!loggedIn"></app-headerLoggedOut>
     </div>
     <div class="content">
       <router-outlet></router-outlet>
@@ -37,8 +37,8 @@ import { Component } from '@angular/core';
     padding: 3px 5px;
   }
   `]
-
 })
 export class AppComponent {
   title = 'Client';
+  loggedIn = true
 }
