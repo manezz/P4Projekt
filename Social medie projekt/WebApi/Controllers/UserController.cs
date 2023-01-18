@@ -2,7 +2,7 @@
 
 namespace WebApi.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
     {
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("userId")]
+        [Route("{userId}")]
         public async Task<IActionResult> FindUserById([FromRoute] int userId)
         {
             try
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUserAsync([FromBody] int userId, [FromBody] UserRequest newUser)
+        public async Task<IActionResult> CreateUserAsync([FromBody] UserRequest newUser)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut]
-        [Route("{userid")]
+        [Route("{userid}")]
         public async Task<IActionResult> EditUser([FromRoute]int userId, [FromBody] UserRequest updatedUser)
         {
             try
@@ -103,7 +103,7 @@ namespace WebApi.Controllers
         }
 
         [HttpDelete]
-        [Route("{userId")]
+        [Route("{userId}")]
         public async Task<IActionResult> DeleteUserById([FromRoute]int userId)
         {
             try
