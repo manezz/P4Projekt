@@ -13,8 +13,8 @@ namespace WebApi.Database.Entities
         [Column(TypeName ="nvarchar(32)")]
         public string Password { get; set; } = string.Empty;
 
-        //[Column(TypeName = "int")]
-        //public Role Type { get; set; } = 0;
+        [Column(TypeName = "int")]
+        public Role Type { get; set; } = 0;
 
         public User? User { get; set; }
 
