@@ -10,38 +10,42 @@ export class DataService {
   getTempData(){
     return[
       {
-        id: 1,
-        posterId: 1,
+        postId: 1,
+        userId: 1,
         username: "user 1",
         title: "Title",
         desc: "description",
         date: "01-01-23",
-        tag: ['test', 'tester', 'testing']
+        tag: ['test', 'tester', 'testing'],
+        likedByUser: false
       },
       {
-        id: 4,
-        posterId: 1,
+        postId: 4,
+        userId: 1,
         username: "user 1",
         title: "Titleeeeee",
         desc: "descriptionnnnnn",
         date: "01-01-23",
-        tag: ['test', 'testerrrrrrrrrrrrrrrr', 'testing']
+        tag: ['test', 'testerrrrrrrrrrrrrrrr', 'testing'],
+        likedByUser: false
       },
       {
-        id: 2,
-        posterId: 2,
+        postId: 2,
+        userId: 2,
         username: "user 2",
         title: "Title 2",
         desc: "description 2",
         date: "02-02-23",
-        tag: ['test 2', 'tester 2', 'testing 2']
+        tag: ['test 2', 'tester 2', 'testing 2'],
+        likedByUser: true
       },
       {
-        id: 3,
-        posterId: 3,
+        postId: 3,
+        userId: 3,
         username: "user 3",
         title: "Title 3",
         date: "03-03-23",
+        likedByUser: true
       }
     ]
   }

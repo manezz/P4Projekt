@@ -6,9 +6,11 @@ import { CommonModule } from '@angular/common';
   // standalone: false,
   // imports: [CommonModule],
   template: `
+  <div class="footer">
     <p> THE social media</p>
     <p> Copyright:</p>
     <p> Bjarke | Leonard | Wiktor</p>
+  </div>
   `,
   styles: [`
   p{

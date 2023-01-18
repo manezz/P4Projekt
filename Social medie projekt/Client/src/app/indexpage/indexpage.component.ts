@@ -17,26 +17,11 @@ import { Data } from '@angular/router';
     <h3 id="description">{{data.desc}}</h3>
     <p id="date">{{data.date}}</p>
     <p id="tags">{{data.tag}} </p>
+    <button class="postBtn" id="like"><3</button>
   </div>
 
   `,
-  styles: [`
-  h1{
-    color: white;
-  }
-  
-  #post{
-    position: relative;
-    width: auto;
-    max-width: 35%;
-    border: 1px solid white;
-    border-radius: 25px;
-    margin: auto;
-    margin-top: 10px; 
-    margin-bottom: 60px;
-    padding: 20px;
-  }
-  `]
+  styleUrls: ["./indexstyle.css"]
   
 })
 export class IndexpageComponent implements OnInit {

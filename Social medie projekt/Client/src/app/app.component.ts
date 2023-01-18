@@ -31,6 +31,8 @@ import { Component } from '@angular/core';
     padding: 3px 5px;
   }
   .footer{
+    position: relative;
+    bottom: 0px;
     padding: 3px 5px;
   }
   `]
