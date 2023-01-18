@@ -8,13 +8,13 @@ import { CommonModule } from '@angular/common';
   template: `
     <div class="formControl">
       <img src="/assets/images/socialmachine.png" width="600">
-      <div class="formControl formDiv">
+      <div class="formDiv">
         <label>Username</label>
-        <input type="text" formControlName="userName"/>
+        <input type="text"/>
       </div>
-      <div class="formControl formDiv">
+      <div class="formDiv">
         <label>Password</label>
-        <input type="password"formControlName="passHash"/>
+        <input type="password"/>
       <!-- </div>
         <span class="error"*ngIf="userForm.get('userName')?.invalid && userForm.get('passHash')?.touched">Fill out form!</span>
       </div> -->
@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
         <button class="right" routerLink="/login-create">Create new user</button>
       </div>
     </div>`,
-  styles: [`formControl { display: flex; align-content: center; background: red;}`]
+  styles: [`.formControl {display:flex; height: 700px; justify-content: center; align-items: center; flex-direction: column;}`]
 })
 export class LoginpageComponent {
 
