@@ -14,15 +14,28 @@ export class PostService {
 
 
   //getall every posts
+  getAll(){
+
+  }
 
   //getall own posts
+  getAllSelf(){
+
+  }
 
   //create post
+  createPost(){
+
+  }
 
   //delete post
+  delPost(){
+
+  }
 
   //update post
+  updPost(){
 
-  //finduser
+  }
 
 }

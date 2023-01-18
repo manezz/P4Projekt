@@ -1,11 +1,8 @@
-import { Login } from "./login";
-
 export interface User {
-    id: number;
-    loginId: number;
-    firstname: string;
-    lastname: string;
-    address: string;
-    createdate: string;
-    login: Login;
+    userId: number;
+    username: string;
+    profilePicURL: string;
+    bio: string;
+    followers?: Array<string>;
+    following?: Array<string>;
 }

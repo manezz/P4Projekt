@@ -3,15 +3,22 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
-  imports: [CommonModule],
+  // standalone: false,
+  // imports: [CommonModule],
   template: `
-    <p>
-      footer works!
-    </p>
+  <div class="footer">
+    <p> THE social media</p>
+    <p> Copyright:</p>
+    <p> Bjarke | Leonard | Wiktor</p>
+  </div>
   `,
-  styles: [
-  ]
+  styles: [`
+  p{
+    font-size: 12px;
+    text-align: center;
+    margin: 0 0 5px 0;
+  }
+  `]
 })
 export class FooterComponent {
 

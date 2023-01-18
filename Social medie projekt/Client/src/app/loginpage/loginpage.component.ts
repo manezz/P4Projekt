@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-profilepage',
+  selector: 'app-loginpage',
   // standalone: true,
   // imports: [CommonModule],
   template: `
     <h1>
-      Profilepage works!
+      Loginpage works!
     </h1>
   `,
   styles: [`
@@ -16,6 +16,6 @@ import { CommonModule } from '@angular/common';
   }
   `]
 })
-export class ProfilepageComponent {
+export class LoginpageComponent {
 
 }
