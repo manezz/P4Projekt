@@ -6,9 +6,6 @@ import { Data } from '@angular/router';
 
 @Component({
   selector: 'app-indexpage',
-  // standalone: false,
-  // imports: [CommonModule],
-
   template: `    
   <!-- looper igennem alle post fra data(DataService) -->
   <div id="post" *ngFor="let data of data">
@@ -20,6 +17,8 @@ import { Data } from '@angular/router';
     <button class="postBtn" id="like"><3</button>
   </div>
 
+
+  
   `,
   styleUrls: ["./indexstyle.css"]
   
