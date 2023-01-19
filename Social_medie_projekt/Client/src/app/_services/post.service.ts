@@ -9,13 +9,14 @@ import { Post } from '../_models/post';
 })
 export class PostService {
 
-  private readonly apiUrl = environment.apiUrl ;
+  private readonly apiUrl = environment.apiUrl + 'post';
 
   constructor(private http: HttpClient) { }
 
 
   //getall every posts
-  getAll(){
+  getAll(): Observable<Post[]>{
+    return this.http.get<Post[]>(this.apiUrl);
 
   }
 

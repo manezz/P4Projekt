@@ -26,8 +26,17 @@
             {
                 PostId = post.PostId,
                 UserId = post.UserId,
-                PostInput = post.PostInput,
-                Likes = post.Likes
+                Title = post.Title,
+                Desc = post.Desc,
+                Date = post.Date,
+                Likes = post.Likes,
+                User = new PostUserResponse
+                {
+                    FirstName = post.User.FirstName,
+                    LastName = post.User.LastName,
+                    Address = post.User.Address,
+                    Created = post.User.Created,
+                }
             };
         }
 
@@ -35,7 +44,8 @@
         {
             return new Posts
             {
-                PostInput = postRequest.PostInput
+                Title = postRequest.Title,
+                Desc = postRequest.Desc,
             };
         }
 
@@ -85,14 +95,7 @@
                 throw new ArgumentNullException();
             }
 
-            return posts.Select(post => new PostResponse
-            {
-                PostId = post.PostId,
-                UserId = post.UserId,
-                PostInput = post.PostInput,
-                Likes = post.Likes
-
-            }).ToList();
+            return posts.Select(post => MapPostToPostResponse(post)).ToList();
         }
 
         public async Task<PostResponse?> GetPostById(int Id)
