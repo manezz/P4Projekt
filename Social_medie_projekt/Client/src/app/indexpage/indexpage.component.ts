@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../_services/data.service';
-import { Data } from '@angular/router';
 
 
 @Component({
@@ -20,7 +19,7 @@ import { Data } from '@angular/router';
 
   
   `,
-  styleUrls: ["./indexstyle.css"]
+  styleUrls: ["../_css/poststyle.css"]
   
 })
 export class IndexpageComponent implements OnInit {
