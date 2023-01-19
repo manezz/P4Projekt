@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { AppComponent } from '../app.component';
+import { AuthService } from '../_services/auth.service';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   template: `
     <nav>
       <div class="nav">
-        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
+        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
         <a class="linkLeft" routerLink="/"        >Post</a>
         <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
         <a class="linkRight" routerLink="/"        >Logout</a>
@@ -44,5 +47,20 @@ import { CommonModule } from '@angular/common';
   `]
 })
 export class HeaderLoggedInComponent {
+  
+  constructor(private auth: AuthService,  private router: Router, private route: ActivatedRoute, private AppComponent: AppComponent) { 
+    this.auth.currentUser.subscribe(x => this.currentUser = x )
+  }
+  currentUser: any
+  
+
+  logOut(){
+    this.auth.logout()
+    this.auth.currentUser.subscribe(x => this.currentUser = x );
+    
+    //ændrer headeren
+    this.AppComponent.validateHeader()
+
+  }
 
 }
