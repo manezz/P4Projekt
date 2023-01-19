@@ -9,9 +9,6 @@ import { PostService } from '../_services/post.service';
 
 @Component({
   selector: 'app-indexpage',
-  // standalone: false,
-  // imports: [CommonModule],
-
   template: `    
   <!-- looper igennem alle post fra data(DataService) -->
   <div id="post" *ngFor="let post of posts">
@@ -23,6 +20,8 @@ import { PostService } from '../_services/post.service';
     <button class="postBtn" id="like"><3</button>
   </div>
 
+
+  
   `,
   styleUrls: ["./indexstyle.css"]
   
