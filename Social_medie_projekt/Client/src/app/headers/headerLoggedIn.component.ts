@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
     <nav>
       <div class="nav">
         <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
+        <a class="linkLeft" routerLink="/"        >Post</a>
         <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
         <a class="linkRight" routerLink="/"        >Logout</a>
         <a class="linkRight" routerLink="/profile" >Profile</a>
