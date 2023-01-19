@@ -55,8 +55,10 @@
                 {
                     PostId = 1,
                     UserId = 1,
-                    PostInput = "testestestest",
-                    Created = DateTime.Now
+                    Title = "testestestest",
+                    Desc = "tadnawdnada",
+                    Likes = 1,
+                    Date = DateTime.Now
                 });
 
             modelBuilder.Entity<Liked>().HasData(

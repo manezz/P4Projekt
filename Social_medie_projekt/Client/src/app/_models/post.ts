@@ -1,3 +1,4 @@
+import { Tags } from "./tags";
 import { User } from "./user"
 
 export interface Post {
@@ -7,10 +8,10 @@ export interface Post {
     date: string;
     desc?: string;
     pictureURL?: string;
-    tag?: Array<string>;
+    
 
     // ??
     likedByUser: boolean;
-
+    tag: Tags;
     user: User;
 }

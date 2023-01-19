@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230116122732_initial")]
+    [Migration("20230119120710_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -45,7 +45,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9658)
+                            LikedTime = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5755)
                         });
                 });
 
@@ -65,6 +65,9 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("LoginId");
 
                     b.ToTable("Login");
@@ -74,13 +77,15 @@ namespace WebApi.Migrations
                         {
                             LoginId = 1,
                             Email = "Test1@mail.dk",
-                            Password = "password"
+                            Password = "password",
+                            Type = 0
                         },
                         new
                         {
                             LoginId = 2,
                             Email = "Test2@mail.dk",
-                            Password = "password"
+                            Password = "password",
+                            Type = 1
                         });
                 });
 
@@ -92,20 +97,26 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PostId"));
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime");
 
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PostInput")
+                    b.Property<string>("Desc")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("PostId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Posts");
 
@@ -113,9 +124,10 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9646),
-                            Likes = 0,
-                            PostInput = "testestestest",
+                            Date = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5740),
+                            Desc = "tadnawdnada",
+                            Likes = 1,
+                            Title = "testestestest",
                             UserId = 1
                         });
                 });
@@ -158,7 +170,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9628),
+                            Created = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5720),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -167,11 +179,22 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-                            Created = new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9632),
+                            Created = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5723),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2
                         });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>

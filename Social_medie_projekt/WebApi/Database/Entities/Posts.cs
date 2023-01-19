@@ -9,14 +9,19 @@
         [ForeignKey("User.UserId")]
         public int UserId { get; set; } = 0;
 
+        [Column(TypeName = "nvarchar(32)")]
+        public string Title { get; set; } = string.Empty;
+
         [Column(TypeName = "text")]
-        public string PostInput { get; set; } = string.Empty;
+        public string Desc { get; set; } = string.Empty ;
 
         [Column(TypeName = "int")]
         public int? Likes { get; set; } = 0;
 
         [Column(TypeName ="datetime")]
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
+
+        public User User { get; set; }
 
     }
 }
