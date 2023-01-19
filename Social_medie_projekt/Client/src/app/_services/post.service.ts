@@ -17,14 +17,13 @@ export class PostService {
 
   //getall every posts
   getAll(): Observable<Post[]>{
-    // return this.http.get<Post[]>(`${this.apiUrl}`)
-    return this.data.getTempData()
+    return this.http.get<Post[]>(`${this.apiUrl}`)
+    // return this.data.getTempData()
   }
 
   //getall own posts
-  getAllSelf(Id: number){
-    // return this.http.get<Post[]>(`${this.apiUrl}/${Id}`)
-    return this.data.getTempData()
+  getAllSelf(Id: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${this.apiUrl}/${Id}`)
   }
 
   //create post

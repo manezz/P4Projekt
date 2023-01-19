@@ -5,11 +5,10 @@ export interface Post {
     postId: number;
     userId: number;
     title: string;
-    date: string;
     desc?: string;
     pictureURL?: string;
-    tag?: Array<string>;
     likes: number;
+    date: string;
 
     // ??
     likedByUser: boolean;

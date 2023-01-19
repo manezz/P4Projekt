@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
 
 
@@ -7,16 +8,12 @@ import { PostService } from '../_services/post.service';
   selector: 'app-profilepage',
   template: `
 
-  <div id="post" *ngFor="let data of post">
+  <div id="post" *ngFor="let data of posts">
     <h1 id="title">{{data.title}}</h1>
-    <h5 id="username">{{data.username}}</h5>
+    <h5 id="username">{{data.user.firstName}} {{data.user.lastName}}</h5>
     <h3 id="description">{{data.desc}}</h3>
     <p id="date">{{data.date}}</p>
-    <p id="tags">{{data.tag}} </p>
-    <!-- <p id="tags">{{data.postId}} </p> -->
-    <!-- <p id="tags">{{data.userId}} </p> -->
-    <!-- <p id="tags">{{data.postInput}} </p> -->
-    <!-- <p id="tags">{{data.likes}} </p> -->
+    <!-- <p id="tags">{{data.tag}} </p> -->
     <button class="postBtn" id="like"><3</button>
   </div>
   `,
@@ -24,8 +21,12 @@ import { PostService } from '../_services/post.service';
 })
 export class ProfilepageComponent {
 
-  post:any
+  posts: Post[] = [];
   
   // sætter values i getTempData til data
-  constructor(post:PostService){ this.post = post.getAllSelf(1) }
+  constructor(private post:PostService){ }
+
+  ngOnInit(): void {
+    this.post.getAllSelf(1).subscribe((x) => (this.posts = x));
+  }
 }
