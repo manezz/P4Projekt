@@ -19,7 +19,7 @@ import { PostService } from '../_services/post.service';
     <h5 id="username">{{post.user.firstName}} {{post.user.lastName}}</h5>
     <h3 id="description">{{post.desc}}</h3>
     <p id="date">{{post.date}}</p>
-    <p id="tags">{{post.tag.tag}} </p>
+    <!-- <p id="tags">{{post.tag.tag}} </p> -->
     <button class="postBtn" id="like"><3</button>
   </div>
 
