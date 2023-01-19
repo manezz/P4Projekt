@@ -9,8 +9,8 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
   template: `
     <nav>
       <div class="nav">
-        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
-        <a class="linkLeft" routerLink="/"        >Post</a>
+        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
+        <a class="linkLeft" routerLink="/post">Post</a>
         <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
         <a class="linkRight" routerLink="/"        >Logout</a>
         <a class="linkRight" routerLink="/profile" >Profile</a>
@@ -62,5 +62,4 @@ export class HeaderLoggedInComponent {
     this.AppComponent.validateHeader()
 
   }
-
 }
