@@ -9,10 +9,11 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
   template: `
     <nav>
       <div class="nav">
-        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
-        <!-- <a class="linkLeft"  routerLink="/main">Home</a> -->
-        <a class="linkRight" routerLink="/" (click)="logOut()">Logout</a>
-        <a class="linkRight" routerLink="/profile">Profile</a>
+        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
+        <a class="linkLeft" routerLink="/"        >Post</a>
+        <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
+        <a class="linkRight" routerLink="/"        >Logout</a>
+        <a class="linkRight" routerLink="/profile" >Profile</a>
       </div>
     </nav>
   `,
