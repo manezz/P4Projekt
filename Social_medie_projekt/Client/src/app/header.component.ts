@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
     <nav>
       <div class="topBar">
         <div class="left">
-          <img src="/assets/images/socialmachine.png">
+          <!-- <img src="/assets/images/socialmachine.png"> -->
           <a routerLink="/main">Home</a>
         </div>
         <div class="right">

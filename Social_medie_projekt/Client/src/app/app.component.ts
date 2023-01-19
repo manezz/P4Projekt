@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './_services/auth.service';
 
 @Component({
   selector: 'app-root',
 
   template: `
   <div class="container">
-    <div class="header">
+    <div class="header" style="display: {test}">
       <app-header></app-header>
     </div>
     <div class="content">
@@ -42,4 +43,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Client';
+
 }

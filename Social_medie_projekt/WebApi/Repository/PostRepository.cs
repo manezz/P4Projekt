@@ -48,7 +48,8 @@
 
             if(post != null)
             {
-                post.PostInput = updatePost.PostInput;
+                post.Title = updatePost.Title;
+                post.Desc = updatePost.Desc;
             }
 
             return post;
@@ -56,12 +57,12 @@
 
         public async Task<List<Posts>> GetAllAsync()
         {
-           return await _context.Posts.ToListAsync();
+           return await _context.Posts.Include(c => c.User).ToListAsync();
         }
 
         public async Task<Posts?> GetPostByIdAsync(int id)
         {
-            return await _context.Posts.FindAsync(id);
+            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.UserId == id);
         }
     }
 }

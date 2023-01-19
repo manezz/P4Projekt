@@ -33,27 +33,12 @@ namespace WebApi.Migrations
                     LoginId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(32)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(32)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Login", x => x.LoginId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Posts",
-                columns: table => new
-                {
-                    PostId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    PostInput = table.Column<string>(type: "text", nullable: false),
-                    Likes = table.Column<int>(type: "int", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Posts", x => x.PostId);
                 });
 
             migrationBuilder.CreateTable(
@@ -79,33 +64,61 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.InsertData(
-                table: "Liked",
-                columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9658) });
-
-            migrationBuilder.InsertData(
-                table: "Login",
-                columns: new[] { "LoginId", "Email", "Password" },
-                values: new object[,]
+            migrationBuilder.CreateTable(
+                name: "Posts",
+                columns: table => new
                 {
-                    { 1, "Test1@mail.dk", "password" },
-                    { 2, "Test2@mail.dk", "password" }
+                    PostId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    Desc = table.Column<string>(type: "text", nullable: false),
+                    Likes = table.Column<int>(type: "int", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Posts", x => x.PostId);
+                    table.ForeignKey(
+                        name: "FK_Posts_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
-                table: "Posts",
-                columns: new[] { "PostId", "Created", "Likes", "PostInput", "UserId" },
-                values: new object[] { 1, new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9646), 0, "testestestest", 1 });
+                table: "Liked",
+                columns: new[] { "PostId", "UserId", "LikedTime" },
+                values: new object[] { 1, 2, new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5755) });
+
+            migrationBuilder.InsertData(
+                table: "Login",
+                columns: new[] { "LoginId", "Email", "Password", "Type" },
+                values: new object[,]
+                {
+                    { 1, "Test1@mail.dk", "password", 0 },
+                    { 2, "Test2@mail.dk", "password", 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "User",
                 columns: new[] { "UserId", "Address", "Created", "FirstName", "LastName", "LoginId" },
                 values: new object[,]
                 {
-                    { 1, "testvej 1", new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9628), "test", "1", 1 },
-                    { 2, "testvej 2", new DateTime(2023, 1, 16, 13, 27, 32, 303, DateTimeKind.Local).AddTicks(9632), "test", "2", 2 }
+                    { 1, "testvej 1", new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5720), "test", "1", 1 },
+                    { 2, "testvej 2", new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5723), "test", "2", 2 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Posts",
+                columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
+                values: new object[] { 1, new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5740), "tadnawdnada", 1, "testestestest", 1 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_UserId",
+                table: "Posts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_LoginId",
