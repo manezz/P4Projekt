@@ -23,15 +23,13 @@ import { PostService } from '../_services/post.service';
 
   
   `,
-  styleUrls: ["./indexstyle.css"]
+  styleUrls: ["../_css/poststyle.css"]
   
 })
-export class IndexpageComponent implements OnInit {
+export class IndexpageComponent {
 
   posts: Post[] = [];
 
-
-  // sætter values i getTempData til data
   constructor(private postService: PostService, private auth: AuthService){
     
   }
