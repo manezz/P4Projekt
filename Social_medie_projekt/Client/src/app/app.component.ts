@@ -52,12 +52,15 @@ export class AppComponent {
   
   
 
-  ngOnInit(): void{
+  validateHeader(): void{
     this.auth.currentUser.subscribe(x => { this.currentUser = x})
 
-    // if (this.currentUser != null) {
-    //   this.loggedIn = true
-    // }
+    if (this.currentUser != null) {
+      this.loggedIn = true
+    }
+    if (this.currentUser == null) {
+      this.loggedIn = false
+    }
   }
 }
 

@@ -5,12 +5,11 @@ import { FormsModule, FormGroup, FormControl, ReactiveFormsModule } from '@angul
 import { Login } from '../_models/login';
 import { Role } from '../_models/role';
 import { AuthService } from '../_services/auth.service';
+import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-loginpage',
-  // standalone: true,
-  // imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   template: `
     <div class="formControl">
       <img src="/assets/images/socialmachine.png" width="600">
@@ -33,7 +32,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginpageComponent {
 
-  constructor(private auth: AuthService,  private router: Router, private route: ActivatedRoute,) { }
+  constructor(private auth: AuthService,  private router: Router, private route: ActivatedRoute, private AppComponent: AppComponent) { }
   message = '';
   email: string = '';
   password: string = '';
@@ -42,8 +41,12 @@ export class LoginpageComponent {
     this.auth.login(this.email, this.password).subscribe({
 
       next: () => {
-        let returnUrl = this.route.snapshot.queryParams['return URL'||'']
+        let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
+        console.log(this.auth.CurrentUserValue)
         this.router.navigate([returnUrl])
+
+        //ændrer headeren
+        this.AppComponent.validateHeader()
       },
       
       error: err => {
@@ -56,9 +59,6 @@ export class LoginpageComponent {
       }
       
     });  
-    
-
-
 
   }
 
