@@ -12,8 +12,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230119120710_initial")]
-    partial class initial
+    [Migration("20230119131723_socialtmedie")]
+    partial class socialtmedie
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5755)
+                            LikedTime = new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1287)
                         });
                 });
 
@@ -124,7 +124,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5740),
+                            Date = new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1273),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -170,7 +170,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-                            Created = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5720),
+                            Created = new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1251),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -179,7 +179,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-                            Created = new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5723),
+                            Created = new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1255),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2

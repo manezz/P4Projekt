@@ -12,6 +12,7 @@ import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
 import { FooterComponent } from './footer.component';
 import { FormsModule } from '@angular/forms';
+import { PostPageComponent } from './postpage/postpage.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     IndexpageComponent,
     LoginpageComponent,
     ProfilepageComponent,
+    PostPageComponent
   ],
   imports: [
     BrowserModule,

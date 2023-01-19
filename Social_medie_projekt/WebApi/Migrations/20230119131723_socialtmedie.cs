@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WebApi.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class socialtmedie : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,7 +90,7 @@ namespace WebApi.Migrations
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5755) });
+                values: new object[] { 1, 2, new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1287) });
 
             migrationBuilder.InsertData(
                 table: "Login",
@@ -106,14 +106,14 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Address", "Created", "FirstName", "LastName", "LoginId" },
                 values: new object[,]
                 {
-                    { 1, "testvej 1", new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5720), "test", "1", 1 },
-                    { 2, "testvej 2", new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5723), "test", "2", 2 }
+                    { 1, "testvej 1", new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1251), "test", "1", 1 },
+                    { 2, "testvej 2", new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1255), "test", "2", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
-                values: new object[] { 1, new DateTime(2023, 1, 19, 13, 7, 10, 664, DateTimeKind.Local).AddTicks(5740), "tadnawdnada", 1, "testestestest", 1 });
+                values: new object[] { 1, new DateTime(2023, 1, 19, 14, 17, 23, 701, DateTimeKind.Local).AddTicks(1273), "tadnawdnada", 1, "testestestest", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",

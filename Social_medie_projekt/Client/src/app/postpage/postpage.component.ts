@@ -21,7 +21,7 @@ import { PostService } from '../_services/post.service';
         <label>Decription</label>
         <input type="string"  [(ngModel)]="desc"/>
         <label>Tags</label>
-        <input type="string"  [(ngModel)]="tag"/>
+        <input type="text" [(ngModel)]="tag"/>
         <label>Picture</label>
         <input type="string"  [(ngModel)]="pictureURL"/>
       <!-- </div>
@@ -29,7 +29,7 @@ import { PostService } from '../_services/post.service';
       </div> -->
       <div class="buttonDiv">
         <button type="button" (click)='posting()'>Post</button>
-        <button class="right" routerLink="/">Cancel</button>
+        <button class="right" routerLink="/main">Cancel</button>
       </div>
     </div>`,
   styles: [`.formControl {display:flex; height: 700px; justify-content: center; align-items: center; flex-direction: column;}`]
