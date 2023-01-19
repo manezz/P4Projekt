@@ -16,7 +16,7 @@ export class PostService {
 
 
   //getall every posts
-  getAll(){
+  getAll(): Observable<Post[]>{
     // return this.http.get<Post[]>(`${this.apiUrl}`)
     return this.data.getTempData()
   }
