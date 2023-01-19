@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Post } from '../_models/post'
+import { DataService } from '../_services/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,19 @@ export class PostService {
 
   private readonly apiUrl = environment.apiUrl + 'Post' ;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private data: DataService) { }
 
 
   //getall every posts
   getAll(){
-    return this.http.get<Post[]>(`${this.apiUrl}`)
+    // return this.http.get<Post[]>(`${this.apiUrl}`)
+    return this.data.getTempData()
   }
 
   //getall own posts
   getAllSelf(Id: number){
-    return this.http.get<Post[]>(`${this.apiUrl}/${Id}`)
+    // return this.http.get<Post[]>(`${this.apiUrl}/${Id}`)
+    return this.data.getTempData()
   }
 
   //create post

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DataService } from '../_services/data.service';
+import { PostService } from '../_services/post.service';
 
 
 @Component({
@@ -22,16 +23,15 @@ import { DataService } from '../_services/data.service';
   styleUrls: ["../_css/poststyle.css"]
   
 })
-export class IndexpageComponent implements OnInit {
+export class IndexpageComponent {
 
-  data
+  data:any
+
   // sætter values i getTempData til data
-  constructor(data:DataService){
-    this.data = data.getTempData()
-  }
+  constructor(data:PostService){ this.data = data.getAll() }
 
-  ngOnInit(): void {
+  // ngOnInit(): void {
 
-  }
+  // }
 
 }
