@@ -27,6 +27,6 @@ export class ProfilepageComponent {
   constructor(private post:PostService){ }
 
   ngOnInit(): void {
-    this.post.getAllSelf(1).subscribe((x) => (this.posts = x));
+    this.post.getAllSelf(1).subscribe(x => this.posts = x);
   }
 }
