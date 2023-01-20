@@ -1,4 +1,4 @@
-import { Tags } from "./tags";
+import { Tag } from "./tags";
 import { User } from "./user"
 
 export interface Post {
@@ -12,6 +12,6 @@ export interface Post {
 
     // ??
     likedByUser: boolean;
-    tag: Tags;
+    tags: Tag[];
     user: User;
 }

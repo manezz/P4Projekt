@@ -4,6 +4,7 @@ import { FormsModule, FormGroup, FormControl, ReactiveFormsModule } from '@angul
 import { Login } from '../_models/login';
 import { Role } from '../_models/role';
 import { Post } from '../_models/post';
+import { Tag } from '../_models/tags';
 import { AuthService } from '../_services/auth.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
@@ -21,7 +22,7 @@ import { PostService } from '../_services/post.service';
         <label>Decription</label>
         <input type="string"  [(ngModel)]="desc"/>
         <label>Tags</label>
-        <input type="text" [(ngModel)]="tag"/>
+        <input type="text" [(ngModel)]="tags"/>
         <label>Picture</label>
         <input type="string"  [(ngModel)]="pictureURL"/>
       <!-- </div>
@@ -40,9 +41,9 @@ export class PostPageComponent {
     date: string = '';
     desc: string = '';
     pictureURL: string = '';
-    tag: string = '';
+    tags: Tag[] = [];
 
     posting(){
-        this.post.createPost(this.title, this.date, this.desc, this.tag, this.pictureURL)
+        this.post.createPost(this.title, this.date, this.desc, this.tags, this.pictureURL)
     }
 }
