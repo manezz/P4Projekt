@@ -9,6 +9,8 @@ import { AuthService } from '../_services/auth.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
+import { User } from '../_models/user';
+import { subscribeOn } from 'rxjs';
 
 @Component({
   selector: 'app-postpage',
@@ -36,14 +38,32 @@ import { PostService } from '../_services/post.service';
   styles: [`.formControl {display:flex; height: 700px; justify-content: center; align-items: center; flex-direction: column;}`]
 })
 export class PostPageComponent {
-    constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, private AppComponent: AppComponent, private post: PostService) {}
+    constructor(private auth: AuthService, private router: Router, private route: ActivatedRoute, private AppComponent: AppComponent, private postservice: PostService) {
+      this.auth.currentUser.subscribe(x => this.currentUser = x);
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
+    }
+    userId: number = 0;
     title: string = '';
-    date: string = '';
     desc: string = '';
-    pictureURL: string = '';
-    tags: Tag[] = [];
+    pictureURL?: string = '';
+    tags?: Tag[] = [];
+
+    currentUser: any = {}
+
+    posts: Post[] = [];
 
     posting(){
-        this.post.createPost(this.title, this.date, this.desc, this.tags, this.pictureURL)
+      let post = {
+        userId: this.auth.CurrentUserValue.loginResponse.user.userId,
+        title: this.title,
+        desc: this.desc,
+        pictureURL: this.pictureURL,
+        tags: this.tags
+      } as Post;
+      this.postservice.createPost(post).subscribe();
+      this.router.navigate(['/main']);
+      this.postservice.getAll().subscribe((x) => (this.posts = x));
     }
 }

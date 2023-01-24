@@ -44,6 +44,7 @@
         {
             return new Posts
             {
+                UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
             };
@@ -53,7 +54,7 @@
         {
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 
-            if(post != null)
+            if(post == null)
             {
                 throw new ArgumentNullException();
             }

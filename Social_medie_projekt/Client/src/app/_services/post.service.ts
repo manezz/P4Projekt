@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Post } from '../_models/post';
 import { Tag } from '../_models/tags';
+import { PostPageComponent } from '../postpage/postpage.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,12 @@ export class PostService {
 
   private readonly apiUrl = environment.apiUrl + 'post';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
 
   //getall every posts
   getAll(): Observable<Post[]>{
     return this.http.get<Post[]>(this.apiUrl);
-
   }
 
   //getall own posts
@@ -27,8 +27,9 @@ export class PostService {
   }
 
   //create post
-  createPost(title: string, date: string, desc: string, tags: Tag[], pictureURL?: string){
-    return this.http.post<Post>(this.apiUrl, Post);
+  createPost(post: Post): Observable<Post>{
+    console.log(post);
+    return this.http.post<Post>(this.apiUrl, post);
   }
 
   //delete post
