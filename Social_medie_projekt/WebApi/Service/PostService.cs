@@ -36,7 +36,11 @@
                     LastName = post.User.LastName,
                     Address = post.User.Address,
                     Created = post.User.Created,
-                }
+                },
+                Tags = post.Tags.Select(x => new PostTagResponse
+                {
+                    Tag = x.Tag
+                }).ToList()
             };
         }
 

@@ -47,7 +47,7 @@ export class PostPageComponent {
     userId: number = 0;
     title: string = '';
     desc: string = '';
-    pictureURL?: string = '';
+    //pictureURL?: string = '';
     tags?: Tag[] = [];
 
     currentUser: any = {}
@@ -59,7 +59,7 @@ export class PostPageComponent {
         userId: this.auth.CurrentUserValue.loginResponse.user.userId,
         title: this.title,
         desc: this.desc,
-        pictureURL: this.pictureURL,
+        //pictureURL: this.pictureURL,
         tags: this.tags
       } as Post;
       this.postservice.createPost(post).subscribe();

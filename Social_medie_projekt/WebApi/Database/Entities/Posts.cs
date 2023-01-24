@@ -23,5 +23,10 @@
 
         public User User { get; set; }
 
+        [ForeignKey("Tag.TagId")]
+        public int TagId { get; set; } = 0;
+
+        public List<Tag> Tags { get; set; } = new();
+
     }
 }

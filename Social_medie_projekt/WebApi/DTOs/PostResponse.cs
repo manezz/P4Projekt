@@ -14,7 +14,7 @@
 
         public PostUserResponse? User { get; set; } = new();
 
-
+        public PostTagRequest Tags { get; set; } = new();
     }
     public class PostUserResponse
     {
@@ -23,5 +23,9 @@
         public string LastName { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
+    }
+    public class PostTagResponse
+    {
+        public string Tag { get; set; }
     }
 }
