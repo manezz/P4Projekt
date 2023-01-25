@@ -14,7 +14,7 @@
 
         public PostUserResponse? User { get; set; } = new();
 
-        public PostTagRequest Tags { get; set; } = new();
+        public List<PostTagResponse> tags { get; set; } = new();
     }
     public class PostUserResponse
     {
@@ -26,6 +26,7 @@
     }
     public class PostTagResponse
     {
-        public string Tag { get; set; }
+        public int TagId { get; set; }
+        public string tag { get; set; }
     }
 }

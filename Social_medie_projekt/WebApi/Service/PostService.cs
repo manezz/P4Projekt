@@ -37,9 +37,10 @@
                     Address = post.User.Address,
                     Created = post.User.Created,
                 },
-                Tags = post.Tags.Select(x => new PostTagResponse
+                tags = post.Tags.Select(x => new PostTagResponse
                 {
-                    Tag = x.Tag
+                    TagId = x.TagId,
+                    tag = x.tag
                 }).ToList()
             };
         }
@@ -51,6 +52,10 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
+                Tags = postRequest.Tags.Select(x => new Tag 
+                {
+                    tag = x.Tag,
+                }).ToList()
             };
         }
 

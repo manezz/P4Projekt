@@ -6,6 +6,12 @@
         public int TagId { get; set; } = 0;
 
         [Column(TypeName = "nvarchar(32)")]
-        public string Tag { get; set; } = string.Empty;
+        public string tag { get; set; } = string.Empty;
+
+        [ForeignKey("Post.PostId")]
+        public int PostId { get; set; }
+
+        public Posts Post { get; set; }
+
     }
 }

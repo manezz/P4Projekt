@@ -23,6 +23,8 @@ builder.Services.AddScoped<ILoginRepository, LoginRepository>();
 builder.Services.AddScoped<ILoginService, LoginService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<ITagRepository, TagRepository>();
 
 
 

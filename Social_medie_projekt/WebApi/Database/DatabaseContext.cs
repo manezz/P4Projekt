@@ -68,6 +68,19 @@
                     PostId = 1,
                     LikedTime = DateTime.Now
                 });
+            modelBuilder.Entity<Tag>().HasData(
+                new Tag
+                {
+                    tag = "sax",
+                    TagId = 1,
+                    PostId= 1,
+                },
+                new Tag
+                {
+                    tag = "fax",
+                    TagId = 2,
+                    PostId = 2,
+                });
         }
     }
 }
