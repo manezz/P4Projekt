@@ -5,6 +5,7 @@ import { Role } from './_models/role'
 
 import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { CreatepageComponent } from './loginpage/createpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: '', component: LoginpageComponent },
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard] }, 
   { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard] },
+  { path: 'createuser', component: CreatepageComponent },
   // { path: 'admin', component: AdminpageComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin] } },
 ];
 

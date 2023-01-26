@@ -7,7 +7,7 @@ import { User } from '../_models/user'
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class UserService {
     private readonly apiUrl = environment.apiUrl + 'User';
 
     constructor(private http: HttpClient) { }

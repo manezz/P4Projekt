@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { CreatepageComponent } from './loginpage/createpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
@@ -27,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    CreatepageComponent
 
   ],
   providers: [],
