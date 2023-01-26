@@ -9,6 +9,8 @@
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
 
+        public DbSet<Tag> Tags { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Login>().HasData(

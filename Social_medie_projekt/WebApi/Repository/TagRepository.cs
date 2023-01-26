@@ -19,7 +19,7 @@
 
         public async Task<Tag> CreateTagAsync(Tag newTags)
         {
-            _context.Tag.Add(newTags);
+            _context.Tags.Add(newTags);
             await _context.SaveChangesAsync();
             newTags = await GetTagByIdAsync(newTags.TagId);
             return newTags;
@@ -27,12 +27,12 @@
 
         public async Task<List<Tag>> GetAllAsync()
         {
-            return await _context.Tag.ToListAsync();
+            return await _context.Tags.ToListAsync();
         }
 
         public async Task<Tag?> GetTagByIdAsync(int id)
         {
-            return await _context.Tag.FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Tags.FirstOrDefaultAsync(x => x.TagId == id);
         }
     }
 }
