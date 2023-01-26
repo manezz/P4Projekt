@@ -26,14 +26,6 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  public getUser(): any {
-    const user = window.sessionStorage.getItem('currentUser');
-    if (user) {
-      return JSON.parse(user);
-    }
-
-    return {};
-  }
 
   login(email: string, password: string){
     let authenticateUrl = `${environment.apiUrl}Login/authenticate`;

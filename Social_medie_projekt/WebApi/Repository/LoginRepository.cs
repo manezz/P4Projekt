@@ -58,6 +58,7 @@
         {
             return await _context.Login
                 .Include(L => L.User)
+                .Include(p => p.User.Posts)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 

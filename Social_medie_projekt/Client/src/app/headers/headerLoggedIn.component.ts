@@ -14,7 +14,7 @@ import { User } from '../_models/user';
         <!-- <a class="linkLeft" routerLink="/"        >Post</a> -->
         <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
         <a class="linkRight" routerLink="/" (click)="logOut()">Logout</a>
-        <a class="linkRight" routerLink="/profile" >Profile</a>
+        <a class="linkRight" [routerLink]="['/profile', this.currentUser.loginResponse.user.userId]" >Profile</a>
       </div>
     </nav>
   `,

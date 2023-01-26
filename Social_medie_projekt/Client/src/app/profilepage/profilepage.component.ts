@@ -12,8 +12,13 @@ import { UserService } from '../_services/user.service';
   selector: 'app-profilepage',
   template: `
 
-  <div id="post" *ngFor="">
-    <h1 id="title"></h1>
+  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts">
+    <h1 id="title">{{posts.title}}</h1>
+    <h5 id="username">{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</h5>
+    <h3 id="description">{{posts.desc}}</h3>
+   <p id="date">{{posts.date}}</p> 
+    <!-- <p id="tags">{{post.tag.tag}} </p> -->
+    <button class="postBtn" id="like"><3</button>
 
   </div>
   `,
@@ -22,17 +27,17 @@ import { UserService } from '../_services/user.service';
 export class ProfilepageComponent implements OnInit{
 
   currentUser: any = {};
-
+  
    user: User = {
-     userId: 0,
-     loginId:0,
-     firstName: '',
-     lastName: '',
-     address: '',
-     created: new Date,
-     posts: [],
-     login: {loginId: 0, email: '', password: ''}
-   }
+    userId: 0,
+    loginId:0,
+    firstName: '',
+    lastName: '',
+    address: '',
+    created: new Date,
+    posts: [],
+    login: {loginId: 0, email: '', password: ''}
+  }
 
   
   // sætter values i getTempData til data
@@ -51,7 +56,7 @@ export class ProfilepageComponent implements OnInit{
   
 
    console.log(this.currentUser.loginResponse)
-   console.log(this.user)
+   console.log(this.currentUser.loginResponse.user)
 
 
    
