@@ -11,7 +11,7 @@
         [ForeignKey("Post.PostId")]
         public int PostId { get; set; }
 
-        public Posts Post { get; set; }
+        public List<Posts> posts { get; set; } = new();
 
     }
 }

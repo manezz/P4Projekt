@@ -21,7 +21,20 @@
             {
                 TagId = tag.TagId,
                 tag = tag.tag,
-                //posts = tag.Select()
+                post = tag.posts.Select(x => new TagPostResponse
+                {
+                    PostId = x.PostId,
+                    UserId = x.UserId,
+                    Title = x.Title,
+                    Desc = x.Desc,
+                    Date = x.Date,
+                    Likes = x.Likes,
+                    User = new PostUserResponse
+                    {
+                        FirstName = x.User.FirstName,
+                        LastName = x.User.LastName,
+                    }
+                }).ToList()
             };
         }
 
@@ -30,8 +43,7 @@
             return new Tag
             {
                 TagId = tagRequest.TagId,
-                tag = tagRequest.tag,
-                //Posts = tagRequest.
+                tag = tagRequest.tag
             };
         }
 

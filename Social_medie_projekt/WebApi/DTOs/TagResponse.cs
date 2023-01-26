@@ -4,7 +4,7 @@
     {
         public int TagId { get; set; }
         public string tag { get; set; }
-        public List<TagPostResponse> posts { get; set; } = new();
+        public List<TagPostResponse> post { get; set; } = new();
     }
     public class TagPostResponse
     {
@@ -17,5 +17,7 @@
         public DateTime Date { get; set; } = DateTime.Now;
 
         public int? Likes { get; set; }
+
+        public PostUserResponse User { get; set; } = new();
     }
 }
