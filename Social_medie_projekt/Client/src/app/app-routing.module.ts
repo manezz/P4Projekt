@@ -11,7 +11,7 @@ const routes: Routes = [
     //canActivate gør at man skal have en user eller admin rolle før man kan tilgå pathen 
   { path: '', component: LoginpageComponent },
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard] }, 
-  { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:userId', component: ProfilepageComponent, canActivate: [AuthGuard] },
   // { path: 'admin', component: AdminpageComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin] } },
 ];
 

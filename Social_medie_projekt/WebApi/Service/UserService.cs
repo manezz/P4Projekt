@@ -33,7 +33,17 @@
                     LoginId = user.Login.LoginId,
                     Email = user.Login.Email,
                     Type = user.Login.Type
-                }
+                },
+                Posts = user.Posts.Select(x => new UserPostResponse
+                {
+                    PostId = x.PostId,
+                    UserId = x.UserId,
+                    Title = x.Title,
+                    Desc = x.Desc,
+                    Likes = x.Likes,
+                    Date = x.Date
+                }).ToList()
+             
             };
         }
 
@@ -50,7 +60,8 @@
                     Email = userRequest.Login.Email,
                     Password = userRequest.Login.Password,
                     Type = userRequest.Login.Type
-                }
+                },
+   
             };
         }
 

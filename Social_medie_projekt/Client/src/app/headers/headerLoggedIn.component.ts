@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../_services/auth.service';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-header',
@@ -52,7 +53,7 @@ export class HeaderLoggedInComponent {
     this.auth.currentUser.subscribe(x => this.currentUser = x )
   }
   currentUser: any
-  
+  user: User[] = []  
 
   logOut(){
     this.auth.logout()

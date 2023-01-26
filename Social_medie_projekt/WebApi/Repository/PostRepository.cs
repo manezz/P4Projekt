@@ -26,7 +26,6 @@
         {
            _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
-            newPost = await GetPostByIdAsync(newPost.PostId);
             return newPost;
         }
 

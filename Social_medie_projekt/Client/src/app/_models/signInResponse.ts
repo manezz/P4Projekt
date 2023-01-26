@@ -9,13 +9,17 @@ export interface LoginResponse {
     loginId: number;
     email: string;
     type: Role;
-    customer: CustomerResponse;
+    user: userResponse;
 }
 
-export interface CustomerResponse {
-    customerId: number;
+export interface userResponse {
+    userId: number;
     firstName: string;
     lastName: string;
     address: string;
     created: Date;
+}
+
+export interface postResponse{
+    
 }

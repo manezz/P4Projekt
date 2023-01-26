@@ -1,4 +1,5 @@
 import { Login } from "./login";
+import { Post } from "./post";
 
 export interface User {
     userId: number;
@@ -8,4 +9,5 @@ export interface User {
     address: string;
     created: Date;
     login: Login;
+    posts: Post[];
 }

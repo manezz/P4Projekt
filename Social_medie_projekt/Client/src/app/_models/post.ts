@@ -8,10 +8,6 @@ export interface Post {
     desc?: string;
     pictureURL?: string;
     likes: number;
-    date: string;
-
-    // ??
-    likedByUser: boolean;
-    tag: Tags;
-    user: User;
+    date: Date;
+    user : User;
 }

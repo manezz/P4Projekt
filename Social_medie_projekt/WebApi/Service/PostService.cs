@@ -32,6 +32,7 @@
                 Likes = post.Likes,
                 User = new PostUserResponse
                 {
+                    UserId = post.UserId,
                     FirstName = post.User.FirstName,
                     LastName = post.User.LastName,
                     Address = post.User.Address,
@@ -44,6 +45,7 @@
         {
             return new Posts
             {
+                UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
             };
@@ -53,7 +55,7 @@
         {
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 
-            if(post != null)
+            if(post == null)
             {
                 throw new ArgumentNullException();
             }
