@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../_models/user'
+import { Observable } from 'rxjs';
+import { Post } from '../_models/post'
+import { User } from '../_models/user';
+import { DataService } from '../_services/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class UserService {
     getAllUsers(): Observable <User[]>{
         return this.http.get<User[]>(this.apiUrl)
     }
-    
+
     getUserById(userId: number): Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/${userId}`)
     }
@@ -23,9 +25,9 @@ export class UserService {
     createUser(user: User): Observable<User>{
         return this.http.post<User>(this.apiUrl, user)
     }
-
+    
     updateUser(Id:number,user:User): Observable<User>{
         return this.http.put<User>(`${this.apiUrl}/${Id}`,user)
-    }
+  }
 
 }

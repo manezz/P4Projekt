@@ -1,32 +1,63 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
+import { User } from '../_models/user';
+import { AuthService } from '../_services/auth.service';
+import { UserService } from '../_services/user.service';
 
 
 @Component({
   selector: 'app-profilepage',
   template: `
 
-  <div id="post" *ngFor="let data of posts">
-    <h1 id="title">{{data.title}}</h1>
-    <h5 id="username">{{data.user.firstName}} {{data.user.lastName}}</h5>
-    <h3 id="description">{{data.desc}}</h3>
-    <p id="date">{{data.date}}</p>
-    <!-- <p id="tags">{{data.tag}} </p> -->
-    <button class="postBtn" id="like"><3</button>
+  <div id="post" *ngFor="">
+    <h1 id="title"></h1>
+
   </div>
   `,
   styleUrls: ["../_css/poststyle.css"]
 })
-export class ProfilepageComponent {
+export class ProfilepageComponent implements OnInit{
 
-  posts: Post[] = [];
+  currentUser: any = {};
+
+   user: User = {
+     userId: 0,
+     loginId:0,
+     firstName: '',
+     lastName: '',
+     address: '',
+     created: new Date,
+     posts: [],
+     login: {loginId: 0, email: '', password: ''}
+   }
+
   
   // sætter values i getTempData til data
-  constructor(private post:PostService){ }
+  constructor(private userService:UserService, private route: ActivatedRoute, private authService: AuthService){ }
+
 
   ngOnInit(): void {
-    this.post.getAllSelf(1).subscribe(x => this.posts = x);
+   this.route.params.subscribe(params => {
+     this.userService.getAllSelf(params['userId']).subscribe(x => this.user = x)
+   })
+
+   this.authService.currentUser.subscribe(x => {
+    this.currentUser = x;
+  })
+
+  
+
+   console.log(this.currentUser.loginResponse)
+   console.log(this.user)
+
+
+   
+
   }
+
+  
+
 }

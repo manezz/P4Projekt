@@ -7,10 +7,6 @@ export interface Post {
     title: string;
     desc?: string;
     likes: number;
-    date: string;
-
-    // ??
-    likedByUser: boolean;
-    tag: Tags;
-    user: User;
+    date: Date;
+    user : User;
 }

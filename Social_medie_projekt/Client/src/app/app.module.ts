@@ -13,6 +13,7 @@ import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
 import { FooterComponent } from './footer.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    RouterModule,
     CreatepageComponent
 
   ],

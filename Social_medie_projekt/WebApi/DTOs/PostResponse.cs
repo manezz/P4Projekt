@@ -12,7 +12,7 @@
 
         public int? Likes { get; set; }
 
-        public PostUserResponse? User { get; set; } = new();
+        public PostUserResponse User { get; set; } = new();
 
 
     }
