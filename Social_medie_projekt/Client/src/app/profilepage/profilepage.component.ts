@@ -12,10 +12,10 @@ import { UserService } from '../_services/user.service';
   selector: 'app-profilepage',
   template: `
 
-  <div id="post" *ngFor="">
+  <!-- <div id="post" *ngFor="">
     <h1 id="title"></h1>
 
-  </div>
+  </div> -->
   `,
   styleUrls: ["../_css/poststyle.css"]
 })
@@ -25,13 +25,13 @@ export class ProfilepageComponent implements OnInit{
 
    user: User = {
      userId: 0,
-     loginId:0,
+    //  username: '',
      firstName: '',
      lastName: '',
      address: '',
      created: new Date,
-     posts: [],
-     login: {loginId: 0, email: '', password: ''}
+     login: {loginId: 0, email: '', password: ''},
+     posts: []
    }
 
   
