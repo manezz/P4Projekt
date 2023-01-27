@@ -94,11 +94,12 @@ export class CreatepageComponent {
     private userService: UserService, 
     private router: Router, 
     private route: ActivatedRoute, 
-    private AppComponent: AppComponent) { }
+    private AppComponent: AppComponent) { 
+  }
 
   errors = '';
-  user: User = this.resetUser();
-  users: User[] = []
+  login: Login = this.resetUser();
+  logins: Login[] = []
   userForm: FormGroup = this.resetForm();
 
   ngOnInit(){
@@ -106,8 +107,9 @@ export class CreatepageComponent {
     this.resetForm()
   }
 
-  resetUser():User{
-    return { userId:0, firstName:"", lastName:"", address:"", login:{ loginId:0, email: "", password:"" } }
+  resetUser():Login{
+    // return { userId:0, userName="", firstName:"", lastName:"", address:"", login:{ loginId:0, email: "", password:"" } }
+    return { loginId:0, email: "", password:"", user:{ userId:0, firstName:"", lastName:"", address:"" } }
   }
   
   resetForm(): FormGroup{
@@ -126,24 +128,35 @@ export class CreatepageComponent {
   create():void{
     if(true){
 
-      this.user =  { 
-        userId:0, 
-        // username:this.userForm.value.username, 
-        firstName: this.userForm.value.FirstName, 
-        lastName: this.userForm.value.LastName, 
-        address: this.userForm.value.Address, 
-        login:{ 
-          loginId:0, 
-          email: this.userForm.value.Email, 
-          password: this.userForm.value.Password 
+      this.login = { 
+        loginId:0, 
+        email: this.userForm.value.Email, 
+        password: this.userForm.value.Password,
+        user:{ 
+          userId:0, 
+          firstName: this.userForm.value.FirstName, 
+          lastName: this.userForm.value.LastName, 
+          address: this.userForm.value.Address
         }
       }
       
-      console.log(this.user)
-      this.userService.createUser(this.user).subscribe({
+      console.log(this.login)
+      this.userService.createUser(this.login).subscribe({
         next: (x) => {
-          this.users.push(x);
-          this.cancel();
+          this.logins.push(x);
+
+
+          //logger brugeren ind med det samme
+          this.auth.login(this.userForm.value.Email, this.userForm.value.Password).subscribe({
+
+            next: () => {
+              let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
+              this.router.navigate([returnUrl])
+              //ændrer headeren
+              this.AppComponent.validateHeader()
+            }            
+          });
+
         },
         error: (err) => {
           console.warn(Object.values(err.error.errors).join(','));
@@ -154,7 +167,7 @@ export class CreatepageComponent {
   }
 
   cancel(){
-    this.user = this.resetUser();
+    this.login = this.resetUser();
     this.userForm = this.resetForm();
   }
 }
