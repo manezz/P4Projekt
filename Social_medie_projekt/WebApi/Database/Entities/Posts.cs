@@ -23,9 +23,7 @@
 
         public User User { get; set; }
 
-        public int TagId { get; set; }
-
-        public List<Tag> Tags { get; set; } = new();
+        public List<Tag> Tags { get; set; }
 
     }
 }

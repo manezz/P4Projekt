@@ -40,7 +40,6 @@
                 },
                 Tags = post.Tags.Select(x => new PostTagResponse
                 {
-                    PostId =x.PostId,
                     TagId = x.TagId,
                     tag = x.tag
                 }).ToList()

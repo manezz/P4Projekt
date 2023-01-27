@@ -21,7 +21,7 @@
             {
                 TagId = tag.TagId,
                 tag = tag.tag,
-                post = tag.posts.Select(x => new TagPostResponse
+                post = tag.Posts.Select(x => new TagPostResponse
                 {
                     PostId = x.PostId,
                     UserId = x.UserId,
