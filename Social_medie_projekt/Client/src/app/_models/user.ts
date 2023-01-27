@@ -3,11 +3,11 @@ import { Post } from "./post";
 
 export interface User {
     userId: number;
-    // username: string;
+    // userName: string;
     firstName: string;
     lastName: string;
     address: string;
     created?: Date;
-    login: Login;
+    login?: Login;
     posts?: Post[];
 }

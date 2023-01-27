@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Post } from '../_models/post'
 import { User } from '../_models/user';
+import { Login } from '../_models/login';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,9 @@ export class UserService {
         return this.http.get<User>(`${this.apiUrl}/${userId}`)
     }
 
-    createUser(user: User): Observable<User>{
-        return this.http.post<User>(this.apiUrl, user)
+        //opretter ikke en user, men et login med en user tilknyttet
+    createUser(login: Login): Observable<Login>{
+        return this.http.post<Login>(environment.apiUrl + 'login/register/', login)
     }
     
     updateUser(Id:number,user:User): Observable<User>{

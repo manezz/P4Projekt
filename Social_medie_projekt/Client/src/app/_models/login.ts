@@ -7,4 +7,5 @@ export interface Login {
     password?: string;
     type?: Role;
     token?: string;
+    user?: User;
 }

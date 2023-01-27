@@ -51,9 +51,8 @@ export class LoginpageComponent {
 
       next: () => {
         let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
-        console.log(this.auth.CurrentUserValue)
         this.router.navigate([returnUrl])
-
+        
         //ændrer headeren
         this.AppComponent.validateHeader()
       },
