@@ -4,10 +4,10 @@
     {
 
         [Key]
-        public int PostId { get; set; } = 0;
+        public int PostId { get; set; }
 
         [ForeignKey("User.UserId")]
-        public int UserId { get; set; } = 0;
+        public int UserId { get; set; }
 
         [Column(TypeName = "nvarchar(32)")]
         public string Title { get; set; } = string.Empty;
@@ -23,8 +23,7 @@
 
         public User User { get; set; }
 
-        [ForeignKey("Tag.TagId")]
-        public int TagId { get; set; } = 0;
+        public int TagId { get; set; }
 
         public List<Tag> Tags { get; set; } = new();
 

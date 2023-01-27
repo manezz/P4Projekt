@@ -27,12 +27,12 @@
 
         public async Task<List<Tag>> GetAllAsync()
         {
-            return await _context.Tags.ToListAsync();
+            return await _context.Tags.Include(p => p.posts).ToListAsync();
         }
 
         public async Task<Tag?> GetTagByIdAsync(int id)
         {
-            return await _context.Tags.FirstOrDefaultAsync(x => x.TagId == id);
+            return await _context.Tags.Include(p => p.posts).FirstOrDefaultAsync(x => x.TagId == id);
         }
     }
 }

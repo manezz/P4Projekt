@@ -4,7 +4,7 @@
     {
         public int TagId { get; set; }
         public string tag { get; set; }
-        public List<TagPostResponse> post { get; set; } = new();
+        public List<TagPostResponse> post { get; set; }
     }
     public class TagPostResponse
     {

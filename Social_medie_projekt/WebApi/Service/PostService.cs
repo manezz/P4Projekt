@@ -32,13 +32,15 @@
                 Likes = post.Likes,
                 User = new PostUserResponse
                 {
+                    UserId = post.UserId,
                     FirstName = post.User.FirstName,
                     LastName = post.User.LastName,
                     Address = post.User.Address,
                     Created = post.User.Created,
                 },
-                tags = post.Tags.Select(x => new PostTagResponse
+                Tags = post.Tags.Select(x => new PostTagResponse
                 {
+                    PostId =x.PostId,
                     TagId = x.TagId,
                     tag = x.tag
                 }).ToList()

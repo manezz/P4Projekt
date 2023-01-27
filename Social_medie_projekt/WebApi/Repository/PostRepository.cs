@@ -57,12 +57,15 @@
 
         public async Task<List<Posts>> GetAllAsync()
         {
-           return await _context.Posts.Include(c => c.User).ToListAsync();
+           return await _context.Posts.Include(c => c.User).Include(x => x.Tags).ToListAsync();
         }
 
         public async Task<Posts?> GetPostByIdAsync(int id)
         {
-            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Posts
+                .Include(c => c.User)
+                .Include(c => c.Tags)
+                .FirstOrDefaultAsync(x => x.UserId == id);
         }
     }
 }

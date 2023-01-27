@@ -60,7 +60,18 @@
                     Title = "testestestest",
                     Desc = "tadnawdnada",
                     Likes = 1,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
+                    TagId = 1,
+                },
+                new Posts
+                {
+                    PostId = 2,
+                    UserId = 1,
+                    Title = "awoo",
+                    Desc = "Ladadi ladaduuuuuuuuuu",
+                    Likes=1,
+                    Date= DateTime.Now,
+                    TagId= 2,
                 });
 
             modelBuilder.Entity<Liked>().HasData(
