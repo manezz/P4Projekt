@@ -118,11 +118,11 @@ export class CreatepageComponent {
   resetForm(): FormGroup{
     return new FormGroup({
       // UserName: new FormControl(null, Validators.required),
-      FirstName: new FormControl(null, Validators.required),
-      LastName: new FormControl(null, Validators.required),
-      Address: new FormControl(null, Validators.required),
-      Email: new FormControl(null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
-      Password: new FormControl(null,  Validators.required),
+      FirstName: new FormControl(null,  Validators.required),
+      LastName:  new FormControl(null,  Validators.required),
+      Address:   new FormControl(null,  Validators.required),
+      Email:     new FormControl(null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
+      Password:  new FormControl(null,  Validators.required),
     })
   }
 
