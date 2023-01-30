@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule, Validators, FormControl, EmailValidator, PatternValidator } from '@angular/forms';
+import { FormGroup, FormsModule,  FormControl, Validators } from '@angular/forms';
 import { Login } from '../_models/login';
-import { Role } from '../_models/role';
 import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-createpage',
@@ -46,9 +47,10 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
         <!-- <button [disabled]="!userForm.valid" id="createBtn">Create</button> -->
         <button id="createBtn">Create</button>
         <button (click)="cancel()" id="createBtn">Cancel</button>
+        <button (click)="popup()" id="createBtn">popup test</button>
       </div>  
     </form>
-    
+
   </div>
   `,
   styles: [`
@@ -94,7 +96,8 @@ export class CreatepageComponent {
     private userService: UserService, 
     private router: Router, 
     private route: ActivatedRoute, 
-    private AppComponent: AppComponent) { 
+    private AppComponent: AppComponent,
+    public dialog: MatDialog) { 
   }
 
   errors = '';
@@ -140,27 +143,29 @@ export class CreatepageComponent {
         }
       }
       
-      console.log(this.login)
-      this.userService.createUser(this.login).subscribe({
+      this.userService.createUserOnLogin(this.login).subscribe({
         next: (x) => {
           this.logins.push(x);
 
+          // opens popup window
+          this.dialog.open(SuccessPopup, {
+            width: '750px',
+            height: '400px',
+            panelClass: 'dialog-container'
+          });
 
-          //logger brugeren ind med det samme
+          // user gets logged in right away
           this.auth.login(this.userForm.value.Email, this.userForm.value.Password).subscribe({
-
             next: () => {
               let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
               this.router.navigate([returnUrl])
-              //ændrer headeren
               this.AppComponent.validateHeader()
-            }            
+            }
           });
-
         },
         error: (err) => {
-          console.warn(Object.values(err.error.errors).join(','));
-          this.errors = Object.values(err.error.errors).join(',');
+          console.warn(Object.values(err.error.errors).join(', '));
+          this.errors = Object.values(err.error.errors).join(', ');
         }
       });
     }
@@ -169,5 +174,45 @@ export class CreatepageComponent {
   cancel(){
     this.login = this.resetUser();
     this.userForm = this.resetForm();
+  }  
+
+  popup(){
+    // opens popup window
+    this.dialog.open(SuccessPopup, {
+      width: '750px',
+      height: '400px',
+      panelClass: 'dialog-container'
+    });
   }
+}
+
+@Component({
+  selector: 'app-createpage-popup',
+  template: `
+  <div class='dialog-container'>
+    <h1 mat-dialog-title>Success!</h1>
+    <div mat-dialog-content>
+      <p>User created succesfully!</p>
+    </div>
+  </div>
+  `,
+  styles: [`
+  ::ng-deep .dialog-container{
+    background-color: rgb(97, 97, 97) !important;
+  }
+  h1, p{
+    text-align: center;
+  }
+`]
+})
+export class SuccessPopup {
+
+  constructor( public dialogRef: MatDialogRef<SuccessPopup> ) {}
+
+  ngOnInit(){
+    setTimeout(() => {
+      this.dialogRef.close()
+   }, 4000);
+  }
+
 }
