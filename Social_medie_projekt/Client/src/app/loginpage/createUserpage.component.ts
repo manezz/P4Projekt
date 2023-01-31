@@ -196,7 +196,15 @@ export class CreatepageComponent {
   <div class='dialog-container'>
     <h1 mat-dialog-title>Success!</h1>
     <div mat-dialog-content>
+      <p>.</p>
+      <p>.</p>
+      <p>.</p>
+      <p>.</p>
       <p>User created succesfully!</p>
+      <p>.</p>
+      <p>.</p>
+      <p>.</p>
+      <p>.</p>
     </div>
   </div>
   `,

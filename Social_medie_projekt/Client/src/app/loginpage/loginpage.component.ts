@@ -27,7 +27,8 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
         <button type="button" (click)='login()'>Login</button>
         <button class="right" routerLink="/createuser">Create new user</button>
       </div>
-    </div>`,
+    </div>
+  `,
 
   styles: [`
   .formControl {
