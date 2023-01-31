@@ -31,8 +31,11 @@
                     Likes = x.Likes,
                     User = new PostUserResponse
                     {
+                        UserId = x.UserId,
                         FirstName = x.User.FirstName,
                         LastName = x.User.LastName,
+                        Address = x.User.Address,
+                        Created = x.User.Created,
                     }
                 }).ToList()
             };
@@ -50,7 +53,7 @@
         public async Task<TagResponse> CreateTagAsync(TagRequest newTag)
         {
             var tag = await _tagRepository.CreateTagAsync(MapTagRequestToTag(newTag));
-            if(tag == null)
+            if (tag == null)
             {
                 throw new ArgumentNullException();
             }

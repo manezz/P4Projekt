@@ -62,12 +62,21 @@
 
         public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
         {
+            //var taglist = await _tagRepository.GetAllAsync(); //get tag var from here
+            //for (int i = 0; i < taglist.Count; i++)
+            //{
+            //    if (taglist.IndexOf(newPost.Tags[i]) === -1)
+            //    {
+
+            //    }
+            //}
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 
             if(post == null)
             {
                 throw new ArgumentNullException();
             }
+            //if(newPost.Tags.IndexOf())
 
             return MapPostToPostResponse(post);
 
