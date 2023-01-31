@@ -11,14 +11,13 @@ import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreatepageComponent } from './loginpage/createUserpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
-import { HeaderLoggedInComponent } from './headers/headerLoggedIn.component';
-import { HeaderLoggedOutComponent } from './headers/headerLoggedOut.component';
-import { FooterComponent } from './footer.component';
+import { HeaderLoggedInComponent } from './header-footer/headerLoggedIn.component';
+import { HeaderLoggedOutComponent } from './header-footer/headerLoggedOut.component';
+import { FooterComponent } from './header-footer/footer.component';
 
 //for Mat popups
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,11 +41,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     RouterModule,
     BrowserAnimationsModule,
-    MatDialogModule, 
-    MatInputModule, 
+
     MatButtonModule, 
-    MatCardModule, 
-    MatFormFieldModule
+    MatDialogModule, 
+    MatFormFieldModule,
+    MatInputModule, 
 
   ],
   providers: [],

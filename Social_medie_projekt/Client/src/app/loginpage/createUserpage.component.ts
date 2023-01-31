@@ -8,6 +8,8 @@ import { UserService } from '../_services/user.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatButton } from '@angular/material/button';
+import { MatFormField } from '@angular/material/form-field';
 import { delay } from 'rxjs';
 
 @Component({
@@ -151,7 +153,8 @@ export class CreatepageComponent {
           this.dialog.open(SuccessPopup, {
             width: '750px',
             height: '400px',
-            panelClass: 'dialog-container'
+            panelClass: 'dialog-container',
+            position: {left: '30%', top: '-600px'}
           });
 
           // user gets logged in right away
@@ -181,7 +184,8 @@ export class CreatepageComponent {
     this.dialog.open(SuccessPopup, {
       width: '750px',
       height: '400px',
-      panelClass: 'dialog-container'
+      panelClass: 'dialog-container',
+      position: {left: '30%', top: '-600px'}
     });
   }
 }
@@ -197,9 +201,6 @@ export class CreatepageComponent {
   </div>
   `,
   styles: [`
-  ::ng-deep .dialog-container{
-    background-color: rgb(97, 97, 97) !important;
-  }
   h1, p{
     text-align: center;
   }
