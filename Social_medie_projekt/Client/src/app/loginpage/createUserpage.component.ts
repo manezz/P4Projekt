@@ -56,39 +56,42 @@ import { delay } from 'rxjs';
   </div>
   `,
   styles: [`
-    .body {
-      display: flex; 
-      align-items: center; 
-      flex-direction: column;
-    }
-    .form{
-      display: blocK;
-      width: 30%;
-      margin-left: auto;
-      margin-right: auto
-    }
-    .formControl{
-      width: 100%;
-      margin: 5px;
-      text-align: right;
-    }
-    input{
-      width: 50%;
-      margin-left: 10px;
-      background-color: white;
-    }
-    .buttonDiv{
-      width: 100%;
-      align-items: center;
-    }
-    #createBtn{
-      width: 100px;
-    }
-    #back{
-      position: fixed;
-      margin-top: 15px;
-      margin-left: 95%;
-    }
+  .body {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+  }
+  .userForm{
+    display: blocK;
+    width: 30%;
+    margin-left: auto;
+    margin-right: auto
+  }
+  .formControl{
+    width: 100%;
+    margin: 5px;
+    text-align: right;
+  }
+  input{
+    width: 50%;
+    margin-left: 10px;
+    background-color: white;
+  }
+  .buttonDiv{
+    width: 100%;
+    align-items: center;
+  }
+  #createBtn{
+    width: 100px;
+  }
+  button{
+    margin-left: 5px;
+  }
+  #back{
+    position: fixed;
+    margin-top: 15px;
+    margin-left: 95%;
+  }
   `]
 })
 export class CreatepageComponent {
