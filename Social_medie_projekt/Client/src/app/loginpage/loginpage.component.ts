@@ -17,11 +17,11 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
     <form [formGroup]="userForm" class="form" (ngSubmit)="login()">
       <div class="formControl">
         <label>Email</label>
-        <input type="text" formControlName="Email"/>
+        <input type="text" id="Email" formControlName="Email"/>
       </div>
       <div class="formControl">
         <label>Password</label>
-        <input type="password" formControlName="Password"/>
+        <input type="password" id="Password" formControlName="Password"/>
       </div>
 
       <div class="buttonDiv">
@@ -44,13 +44,13 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
   .form{
     width: 100%;
     max-width: 400px;
+    margin-top: 50px;
   }
-
 
   .formControl{
     display: flex;
     justify-content: center;
-    margin: 5px 5px 5px 0;
+    margin: 5px 5px 10px 0;
     flex-direction: row;
   }
   label{
@@ -119,9 +119,14 @@ export class LoginpageComponent {
       
       error: err => {
         
+        // change inputfields to red border
+        document.getElementById("Email")!.style.borderColor = "red"
+        document.getElementById("Password")!.style.borderColor = "red"
+
         if (err.error.status == 400) {
           this.message = 'Indtast brugernavn og kodeord';
           console.log(this.message)
+          console.log(err.message)
         }
         if (err.error.status == 401) {
           this.message = 'Forkert brugernavn eller kodeord';
@@ -129,10 +134,15 @@ export class LoginpageComponent {
         }
         if ( err.error.status == 500) {
           this.message = 'Fejl ved forbindelse til server';
+          document.getElementById("Email")!.style.borderColor = "yellow"
+          document.getElementById("Password")!.style.borderColor = "yellow"
           console.log(this.message)
+          console.log(err)
         }
         else {
-          this.message = err.error.title;
+          this.message = err.message;
+          console.log(this.message)
+          console.log(err)
         }
       }
       

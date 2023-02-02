@@ -27,28 +27,28 @@ import { delay } from 'rxjs';
       </div> -->
       <div class="formControl">
         <label>First name</label>
-        <input type="text" formControlName="FirstName"/>
+        <input type="text" id="FirstName" formControlName="FirstName"/>
       </div>
       <div class="formControl">
         <label>Last name</label>
-        <input type="text" formControlName="LastName"/>
+        <input type="text" id="LastName" formControlName="LastName"/>
       </div>
       <div class="formControl">
         <label>Address</label>
-        <input type="text" formControlName="Address"/>
+        <input type="text" id="Address" formControlName="Address"/>
       </div>
       <div class="formControl">
         <label>Email</label>
-        <input type="text" formControlName="Email"/>
+        <input type="text" id="Email" formControlName="Email"/>
       </div>
       <div class="formControl">
         <label>Password</label>
-        <input type="text" formControlName="Password"/>
+        <input type="password" id="Password" formControlName="Password"/>
       </div>
       <div class="buttonDiv">
         <!-- <button [disabled]="!userForm.valid" id="createBtn">Create</button> -->
         <button id="createBtn">Create</button>
-        <button (click)="cancel()" id="createBtn">Cancel</button>
+        <button type="button" (click)="cancel()" id="createBtn">Cancel</button>
         <!-- <button (click)="popup()" id="createBtn">popup test</button> -->
       </div>  
     </form>
@@ -68,7 +68,6 @@ import { delay } from 'rxjs';
     max-width: 400px;
     margin-top: 50px;
   }
-
 
   .formControl{
     display: flex;
@@ -110,8 +109,10 @@ import { delay } from 'rxjs';
 
   #back{
     position: absolute;
-    margin-top: 15px;
+    margin-top: -5px;
     margin-left: 95%;
+    width: 50px;
+    height: 30px;
   }
   `]
 })
@@ -191,6 +192,13 @@ export class CreatepageComponent {
           });
         },
         error: (err) => {
+          // change inputfields to red border
+          document.getElementById("FirstName")!.style.borderColor = "red"
+          document.getElementById("LastName")!.style.borderColor = "red"
+          document.getElementById("Address")!.style.borderColor = "red"
+          document.getElementById("Email")!.style.borderColor = "red"
+          document.getElementById("Password")!.style.borderColor = "red"
+
           console.warn(Object.values(err.error.errors).join(', '));
           this.errors = Object.values(err.error.errors).join(', ');
         }
@@ -201,6 +209,13 @@ export class CreatepageComponent {
   cancel(){
     this.login = this.resetUser();
     this.userForm = this.resetForm();
+    
+    // change inputfields borders back
+    document.getElementById("FirstName")!.style.borderColor = "black"
+    document.getElementById("LastName")!.style.borderColor = "black"
+    document.getElementById("Address")!.style.borderColor = "black"
+    document.getElementById("Email")!.style.borderColor = "black"
+    document.getElementById("Password")!.style.borderColor = "black"
   }  
 
   popup(){
