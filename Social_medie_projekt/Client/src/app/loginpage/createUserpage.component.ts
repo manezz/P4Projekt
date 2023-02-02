@@ -17,10 +17,10 @@ import { delay } from 'rxjs';
   template: `
   <div class="body">
     <button type="button" id="back" routerLink="">back</button>
-    <img src="/assets/images/socialmachine.png" width="25%">
+    <img src="/assets/images/socialmachine.png" width="400px">
     <p> Create your user! </p>
     
-    <form [formGroup]="userForm" (ngSubmit)="create()">
+    <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
       <!-- <div class="formControl">
         <label>Username</label>
         <input type="text" formControlName="UserName"/>
@@ -49,7 +49,7 @@ import { delay } from 'rxjs';
         <!-- <button [disabled]="!userForm.valid" id="createBtn">Create</button> -->
         <button id="createBtn">Create</button>
         <button (click)="cancel()" id="createBtn">Cancel</button>
-        <button (click)="popup()" id="createBtn">popup test</button>
+        <!-- <button (click)="popup()" id="createBtn">popup test</button> -->
       </div>  
     </form>
 
@@ -58,37 +58,58 @@ import { delay } from 'rxjs';
   styles: [`
   .body {
     display: flex; 
+    height: 700px; 
+    margin-top: 20px;
     align-items: center; 
     flex-direction: column;
   }
-  .userForm{
-    display: blocK;
-    width: 30%;
-    margin-left: auto;
-    margin-right: auto
-  }
-  .formControl{
+  .form{
     width: 100%;
-    margin: 5px;
+    max-width: 400px;
+    margin-top: 50px;
+  }
+
+
+  .formControl{
+    display: flex;
+    justify-content: center;
+    margin: 5px 5px 10px 0;
+    flex-direction: row;
+  }
+  label{
+    order: 0;
+    width: 100px;
+    margin-right: 5px;
     text-align: right;
   }
   input{
-    width: 50%;
-    margin-left: 10px;
+    order: 1;
+    width: 250px;
+    margin-left: 3px;
     background-color: white;
   }
+
+
   .buttonDiv{
-    width: 100%;
-    align-items: center;
-  }
-  #createBtn{
-    width: 100px;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
   button{
+    width: 100px;
     margin-left: 5px;
+    margin-right: 5px;
   }
+  button:hover{
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+  }
+  button:active{
+    background-color: rgb(66, 66, 66);;
+  }
+
   #back{
-    position: fixed;
+    position: absolute;
     margin-top: 15px;
     margin-left: 95%;
   }

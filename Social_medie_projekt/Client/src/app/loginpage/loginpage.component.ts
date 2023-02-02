@@ -14,7 +14,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
   <div class="body">
     <img src="/assets/images/socialmachine.png" width="600">
 
-    <form  [formGroup]="userForm" (ngSubmit)="login()">
+    <form [formGroup]="userForm" class="form" (ngSubmit)="login()">
       <div class="formControl">
         <label>Email</label>
         <input type="text" formControlName="Email"/>
@@ -35,34 +35,53 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 
   styles: [`
   .body {
-    display:flex; 
+    display: flex; 
     height: 700px; 
-    justify-content: center; 
+    margin-top: 20px;
     align-items: center; 
     flex-direction: column;
   }
   .form{
-    display: blocK;
-    width: 20%;
-    margin-left: auto;
-    margin-right: auto
-  }
-  .formControl{
     width: 100%;
-    margin: 5px;
+    max-width: 400px;
+  }
+
+
+  .formControl{
+    display: flex;
+    justify-content: center;
+    margin: 5px 5px 5px 0;
+    flex-direction: row;
+  }
+  label{
+    order: 0;
+    width: 100px;
+    margin-right: 5px;
     text-align: right;
   }
   input{
-    width: 50%;
-    margin-left: 10px;
+    order: 1;
+    width: 200px;
+    margin-left: 3px;
     background-color: white;
   }
+
+
   .buttonDiv{
-    width: 100%;
-    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
   button{
     margin-left: 5px;
+    margin-right: 5px;
+  }
+  button:hover{
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+  }
+  button:active{
+    background-color: rgb(66, 66, 66);;
   }
   `]
 })
