@@ -23,10 +23,7 @@ export class PostService {
   }
 
   //getall own posts
-  getAllSelf(id: number): Observable<Post>{
-    return this.http.get<Post>(`${this.apiUrl}/${id}`)
-    
-  }
+  
 
   //create post
   createPost(user: User){
