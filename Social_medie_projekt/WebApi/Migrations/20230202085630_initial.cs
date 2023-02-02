@@ -90,7 +90,7 @@ namespace WebApi.Migrations
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7489) });
+                values: new object[] { 1, 2, new DateTime(2023, 2, 2, 9, 56, 30, 310, DateTimeKind.Local).AddTicks(5464) });
 
             migrationBuilder.InsertData(
                 table: "Login",
@@ -106,14 +106,14 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Address", "Created", "FirstName", "LastName", "LoginId" },
                 values: new object[,]
                 {
-                    { 1, "testvej 1", new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7455), "test", "1", 1 },
-                    { 2, "testvej 2", new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7460), "test", "2", 2 }
+                    { 1, "testvej 1", new DateTime(2023, 2, 2, 9, 56, 30, 310, DateTimeKind.Local).AddTicks(5428), "test", "1", 1 },
+                    { 2, "testvej 2", new DateTime(2023, 2, 2, 9, 56, 30, 310, DateTimeKind.Local).AddTicks(5432), "test", "2", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Posts",
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
-                values: new object[] { 1, new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7475), "tadnawdnada", 1, "testestestest", 1 });
+                values: new object[] { 1, new DateTime(2023, 2, 2, 9, 56, 30, 310, DateTimeKind.Local).AddTicks(5448), "tadnawdnada", 1, "testestestest", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",

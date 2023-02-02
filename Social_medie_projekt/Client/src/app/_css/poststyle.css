@@ -6,12 +6,21 @@ h1{
     position: relative;
     width: auto;
     max-width: 35%;
-    border: 1px solid white;
-    border-radius: 25px;
+    border: 2px solid white;
+    border-radius: 10px;
+    border-left: none;
+    border-right: none;
     margin: auto;
     margin-top: 10px; 
     margin-bottom: 60px;
-    padding: 20px;
+    padding: 25px;
+    
+
+}
+
+#date{
+    font-size: 12px;
+    margin-left: 10px;
 }
 
 .postBtn{
@@ -26,4 +35,39 @@ h1{
 #like:focus{
     background-color: rgb(209, 43, 43);
     color: white;
+}
+
+mat-sidenav-container{
+    height: calc(205vh - 115vh);
+}
+
+mat-sidenav{
+    width: 270px;
+    background-color: rgb(97, 97, 97);
+    text-align: center;
+    padding: 15px;
+    position: fixed;
+    border-left: none;
+    
+}
+
+
+.profilepic
+{
+    border-radius: 30px;
+
+}
+
+#username{
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+#title{
+    margin-left: 10px;
+    
+}
+
+#description{
+    margin-left: 10px;
 }

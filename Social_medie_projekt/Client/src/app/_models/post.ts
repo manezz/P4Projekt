@@ -1,3 +1,4 @@
+import { Likes } from "./likes";
 import { Tags } from "./tags";
 import { User } from "./user"
 
@@ -7,7 +8,7 @@ export interface Post {
     title: string;
     desc?: string;
     pictureURL?: string;
-    likes: number;
+    likes: Likes;
     date: Date;
     user : User;
 }

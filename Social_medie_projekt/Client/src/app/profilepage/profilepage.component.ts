@@ -8,19 +8,28 @@ import { AuthService } from '../_services/auth.service';
 import { UserService } from '../_services/user.service';
 
 
+
 @Component({
   selector: 'app-profilepage',
   template: `
 
-  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts">
-    <h1 id="title">{{posts.title}}</h1>
-    <h5 id="username">{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</h5>
-    <h3 id="description">{{posts.desc}}</h3>
-   <p id="date">{{posts.date}}</p> 
-    <!-- <p id="tags">{{post.tag.tag}} </p> -->
-    <button class="postBtn" id="like"><3</button>
 
-  </div>
+    <mat-sidenav mode="side" opened >
+        <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
+        <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
+    </mat-sidenav>
+
+  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts">
+    <h5 id="username"> <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <br>
+      {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
+    </h5>
+    <h1 id="title">{{posts.title}}</h1>
+    <h3 id="description">{{posts.desc}}</h3>
+    <p id="date">Date posted: {{posts.date}} </p> 
+    <button class="postBtn" id="like"><3</button>
+   </div>
+
   `,
   styleUrls: ["../_css/poststyle.css"]
 })
@@ -53,13 +62,8 @@ export class ProfilepageComponent implements OnInit{
     this.currentUser = x;
   })
 
-  
-
    console.log(this.currentUser.loginResponse)
    console.log(this.currentUser.loginResponse.user)
-
-
-   
 
   }
 
