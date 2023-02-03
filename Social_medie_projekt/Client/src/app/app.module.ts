@@ -17,6 +17,7 @@ import { MatSidenavModule} from '@angular/material/sidenav';
 import { MatButtonModule} from '@angular/material/button';
 import { MatIconModule} from '@angular/material/icon';
 import { MatDividerModule} from '@angular/material/divider';
+import { OrderModule } from 'ngx-order-pipe';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MatDividerModule} from '@angular/material/divider';
     IndexpageComponent,
     LoginpageComponent,
     ProfilepageComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { MatDividerModule} from '@angular/material/divider';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
+    OrderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

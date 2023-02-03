@@ -55,10 +55,11 @@
         }
 
         public async Task<Login> FindLoginByEmailAsync(string email)
-        {
+        {   
             return await _context.Login
                 .Include(L => L.User)
                 .Include(p => p.User.Posts)
+                .Include(P => P.User.Posts.OrderByDescending(Posts => Posts.Date))
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
