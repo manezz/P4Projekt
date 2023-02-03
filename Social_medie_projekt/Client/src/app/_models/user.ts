@@ -11,3 +11,12 @@ export interface User {
     login?: Login;
     posts?: Post[];
 }
+
+
+// export interface User {
+//     userId: number;
+//     userName: string;
+//     created?: Date;
+//     login?: Login;
+//     posts?: Post[];
+// }
