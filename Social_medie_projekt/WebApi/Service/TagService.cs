@@ -2,20 +2,20 @@
 {
     public interface ITagService
     {
-        Task<List<TagResponse>> GetAllTagsAsync();
+        Task<List<TagResponse>> GetAllAsync();
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
     }
     public class TagService : ITagService
     {
 
-        private readonly ITagRepository _tagRepository;
+        public readonly ITagRepository _tagRepository;
         public TagService(ITagRepository tagRepository)
         {
             _tagRepository = tagRepository;
         }
 
-        private TagResponse MapTagToTagResponse(Tag tag)
+        public TagResponse MapTagToTagResponse(Tag tag)
         {
             return new TagResponse
             {
@@ -41,7 +41,7 @@
             };
         }
 
-        private Tag MapTagRequestToTag(TagRequest tagRequest)
+        public Tag MapTagRequestToTag(TagRequest tagRequest)
         {
             return new Tag
             {
@@ -59,7 +59,7 @@
             }
             return MapTagToTagResponse(tag);
         }
-        public async Task<List<TagResponse>> GetAllTagsAsync()
+        public async Task<List<TagResponse>> GetAllAsync()
         {
             List<Tag> tags = await _tagRepository.GetAllAsync();
 

@@ -1,4 +1,5 @@
-﻿namespace WebApi.Repository
+﻿using System.Linq;
+namespace WebApi.Repository
 {
      public interface IPostRepository
     {
@@ -10,7 +11,6 @@
         Task<Posts> DeletePostAsync(int id);
 
         Task<Posts> EditPost(int id, Posts updatePost);
-
     }
 
     public class PostRepository : IPostRepository
@@ -24,9 +24,27 @@
 
         public async Task<Posts> CreatePostAsync(Posts newPost)
         {
-           _context.Posts.Add(newPost);
+            //List<object> taglist = new List<object>();
+            //string[] abe = newPost.Tags
+            foreach (var tag in newPost.Tags)
+            {
+                var tagsl = from tags in _context.Tags
+                            where tags.tag == tag.tag
+                            select tags;
+                //taglist.Add(tagsl);
+                if (tagsl.Count() > 0)
+                {
+                    throw new Exception("tag eksisterer");
+                }
+            }
+            //if (taglist.IsNullOrEmpty())
+            //{
+            //    return null;
+            //}
+            _context.Posts.Add(newPost); //help
+            //var taglist = await ITagRepository.GetAllTagsAsync();
             await _context.SaveChangesAsync();
-            newPost = await GetPostByIdAsync(newPost.PostId);
+            //newPost = await GetPostByIdAsync(newPost.PostId);
             return newPost;
         }
 

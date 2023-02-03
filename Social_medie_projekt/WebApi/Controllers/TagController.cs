@@ -14,7 +14,7 @@
         {
             try
             {
-                List<TagResponse> tags = await _tagService.GetAllTagsAsync();
+                List<TagResponse> tags = await _tagService.GetAllAsync();
 
                 if (tags.Count() == 0)
                 {

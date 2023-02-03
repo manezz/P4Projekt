@@ -9,7 +9,6 @@
         Task<PostResponse?> DeletePost(int Id);
 
     }
-
  
     public class PostService : IPostService
     {
@@ -62,13 +61,18 @@
 
         public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
         {
-            //var taglist = await _tagRepository.GetAllAsync(); //get tag var from here
+            //TagRepository tagRepository = new TagRepository(_context);
+            //var taglist = await tagRepository.GetAllAsync();
             //for (int i = 0; i < taglist.Count; i++)
             //{
             //    if (taglist.IndexOf(newPost.Tags[i]) === -1)
             //    {
 
             //    }
+            //}
+            //foreach (string tag in newPost.Tags)
+            //{
+            //    string[] taglist = from tags in _c
             //}
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 

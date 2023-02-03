@@ -5,7 +5,6 @@
         Task<List<Tag>> GetAllAsync();
         Task<Tag?> GetTagByIdAsync(int id);
         Task<Tag> CreateTagAsync(Tag newTags);
-
     }
 
     public class TagRepository : ITagRepository
