@@ -12,8 +12,6 @@ import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-profilepage',
   template: `
-
-
     <mat-sidenav mode="side" opened >
         <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
         <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
@@ -26,10 +24,12 @@ import { UserService } from '../_services/user.service';
     </h5>
     <h1 id="title">{{posts.title}}</h1>
     <h3 id="description">{{posts.desc}}</h3>
-    <p id="date">Date posted: {{posts.date}} </p> 
+    <p id="date">Date posted: {{posts.date | date:'MMM d yyyy, HH:mm a'}} </p> 
     <button class="postBtn" id="like"><3</button>
    </div>
 
+   <p id="nomore">This user has no more posts :(<p>
+    
   `,
   styleUrls: ["../_css/poststyle.css"]
 })
@@ -46,7 +46,7 @@ export class ProfilepageComponent implements OnInit{
     created: new Date,
     posts: [],
     login: {loginId: 0, email: '', password: ''}
-  }
+  } 
 
   
   // sætter values i getTempData til data
