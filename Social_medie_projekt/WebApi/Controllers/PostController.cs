@@ -66,6 +66,24 @@
             }
 
         }
+
+        [HttpPost]
+        [Route("Like")]
+        public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
+        {
+            try
+            {
+                LikedResponse likedResponse = await _postService.CreateLikeAsync(newLike);
+
+                return Ok(likedResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
+        }
+
     }
     
 }

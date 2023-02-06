@@ -7,6 +7,7 @@
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> EditPostAsync(int postId, PostRequest updatePost);
         Task<PostResponse?> DeletePost(int Id);
+        Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
 
     }
 
@@ -48,6 +49,34 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
+            };
+        }
+
+        private Posts MapPostResponseToPostLikes(PostResponse postResponse)
+        {
+            return new Posts
+            {
+                PostId = postResponse.PostId,
+                Likes = postResponse.Likes + 1,
+            };
+        }
+
+        private Liked MapLikeRequestToLike(LikedRequest likedRequest)
+        {
+            return new Liked
+            {
+                UserId = likedRequest.UserId,
+                PostId = likedRequest.PostId,
+            };
+        }
+
+        private LikedResponse MapLikeToLikeResponse(Liked like)
+        {
+            return new LikedResponse
+            {
+                UserId = like.UserId,
+                PostId = like.PostId,
+                LikedTime = like.LikedTime,
             };
         }
 
@@ -109,6 +138,27 @@
                 return null;
             }
             return MapPostToPostResponse(posts);
+        }
+
+        public async Task<LikedResponse> CreateLikeAsync(LikedRequest newLike)
+        {
+            var like = await _postRepository.CreateLikeAsync(MapLikeRequestToLike(newLike));
+
+            var post = await GetPostById(newLike.PostId);
+
+            if (like == null || post == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var updatePost = await _postRepository.EditPost(post.PostId, MapPostResponseToPostLikes(post));
+
+            if (updatePost == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return MapLikeToLikeResponse(like);
         }
     }
 }

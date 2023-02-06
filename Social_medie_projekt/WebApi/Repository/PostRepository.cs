@@ -11,6 +11,7 @@
 
         Task<Posts> EditPost(int id, Posts updatePost);
 
+        Task<Liked> CreateLikeAsync(Liked newLike);
     }
 
     public class PostRepository : IPostRepository
@@ -24,7 +25,7 @@
 
         public async Task<Posts> CreatePostAsync(Posts newPost)
         {
-           _context.Posts.Add(newPost);
+            _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
         }
@@ -62,6 +63,14 @@
         public async Task<Posts?> GetPostByIdAsync(int id)
         {
             return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.UserId == id);
+        }
+
+        public async Task<Liked> CreateLikeAsync(Liked newLike)
+        {
+            _context.Liked.Add(newLike);
+
+            await _context.SaveChangesAsync();
+            return newLike;
         }
     }
 }
