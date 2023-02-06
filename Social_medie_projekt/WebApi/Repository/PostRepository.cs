@@ -24,27 +24,23 @@ namespace WebApi.Repository
 
         public async Task<Posts> CreatePostAsync(Posts newPost)
         {
-            //List<object> taglist = new List<object>();
-            //string[] abe = newPost.Tags
             foreach (var tag in newPost.Tags)
             {
                 var tagsl = from tags in _context.Tags
                             where tags.tag == tag.tag
                             select tags;
+
                 //taglist.Add(tagsl);
-                if (tagsl.Count() > 0)
+                if (tagsl.Any())
                 {
-                    throw new Exception("tag eksisterer");
+
                 }
             }
-            //if (taglist.IsNullOrEmpty())
-            //{
-            //    return null;
-            //}
-            _context.Posts.Add(newPost); //help
-            //var taglist = await ITagRepository.GetAllTagsAsync();
+            //var tagsl = newPost.Tags;
+            //var fulltagsl = _context.Tags;
+            //var result = tagsl.Except(fulltagsl);
+            _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
-            //newPost = await GetPostByIdAsync(newPost.PostId);
             return newPost;
         }
 
