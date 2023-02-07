@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DataService } from '../_services/data.service';
 import { Data } from '@angular/router';
+import { DataService } from '../_services/tempData.service';
 import { AuthService } from '../_services/auth.service';
-import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
+import { Post } from '../_models/post';
 
 
 @Component({
@@ -30,7 +30,9 @@ export class IndexpageComponent {
 
   posts: Post[] = [];
 
-  constructor(private postService: PostService, private auth: AuthService){
+  constructor(
+    private postService: PostService,
+    private auth: AuthService){
     
   }
 

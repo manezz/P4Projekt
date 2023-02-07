@@ -6,7 +6,7 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { User } from '../_models/user';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-headerLoggedIn',
   template: `
     <nav>
       <div class="nav">

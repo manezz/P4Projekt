@@ -20,15 +20,25 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
       <div class="formDiv">
         <label>Password</label>
         <input type="password"  [(ngModel)]="password"/>
-      <!-- </div>
-        <span class="error"*ngIf="userForm.get('userName')?.invalid && userForm.get('passHash')?.touched">Fill out form!</span>
-      </div> -->
+      </div>
+
+      <!-- <span class="error"*ngIf="userForm.get('userName')?.invalid && userForm.get('passHash')?.touched">Fill out form!</span> -->
       <div class="buttonDiv">
         <button type="button" (click)='login()'>Login</button>
-        <button class="right" routerLink="/login-create">Create new user</button>
+        <button class="right" routerLink="/createuser">Create new user</button>
       </div>
-    </div>`,
-  styles: [`.formControl {display:flex; height: 700px; justify-content: center; align-items: center; flex-direction: column;}`]
+    </div>
+  `,
+
+  styles: [`
+  .formControl {
+    display:flex; 
+    height: 700px; 
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+  }
+`]
 })
 export class LoginpageComponent {
 
@@ -42,9 +52,8 @@ export class LoginpageComponent {
 
       next: () => {
         let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
-        console.log(this.auth.CurrentUserValue)
         this.router.navigate([returnUrl])
-
+        
         //ændrer headeren
         this.AppComponent.validateHeader()
       },

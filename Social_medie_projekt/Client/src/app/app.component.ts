@@ -8,7 +8,7 @@ import { AuthService } from './_services/auth.service';
   template: `
   <div class="container">
     <div class="header">
-      <app-header *ngIf="loggedIn"></app-header>
+      <app-headerLoggedIn *ngIf="loggedIn"></app-headerLoggedIn>
       <app-headerLoggedOut *ngIf="!loggedIn"></app-headerLoggedOut>
     </div>
     <div class="content">
@@ -50,7 +50,10 @@ export class AppComponent {
   currentUser: any
   loggedIn: any
   
-  
+  // sørger for headeren altid er rigtig efter side opdatering
+  ngOnInit(): void{
+    this.validateHeader()
+  }
 
   validateHeader(): void{
     this.auth.currentUser.subscribe(x => { this.currentUser = x})

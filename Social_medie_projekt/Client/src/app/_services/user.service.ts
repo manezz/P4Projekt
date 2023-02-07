@@ -4,19 +4,31 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Post } from '../_models/post'
 import { User } from '../_models/user';
-import { DataService } from '../_services/data.service';
+import { Login } from '../_models/login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+    private readonly apiUrl = environment.apiUrl + 'User';
 
-  private readonly apiUrl = environment.apiUrl + 'User' ;
+    constructor(private http: HttpClient) { }
 
-  constructor(private http: HttpClient) { }
+    getAllUsers(): Observable <User[]>{
+        return this.http.get<User[]>(this.apiUrl)
+    }
 
-  getAllSelf(id: number): Observable<User>{
-    return this.http.get<User>(`${this.apiUrl}/${id}`)
+    getAllSelf(userId: number): Observable<User> {
+        return this.http.get<User>(`${this.apiUrl}/${userId}`)
+    }
+
+        //opretter ikke en user, men et login med en user tilknyttet
+        createUserOnLogin(login: Login): Observable<Login>{
+        return this.http.post<Login>(environment.apiUrl + 'login/register/', login)
+    }
     
+    updateUser(Id:number,user:User): Observable<User>{
+        return this.http.put<User>(`${this.apiUrl}/${Id}`,user)
   }
+
 }

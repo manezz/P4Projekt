@@ -7,7 +7,6 @@ export interface Post {
     userId: number;
     title: string;
     desc?: string;
-    pictureURL?: string;
     likes: number;
     date: Date;
     user : User;

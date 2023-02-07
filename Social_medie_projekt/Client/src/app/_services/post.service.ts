@@ -4,7 +4,6 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Post } from '../_models/post'
 import { User } from '../_models/user';
-import { DataService } from '../_services/data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +12,12 @@ export class PostService {
 
   private readonly apiUrl = environment.apiUrl + 'Post' ;
 
-  constructor(private http: HttpClient, private data: DataService) { }
+  constructor(private http: HttpClient) { }
 
 
   //getall every posts
   getAll(): Observable<Post[]>{
     return this.http.get<Post[]>(`${this.apiUrl}`)
-    // return this.data.getTempData()
   }
 
   GetPostById(id: number): Observable<Post>{
