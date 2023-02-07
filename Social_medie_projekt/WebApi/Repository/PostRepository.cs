@@ -4,13 +4,10 @@
     {
         Task<List<Posts>> GetAllAsync();
         Task<Posts?> GetPostByIdAsync(int id);
-
         Task<Posts> CreatePostAsync(Posts newPost);
-
         Task<Posts> DeletePostAsync(int id);
-
         Task<Posts> UpdatePostAsync(int id, Posts updatePost);
-
+        Task<Posts> UpdatePostLikesAsync(int id, int like);
         Task<Liked> CreateLikeAsync(Liked newLike);
     }
 
@@ -50,6 +47,24 @@
             {
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
+
+                _context.Update(post);
+                await _context.SaveChangesAsync();
+            }
+
+            return post;
+        }
+
+        public async Task<Posts> UpdatePostLikesAsync(int id, int like)
+        {
+            var post = await GetPostByIdAsync(id);
+
+            if (post != null)
+            {
+                post.Likes = like;
+
+                _context.Update(post);
+                await _context.SaveChangesAsync();
             }
 
             return post;
