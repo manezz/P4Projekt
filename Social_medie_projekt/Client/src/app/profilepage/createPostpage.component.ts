@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
 import { AuthService } from '../_services/auth.service';
-import { FormGroup, FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms';
 
 
 
@@ -42,10 +42,8 @@ import { FormGroup, FormsModule, FormControl, Validators, ReactiveFormsModule } 
     </form>
 
   </div>
-
-
-
   `,
+
   styles: [`
   .body {
     display: flex; 
@@ -107,38 +105,52 @@ import { FormGroup, FormsModule, FormControl, Validators, ReactiveFormsModule } 
   }
   `]
 })
-export class CreatePostPageComponent implements OnInit{
+export class CreatePostPageComponent{
     
-    constructor(
-      private auth: AuthService,
-      private router: Router, 
-      private route: ActivatedRoute, 
-      private AppComponent: AppComponent,
-    ){ }
+
+
+  constructor(
+    private auth: AuthService,
+    private postService: PostService,
+    private router: Router, 
+    private route: ActivatedRoute, 
+    private AppComponent: AppComponent,
+  ){ }
     
-    currentUser: any = {};
+  currentUser: any = {};
+ 
+  post: Post = this.resetPost();
+  posts: Post[] = []
+  postForm: FormGroup = this.resetForm();
+
+
+  ngOnInit(): void {
+    this.resetForm()
+    this.auth.currentUser.subscribe(x => { this.currentUser = x })
+  }
+
+  create(){
     
-    postForm: FormGroup = this.resetForm();
+  }
 
-    ngOnInit(): void {
-      this.resetForm()
-      this.auth.currentUser.subscribe(x => { this.currentUser = x })
+  cancel(){
+
+  }
+
+  resetPost():Post {
+    return{ postId: 0, title: '', desc: '', likes: 0, date: new Date, 
+      user: { userId: 0, firstName: '', lastName: '', address: '', created: new Date, 
+      login: { loginId: 1, email: '', password: '' }, 
+      posts: [] } 
     }
+  }
 
-    create(){
-
-    }
-
-    cancel(){
-
-    }
-
-    resetForm(){
-      return new FormGroup({
-        Titel: new FormControl(''),
-        Content: new FormControl(''),
-        Tags: new FormControl('')
-      })
-    }
+  resetForm(){
+    return new FormGroup({
+      Titel: new FormControl(''),
+      Content: new FormControl(''),
+      Tags: new FormControl('')
+    })
+  }
 
 }
