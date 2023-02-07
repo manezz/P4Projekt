@@ -1,3 +1,4 @@
+import { Likes } from "./likes";
 import { Tags } from "./tags";
 import { User } from "./user"
 

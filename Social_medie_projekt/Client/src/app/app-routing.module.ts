@@ -7,6 +7,7 @@ import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreatepageComponent } from './loginpage/createUserpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
 import { ChatComponent } from './indexpage/chat.component';
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard] }, 
   { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard] },
   { path: 'profile/:userId', component: ProfilepageComponent, canActivate: [AuthGuard] },
+  { path: 'post-details/:postId', component: PostDetailsComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent },
   // { path: 'admin', component: AdminpageComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin] } },
 ];

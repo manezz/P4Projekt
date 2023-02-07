@@ -48,7 +48,7 @@
         {
             return await _context.User
                 .Include(l => l.Login)
-                .Include(P => P.Posts)
+                .Include(P => P.Posts.OrderByDescending(Posts => Posts.Date))
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
         

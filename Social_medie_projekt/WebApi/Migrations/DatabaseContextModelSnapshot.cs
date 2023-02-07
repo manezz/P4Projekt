@@ -42,7 +42,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7489)
+                            LikedTime = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4129)
                         });
                 });
 
@@ -121,7 +121,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7475),
+                            Date = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4117),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -167,7 +167,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-                            Created = new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7455),
+                            Created = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4098),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -176,7 +176,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-                            Created = new DateTime(2023, 1, 19, 14, 7, 59, 183, DateTimeKind.Local).AddTicks(7460),
+                            Created = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4102),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2
@@ -186,7 +186,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -208,6 +208,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }
