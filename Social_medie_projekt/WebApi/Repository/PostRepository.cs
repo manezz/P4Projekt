@@ -66,7 +66,7 @@
             return await _context.Posts
                 .Include(u => u.User)
                 .OrderByDescending(d => d.Date)
-                .FirstOrDefaultAsync(x => x.UserId == id);
+                .FirstOrDefaultAsync(x => x.PostId == id);
         }
     }
 }
