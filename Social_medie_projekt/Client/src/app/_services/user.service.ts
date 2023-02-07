@@ -22,8 +22,8 @@ export class UserService {
         return this.http.get<User>(`${this.apiUrl}/${userId}`)
     }
 
-        //opretter ikke en user, men et login med en user tilknyttet
-        createUserOnLogin(login: Login): Observable<Login>{
+    //opretter ikke en user, men et login med en user tilknyttet
+    createUserOnLogin(login: Login): Observable<Login>{
         return this.http.post<Login>(environment.apiUrl + 'login/register/', login)
     }
     

@@ -15,17 +15,18 @@ export class PostService {
   constructor(private http: HttpClient) { }
 
 
-  //getall every posts
+  // henter ALLE posts
   getAll(): Observable<Post[]>{
     return this.http.get<Post[]>(`${this.apiUrl}`)
   }
 
+  // henter posts fra en bestemt bruger gennem deres id
   GetPostById(id: number): Observable<Post>{
     return this.http.get<Post>(`${this.apiUrl}/${id}`)
     
   }
 
-  //create post
+  // Opretter et post
   createPost(user: User){
     return this.http.post<Post>(this.apiUrl, user)
   }
