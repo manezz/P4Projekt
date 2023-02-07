@@ -3,14 +3,13 @@
      public interface IPostRepository
     {
         Task<List<Posts>> GetAllAsync();
-        Task<Posts?> GetPostByIdAsync(int id);
-
+        Task<Posts?> GetPostByIdAsync(int PostId);
         Task<Posts> CreatePostAsync(Posts newPost);
-
         Task<Posts> DeletePostAsync(int id);
-
-        Task<Posts> EditPost(int id, Posts updatePost);
-
+        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
+        Task<Posts> UpdatePostLikesAsync(int id, int like);
+        Task<Liked> CreateLikeAsync(Liked newLike);
+        Task<Liked> DeleteLikeAsync(Liked like);
     }
 
     public class PostRepository : IPostRepository
@@ -24,7 +23,7 @@
 
         public async Task<Posts> CreatePostAsync(Posts newPost)
         {
-           _context.Posts.Add(newPost);
+            _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
         }
@@ -41,7 +40,7 @@
             return post;
         }
 
-        public async Task<Posts> EditPost(int id, Posts updatePost)
+        public async Task<Posts> UpdatePostAsync(int id, Posts updatePost)
         {
             var post = await GetPostByIdAsync(id);
 
@@ -49,6 +48,24 @@
             {
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
+
+                _context.Update(post);
+                await _context.SaveChangesAsync();
+            }
+
+            return post;
+        }
+
+        public async Task<Posts> UpdatePostLikesAsync(int id, int like)
+        {
+            var post = await GetPostByIdAsync(id);
+
+            if (post != null)
+            {
+                post.Likes += like;
+
+                _context.Update(post);
+                await _context.SaveChangesAsync();
             }
 
             return post;
@@ -61,12 +78,25 @@
                 .ToListAsync();
         }
 
-        public async Task<Posts?> GetPostByIdAsync(int id)
+        public async Task<Posts?> GetPostByIdAsync(int postId)
         {
-            return await _context.Posts
-                .Include(u => u.User)
-                .OrderByDescending(d => d.Date)
-                .FirstOrDefaultAsync(x => x.PostId == id);
+            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.PostId == postId);
+        }
+
+        public async Task<Liked> CreateLikeAsync(Liked newLike)
+        {
+            _context.Liked.Add(newLike);
+
+            await _context.SaveChangesAsync();
+            return newLike;
+        }
+
+        public async Task<Liked> DeleteLikeAsync(Liked like)
+        {
+            _context.Liked.Remove(like);
+
+            await _context.SaveChangesAsync();
+            return like;
         }
     }
 }
