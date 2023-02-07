@@ -8,7 +8,7 @@ export interface Post {
     title: string;
     desc?: string;
     pictureURL?: string;
-    likes: Likes;
+    likes: number;
     date: Date;
     user : User;
 }

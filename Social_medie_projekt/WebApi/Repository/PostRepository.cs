@@ -64,7 +64,7 @@
         public async Task<Posts?> GetPostByIdAsync(int id)
         {
             return await _context.Posts
-                .Include(c => c.User)
+                .Include(u => u.User)
                 .OrderByDescending(d => d.Date)
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }

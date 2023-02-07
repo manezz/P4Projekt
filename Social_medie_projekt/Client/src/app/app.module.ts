@@ -18,6 +18,7 @@ import { MatButtonModule} from '@angular/material/button';
 import { MatIconModule} from '@angular/material/icon';
 import { MatDividerModule} from '@angular/material/divider';
 import { OrderModule } from 'ngx-order-pipe';
+import { PostDetailsComponent } from './post-details/post-details.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { OrderModule } from 'ngx-order-pipe';
     IndexpageComponent,
     LoginpageComponent,
     ProfilepageComponent,
+    PostDetailsComponent,
 
   ],
   imports: [

@@ -17,10 +17,9 @@ import { UserService } from '../_services/user.service';
         <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
     </mat-sidenav>
 
-  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts">
+  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', posts.postId]">
     <h5 id="username"> <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-    <br>
-      {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
+    {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
     </h5>
     <h1 id="title">{{posts.title}}</h1>
     <h3 id="description">{{posts.desc}}</h3>
@@ -54,9 +53,7 @@ export class ProfilepageComponent implements OnInit{
 
 
   ngOnInit(): void {
-   this.route.params.subscribe(params => {
-     this.userService.getAllSelf(params['userId']).subscribe(x => this.user = x)
-   })
+ 
 
    this.authService.currentUser.subscribe(x => {
     this.currentUser = x;

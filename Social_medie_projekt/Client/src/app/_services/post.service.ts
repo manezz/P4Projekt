@@ -22,8 +22,10 @@ export class PostService {
     // return this.data.getTempData()
   }
 
-  //getall own posts
-  
+  GetPostById(id: number): Observable<Post>{
+    return this.http.get<Post>(`${this.apiUrl}/${id}`)
+    
+  }
 
   //create post
   createPost(user: User){

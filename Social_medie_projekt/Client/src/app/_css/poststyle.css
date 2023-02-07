@@ -18,6 +18,11 @@ h1{
 
 }
 
+#post:hover{
+    cursor: pointer;
+    box-shadow: 10px 5px 5px rgb(73, 71, 71);
+}
+
 #date{
     font-size: 12px;
     margin-left: 10px;
