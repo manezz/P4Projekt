@@ -6,7 +6,7 @@
         Task<PostResponse?> GetPostById(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
-        Task<PostResponse?> DeletePostAsync(int Id);
+        Task<PostResponse?> DeletePostAsync(int postId);
         Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
         Task<LikedResponse?> DeleteLikeAsync(LikedRequest deleteLike);
     }
@@ -92,9 +92,9 @@
 
         }
 
-        public async Task<PostResponse?> DeletePostAsync(int Id)
+        public async Task<PostResponse?> DeletePostAsync(int postId)
         {
-            var post = await _postRepository.DeletePostAsync(Id);
+            var post = await _postRepository.DeletePostAsync(postId);
 
             if(post == null)
             {

@@ -3,7 +3,7 @@
      public interface IPostRepository
     {
         Task<List<Posts>> GetAllAsync();
-        Task<Posts?> GetPostByIdAsync(int id);
+        Task<Posts?> GetPostByIdAsync(int PostId);
         Task<Posts> CreatePostAsync(Posts newPost);
         Task<Posts> DeletePostAsync(int id);
         Task<Posts> UpdatePostAsync(int id, Posts updatePost);
@@ -76,9 +76,9 @@
            return await _context.Posts.Include(c => c.User).ToListAsync();
         }
 
-        public async Task<Posts?> GetPostByIdAsync(int id)
+        public async Task<Posts?> GetPostByIdAsync(int postId)
         {
-            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => x.PostId == postId);
         }
 
         public async Task<Liked> CreateLikeAsync(Liked newLike)
