@@ -9,5 +9,5 @@ export interface User {
     address: string;
     created: Date;
     login: Login;
-    posts: Post[];
+    posts?: Post[];
 }
