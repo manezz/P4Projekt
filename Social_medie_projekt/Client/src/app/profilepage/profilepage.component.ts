@@ -18,14 +18,15 @@ import { UserService } from '../_services/user.service';
     </mat-sidenav>
 
   <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', posts.postId]">
-    <h5 id="username"> <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-    {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
+    <h5 id="username"> 
+      <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+      {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
     </h5>
     <h1 id="title">{{posts.title}}</h1>
     <h3 id="description">{{posts.desc}}</h3>
     <p id="date">Date posted: {{posts.date | date:'MMM d yyyy, HH:mm a'}} </p> 
     <button class="postBtn" id="like"><3</button>
-   </div>
+  </div>
 
    <p id="nomore">This user has no more posts :(<p>
     
@@ -35,34 +36,27 @@ import { UserService } from '../_services/user.service';
 export class ProfilepageComponent implements OnInit{
 
   currentUser: any = {};
-  
-   user: User = {
+
+  user: User = {
     userId: 0,
     firstName: '',
     lastName: '',
     address: '',
     created: new Date,
     posts: [],
-    login: {loginId: 0, email: '', password: ''}
+    login: { loginId: 0, email: '', password: '' }
   } 
 
   
-  // sætter values i getTempData til data
   constructor(private userService:UserService, private route: ActivatedRoute, private authService: AuthService){ }
 
 
   ngOnInit(): void {
- 
-
-   this.authService.currentUser.subscribe(x => {
-    this.currentUser = x;
-  })
+   this.authService.currentUser.subscribe(x => { this.currentUser = x })
 
    console.log(this.currentUser.loginResponse)
    console.log(this.currentUser.loginResponse.user)
 
-  }
-
-  
+  }  
 
 }

@@ -9,9 +9,9 @@ import { Post } from '../_models/post';
   selector: 'app-post-details',
   template: `
   <div id="post">
-    <h5 id="username"> <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <h5 id="username"> <img class="profilepic" src="./assets/images/placeholder.png" width="50" height="50">
     <br>
-      {{post.User.firstName}} {{post.User.lastName}}
+      {{post.user.firstName}} {{post.user.lastName}}
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
@@ -19,23 +19,19 @@ import { Post } from '../_models/post';
     <button class="postBtn" id="like"><3</button>
   </div>
   `,
-  styles: [`
-  
-  `]
+  styleUrls: ["../_css/poststyle.css"]
 })
 export class PostDetailsComponent {
 
-  currentUser: any = {};
+  // currentUser: any = {};
   
   post: Post = {
     postId: 0,
-    userId:0,
     title: '',
     desc: '',
     likes: 0,
     date: new Date,
-    User: {userId: 0, firstName: '', lastName: '', address: '', created: new Date, login: {loginId: 1, email: '', password: ''}, posts: []}
-
+    user: {userId: 0, firstName: '', lastName: '', address: '', created: new Date, login: {loginId: 1, email: '', password: ''}, posts: []}
   }
 
 
@@ -44,17 +40,17 @@ export class PostDetailsComponent {
 
   ngOnInit(): void {
 
-    this.authService.currentUser.subscribe(x => {
-     this.currentUser = x;
-   })
+  //   this.authService.currentUser.subscribe(x => {
+  //    this.currentUser = x;
+  //  })
 
-   this.route.params.subscribe((params) => {
-     this.postService
-     .GetPostById(params['postId'])
-     .subscribe((x) => (this.post = x));
-   })
+  this.route.params.subscribe((params) => {
+    this.postService
+    .GetPostById(params['postId'])
+    .subscribe((x) => (this.post = x));
+  })
 
-   console.log()
+  console.log()
   
   }
 
