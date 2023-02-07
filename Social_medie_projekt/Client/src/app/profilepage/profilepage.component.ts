@@ -30,7 +30,7 @@ import { UserService } from '../_services/user.service';
    <p id="nomore">This user has no more posts :(<p>
     
   `,
-  styles: [``]
+  styleUrls: ["../_css/poststyle.css"]
 })
 export class ProfilepageComponent implements OnInit{
 
