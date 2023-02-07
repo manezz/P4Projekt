@@ -7,6 +7,8 @@ import { Role } from '../_models/role';
 import { AuthService } from '../_services/auth.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { TalkService } from '../_services/talk.service';
+import Talk from 'talkjs';
 
 @Component({
   selector: 'app-loginpage',
@@ -91,7 +93,8 @@ export class LoginpageComponent {
     private auth: AuthService,
     private router: Router, 
     private route: ActivatedRoute, 
-    private AppComponent: AppComponent
+    private AppComponent: AppComponent,
+    private talkService: TalkService
   ) { }
   
   message = '';
@@ -112,8 +115,11 @@ export class LoginpageComponent {
         
         let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
         this.router.navigate([returnUrl])
-        
-        //ændrer headeren
+
+        // opretter en talkservice til chat når user logger ind
+        this.talkService.createCurrentSession();
+
+        // ændrer headeren
         this.AppComponent.validateHeader()
       },
       

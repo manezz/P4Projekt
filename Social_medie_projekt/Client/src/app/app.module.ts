@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Page components
 import { AppComponent } from './app.component';
 import { IndexpageComponent } from './indexpage/indexpage.component';
+import { ChatComponent } from './indexpage/chat.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreatepageComponent } from './loginpage/createUserpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
@@ -29,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HeaderLoggedOutComponent,
     FooterComponent,
     IndexpageComponent,
+    ChatComponent,
     LoginpageComponent,
     ProfilepageComponent,
     CreatepageComponent
@@ -51,4 +53,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+
+}

@@ -7,14 +7,16 @@ import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreatepageComponent } from './loginpage/createUserpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { ChatComponent } from './indexpage/chat.component';
 
 const routes: Routes = [
     //canActivate gør at man skal have en user eller admin rolle før man kan tilgå pathen 
   { path: '', component: LoginpageComponent },
+  { path: 'createuser', component: CreatepageComponent },
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard] }, 
   { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard] },
-  { path: 'createuser', component: CreatepageComponent },
   { path: 'profile/:userId', component: ProfilepageComponent, canActivate: [AuthGuard] },
+  { path: 'chat', component: ChatComponent },
   // { path: 'admin', component: AdminpageComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin] } },
 ];
 
