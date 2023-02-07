@@ -13,7 +13,7 @@ import { Post } from '../_models/post';
   <!-- looper igennem alle post fra data(DataService) -->
   <div id="post" *ngFor="let post of posts">
     <h1 id="title">{{post.title}}</h1>
-    <h5 id="username">{{post.user.firstName}} {{post.user.lastName}}</h5>
+    <h5 id="username">{{post.User.firstName}} {{post.User.lastName}}</h5>
     <h3 id="description">{{post.desc}}</h3>
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p>
     <!-- <p id="tags">{{post.tag.tag}} </p> -->

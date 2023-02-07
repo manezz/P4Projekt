@@ -30,7 +30,7 @@ import { UserService } from '../_services/user.service';
    <p id="nomore">This user has no more posts :(<p>
     
   `,
-  styleUrls: ["../_css/poststyle.css"]
+  styles: [``]
 })
 export class ProfilepageComponent implements OnInit{
 
@@ -38,7 +38,6 @@ export class ProfilepageComponent implements OnInit{
   
    user: User = {
     userId: 0,
-    loginId:0,
     firstName: '',
     lastName: '',
     address: '',

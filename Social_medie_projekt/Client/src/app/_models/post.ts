@@ -9,5 +9,5 @@ export interface Post {
     desc?: string;
     likes: number;
     date: Date;
-    user : User;
+    User: User;
 }
