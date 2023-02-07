@@ -5,7 +5,7 @@
         Task<List<PostResponse>> GetAllPostsAsync();
         Task<PostResponse?> GetPostById(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
-        Task<PostResponse?> EditPostAsync(int postId, PostRequest updatePost);
+        Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePost(int Id);
         Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
 
@@ -49,6 +49,15 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
+            };
+        }
+
+        private Posts MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
+        {
+            return new Posts
+            {
+                Title = postUpdateRequest.Title,
+                Desc = postUpdateRequest.Desc,
             };
         }
 
@@ -106,9 +115,9 @@
             return MapPostToPostResponse(post);
         }
 
-        public async Task<PostResponse?> EditPostAsync(int postId, PostRequest updatePost)
+        public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
         {
-            var post = await _postRepository.EditPost(postId, MapPostRequestToPost(updatePost));
+            var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
             if(post != null)
             {
@@ -151,7 +160,7 @@
                 throw new ArgumentNullException();
             }
 
-            var updatePost = await _postRepository.EditPost(post.PostId, MapPostResponseToPostLikes(post));
+            var updatePost = await _postRepository.UpdatePostAsync(post.PostId, MapPostResponseToPostLikes(post));
 
             if (updatePost == null)
             {

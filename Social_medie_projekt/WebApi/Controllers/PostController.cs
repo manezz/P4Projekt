@@ -31,6 +31,7 @@
                 return Problem(ex.Message);
             }
         }
+
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByIdAsync([FromRoute] int postId)
@@ -56,7 +57,7 @@
         {
             try
             {
-                PostResponse postResponse = await _postService.CreatePostAsync(newPost);
+                var postResponse = await _postService.CreatePostAsync(newPost);
 
                 return Ok(postResponse);
             }
@@ -65,6 +66,27 @@
                 return Problem(ex.Message);
             }
 
+        }
+
+        [HttpPut]
+        [Route("{postId}")]
+        public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
+        {
+            try
+            {
+                var postResponse = await _postService.UpdatePostAsync(postId, updatedPost);
+
+                if (postResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(postResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
         }
 
         [HttpPost]

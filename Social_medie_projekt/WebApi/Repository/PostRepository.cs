@@ -9,7 +9,7 @@
 
         Task<Posts> DeletePostAsync(int id);
 
-        Task<Posts> EditPost(int id, Posts updatePost);
+        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
 
         Task<Liked> CreateLikeAsync(Liked newLike);
     }
@@ -42,7 +42,7 @@
             return post;
         }
 
-        public async Task<Posts> EditPost(int id, Posts updatePost)
+        public async Task<Posts> UpdatePostAsync(int id, Posts updatePost)
         {
             var post = await GetPostByIdAsync(id);
 
