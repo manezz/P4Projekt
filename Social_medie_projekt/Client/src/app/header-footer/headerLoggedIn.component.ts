@@ -11,10 +11,9 @@ import { User } from '../_models/user';
     <nav>
       <div class="nav">
         <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
-        <!-- <a class="linkLeft" routerLink="/"        >Post</a> -->
-        <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
-        <a class="linkRight" routerLink="/" (click)="logOut()">Logout</a>
+        <a class="linkRight" [routerLink]="['/']" (click)="logOut()">Logout</a>
         <a class="linkRight" [routerLink]="['/profile', this.currentUser.loginResponse.user.userId]" >Profile</a>
+        <a class="linkRight" id="createbtn" [routerLink]="['/createpost']" >+</a>
       </div>
     </nav>
   `,
@@ -44,6 +43,10 @@ import { User } from '../_models/user';
   .linkRight{
     margin: 0px 5px 0px 5px;
     float: right;
+  }
+  #createbtn{
+    font-size: 22px;
+    padding: 2px 8px 2px 8px ;
   }
   `]
 })

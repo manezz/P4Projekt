@@ -15,7 +15,7 @@ import { Post } from '../_models/post';
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
-    <p id="date">Date posted: {{post.date | date:'MMM d yyyy, HH:mm a'}} </p> 
+    <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}} </p> 
     <button class="postBtn" id="like"><3</button>
   </div>
   `,
@@ -23,7 +23,7 @@ import { Post } from '../_models/post';
 })
 export class PostDetailsComponent {
 
-  // currentUser: any = {};
+  currentUser: any = {};
   
   post: Post = {
     postId: 0,
@@ -31,7 +31,19 @@ export class PostDetailsComponent {
     desc: '',
     likes: 0,
     date: new Date,
-    user: {userId: 0, firstName: '', lastName: '', address: '', created: new Date, login: {loginId: 1, email: '', password: ''}, posts: []}
+    user: {
+      userId: 0, 
+      firstName: '', 
+      lastName: '', 
+      address: '', 
+      created: new Date, 
+      login: {
+        loginId: 1, 
+        email: '', 
+        password: ''
+      }, 
+      posts: []
+    } 
   }
 
 
@@ -40,9 +52,9 @@ export class PostDetailsComponent {
 
   ngOnInit(): void {
 
-  //   this.authService.currentUser.subscribe(x => {
-  //    this.currentUser = x;
-  //  })
+    this.authService.currentUser.subscribe(x => {
+     this.currentUser = x;
+   })
 
   this.route.params.subscribe((params) => {
     this.postService

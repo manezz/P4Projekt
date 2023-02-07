@@ -15,6 +15,10 @@ import { UserService } from '../_services/user.service';
     <mat-sidenav mode="side" opened >
         <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
         <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
+        ___________
+        <!-- Skal være links der ændre hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
+        <p> posts </p>
+        <p> likes </p>
     </mat-sidenav>
 
   <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', posts.postId]">

@@ -10,21 +10,15 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
-import { delay } from 'rxjs';
 
 @Component({
-  selector: 'app-createpage',
+  selector: 'app-createUserpage',
   template: `
   <div class="body">
     <button type="button" id="back" routerLink="">back</button>
     <img src="/assets/images/socialmachine.png" width="400px">
     <p> Create your user! </p>
-    
     <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
-      <!-- <div class="formControl">
-        <label>Username</label>
-        <input type="text" formControlName="UserName"/>
-      </div> -->
       <div class="formControl">
         <label>First name</label>
         <input type="text" id="FirstName" formControlName="FirstName"/>
@@ -46,10 +40,8 @@ import { delay } from 'rxjs';
         <input type="password" id="Password" formControlName="Password"/>
       </div>
       <div class="buttonDiv">
-        <!-- <button [disabled]="!userForm.valid" id="createBtn">Create</button> -->
-        <button id="createBtn">Create</button>
+        <button [disabled]="!userForm.valid" id="createBtn">Create</button>
         <button type="button" (click)="cancel()" id="createBtn">Cancel</button>
-        <!-- <button (click)="popup()" id="createBtn">popup test</button> -->
       </div>  
     </form>
 
@@ -116,7 +108,7 @@ import { delay } from 'rxjs';
   }
   `]
 })
-export class CreatepageComponent {
+export class CreateUserPageComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
@@ -138,13 +130,11 @@ export class CreatepageComponent {
   }
 
   resetUser():Login{
-    // return { userId:0, userName="", firstName:"", lastName:"", address:"", login:{ loginId:0, email: "", password:"" } }
     return { loginId:0, email: "", password:"", user:{ userId:0, firstName:"", lastName:"", address:"" } }
   }
   
   resetForm(): FormGroup{
     return new FormGroup({
-      // UserName: new FormControl(null, Validators.required),
       FirstName: new FormControl(null,  Validators.required),
       LastName:  new FormControl(null,  Validators.required),
       Address:   new FormControl(null,  Validators.required),
