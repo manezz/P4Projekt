@@ -11,16 +11,20 @@ import { Post } from '../_models/post';
   selector: 'app-indexpage',
   template: `    
   <!-- looper igennem alle post fra data(DataService) -->
-  <div id="post" *ngFor="let post of posts">
+  <div id="post" *ngFor="let post of posts" [routerLink]="['/post-details', post.postId]">
+    <h5 id="username"> 
+      <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+      {{post.user.firstName}} {{post.user.lastName}}
+    </h5>
     <h1 id="title">{{post.title}}</h1>
-    <h5 id="username">{{post.user.firstName}} {{post.user.lastName}}</h5>
     <h3 id="description">{{post.desc}}</h3>
-    <p id="date">{{post.date}}</p>
+
+    <!-- NOT created date, but current dateTime -->
+    <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
+    
     <!-- <p id="tags">{{post.tag.tag}} </p> -->
     <button class="postBtn" id="like"><3</button>
   </div>
-
-
   
   `,
   styleUrls: ["../_css/poststyle.css"]
@@ -29,6 +33,25 @@ import { Post } from '../_models/post';
 export class IndexpageComponent {
 
   posts: Post[] = [];
+  post: Post = {
+    postId: 0,
+    title: '',
+    desc: '',
+    likes: 0,
+    date: new Date,
+    user: {
+      userId: 0, 
+      firstName: '', 
+      lastName: '', 
+      address: '', 
+      created: new Date,
+      login: {
+        loginId: 1, 
+        email: '', 
+        password: ''
+      }, 
+    posts: []}
+  }
 
   constructor(
     private postService: PostService,

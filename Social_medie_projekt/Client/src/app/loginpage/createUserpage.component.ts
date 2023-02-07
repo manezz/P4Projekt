@@ -17,78 +17,103 @@ import { delay } from 'rxjs';
   template: `
   <div class="body">
     <button type="button" id="back" routerLink="">back</button>
-    <img src="/assets/images/socialmachine.png" width="25%">
+    <img src="/assets/images/socialmachine.png" width="400px">
     <p> Create your user! </p>
     
-    <form [formGroup]="userForm" (ngSubmit)="create()">
+    <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
       <!-- <div class="formControl">
         <label>Username</label>
         <input type="text" formControlName="UserName"/>
       </div> -->
       <div class="formControl">
         <label>First name</label>
-        <input type="text" formControlName="FirstName"/>
+        <input type="text" id="FirstName" formControlName="FirstName"/>
       </div>
       <div class="formControl">
         <label>Last name</label>
-        <input type="text" formControlName="LastName"/>
+        <input type="text" id="LastName" formControlName="LastName"/>
       </div>
       <div class="formControl">
         <label>Address</label>
-        <input type="text" formControlName="Address"/>
+        <input type="text" id="Address" formControlName="Address"/>
       </div>
       <div class="formControl">
         <label>Email</label>
-        <input type="text" formControlName="Email"/>
+        <input type="text" id="Email" formControlName="Email"/>
       </div>
       <div class="formControl">
         <label>Password</label>
-        <input type="text" formControlName="Password"/>
+        <input type="password" id="Password" formControlName="Password"/>
       </div>
       <div class="buttonDiv">
         <!-- <button [disabled]="!userForm.valid" id="createBtn">Create</button> -->
         <button id="createBtn">Create</button>
-        <button (click)="cancel()" id="createBtn">Cancel</button>
-        <button (click)="popup()" id="createBtn">popup test</button>
+        <button type="button" (click)="cancel()" id="createBtn">Cancel</button>
+        <!-- <button (click)="popup()" id="createBtn">popup test</button> -->
       </div>  
     </form>
 
   </div>
   `,
   styles: [`
-    .body {
-      display: flex; 
-      align-items: center; 
-      flex-direction: column;
-    }
-    .form{
-      display: blocK;
-      width: 30%;
-      margin-left: auto;
-      margin-right: auto
-    }
-    .formControl{
-      width: 100%;
-      margin: 5px;
-      text-align: right;
-    }
-    input{
-      width: 50%;
-      margin-left: 10px;
-      background-color: white;
-    }
-    .buttonDiv{
-      width: 100%;
-      align-items: center;
-    }
-    #createBtn{
-      width: 100px;
-    }
-    #back{
-      position: fixed;
-      margin-top: 15px;
-      margin-left: 95%;
-    }
+  .body {
+    display: flex; 
+    height: 700px; 
+    margin-top: 20px;
+    align-items: center; 
+    flex-direction: column;
+  }
+  .form{
+    width: 100%;
+    max-width: 400px;
+    margin-top: 50px;
+  }
+
+  .formControl{
+    display: flex;
+    justify-content: center;
+    margin: 5px 5px 10px 0;
+    flex-direction: row;
+  }
+  label{
+    order: 0;
+    width: 100px;
+    margin-right: 5px;
+    text-align: right;
+  }
+  input{
+    order: 1;
+    width: 250px;
+    margin-left: 3px;
+    background-color: white;
+  }
+
+
+  .buttonDiv{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  button{
+    width: 100px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+  button:hover{
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+  }
+  button:active{
+    background-color: rgb(66, 66, 66);;
+  }
+
+  #back{
+    position: absolute;
+    margin-top: -5px;
+    margin-left: 95%;
+    width: 50px;
+    height: 30px;
+  }
   `]
 })
 export class CreatepageComponent {
@@ -167,6 +192,13 @@ export class CreatepageComponent {
           });
         },
         error: (err) => {
+          // change inputfields to red border
+          document.getElementById("FirstName")!.style.borderColor = "red"
+          document.getElementById("LastName")!.style.borderColor = "red"
+          document.getElementById("Address")!.style.borderColor = "red"
+          document.getElementById("Email")!.style.borderColor = "red"
+          document.getElementById("Password")!.style.borderColor = "red"
+
           console.warn(Object.values(err.error.errors).join(', '));
           this.errors = Object.values(err.error.errors).join(', ');
         }
@@ -177,6 +209,13 @@ export class CreatepageComponent {
   cancel(){
     this.login = this.resetUser();
     this.userForm = this.resetForm();
+    
+    // change inputfields borders back
+    document.getElementById("FirstName")!.style.borderColor = "black"
+    document.getElementById("LastName")!.style.borderColor = "black"
+    document.getElementById("Address")!.style.borderColor = "black"
+    document.getElementById("Email")!.style.borderColor = "black"
+    document.getElementById("Password")!.style.borderColor = "black"
   }  
 
   popup(){

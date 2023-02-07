@@ -9,6 +9,7 @@
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Login>().HasData(
@@ -58,8 +59,10 @@
                     Title = "testestestest",
                     Desc = "tadnawdnada",
                     Likes = 1,
-                    Date = DateTime.Now
+                    Date = DateTime.Now,
                 });
+
+
 
             modelBuilder.Entity<Liked>().HasData(
                 new Liked

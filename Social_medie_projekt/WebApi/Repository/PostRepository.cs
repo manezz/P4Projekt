@@ -73,7 +73,9 @@
 
         public async Task<List<Posts>> GetAllAsync()
         {
-           return await _context.Posts.Include(c => c.User).ToListAsync();
+           return await _context.Posts.Include(c => c.User)
+                .OrderByDescending(d => d.Date)
+                .ToListAsync();
         }
 
         public async Task<Posts?> GetPostByIdAsync(int postId)

@@ -103,7 +103,16 @@
                             FirstName = user.User.FirstName,
                             LastName = user.User.LastName,
                             Address = user.User.Address,
-                            Created = user.User.Created
+                            Created = user.User.Created,
+                            Posts = user.User.Posts.Select(x => new UserPostLoginResponse
+                            {
+                                PostId = x.PostId,
+                                UserId = x.UserId,
+                                Title = x.Title,
+                                Desc = x.Desc,
+                                Likes = x.Likes,
+                                Date = x.Date
+                            }).ToList()
                         }
 
                     },

@@ -31,7 +31,6 @@ export class AuthService {
     if (user) {
       return JSON.parse(user);
     }
-
     return {};
   }
 

@@ -18,8 +18,15 @@ export interface userResponse {
     lastName: string;
     address: string;
     created: Date;
+    posts: postResponse;
 }
 
 export interface postResponse{
-    
+    postId: number;
+    userId: number;
+    title: string;
+    desc?: string;
+    pictureURL?: string;
+    likes: number;
+    date: Date;
 }

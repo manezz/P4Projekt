@@ -8,7 +8,7 @@ import { CommonModule } from '@angular/common';
   template: `
   <p> THE social media</p>
   <p> Copyright</p>
-  <p> Bjarke | Leonard | Wiktor</p>
+  <p> Bjarke | Leonard | Magnus</p>
   `,
   styles: [`
   p{
