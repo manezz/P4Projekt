@@ -9,6 +9,7 @@
         Task<Posts> UpdatePostAsync(int id, Posts updatePost);
         Task<Posts> UpdatePostLikesAsync(int id, int like);
         Task<Liked> CreateLikeAsync(Liked newLike);
+        Task<Liked> DeleteLikeAsync(Liked like);
     }
 
     public class PostRepository : IPostRepository
@@ -61,7 +62,7 @@
 
             if (post != null)
             {
-                post.Likes = like;
+                post.Likes += like;
 
                 _context.Update(post);
                 await _context.SaveChangesAsync();
@@ -86,6 +87,14 @@
 
             await _context.SaveChangesAsync();
             return newLike;
+        }
+
+        public async Task<Liked> DeleteLikeAsync(Liked like)
+        {
+            _context.Liked.Remove(like);
+
+            await _context.SaveChangesAsync();
+            return like;
         }
     }
 }

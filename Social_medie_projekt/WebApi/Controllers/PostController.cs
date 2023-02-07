@@ -89,13 +89,34 @@
             }
         }
 
+        [HttpDelete]
+        [Route("{postId}")]
+        public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
+        {
+            try
+            {
+                var postResponse = await _postService.DeletePostAsync(postId);
+
+                if (postResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(postResponse);
+            }
+            catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("Like")]
         public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
         {
             try
             {
-                LikedResponse likedResponse = await _postService.CreateLikeAsync(newLike);
+                var likedResponse = await _postService.CreateLikeAsync(newLike);
 
                 return Ok(likedResponse);
             }
@@ -103,9 +124,28 @@
             {
                 return Problem(ex.Message);
             }
-
         }
 
+        [HttpDelete]
+        [Route("Like")]
+        public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
+        {
+            try
+            {
+                var likedResponse = await _postService.DeleteLikeAsync(deleteLike);
+
+                if (likedResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(likedResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
     }
     
 }
