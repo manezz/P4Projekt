@@ -12,13 +12,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230202091111_new-mig.Designer.cs
-    [Migration("20230202091111_new-mig")]
-    partial class newmig
-========
-    [Migration("20230206092013_initial")]
+    [Migration("20230207123635_initial")]
     partial class initial
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230206092013_initial.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,11 +45,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230202091111_new-mig.Designer.cs
-                            LikedTime = new DateTime(2023, 2, 2, 10, 11, 11, 388, DateTimeKind.Local).AddTicks(4536)
-========
-                            LikedTime = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4129)
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230206092013_initial.Designer.cs
+                            LikedTime = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7118)
                         });
                 });
 
@@ -133,11 +124,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230202091111_new-mig.Designer.cs
-                            Date = new DateTime(2023, 2, 2, 10, 11, 11, 388, DateTimeKind.Local).AddTicks(4522),
-========
-                            Date = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4117),
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230206092013_initial.Designer.cs
+                            Date = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7106),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -183,11 +170,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230202091111_new-mig.Designer.cs
-                            Created = new DateTime(2023, 2, 2, 10, 11, 11, 388, DateTimeKind.Local).AddTicks(4502),
-========
-                            Created = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4098),
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230206092013_initial.Designer.cs
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7088),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -196,11 +179,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230202091111_new-mig.Designer.cs
-                            Created = new DateTime(2023, 2, 2, 10, 11, 11, 388, DateTimeKind.Local).AddTicks(4507),
-========
-                            Created = new DateTime(2023, 2, 6, 10, 20, 13, 660, DateTimeKind.Local).AddTicks(4102),
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230206092013_initial.Designer.cs
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7092),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2
