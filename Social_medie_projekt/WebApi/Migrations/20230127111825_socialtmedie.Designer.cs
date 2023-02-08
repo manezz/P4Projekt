@@ -12,8 +12,13 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230127111825_socialtmedie.Designer.cs
     [Migration("20230127111825_socialtmedie")]
     partial class socialtmedie
+========
+    [Migration("20230207123635_initial")]
+    partial class initial
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230207123635_initial.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +65,11 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230127111825_socialtmedie.Designer.cs
                             LikedTime = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(7023)
+========
+                            LikedTime = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7118)
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230207123635_initial.Designer.cs
                         });
                 });
 
@@ -139,7 +148,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230127111825_socialtmedie.Designer.cs
                             Date = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(7007),
+========
+                            Date = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7106),
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230207123635_initial.Designer.cs
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -228,7 +241,11 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230127111825_socialtmedie.Designer.cs
                             Created = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(6989),
+========
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7088),
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230207123635_initial.Designer.cs
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -237,7 +254,11 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230127111825_socialtmedie.Designer.cs
                             Created = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(6993),
+========
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7092),
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230207123635_initial.Designer.cs
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2
@@ -262,7 +283,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -284,6 +305,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

@@ -16,5 +16,22 @@
         public string LastName { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
+        public List<UserPostLoginResponse> Posts { get; set; } = new();
+    }
+
+    public class UserPostLoginResponse
+    {
+        public int PostId { get; set; }
+
+        public int UserId { get; set; }
+
+        public string Title { get; set; } = string.Empty;
+
+        public string Desc { get; set; } = string.Empty;
+
+        public int? Likes { get; set; }
+
+        public DateTime Date { get; set; } = DateTime.Now;
     }
 }
+

@@ -26,6 +26,14 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  public getUser(): any {
+    const user = window.sessionStorage.getItem('currentUser');
+    if (user) {
+      return JSON.parse(user);
+    }
+    return {};
+  }
+
   login(email: string, password: string){
     let authenticateUrl = `${environment.apiUrl}Login/authenticate`;
     return this.http.post<SignInResponse>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {

@@ -10,6 +10,7 @@
         public DbSet<Liked> Liked { get; set; }
         public DbSet<Tag> Tags { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Login>().HasData(
@@ -71,6 +72,8 @@
                     Likes=1,
                     Date= DateTime.Now,
                 });
+
+
 
             modelBuilder.Entity<Liked>().HasData(
                 new Liked

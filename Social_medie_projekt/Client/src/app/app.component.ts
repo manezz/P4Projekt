@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { getMatInputUnsupportedTypeError } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { AuthService } from './_services/auth.service';
 
@@ -8,11 +9,14 @@ import { AuthService } from './_services/auth.service';
   template: `
   <div class="container">
     <div class="header">
-      <app-header *ngIf="loggedIn"></app-header>
+      <app-headerLoggedIn *ngIf="loggedIn"></app-headerLoggedIn>
       <app-headerLoggedOut *ngIf="!loggedIn"></app-headerLoggedOut>
     </div>
     <div class="content">
       <router-outlet></router-outlet>
+    </div>
+    <div class="chat">
+      <app-chat *ngIf="chatOpen"></app-chat>
     </div>
     <div class="footer">
       <app-footer></app-footer>
@@ -49,8 +53,12 @@ export class AppComponent {
   title = 'Client'
   currentUser: any
   loggedIn: any
+  chatOpen: any
   
-  
+  // sørger for headeren altid er rigtig efter side opdatering
+  ngOnInit(): void{
+    this.validateHeader()
+  }
 
   validateHeader(): void{
     this.auth.currentUser.subscribe(x => { this.currentUser = x})
@@ -62,6 +70,16 @@ export class AppComponent {
       this.loggedIn = false
     }
   }
+
+  openChat(): void{
+    this.auth.currentUser.subscribe(x => { this.currentUser = x})
+
+    if (this.currentUser != null) {
+      
+
+    }
+  }
+
 }
 
 

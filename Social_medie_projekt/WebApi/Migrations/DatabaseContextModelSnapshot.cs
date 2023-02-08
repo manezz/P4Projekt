@@ -22,21 +22,6 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PostsTag", b =>
-                {
-                    b.Property<int>("PostsPostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsTagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostsPostId", "TagsTagId");
-
-                    b.HasIndex("TagsTagId");
-
-                    b.ToTable("PostsTag");
-                });
-
             modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
                 {
                     b.Property<int>("UserId")
@@ -57,7 +42,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(7023)
+                            LikedTime = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7118)
                         });
                 });
 
@@ -136,54 +121,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(7007),
+                            Date = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7106),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
                             UserId = 1
-                        },
-                        new
-                        {
-                            PostId = 2,
-                            Date = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(7010),
-                            Desc = "Ladadi ladaduuuuuuuuuu",
-                            Likes = 1,
-                            Title = "awoo",
-                            UserId = 1
-                        });
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
-
-                    b.Property<string>("tag")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("Tags");
-
-                    b.HasData(
-                        new
-                        {
-                            TagId = 1,
-                            tag = "sax"
-                        },
-                        new
-                        {
-                            TagId = 2,
-                            tag = "fax"
-                        },
-                        new
-                        {
-                            TagId = 3,
-                            tag = "howdy"
                         });
                 });
 
@@ -225,7 +167,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 1,
                             Address = "testvej 1",
-                            Created = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(6989),
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7088),
                             FirstName = "test",
                             LastName = "1",
                             LoginId = 1
@@ -234,32 +176,17 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             Address = "testvej 2",
-                            Created = new DateTime(2023, 1, 27, 12, 18, 25, 184, DateTimeKind.Local).AddTicks(6993),
+                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7092),
                             FirstName = "test",
                             LastName = "2",
                             LoginId = 2
                         });
                 });
 
-            modelBuilder.Entity("PostsTag", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.Posts", null)
-                        .WithMany()
-                        .HasForeignKey("PostsPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApi.Database.Entities.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsTagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -281,6 +208,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.User", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

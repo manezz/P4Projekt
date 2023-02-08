@@ -46,12 +46,18 @@
 
         public async Task<User> FindUserByIdAsync(int id)
         {
-            return await _context.User.Include(l => l.Login).FirstOrDefaultAsync(x => x.UserId == id);
+            return await _context.User
+                .Include(l => l.Login)
+                .Include(P => P.Posts.OrderByDescending(Posts => Posts.Date))
+                .FirstOrDefaultAsync(x => x.UserId == id);
         }
-
+        
         public async Task<List<User>> GetAllUsersAsync()
         {
-            return await _context.User.Include(l => l.Login).ToListAsync();
+            return await _context.User
+                .Include(l => l.Login)
+                .Include(P => P.Posts)
+                .ToListAsync();
         }
 
         public async Task<User> UpdateUserAsync(int id, User updatedUser)

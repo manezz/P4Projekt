@@ -2,34 +2,33 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { Post } from '../_models/post';
-import { Tag } from '../_models/tags';
-import { PostPageComponent } from '../postpage/postpage.component';
+import { Post } from '../_models/post'
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  private readonly apiUrl = environment.apiUrl + 'post';
+  private readonly apiUrl = environment.apiUrl + 'Post' ;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
 
-  //getall every posts
+  // henter ALLE posts
   getAll(): Observable<Post[]>{
-    return this.http.get<Post[]>(this.apiUrl);
+    return this.http.get<Post[]>(`${this.apiUrl}`)
   }
 
-  //getall own posts
-  getAllSelf(){
-
+  // henter posts fra en bestemt bruger gennem deres id
+  GetPostById(id: number): Observable<Post>{
+    return this.http.get<Post>(`${this.apiUrl}/${id}`)
+    
   }
 
-  //create post
-  createPost(post: Post): Observable<Post>{
-    console.log(post);
-    return this.http.post<Post>(this.apiUrl, post);
+  // Opretter et post
+  createPost(user: User){
+    return this.http.post<Post>(this.apiUrl, user)
   }
 
   //delete post

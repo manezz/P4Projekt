@@ -5,13 +5,15 @@ import { Role } from './_models/role'
 
 import { IndexpageComponent } from './indexpage/indexpage.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
+import { CreateUserPageComponent } from './loginpage/createUserpage.component';
+import { CreatePostPageComponent } from './profilepage/createPostpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
-import { PostPageComponent } from './postpage/postpage.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import { ChatComponent } from './indexpage/chat.component';
 
 const routes: Routes = [
     //canActivate gør at man skal have en user eller admin rolle før man kan tilgå pathen 
   { path: '', component: LoginpageComponent },
-  { path: 'post', component: PostPageComponent, canActivate: [AuthGuard], data: {roles: [Role.User] && [Role.Admin] }},
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard], data: {roles: [Role.User] && [Role.Admin] } }, 
   { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard], data: {roles: [Role.User] && [Role.Admin] } },
 ];
