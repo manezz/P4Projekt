@@ -9,6 +9,5 @@
         public string tag { get; set; } = string.Empty;
 
         public List<Posts> Posts { get; set; }
-
     }
 }

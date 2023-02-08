@@ -2,7 +2,6 @@
 {
     public class Posts
     {
-
         [Key]
         public int PostId { get; set; }
 
@@ -24,6 +23,5 @@
         public User User { get; set; }
 
         public List<Tag> Tags { get; set; }
-
     }
 }

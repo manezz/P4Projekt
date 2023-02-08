@@ -3,7 +3,7 @@
     public class PostRequest
     {
         [Required]
-        public int UserId { get; set; }
+        public int PostId { get; set; }
 
         [Required]
         public int UserId { get; set; }

@@ -28,7 +28,6 @@
                     Email = "Test2@mail.dk",
                     Password = "password",
                     Type = (Role)1
-
                 });
 
             modelBuilder.Entity<User>().HasData(

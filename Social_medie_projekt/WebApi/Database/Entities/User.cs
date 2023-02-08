@@ -23,6 +23,5 @@
         public Login Login { get; set; }
 
         public List<Posts> Posts { get; set; } = new();
-
     }
 }
