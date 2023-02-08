@@ -14,7 +14,7 @@ import { Post } from '../_models/post';
   <div id="post" *ngFor="let post of posts" [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      {{post.user.firstName}} {{post.user.lastName}}
+      {{post.user?.firstName}} {{post.user?.lastName}}
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>

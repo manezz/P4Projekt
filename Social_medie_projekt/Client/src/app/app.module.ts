@@ -11,6 +11,7 @@ import { IndexpageComponent } from './indexpage/indexpage.component';
 import { ChatComponent } from './indexpage/chat.component';
 import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreateUserPageComponent } from './loginpage/createUserpage.component';
+import { CreatePostPageComponent } from './profilepage/createPostpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
 import { HeaderLoggedInComponent } from './header-footer/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './header-footer/headerLoggedOut.component';
@@ -36,6 +37,7 @@ import { MatDividerModule} from '@angular/material/divider';
     ChatComponent,
     LoginpageComponent,
     CreateUserPageComponent,
+    CreatePostPageComponent,
     ProfilepageComponent,
     HeaderLoggedInComponent,
     HeaderLoggedOutComponent,

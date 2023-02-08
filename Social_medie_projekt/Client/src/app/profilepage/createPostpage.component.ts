@@ -10,36 +10,40 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
 
 
 
-
-
 @Component({
   selector: 'app-createPostpage',
   template: `
+
   <div class="body">
     <button type="button" id="back" routerLink="">back</button>
-    <img src="/assets/images/socialmachine.png" width="400px">
 
-    <!-- <form [formGroup]="postForm" class="form" (ngSubmit)="create()"> -->
-    <form class="form" (ngSubmit)="create()">
+    <div class="post">
+
+      <!-- <h1 style="text-align: center; margin: 10px auto 40px auto"> Create your post here!</h1> -->
       
-    <div class="formControl">
-        <label>Title</label>
-        <input type="text" id="FirstName" formControlName="Titel"/>
-      </div>
-      <div class="formControl">
-        <label>Write your post</label>
-        <input type="text" id="LastName" formControlName="Content"/>
-      </div>
-      <div class="formControl">
-        <label>tags</label>
-        <input type="text" id="Address" formControlName="Tags"/>
-      </div>
-      <div class="buttonDiv">
-        <button id="createBtn">Create</button>
-        <button type="button" (click)="cancel()" id="createBtn">Cancel</button>
-      </div>  
+      <form [formGroup]="postForm" class="form" (ngSubmit)="create()">
+        
+        <div class="formControl">
+          <textarea type="text" id="title" formControlName="Title" maxlength="100" (keyup)="maxLenght($event)" placeholder="Title"></textarea>
+          <span id="titleCharLenght">{{titleCharLenght}}</span>
+        </div>
 
-    </form>
+        <div class="formControl">
+          <textarea id="content" formControlName="Content" placeholder="Write about anything ..."></textarea>
+        </div>
+
+        <div class="formControl">
+          <input type="text" id="tags" formControlName="Tags" placeholder="#Tags,"/>
+        </div>
+        
+        <div class="buttonDiv">
+          <button id="createBtn">Create</button>
+          <button type="button" (click)="cancel()">Cancel</button>
+        </div>  
+
+      </form>
+
+    </div>
 
   </div>
   `,
@@ -52,30 +56,53 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     align-items: center; 
     flex-direction: column;
   }
+  #titleWrapper, .form, .formControl, .buttonDiv{
+    background-color: lightgrey;
+    border-radius: 15px;
+  }
   .form{
+    padding: 20px;
     width: 100%;
-    max-width: 800px;
-    margin-top: 50px;
+    max-width: 500px;
+  }
+  .formControl{
+    position: relative; /* important for titleCharLenght*/
+    /* display: flex; */
+    /* flex-direction: row; */
+  }
+  input, textarea{
+    width: 400px;
+    height: 22px;
+    padding: 30px 15px 5px 15px;
+    border: none;
+    border-bottom: 1px solid darkgray;
+    font-size: 16px;
+    resize: none;
+    background-color: transparent;
+  }
+  input:focus, textarea:focus{
+    outline: none;
+    border-bottom: 1px solid gray;
+  }
+  #title{
+    max-height: 50px;
+    max-width: 400px;
+  }
+  #titleCharLenght{
+    position: absolute;
+    background-color: transparent;
+    margin-top: 25px;
+    right: 5px;
+  }
+  #content{
+    height: 80px;
+    max-width: 400px;
+  }
+  #tags{
+    max-width: 400px;
   }
 
-  .formControl{
-    display: flex;
-    justify-content: center;
-    margin: 5px 5px 10px 0;
-    flex-direction: row;
-  }
-  label{
-    order: 0;
-    width: 100px;
-    margin-right: 5px;
-    text-align: right;
-  }
-  input{
-    order: 1;
-    width: 250px;
-    margin-left: 3px;
-    background-color: white;
-  }
+
 
 
   .buttonDiv{
@@ -105,10 +132,8 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   }
   `]
 })
-export class CreatePostPageComponent{
+export class CreatePostPageComponent implements OnInit{
     
-
-
   constructor(
     private auth: AuthService,
     private postService: PostService,
@@ -116,41 +141,85 @@ export class CreatePostPageComponent{
     private route: ActivatedRoute, 
     private AppComponent: AppComponent,
   ){ }
-    
+  
+  error: string
   currentUser: any = {};
- 
   post: Post = this.resetPost();
   posts: Post[] = []
   postForm: FormGroup = this.resetForm();
-
+  titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
+  currentUserId: number
 
   ngOnInit(): void {
     this.resetForm()
+    this.resetPost()
+    this.titleCharLenght = 100
     this.auth.currentUser.subscribe(x => { this.currentUser = x })
+    this.currentUserId = this.auth.CurrentUserValue.loginResponse.user.userId
   }
 
   create(){
-    
+    this.error = ''
+
+    this.post = { 
+      userId: this.currentUserId, 
+      postId: 0, 
+      title: this.postForm.value.Title, 
+      desc: this.postForm.value.Content 
+    }
+
+    this.postService.createPost(this.post).subscribe({
+      next: (x) => {
+        // this.posts.push(x);
+      },
+      error: (err) => {
+        console.warn(Object.values(err.error.errors).join(', '));
+        this.error = Object.values(err.error.errors).join(', ');
+        console.log(this.error)
+      }
+    });
+    console.log(this.post)
   }
 
   cancel(){
-
+    this.postForm = this.resetForm()
+    this.post = this.resetPost()
+    this.titleCharLenght = 100
   }
 
   resetPost():Post {
-    return{ postId: 0, title: '', desc: '', likes: 0, date: new Date, 
-      user: { userId: 0, firstName: '', lastName: '', address: '', created: new Date, 
-      login: { loginId: 1, email: '', password: '' }, 
-      posts: [] } 
+    // return{ userId: this.currentUserId, postId: 0, title: '', desc: '' }
+    return{ 
+      postId: 0, 
+      userId: this.currentUserId, 
+      title: '', 
+      desc: '', 
+      date: new Date, 
+      likes: 0, 
+      user: { 
+        userId: this.currentUserId, 
+        firstName: this.auth.CurrentUserValue.loginResponse.user.firstName, 
+        lastName: this.auth.CurrentUserValue.loginResponse.user.lastName, 
+        address: this.auth.CurrentUserValue.loginResponse.user.address,
+        created: this.auth.CurrentUserValue.loginResponse.user.created 
+      } 
     }
   }
 
   resetForm(){
     return new FormGroup({
-      Titel: new FormControl(''),
-      Content: new FormControl(''),
-      Tags: new FormControl('')
+      Title:    new FormControl(''),
+      Content:  new FormControl(''),
+      Tags:     new FormControl(''),
     })
   }
 
+  maxLenght(event: any) {
+    this.titleCharLenght = 100 - event.target.textLength;
+    if(this.titleCharLenght <= 20)
+      document.getElementById("titleCharLenght")!.style.color = "red"
+    else
+      document.getElementById("titleCharLenght")!.style.color = "black"
+  }
+  
 }

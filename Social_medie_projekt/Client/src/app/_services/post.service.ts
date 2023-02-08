@@ -27,8 +27,8 @@ export class PostService {
   }
 
   // Opretter et post
-  createPost(user: User){
-    return this.http.post<Post>(this.apiUrl, user)
+  createPost(post: Post){
+    return this.http.post<Post>(this.apiUrl, post)
   }
 
   //delete post

@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormGroup, FormsModule,  FormControl, Validators } from '@angular/forms';
-import { Login } from '../_models/login';
-import { User } from '../_models/user';
-import { AuthService } from '../_services/auth.service';
-import { UserService } from '../_services/user.service';
 import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Login } from '../_models/login';
+import { UserService } from '../_services/user.service';
+import { AuthService } from '../_services/auth.service';
+import { FormGroup, FormsModule,  FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButton } from '@angular/material/button';
 import { MatFormField } from '@angular/material/form-field';
@@ -18,6 +17,7 @@ import { MatFormField } from '@angular/material/form-field';
     <button type="button" id="back" routerLink="">back</button>
     <img src="/assets/images/socialmachine.png" width="400px">
     <p> Create your user! </p>
+
     <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
       <div class="formControl">
         <label>First name</label>
