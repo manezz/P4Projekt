@@ -11,7 +11,7 @@ import { Post } from '../_models/post';
   <div id="post">
     <h5 id="username"> <img class="profilepic" src="./assets/images/placeholder.png" width="50" height="50">
     <br>
-      {{post.user?.firstName}} {{post.user?.lastName}}
+      {{post.user?.userName}}
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
@@ -29,13 +29,12 @@ export class PostDetailsComponent {
     postId: 0,
     title: '',
     desc: '',
+    tags: '',
     likes: 0,
     date: new Date,
     user: {
       userId: 0, 
-      firstName: '', 
-      lastName: '', 
-      address: '', 
+      userName: '',
       created: new Date, 
       login: {
         loginId: 1, 

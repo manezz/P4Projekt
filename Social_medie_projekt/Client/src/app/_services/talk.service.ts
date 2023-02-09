@@ -37,7 +37,7 @@ export class TalkService {
 
     return new Talk.User({
       id: applicationUser.userId,
-      name: applicationUser.firstName,
+      name: applicationUser.userName,
       // photoUrl: applicationUser.profilePictureUrl
     });
   }

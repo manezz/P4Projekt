@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Data } from '@angular/router';
-import { DataService } from '../_services/tempData.service';
 import { AuthService } from '../_services/auth.service';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
@@ -14,7 +13,7 @@ import { Post } from '../_models/post';
   <div id="post" *ngFor="let post of posts" [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      {{post.user?.firstName}} {{post.user?.lastName}}
+      {{post.user?.userName}}
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
@@ -37,13 +36,12 @@ export class IndexpageComponent {
     postId: 0,
     title: '',
     desc: '',
+    tags: '',
     likes: 0,
     date: new Date,
     user: {
-      userId: 0, 
-      firstName: '', 
-      lastName: '', 
-      address: '', 
+      userId: 0,
+      userName: '', 
       created: new Date,
       login: {
         loginId: 1, 

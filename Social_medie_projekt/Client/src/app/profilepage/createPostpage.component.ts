@@ -198,9 +198,7 @@ export class CreatePostPageComponent implements OnInit{
       likes: 0, 
       user: { 
         userId: this.currentUserId, 
-        firstName: this.auth.CurrentUserValue.loginResponse.user.firstName, 
-        lastName: this.auth.CurrentUserValue.loginResponse.user.lastName, 
-        address: this.auth.CurrentUserValue.loginResponse.user.address,
+        userName: this.auth.CurrentUserValue.loginResponse.user.userName, 
         created: this.auth.CurrentUserValue.loginResponse.user.created 
       } 
     }

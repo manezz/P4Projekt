@@ -20,16 +20,8 @@ import { MatFormField } from '@angular/material/form-field';
 
     <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
       <div class="formControl">
-        <label>First name</label>
-        <input type="text" id="FirstName" formControlName="FirstName"/>
-      </div>
-      <div class="formControl">
-        <label>Last name</label>
-        <input type="text" id="LastName" formControlName="LastName"/>
-      </div>
-      <div class="formControl">
-        <label>Address</label>
-        <input type="text" id="Address" formControlName="Address"/>
+        <label>Username</label>
+        <input type="text" id="UserName" formControlName="UserName"/>
       </div>
       <div class="formControl">
         <label>Email</label>
@@ -130,14 +122,12 @@ export class CreateUserPageComponent implements OnInit {
   }
 
   resetUser():Login{
-    return { loginId:0, email: "", password:"", user:{ userId:0, firstName:"", lastName:"", address:"" } }
+    return { loginId:0, email: "", password:"", user:{ userId:0, userName:"" } }
   }
   
   resetForm(): FormGroup{
     return new FormGroup({
-      FirstName: new FormControl(null,  Validators.required),
-      LastName:  new FormControl(null,  Validators.required),
-      Address:   new FormControl(null,  Validators.required),
+      UserName: new FormControl(null,  Validators.required),
       Email:     new FormControl(null, [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]),
       Password:  new FormControl(null,  Validators.required),
     })
@@ -154,9 +144,7 @@ export class CreateUserPageComponent implements OnInit {
         password: this.userForm.value.Password,
         user:{ 
           userId:0, 
-          firstName: this.userForm.value.FirstName, 
-          lastName: this.userForm.value.LastName, 
-          address: this.userForm.value.Address
+          userName: this.userForm.value.UserName,
         }
       }
       
@@ -183,9 +171,7 @@ export class CreateUserPageComponent implements OnInit {
         },
         error: (err) => {
           // change inputfields to red border
-          document.getElementById("FirstName")!.style.borderColor = "red"
-          document.getElementById("LastName")!.style.borderColor = "red"
-          document.getElementById("Address")!.style.borderColor = "red"
+          document.getElementById("UserName")!.style.borderColor = "red"
           document.getElementById("Email")!.style.borderColor = "red"
           document.getElementById("Password")!.style.borderColor = "red"
 
@@ -201,9 +187,7 @@ export class CreateUserPageComponent implements OnInit {
     this.userForm = this.resetForm();
     
     // change inputfields borders back
-    document.getElementById("FirstName")!.style.borderColor = "black"
-    document.getElementById("LastName")!.style.borderColor = "black"
-    document.getElementById("Address")!.style.borderColor = "black"
+    document.getElementById("UserName")!.style.borderColor = "black"
     document.getElementById("Email")!.style.borderColor = "black"
     document.getElementById("Password")!.style.borderColor = "black"
   }  
