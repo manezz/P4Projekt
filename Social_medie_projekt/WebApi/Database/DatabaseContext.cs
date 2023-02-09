@@ -35,9 +35,7 @@
                 {
                     UserId = 1,
                     LoginId = 1,
-                    FirstName = "test",
-                    LastName = "1",
-                    Address = "testvej 1",
+                    UserName = "tester 1",
                     Created = DateTime.Now
                 },
 
@@ -45,9 +43,7 @@
                 {
                     UserId = 2,
                     LoginId = 2,
-                    FirstName = "test",
-                    LastName = "2",
-                    Address = "testvej 2",
+                    UserName = "222test222",
                     Created = DateTime.Now
                 });
 
@@ -56,20 +52,23 @@
                 new Posts
                 {
                     PostId = 1,
-                    UserId = 1,
                     Title = "testestestest",
                     Desc = "tadnawdnada",
                     Likes = 1,
                     Date = DateTime.Now,
+                    UserId = 1,
+                    
                 },
+
                 new Posts
                 {
                     PostId = 2,
-                    UserId = 1,
-                    Title = "awoo",
-                    Desc = "Ladadi ladaduuuuuuuuuu",
-                    Likes=1,
-                    Date= DateTime.Now,
+                    Title = "Test!",
+                    Desc = "Woooooo!",
+                    Likes = 0,
+                    Date = DateTime.Now,
+                    UserId = 2,
+                    
                 });
 
 

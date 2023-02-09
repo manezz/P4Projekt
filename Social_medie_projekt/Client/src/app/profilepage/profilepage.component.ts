@@ -14,25 +14,25 @@ import { UserService } from '../_services/user.service';
   template: `
     <mat-sidenav mode="side" opened >
         <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
-        <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
+        <p>{{this.currentUser.loginResponse.user.userName}}</p>
         ___________
-        <!-- Skal være links der ændre hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
+        <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
         <p> posts </p>
         <p> likes </p>
     </mat-sidenav>
 
-  <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', posts.postId]">
+  <div id="post" *ngFor="let post of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
+      {{this.currentUser.loginResponse.user.userName}}
     </h5>
-    <h1 id="title">{{posts.title}}</h1>
-    <h3 id="description">{{posts.desc}}</h3>
-    <p id="date">Date posted: {{posts.date | date:'MMM d yyyy, HH:mm a'}} </p> 
+    <h1 id="title">{{post.title}}</h1>
+    <h3 id="description">{{post.desc}}</h3>
+    <p id="date">Date posted: {{post.date | date:'MMM d yyyy, HH:mm a'}} </p> 
     <button class="postBtn" id="like"><3</button>
   </div>
 
-   <p id="nomore">This user has no more posts :(<p>
+   <p id="nomore">This user ran out of posts :(<p>
     
   `,
   styleUrls: ["../_css/poststyle.css"]
@@ -43,9 +43,7 @@ export class ProfilepageComponent implements OnInit{
 
   user: User = {
     userId: 0,
-    firstName: '',
-    lastName: '',
-    address: '',
+    userName: '',
     created: new Date,
     posts: [],
     login: { loginId: 0, email: '', password: '' }
@@ -59,7 +57,6 @@ export class ProfilepageComponent implements OnInit{
    this.authService.currentUser.subscribe(x => { this.currentUser = x })
 
    console.log(this.currentUser.loginResponse)
-   console.log(this.currentUser.loginResponse.user)
 
   }  
 

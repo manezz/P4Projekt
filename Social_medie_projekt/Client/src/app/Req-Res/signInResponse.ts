@@ -1,4 +1,4 @@
-import { Role } from "./role";
+import { Role } from "../_models/role";
 
 export interface SignInResponse {
     token: string;
@@ -14,9 +14,7 @@ export interface LoginResponse {
 
 export interface userResponse {
     userId: number;
-    firstName: string;
-    lastName: string;
-    address: string;
+    userName: string;
     created: Date;
     posts: postResponse;
 }
@@ -26,6 +24,7 @@ export interface postResponse{
     userId: number;
     title: string;
     desc?: string;
+    tags?: string;
     pictureURL?: string;
     likes: number;
     date: Date;
