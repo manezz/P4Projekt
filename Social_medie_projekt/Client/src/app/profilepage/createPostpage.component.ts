@@ -15,13 +15,10 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   template: `
 
   <div class="body">
-    <button type="button" id="back" routerLink="">back</button>
 
     <div class="post">
 
-      <!-- <h1 style="text-align: center; margin: 10px auto 40px auto"> Create your post here!</h1> -->
-      
-      <form [formGroup]="postForm" class="form" (ngSubmit)="create()">
+      <form [formGroup]="postForm" id="form">
         
         <div class="formControl">
           <textarea type="text" id="title" formControlName="Title" maxlength="100" (keyup)="maxLenght($event)" placeholder="Title"></textarea>
@@ -37,8 +34,13 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
         </div>
         
         <div class="buttonDiv">
-          <button id="createBtn">Create</button>
-          <button type="button" (click)="cancel()">Cancel</button>
+          <button id="createBtn" (ngSubmit)="create()">Create!</button>
+        </div>  
+
+        <div class="buttonDiv">
+          <button id="expandBtn" (click)="expandDiv()">+</button>
+          <button id="cancelBtn" (click)="cancel()">🗑</button>
+          <button id="collapseBtn" (click)="collapseDiv()">▲</button>
         </div>  
 
       </form>
@@ -50,25 +52,22 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
 
   styles: [`
   .body {
-    display: flex; 
-    height: 700px; 
+    display: flex;
     margin-top: 20px;
     align-items: center; 
     flex-direction: column;
   }
-  #titleWrapper, .form, .formControl, .buttonDiv{
+  .post{
+    width: 100%;
+    max-width: 37%;
+  }
+  #form, .formControl, .buttonDiv{
     background-color: lightgrey;
     border-radius: 15px;
-  }
-  .form{
-    padding: 20px;
-    width: 100%;
-    max-width: 500px;
-  }
-  .formControl{
     position: relative; /* important for titleCharLenght*/
-    /* display: flex; */
-    /* flex-direction: row; */
+  }
+  #form{
+    padding: 20px 20px 0px 20px;
   }
   input, textarea{
     width: 400px;
@@ -84,9 +83,12 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     outline: none;
     border-bottom: 1px solid gray;
   }
+
+
   #title{
     max-height: 50px;
-    max-width: 400px;
+    width: 100%;
+    max-width: 85%;
   }
   #titleCharLenght{
     position: absolute;
@@ -95,40 +97,63 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     right: 5px;
   }
   #content{
-    height: 80px;
-    max-width: 400px;
+    /* height: 80px; */
+    width: 100%;
+    max-width: 85%;
   }
   #tags{
-    max-width: 400px;
+    width: 100%;
+    max-width: 85%;
   }
-
 
 
 
   .buttonDiv{
+    position: relative;
     display: flex;
     justify-content: center;
     margin-top: 20px;
   }
-  button{
-    width: 100px;
-    margin-left: 5px;
-    margin-right: 5px;
+  #createBtn{
+    width: 150px;
+    height: 35px;
+    border: none;
+    border-radius: 15px;
+    font-size: 25px;
+  }
+  #expandBtn, #collapseBtn, #cancelBtn{
+    border: none;
+    border-radius: 15px;
+  }
+  #collapseBtn{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 20px;
+    right: 5px;
+  }
+  #cancelBtn{
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    bottom: 20px;
+    right: 35px;
+    font-size: 15px;
+  }
+  #expandBtn{
+    background-color: darkgray;
+    width: 60px;
+    height: 30px;
+    position: absolute;
+    bottom: 15px;
+    font-size: 25px;
   }
   button:hover{
-    background-color: rgb(211, 211, 211);
+    background-color: rgb(80, 80, 180);
     cursor: pointer;
   }
   button:active{
     background-color: rgb(66, 66, 66);;
-  }
-
-  #back{
-    position: absolute;
-    margin-top: -5px;
-    margin-left: 95%;
-    width: 50px;
-    height: 30px;
   }
   `]
 })
@@ -149,6 +174,7 @@ export class CreatePostPageComponent implements OnInit{
   postForm: FormGroup = this.resetForm();
   titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
   currentUserId: number
+  isClicked: boolean
 
   ngOnInit(): void {
     this.resetForm()
@@ -156,6 +182,7 @@ export class CreatePostPageComponent implements OnInit{
     this.titleCharLenght = 100
     this.auth.currentUser.subscribe(x => { this.currentUser = x })
     this.currentUserId = this.auth.CurrentUserValue.loginResponse.user.userId
+    this.collapseDiv()
   }
 
   create(){
@@ -186,6 +213,7 @@ export class CreatePostPageComponent implements OnInit{
     this.postForm = this.resetForm()
     this.post = this.resetPost()
     this.titleCharLenght = 100
+    // this.collapseDiv()
   }
 
   resetPost():Post {
@@ -220,5 +248,37 @@ export class CreatePostPageComponent implements OnInit{
     else
       document.getElementById("titleCharLenght")!.style.color = "black"
   }
+
+
+  expandDiv(){
+    document.getElementById("form")!.style.backgroundColor = "lightgray"
+
+    document.getElementById("title")!.style.display = ''
+    document.getElementById("titleCharLenght")!.style.display = ''
+    document.getElementById("content")!.style.display = ''
+    document.getElementById("tags")!.style.display = ''
+
+    document.getElementById("createBtn")!.style.display = ''
+    document.getElementById("collapseBtn")!.style.display = ''
+    document.getElementById("cancelBtn")!.style.display = ''
+    document.getElementById("expandBtn")!.style.display = 'none'
+  }
+
+  collapseDiv(){
+    document.getElementById("form")!.style.backgroundColor = "transparent"
+    document.getElementById("form")!.style.borderTop = "3px solid lightgray"
+    document.getElementById("form")!.style.borderBottom = "3px solid lightgray"
+
+    document.getElementById("title")!.style.display = "none"
+    document.getElementById("titleCharLenght")!.style.display = "none"
+    document.getElementById("content")!.style.display = "none"
+    document.getElementById("tags")!.style.display = "none"
+    
+    document.getElementById("createBtn")!.style.display = "none"
+    document.getElementById("collapseBtn")!.style.display = 'none'
+    document.getElementById("cancelBtn")!.style.display = 'none'
+    document.getElementById("expandBtn")!.style.display = ''
+  }
   
 }
+

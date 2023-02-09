@@ -12,14 +12,16 @@ import { UserService } from '../_services/user.service';
 @Component({
   selector: 'app-profilepage',
   template: `
-    <mat-sidenav mode="side" opened >
-        <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
-        <p>{{this.currentUser.loginResponse.user.userName}}</p>
-        ___________
-        <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
-        <p> posts </p>
-        <p> likes </p>
-    </mat-sidenav>
+  <mat-sidenav mode="side" opened >
+    <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
+    <p>{{this.currentUser.loginResponse.user.userName}}</p>
+    ___________
+    <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
+    <p> posts </p>
+    <p> likes </p>
+  </mat-sidenav>
+  
+  <app-createPostpage></app-createPostpage>
 
   <div id="post" *ngFor="let post of posts"  [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
@@ -31,7 +33,6 @@ import { UserService } from '../_services/user.service';
     <p id="date">Date posted: {{post.date | date:'MMM d yyyy, HH:mm a'}} </p> 
     <button class="postBtn" id="like"><3</button>
   </div>
-
    <p id="nomore">This user ran out of posts :(<p>
     
   `,
@@ -41,6 +42,7 @@ export class ProfilepageComponent implements OnInit{
 
   currentUser: any = {};
   posts: Post[] = [];
+  clicked: any;
   
   constructor(
     private postService:PostService,

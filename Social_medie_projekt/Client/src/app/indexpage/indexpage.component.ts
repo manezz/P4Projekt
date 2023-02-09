@@ -9,6 +9,8 @@ import { Post } from '../_models/post';
 @Component({
   selector: 'app-indexpage',
   template: `    
+  <app-createPostpage></app-createPostpage>
+  
   <!-- looper igennem alle post fra data(DataService) -->
   <div id="post" *ngFor="let post of posts" [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
