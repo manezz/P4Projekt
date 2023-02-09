@@ -6,7 +6,10 @@
         public int UserId { get; set; }
 
         public string Title { get; set; }
+
         public string Desc { get; set; }
+        
+        public string Tags { get; set; }
 
         public DateTime Date { get; set; } = DateTime.Now.Date;
 
@@ -19,9 +22,7 @@
     public class PostUserResponse
     {
         public int UserId { get; set; }
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
-        public DateTime Created { get; set; } = DateTime.Now;
+
+        public string UserName { get; set; } = string.Empty;
     }
 }
