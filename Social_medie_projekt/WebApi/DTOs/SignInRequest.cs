@@ -2,8 +2,6 @@
 {
     public class SignInRequest
     {
-   
-
         [Required]
         [StringLength(64, ErrorMessage = "Email cannot be longer than 64 chars")]
         public string Email { get; set; } = string.Empty;

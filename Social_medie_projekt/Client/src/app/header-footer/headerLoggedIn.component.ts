@@ -3,17 +3,17 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../_services/auth.service';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
+import { User } from '../_models/user';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-headerLoggedIn',
   template: `
     <nav>
       <div class="nav">
-        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main"> 
-        <a class="linkLeft" routerLink="/post">Post</a>
-        <!-- <a class="linkLeft"  routerLink="/main"    >Home</a> -->
-        <a class="linkRight" routerLink="/"        >Logout</a>
-        <a class="linkRight" routerLink="/profile" >Profile</a>
+        <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
+        <a class="linkRight" [routerLink]="['/']" (click)="logOut()">Logout</a>
+        <a class="linkRight" [routerLink]="['/profile', this.currentUser.loginResponse.user.userId]" >Profile</a>
+        <a class="linkRight" id="createbtn" [routerLink]="['/createpost']" >+</a>
       </div>
     </nav>
   `,
@@ -44,6 +44,10 @@ import { RouterModule, ActivatedRoute, Router } from '@angular/router';
     margin: 0px 5px 0px 5px;
     float: right;
   }
+  #createbtn{
+    font-size: 22px;
+    padding: 2px 8px 2px 8px ;
+  }
   `]
 })
 export class HeaderLoggedInComponent {
@@ -52,7 +56,7 @@ export class HeaderLoggedInComponent {
     this.auth.currentUser.subscribe(x => this.currentUser = x )
   }
   currentUser: any
-  
+  user: User[] = []  
 
   logOut(){
     this.auth.logout()
@@ -62,4 +66,5 @@ export class HeaderLoggedInComponent {
     this.AppComponent.validateHeader()
 
   }
+
 }

@@ -2,7 +2,6 @@
 {
     public class Posts
     {
-
         [Key]
         public int PostId { get; set; }
 
@@ -13,17 +12,16 @@
         public string Title { get; set; } = string.Empty;
 
         [Column(TypeName = "text")]
-        public string Desc { get; set; } = string.Empty ;
+        public string Desc { get; set; } = string.Empty;
 
         [Column(TypeName = "int")]
         public int? Likes { get; set; } = 0;
 
-        [Column(TypeName ="datetime")]
+        [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
         public User User { get; set; }
 
         public List<Tag> Tags { get; set; }
-
     }
 }

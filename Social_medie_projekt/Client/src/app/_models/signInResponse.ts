@@ -1,5 +1,4 @@
 import { Role } from "./role";
-import { User } from "./user";
 
 export interface SignInResponse {
     token: string;
@@ -10,14 +9,24 @@ export interface LoginResponse {
     loginId: number;
     email: string;
     type: Role;
-    user: User;
-    customer: CustomerResponse;
+    user: userResponse;
 }
 
-export interface CustomerResponse {
-    customerId: number;
+export interface userResponse {
+    userId: number;
     firstName: string;
     lastName: string;
     address: string;
     created: Date;
+    posts: postResponse;
+}
+
+export interface postResponse{
+    postId: number;
+    userId: number;
+    title: string;
+    desc?: string;
+    pictureURL?: string;
+    likes: number;
+    date: Date;
 }

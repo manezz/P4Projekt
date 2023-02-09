@@ -1,17 +1,12 @@
-import { Tag } from "./tags";
+import { Likes } from "./likes";
+import { Tags } from "./tags";
 import { User } from "./user"
 
 export interface Post {
     postId: number;
-    userId: number;
     title: string;
-    date: string;
     desc?: string;
-    pictureURL?: string;
-    
-
-    // ??
-    likedByUser: boolean;
-    tags: Tag[];
+    likes: number;
+    date: Date;
     user: User;
 }

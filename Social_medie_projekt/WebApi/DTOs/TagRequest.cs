@@ -4,7 +4,8 @@
     {
         [Required]
         public int TagId { get; set; }
+
         [Required]
-        public string tag { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }
