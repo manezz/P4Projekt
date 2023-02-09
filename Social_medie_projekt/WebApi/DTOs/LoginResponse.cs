@@ -12,9 +12,7 @@
     public class LoginUserResponse
     {
         public int UserId { get; set; } 
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
         public List<UserPostLoginResponse> Posts { get; set; } = new();
     }
@@ -28,6 +26,7 @@
         public string Title { get; set; } = string.Empty;
 
         public string Desc { get; set; } = string.Empty;
+        public string Tags { get; set; } = string.Empty;
 
         public int? Likes { get; set; }
 

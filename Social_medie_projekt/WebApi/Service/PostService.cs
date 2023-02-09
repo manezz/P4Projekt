@@ -28,16 +28,9 @@
                 UserId = post.UserId,
                 Title = post.Title,
                 Desc = post.Desc,
+                Tags = post.Tags,
                 Date = post.Date,
                 Likes = post.Likes,
-                User = new PostUserResponse
-                {
-                    UserId = post.UserId,
-                    FirstName = post.User.FirstName,
-                    LastName = post.User.LastName,
-                    Address = post.User.Address,
-                    Created = post.User.Created,
-                }
             };
         }
 
@@ -48,6 +41,7 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
+                Tags = postRequest.Tags,
             };
         }
 
@@ -57,6 +51,7 @@
             {
                 Title = postUpdateRequest.Title,
                 Desc = postUpdateRequest.Desc,
+                Tags = postUpdateRequest.Tags,
             };
         }
 
