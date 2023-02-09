@@ -3,13 +3,13 @@
     public class PostResponse
     {
         public int PostId { get; set; }
+
         public int UserId { get; set; }
 
         public string Title { get; set; }
-
         public string Desc { get; set; }
-        
-        public string Tags { get; set; }
+
+        public string? Tags { get; set; }
 
         public DateTime Date { get; set; } = DateTime.Now.Date;
 
@@ -21,8 +21,6 @@
     }
     public class PostUserResponse
     {
-        public int UserId { get; set; }
-
         public string UserName { get; set; } = string.Empty;
     }
 }
