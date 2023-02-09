@@ -53,10 +53,10 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
-                Tags = postRequest.Tags.Select(x => new Tag 
-                {
-                    Name = x.Name,
-                }).ToList()
+                //Tags = postRequest.Tags.Select(x => new Tag 
+                //{
+                //    Name = x.Name,
+                //}).ToList()
             };
         }
 
