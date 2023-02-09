@@ -10,8 +10,6 @@
 
         public string Desc { get; set; }
 
-        public string? Tags { get; set; }
-
         public DateTime Date { get; set; } = DateTime.Now.Date;
 
         public int? Likes { get; set; }

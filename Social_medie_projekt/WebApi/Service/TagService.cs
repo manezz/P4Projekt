@@ -31,11 +31,7 @@
                     Likes = x.Likes,
                     User = new PostUserResponse
                     {
-                        UserId = x.UserId,
-                        FirstName = x.User.FirstName,
-                        LastName = x.User.LastName,
-                        Address = x.User.Address,
-                        Created = x.User.Created,
+                        UserName = x.User.UserName,
                     }
                 }).ToList()
             };

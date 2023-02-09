@@ -29,16 +29,11 @@
                 UserId = post.UserId,
                 Title = post.Title,
                 Desc = post.Desc,
-                Tags = post.Tags,
                 Date = post.Date,
                 Likes = post.Likes,
                 User = new PostUserResponse
                 {
-                    UserId = post.UserId,
-                    FirstName = post.User.FirstName,
-                    LastName = post.User.LastName,
-                    Address = post.User.Address,
-                    Created = post.User.Created,
+                    UserName = post.User.UserName,
                 },
                 Tags = post.Tags.Select(x => new PostTagResponse
                 {
@@ -68,7 +63,6 @@
             {
                 Title = postUpdateRequest.Title,
                 Desc = postUpdateRequest.Desc,
-                Tags = postUpdateRequest.Tags,
             };
         }
 
