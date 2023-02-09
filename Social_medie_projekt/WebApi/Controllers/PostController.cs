@@ -34,11 +34,11 @@
 
         [HttpGet]
         [Route("{postId}")]
-        public async Task<IActionResult> GetPostByIdAsync([FromRoute] int postId)
+        public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
         {
             try
             {
-                var postResponse = await _postService.GetPostById(postId);
+                var postResponse = await _postService.GetPostByPostIdAsync(postId);
 
                 if(postResponse == null)
                 {
@@ -47,6 +47,26 @@
                 return Ok(postResponse);
             }
             catch(Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetPostByUserIdAsync([FromRoute] int userId)
+        {
+            try
+            {
+                var postResponse = await _postService.GetPostByUserIdAsync(userId);
+
+                if (postResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(postResponse);
+            }
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }

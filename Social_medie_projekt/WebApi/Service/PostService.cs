@@ -3,7 +3,8 @@
     public interface IPostService
     {
         Task<List<PostResponse>> GetAllPostsAsync();
-        Task<PostResponse?> GetPostById(int Id);
+        Task<PostResponse?> GetPostByPostIdAsync(int Id);
+        Task<List<PostResponse?>> GetPostByUserIdAsync(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
@@ -122,15 +123,26 @@
             return posts.Select(post => MapPostToPostResponse(post)).ToList();
         }
 
-        public async Task<PostResponse?> GetPostById(int Id)
+        public async Task<PostResponse?> GetPostByPostIdAsync(int postId)
         {
-           var posts = await _postRepository.GetPostByIdAsync(Id);
+           var posts = await _postRepository.GetPostByPostIdAsync(postId);
 
             if(posts == null)
             {
                 return null;
             }
             return MapPostToPostResponse(posts);
+        }
+
+        public async Task<List<PostResponse?>> GetPostByUserIdAsync(int userId)
+        {
+            var posts = await _postRepository.GetPostByUserIdAsync(userId);
+
+            if (posts == null)
+            {
+                return null;
+            }
+            return posts.Select(post => MapPostToPostResponse(post)).ToList();
         }
 
         public async Task<LikedResponse> CreateLikeAsync(LikedRequest newLike)
