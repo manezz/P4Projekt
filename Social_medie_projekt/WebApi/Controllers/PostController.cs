@@ -19,7 +19,7 @@
             {
                 List<PostResponse> posts = await _postService.GetAllPostsAsync();
 
-                if(posts.Count() == 0)
+                if (posts.Count() == 0)
                 {
                     return NoContent();
 
@@ -40,13 +40,13 @@
             {
                 var postResponse = await _postService.GetPostByPostIdAsync(postId);
 
-                if(postResponse == null)
+                if (postResponse == null)
                 {
                     return NotFound();
                 }
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -81,7 +81,7 @@
 
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -124,7 +124,7 @@
 
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -168,6 +168,7 @@
         }
 
         [HttpGet]
+        [Route("Tag")]
         public async Task<IActionResult> GetAllTagsAsync()
         {
             try
@@ -187,7 +188,7 @@
             }
         }
         [HttpGet]
-        [Route("{tagId}")]
+        [Route("Tag/{tagId}")]
         public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
         {
             try
@@ -207,6 +208,7 @@
         }
 
         [HttpPost]
+        [Route("Tag")]
         public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
         {
             try
@@ -219,7 +221,6 @@
             {
                 return Problem(ex.Message);
             }
-
         }
     }
     
