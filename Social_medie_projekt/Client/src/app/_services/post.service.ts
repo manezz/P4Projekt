@@ -26,8 +26,8 @@ export class PostService {
   }
 
   // henter en bestemt post
-  GetPostByUserId(userid: number): Observable<Post>{
-    return this.http.get<Post>(`${this.apiUrl}/${userid}`)
+  GetPostByUserId(userid: number): Observable<Post[]>{
+    return this.http.get<Post[]>(`${this.apiUrl}/user/${userid}`)
   }
 
   // Opretter et post

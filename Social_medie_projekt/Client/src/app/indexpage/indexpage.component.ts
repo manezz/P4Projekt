@@ -58,8 +58,7 @@ export class IndexpageComponent {
   }
 
   ngOnInit(): void {
-    this.postService.getAll().subscribe((x) => (this.posts = x));
-    console.log(this.post.user?.userName)
+    this.postService.getAll().subscribe((x) => this.posts = x);
   }
 
 }
