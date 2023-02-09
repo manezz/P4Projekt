@@ -21,7 +21,7 @@ import { UserService } from '../_services/user.service';
         <p> likes </p>
     </mat-sidenav>
 
-  <div id="post" *ngFor="let post of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', post.postId]">
+  <div id="post" *ngFor="let post of posts"  [routerLink]="['/post-details', post.postId]">
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
       {{this.currentUser.loginResponse.user.userName}}
@@ -40,24 +40,16 @@ import { UserService } from '../_services/user.service';
 export class ProfilepageComponent implements OnInit{
 
   currentUser: any = {};
-
-  user: User = {
-    userId: 0,
-    userName: '',
-    created: new Date,
-    posts: [],
-    login: { loginId: 0, email: '', password: '' }
-  } 
-
+  posts: Post[] = [];
   
-  constructor(private userService:UserService, private route: ActivatedRoute, private authService: AuthService){ }
-
+  constructor(
+    private postService:PostService,
+    private authService: AuthService
+  ){ }
 
   ngOnInit(): void {
-   this.authService.currentUser.subscribe(x => { this.currentUser = x })
-
-   console.log(this.currentUser.loginResponse)
-
-  }  
+    this.authService.currentUser.subscribe(x => this.currentUser = x )
+    this.postService.GetPostByUserId(this.currentUser.loginResponse.user.userId).subscribe(x=> this.posts = x)
+  }
 
 }
