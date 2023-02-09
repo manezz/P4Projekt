@@ -42,7 +42,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7118)
+                            LikedTime = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5330)
                         });
                 });
 
@@ -104,6 +104,9 @@ namespace WebApi.Migrations
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("text");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
@@ -121,11 +124,22 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7106),
+                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5313),
                             Desc = "tadnawdnada",
                             Likes = 1,
+                            Tags = "",
                             Title = "testestestest",
                             UserId = 1
+                        },
+                        new
+                        {
+                            PostId = 2,
+                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5316),
+                            Desc = "Woooooo!",
+                            Likes = 0,
+                            Tags = "",
+                            Title = "Test!",
+                            UserId = 2
                         });
                 });
 
@@ -137,23 +151,15 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
                     b.Property<int>("LoginId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("UserId");
 
@@ -166,20 +172,16 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Address = "testvej 1",
-                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7088),
-                            FirstName = "test",
-                            LastName = "1",
-                            LoginId = 1
+                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5296),
+                            LoginId = 1,
+                            UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Address = "testvej 2",
-                            Created = new DateTime(2023, 2, 7, 13, 36, 35, 817, DateTimeKind.Local).AddTicks(7092),
-                            FirstName = "test",
-                            LastName = "2",
-                            LoginId = 2
+                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5300),
+                            LoginId = 2,
+                            UserName = "222test222"
                         });
                 });
 
