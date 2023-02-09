@@ -37,7 +37,6 @@
                     PostId = x.PostId,
                     Title = x.Title,
                     Desc = x.Desc,
-                    Tags = x.Tags,
                     Likes = x.Likes,
                     Date = x.Date
                 }).ToList()
