@@ -13,7 +13,7 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllPostsAsync()
         {
             try
             {
@@ -165,6 +165,61 @@
             {
                 return Problem(ex.Message);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllTagsAsync()
+        {
+            try
+            {
+                List<TagResponse> tags = await _postService.GetAllTagsAsync();
+
+                if (tags.Count() == 0)
+                {
+                    return NoContent();
+
+                }
+                return Ok(tags);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+        [HttpGet]
+        [Route("{tagId}")]
+        public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
+        {
+            try
+            {
+                var tagResponse = await _postService.GetTagById(tagId);
+
+                if (tagResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(tagResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
+        {
+            try
+            {
+                TagResponse tagResponse = await _postService.CreateTagAsync(newTag);
+
+                return Ok(tagResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+
         }
     }
     

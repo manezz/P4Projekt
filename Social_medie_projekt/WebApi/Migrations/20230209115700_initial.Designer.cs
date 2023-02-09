@@ -12,8 +12,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230209085418_socialtmedie")]
-    partial class socialtmedie
+    [Migration("20230209115700_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,7 +60,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 9, 9, 54, 18, 820, DateTimeKind.Local).AddTicks(5207)
+                            LikedTime = new DateTime(2023, 2, 9, 12, 56, 59, 909, DateTimeKind.Local).AddTicks(4361)
                         });
                 });
 
@@ -139,7 +139,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 9, 9, 54, 18, 820, DateTimeKind.Local).AddTicks(5192),
+                            Date = new DateTime(2023, 2, 9, 12, 56, 59, 909, DateTimeKind.Local).AddTicks(4343),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -148,27 +148,12 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 9, 9, 54, 18, 820, DateTimeKind.Local).AddTicks(5195),
+                            Date = new DateTime(2023, 2, 9, 12, 56, 59, 909, DateTimeKind.Local).AddTicks(4347),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
                             UserId = 2
                         });
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostsTags");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
@@ -184,6 +169,9 @@ namespace WebApi.Migrations
                         .HasColumnType("nvarchar(32)");
 
                     b.HasKey("TagId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Tags");
 
@@ -234,14 +222,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 9, 9, 54, 18, 820, DateTimeKind.Local).AddTicks(5173),
+                            Created = new DateTime(2023, 2, 9, 12, 56, 59, 909, DateTimeKind.Local).AddTicks(4324),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 9, 9, 54, 18, 820, DateTimeKind.Local).AddTicks(5176),
+                            Created = new DateTime(2023, 2, 9, 12, 56, 59, 909, DateTimeKind.Local).AddTicks(4327),
                             LoginId = 2,
                             UserName = "222test222"
                         });
@@ -262,15 +250,6 @@ namespace WebApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.User", null)
-                        .WithMany("Líked")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
@@ -280,25 +259,6 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.Posts", "Posts")
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApi.Database.Entities.Tag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Posts");
-
-                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
@@ -319,8 +279,6 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
-                    b.Navigation("Líked");
-
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

@@ -3,9 +3,6 @@
     public class PostRequest
     {
         [Required]
-        public int PostId { get; set; }
-
-        [Required]
         public int UserId { get; set; }
 
         [Required]

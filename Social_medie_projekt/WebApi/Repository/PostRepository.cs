@@ -6,11 +6,14 @@
         Task<Posts> DeletePostAsync(int id);
         Task<Posts> UpdatePostAsync(int id, Posts updatePost);
         Task<Posts> UpdatePostLikesAsync(int id, int like);
-        Task<List<Posts>> GetAllAsync();
+        Task<List<Posts>> GetAllPostsAsync();
         Task<Posts?> GetPostByPostIdAsync(int PostId);
         Task<List<Posts?>> GetPostByUserIdAsync(int UserId);
         Task<Liked> CreateLikeAsync(Liked newLike);
         Task<Liked> DeleteLikeAsync(Liked like);
+        Task<List<Tag>> GetAllTagsAsync();
+        Task<Tag?> GetTagByIdAsync(int id);
+        Task<Tag> CreateTagAsync(Tag newTags);
     }
 
     public class PostRepository : IPostRepository
@@ -73,7 +76,7 @@
             return post;
         }
 
-        public async Task<List<Posts>> GetAllAsync()
+        public async Task<List<Posts>> GetAllPostsAsync()
         {
            return await _context.Posts.Include(c => c.User)
                 .OrderByDescending(d => d.Date)
@@ -104,6 +107,24 @@
 
             await _context.SaveChangesAsync();
             return like;
+        }
+
+        public async Task<Tag> CreateTagAsync(Tag newTags)
+        {
+            _context.Tags.Add(newTags);
+            await _context.SaveChangesAsync();
+            newTags = await GetTagByIdAsync(newTags.TagId);
+            return newTags;
+        }
+
+        public async Task<List<Tag>> GetAllTagsAsync()
+        {
+            return await _context.Tags.Include(p => p.Posts).ToListAsync();
+        }
+
+        public async Task<Tag?> GetTagByIdAsync(int id)
+        {
+            return await _context.Tags.Include(p => p.Posts).FirstOrDefaultAsync(x => x.TagId == id);
         }
     }
 }

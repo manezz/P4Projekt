@@ -9,10 +9,14 @@
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<PostsTag> PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Tag>(e =>
+            {
+                e.HasIndex(t => t.Name).IsUnique();
+            });
+
             modelBuilder.Entity<Login>().HasData(
                 new Login
                 {
@@ -71,8 +75,6 @@
                     
                 });
 
-
-
             modelBuilder.Entity<Liked>().HasData(
                 new Liked
                 {
@@ -80,6 +82,7 @@
                     PostId = 1,
                     LikedTime = DateTime.Now
                 });
+
             modelBuilder.Entity<Tag>().HasData(
                 new Tag
                 {
