@@ -48,6 +48,7 @@
             {
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
+                post.Tags = updatePost.Tags;
 
                 _context.Update(post);
                 await _context.SaveChangesAsync();

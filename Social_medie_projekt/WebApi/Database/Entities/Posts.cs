@@ -15,6 +15,9 @@
         [Column(TypeName = "text")]
         public string Desc { get; set; } = string.Empty ;
 
+        [Column(TypeName = "text")]
+        public string? Tags { get; set; } = string.Empty;
+
         [Column(TypeName = "int")]
         public int? Likes { get; set; } = 0;
 
@@ -22,7 +25,6 @@
         public DateTime Date { get; set; } = DateTime.Now;
 
         public User User { get; set; }
-
 
 
     }
