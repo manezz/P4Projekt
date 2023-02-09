@@ -23,6 +23,6 @@
     }
     public class PostTagRequest
     {
-        public string ?Tag { get; set; }
+        public string ?Name { get; set; }
     }
 }

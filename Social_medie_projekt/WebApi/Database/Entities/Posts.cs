@@ -17,7 +17,7 @@
         [Column(TypeName = "int")]
         public int? Likes { get; set; } = 0;
 
-        [Column(TypeName ="datetime")]
+        [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
         public User User { get; set; }

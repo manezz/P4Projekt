@@ -41,7 +41,7 @@
                 Tags = post.Tags.Select(x => new PostTagResponse
                 {
                     TagId = x.TagId,
-                    tag = x.tag
+                    Name = x.Name
                 }).ToList()
             };
         }
@@ -55,7 +55,7 @@
                 Desc = postRequest.Desc,
                 Tags = postRequest.Tags.Select(x => new Tag 
                 {
-                    tag = x.Tag,
+                    Name = x.Name,
                 }).ToList()
             };
         }

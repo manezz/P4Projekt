@@ -9,7 +9,7 @@
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
         public DbSet<Tag> Tags { get; set; }
-
+        public DbSet<PostsTag> PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -84,17 +84,17 @@
             modelBuilder.Entity<Tag>().HasData(
                 new Tag
                 {
-                    tag = "sax",
+                    Name = "sax",
                     TagId = 1,
                 },
                 new Tag
                 {
-                    tag = "fax",
+                    Name = "fax",
                     TagId = 2,
                 },
                 new Tag
                 {
-                    tag = "howdy",
+                    Name = "howdy",
                     TagId = 3,
                 });
         }

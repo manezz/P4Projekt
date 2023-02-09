@@ -1,6 +1,4 @@
-﻿
-
-namespace WebApi.Database.Entities
+﻿namespace WebApi.Database.Entities
 {
     public class Login
     {

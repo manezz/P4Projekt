@@ -20,7 +20,7 @@
             return new TagResponse
             {
                 TagId = tag.TagId,
-                tag = tag.tag,
+                Name = tag.Name,
                 post = tag.Posts.Select(x => new TagPostResponse
                 {
                     PostId = x.PostId,
@@ -46,7 +46,7 @@
             return new Tag
             {
                 TagId = tagRequest.TagId,
-                tag = tagRequest.tag
+                Name = tagRequest.Name
             };
         }
 

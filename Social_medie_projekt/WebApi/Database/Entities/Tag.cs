@@ -6,7 +6,7 @@
         public int TagId { get; set; }
 
         [Column(TypeName = "nvarchar(32)")]
-        public string tag { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         public List<Posts> Posts { get; set; }
     }

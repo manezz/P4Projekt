@@ -6,6 +6,6 @@
         public int TagId { get; set; }
 
         [Required]
-        public string Tag { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
     }
 }
