@@ -14,7 +14,7 @@ import { UserService } from '../_services/user.service';
   template: `
     <mat-sidenav mode="side" opened >
         <img class="profilepic"src="./assets/images/placeholder.png" width="100" height="100">
-        <p>{{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}</p>
+        <p>{{this.currentUser.loginResponse.user.userName}}</p>
         ___________
         <!-- Skal være links der ændre hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
         <p> posts </p>
@@ -24,7 +24,7 @@ import { UserService } from '../_services/user.service';
   <div id="post" *ngFor="let posts of this.currentUser.loginResponse.user.posts"  [routerLink]="['/post-details', posts.postId]">
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      {{this.currentUser.loginResponse.user.firstName}} {{this.currentUser.loginResponse.user.lastName}}
+      {{this.currentUser.loginResponse.user.userName}}
     </h5>
     <h1 id="title">{{posts.title}}</h1>
     <h3 id="description">{{posts.desc}}</h3>
@@ -43,9 +43,7 @@ export class ProfilepageComponent implements OnInit{
 
   user: User = {
     userId: 0,
-    firstName: '',
-    lastName: '',
-    address: '',
+    userName: '',
     created: new Date,
     posts: [],
     login: { loginId: 0, email: '', password: '' }
