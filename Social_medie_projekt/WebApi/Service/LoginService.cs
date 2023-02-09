@@ -43,9 +43,7 @@
                     User = new LoginUserResponse
                     {
                         UserId = login.User.UserId,
-                        FirstName = login.User.FirstName,
-                        LastName = login.User.LastName,
-                        Address = login.User.Address,
+                        UserName = login.User.UserName,
                         Created = login.User.Created
                     }
                 };
@@ -72,9 +70,7 @@
                 Password = userSignupRequest.Password,
                 User = new()
                 {
-                    FirstName = userSignupRequest.User.FirstName,
-                    LastName = userSignupRequest.User.LastName,
-                    Address = userSignupRequest.User.Address
+                    UserName = userSignupRequest.User.UserName,
                 }
             };
         }
@@ -100,16 +96,14 @@
                         User = new()
                         {
                             UserId = user.User.UserId,
-                            FirstName = user.User.FirstName,
-                            LastName = user.User.LastName,
-                            Address = user.User.Address,
+                            UserName = user.User.UserName,
                             Created = user.User.Created,
                             Posts = user.User.Posts.Select(x => new UserPostLoginResponse
                             {
                                 PostId = x.PostId,
-                                UserId = x.UserId,
                                 Title = x.Title,
                                 Desc = x.Desc,
+                                Tags = x.Tags,
                                 Likes = x.Likes,
                                 Date = x.Date
                             }).ToList()

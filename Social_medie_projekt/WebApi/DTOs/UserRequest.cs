@@ -4,15 +4,7 @@
     {
         [Required]
         [StringLength(32, ErrorMessage = "Cannot be longer than 32 chars.")]
-        public string FirstName { get; set; } = string.Empty;
-
-        [Required]
-        [StringLength(32, ErrorMessage = "Cannot be longer than 32 chars.")]
-        public string LastName { get; set; } = string.Empty;
-
-        [Required]
-        [StringLength(32, ErrorMessage = "Cannot be longer than 32 chars.")]
-        public string Address { get; set; } = string.Empty;
+        public string UserName { get; set; } = string.Empty;
 
         [Required]
         public DateTime Created { get; set; } = DateTime.Now;

@@ -20,15 +20,19 @@ export class PostService {
     return this.http.get<Post[]>(`${this.apiUrl}`)
   }
 
-  // henter posts fra en bestemt bruger gennem deres id
-  GetPostById(id: number): Observable<Post>{
-    return this.http.get<Post>(`${this.apiUrl}/${id}`)
-    
+  // henter en bestemt post
+  GetPostByPostId(postId: number): Observable<Post>{
+    return this.http.get<Post>(`${this.apiUrl}/${postId}`)
+  }
+
+  // henter en bestemt post
+  GetPostByUserId(userid: number): Observable<Post>{
+    return this.http.get<Post>(`${this.apiUrl}/${userid}`)
   }
 
   // Opretter et post
-  createPost(user: User){
-    return this.http.post<Post>(this.apiUrl, user)
+  createPost(post: Post){
+    return this.http.post<Post>(this.apiUrl, post)
   }
 
   //delete post

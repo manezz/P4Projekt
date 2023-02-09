@@ -6,7 +6,7 @@ import { Role } from '../_models/role';
 import { User } from '../_models/user';
 import { Login } from '../_models/login';
 import { EmailValidator } from '@angular/forms';
-import { SignInResponse } from '../_models/signInResponse';
+import { SignInResponse } from '../Req-Res/signInResponse';
 
 @Injectable({
   providedIn: 'root'

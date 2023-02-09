@@ -24,9 +24,7 @@
             return new UserResponse
             {
                 UserId = user.UserId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                Address = user.Address,
+                UserName = user.UserName,
                 Created = user.Created,
                 Login = new UserLoginResponse
                 {
@@ -37,9 +35,9 @@
                 Posts = user.Posts.Select(x => new UserPostResponse
                 {
                     PostId = x.PostId,
-                    UserId = x.UserId,
                     Title = x.Title,
                     Desc = x.Desc,
+                    Tags = x.Tags,
                     Likes = x.Likes,
                     Date = x.Date
                 }).ToList()
@@ -51,9 +49,7 @@
         {
             return new User
             {
-                FirstName = userRequest.FirstName,
-                LastName = userRequest.LastName,
-                Address = userRequest.Address,
+                UserName = userRequest.UserName,
                 Created = userRequest.Created,
                 Login = new()
                 {

@@ -57,7 +57,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 9, 8, 59, 10, 244, DateTimeKind.Local).AddTicks(4173)
+                            LikedTime = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5330)
                         });
                 });
 
@@ -119,6 +119,9 @@ namespace WebApi.Migrations
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
+                    b.Property<string>("Tags")
+                        .HasColumnType("text");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
@@ -136,69 +139,22 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 9, 8, 59, 10, 244, DateTimeKind.Local).AddTicks(4158),
+                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5313),
                             Desc = "tadnawdnada",
                             Likes = 1,
+                            Tags = "",
                             Title = "testestestest",
                             UserId = 1
                         },
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 9, 8, 59, 10, 244, DateTimeKind.Local).AddTicks(4161),
-                            Desc = "Ladadi ladaduuuuuuuuuu",
-                            Likes = 1,
-                            Title = "awoo",
-                            UserId = 1
-                        });
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
-                {
-                    b.Property<int>("PostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostsTags");
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("Tags");
-
-                    b.HasData(
-                        new
-                        {
-                            TagId = 1,
-                            Name = "sax"
-                        },
-                        new
-                        {
-                            TagId = 2,
-                            Name = "fax"
-                        },
-                        new
-                        {
-                            TagId = 3,
-                            Name = "howdy"
+                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5316),
+                            Desc = "Woooooo!",
+                            Likes = 0,
+                            Tags = "",
+                            Title = "Test!",
+                            UserId = 2
                         });
                 });
 
@@ -210,23 +166,15 @@ namespace WebApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(32)");
-
                     b.Property<int>("LoginId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
 
                     b.HasKey("UserId");
 
@@ -239,20 +187,16 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Address = "testvej 1",
-                            Created = new DateTime(2023, 2, 9, 8, 59, 10, 244, DateTimeKind.Local).AddTicks(4139),
-                            FirstName = "test",
-                            LastName = "1",
-                            LoginId = 1
+                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5296),
+                            LoginId = 1,
+                            UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Address = "testvej 2",
-                            Created = new DateTime(2023, 2, 9, 8, 59, 10, 244, DateTimeKind.Local).AddTicks(4144),
-                            FirstName = "test",
-                            LastName = "2",
-                            LoginId = 2
+                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5300),
+                            LoginId = 2,
+                            UserName = "222test222"
                         });
                 });
 
