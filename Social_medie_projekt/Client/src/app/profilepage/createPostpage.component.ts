@@ -165,12 +165,13 @@ export class CreatePostPageComponent implements OnInit{
       userId: this.currentUserId, 
       postId: 0, 
       title: this.postForm.value.Title, 
-      desc: this.postForm.value.Content 
+      desc: this.postForm.value.Content,
+      tags: this.postForm.value.Tags,
     }
 
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
-        // this.posts.push(x);
+        this.posts.push(x);
       },
       error: (err) => {
         console.warn(Object.values(err.error.errors).join(', '));
@@ -190,10 +191,10 @@ export class CreatePostPageComponent implements OnInit{
   resetPost():Post {
     // return{ userId: this.currentUserId, postId: 0, title: '', desc: '' }
     return{ 
-      postId: 0, 
-      userId: this.currentUserId, 
+      postId: 0,
       title: '', 
       desc: '', 
+      tags: '', 
       date: new Date, 
       likes: 0, 
       user: { 

@@ -57,8 +57,8 @@ export class PostDetailsComponent {
 
   this.route.params.subscribe((params) => {
     this.postService
-    .GetPostById(params['postId'])
-    .subscribe((x) => (this.post = x));
+    .GetPostByPostId(params['postId'])
+    .subscribe((x: any) => (this.post = x));
   })
 
   console.log()
