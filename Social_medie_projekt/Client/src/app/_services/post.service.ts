@@ -10,7 +10,7 @@ import { User } from '../_models/user';
 })
 export class PostService {
 
-  private readonly apiUrl = environment.apiUrl + 'Post' ;
+  private readonly apiUrl = environment.apiUrl + 'Post'
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +25,7 @@ export class PostService {
     return this.http.get<Post>(`${this.apiUrl}/${postId}`)
   }
 
-  // henter en bestemt post
+  // henter alle posts fra en user
   GetPostByUserId(userid: number): Observable<Post[]>{
     return this.http.get<Post[]>(`${this.apiUrl}/user/${userid}`)
   }

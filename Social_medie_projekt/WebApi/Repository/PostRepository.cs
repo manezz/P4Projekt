@@ -47,6 +47,7 @@
 
             if(post != null)
             {
+                post.User.UserId = updatePost.User.UserId;    
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
                 post.Tags = updatePost.Tags;

@@ -11,7 +11,7 @@
         public string Title { get; set; } = string.Empty;
 
         [Required]
-        [MaxLength(300, ErrorMessage = "You have reached the limit of 300 Characters")]
+        [MaxLength(1000, ErrorMessage = "You have reached the limit of 1000 Characters")]
         public string Desc { get; set; } = string.Empty;
 
         public string Tags { get; set; } = string.Empty;

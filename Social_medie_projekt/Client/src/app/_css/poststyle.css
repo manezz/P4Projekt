@@ -18,7 +18,7 @@ h1{
 
 #post:hover{
     cursor: pointer;
-    box-shadow: 10px 5px 5px rgb(73, 71, 71);
+    box-shadow: 0px 0px 10px 10px rgb(80, 80, 100);
 }
 
 #date{
@@ -74,6 +74,12 @@ mat-sidenav{
 
 #description{
     margin-left: 10px;
+}
+#tags{
+    color:rgb(155, 155, 155);
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 12px;
 }
 
 #nomore
