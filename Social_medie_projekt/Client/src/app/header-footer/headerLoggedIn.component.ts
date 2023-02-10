@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../_services/auth.service';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
@@ -47,9 +46,14 @@ import { User } from '../_models/user';
 })
 export class HeaderLoggedInComponent {
   
-  constructor(private auth: AuthService,  private router: Router, private route: ActivatedRoute, private AppComponent: AppComponent) { 
-    this.auth.currentUser.subscribe(x => this.currentUser = x )
-  }
+  constructor(
+    private auth: AuthService,  
+    private router: Router, 
+    private route: ActivatedRoute,
+    private AppComponent: AppComponent,)
+  { this.auth.currentUser.subscribe(x => this.currentUser = x ) }
+  
+  
   currentUser: any
   user: User[] = []  
 
