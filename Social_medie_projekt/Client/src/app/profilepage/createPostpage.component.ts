@@ -21,12 +21,15 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
       <form [formGroup]="postForm" id="form">
         
         <div class="formControl">
-          <textarea type="text" id="title" formControlName="Title" maxlength="100" (keyup)="maxLenght($event)" placeholder="Title"></textarea>
+          <textarea type="text" id="title" formControlName="Title" maxlength="100" (keyup)="titleMaxLenght($event)" placeholder="Title"></textarea>
           <span id="titleCharLenght">{{titleCharLenght}}</span>
         </div>
 
         <div class="formControl">
-          <textarea id="content" formControlName="Content" placeholder="Write about anything ..."></textarea>
+          <textarea id="content" formControlName="Content" maxlength="1000" (keyup)="contentMaxLenght($event)" placeholder="Write about anything ..." 
+            cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMaxRows="20">
+          </textarea>
+          <span id="contentCharLenght">{{contentCharLenght}}</span>
         </div>
 
         <div class="formControl">
@@ -34,7 +37,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
         </div>
         
         <div class="buttonDiv">
-          <button id="createBtn" (ngSubmit)="create()">Create!</button>
+          <button id="createBtn" (click)="create()">Create!</button>
         </div>  
 
         <div class="buttonDiv">
@@ -68,6 +71,10 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   }
   #form{
     padding: 20px 20px 0px 20px;
+    background-color: transparent;
+    border-top: 3px solid lightgray;
+    border-bottom: 3px solid lightgray;
+
   }
   input, textarea{
     width: 400px;
@@ -86,24 +93,38 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
 
 
   #title{
-    max-height: 50px;
     width: 100%;
     max-width: 85%;
+    overflow: hidden;
+    max-height: 200px;
+    display: none;
   }
   #titleCharLenght{
     position: absolute;
     background-color: transparent;
     margin-top: 25px;
-    right: 5px;
+    right: 25px;
+    display: none;
   }
   #content{
-    /* height: 80px; */
     width: 100%;
     max-width: 85%;
+    overflow: hidden;
+    max-height: 200px;
+    display: none;
+  }
+  #contentCharLenght{
+    position: absolute;
+    background-color: transparent;
+    margin-top: 25px;
+    right: 25px;
+    color: red;
+    display: none;
   }
   #tags{
     width: 100%;
     max-width: 85%;
+    display: none;
   }
 
 
@@ -117,13 +138,13 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   #createBtn{
     width: 150px;
     height: 35px;
-    border: none;
-    border-radius: 15px;
     font-size: 25px;
+    display: none;
   }
-  #expandBtn, #collapseBtn, #cancelBtn{
+  #createBtn, #expandBtn, #collapseBtn, #cancelBtn{
     border: none;
     border-radius: 15px;
+    background-color: darkgray;
   }
   #collapseBtn{
     width: 25px;
@@ -131,6 +152,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     position: absolute;
     bottom: 20px;
     right: 5px;
+    display: none;
   }
   #cancelBtn{
     width: 25px;
@@ -139,11 +161,11 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     bottom: 20px;
     right: 35px;
     font-size: 15px;
+    display: none;
   }
   #expandBtn{
-    background-color: darkgray;
-    width: 60px;
-    height: 30px;
+    width: 150px;
+    height: 35px;
     position: absolute;
     bottom: 15px;
     font-size: 25px;
@@ -153,28 +175,28 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     cursor: pointer;
   }
   button:active{
-    background-color: rgb(66, 66, 66);;
+    background-color: rgb(66, 66, 66);
   }
   `]
 })
 export class CreatePostPageComponent implements OnInit{
-    
+
   constructor(
     private auth: AuthService,
     private postService: PostService,
     private router: Router, 
     private route: ActivatedRoute, 
-    private AppComponent: AppComponent,
+    private AppComponent: AppComponent
   ){ }
   
   error: string
-  currentUser: any = {};
-  post: Post = this.resetPost();
-  posts: Post[] = []
-  postForm: FormGroup = this.resetForm();
-  titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
+  currentUser: any = {}
   currentUserId: number
-  isClicked: boolean
+  post: Post = this.resetPost()
+  posts: Post[] = []
+  postForm: FormGroup = this.resetForm()
+  titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
+  contentCharLenght: number //til at vise hvor mange tegn der kan være i post-content
 
   ngOnInit(): void {
     this.resetForm()
@@ -187,7 +209,6 @@ export class CreatePostPageComponent implements OnInit{
 
   create(){
     this.error = ''
-
     this.post = { 
       userId: this.currentUserId, 
       postId: 0, 
@@ -201,20 +222,22 @@ export class CreatePostPageComponent implements OnInit{
         this.posts.push(x);
       },
       error: (err) => {
-        console.warn(Object.values(err.error.errors).join(', '));
-        this.error = Object.values(err.error.errors).join(', ');
+        console.warn(Object.values(err.error.errors).join(', '))
+        this.error = Object.values(err.error.errors).join(', ')
         console.log(this.error)
       }
     });
-    console.log(this.post)
   }
 
   cancel(){
     this.postForm = this.resetForm()
     this.post = this.resetPost()
     this.titleCharLenght = 100
+    this.contentCharLenght = 1000
     // this.collapseDiv()
   }
+
+
 
   resetPost():Post {
     // return{ userId: this.currentUserId, postId: 0, title: '', desc: '' }
@@ -241,7 +264,9 @@ export class CreatePostPageComponent implements OnInit{
     })
   }
 
-  maxLenght(event: any) {
+
+
+  titleMaxLenght(event: any) {
     this.titleCharLenght = 100 - event.target.textLength;
     if(this.titleCharLenght <= 20)
       document.getElementById("titleCharLenght")!.style.color = "red"
@@ -249,18 +274,27 @@ export class CreatePostPageComponent implements OnInit{
       document.getElementById("titleCharLenght")!.style.color = "black"
   }
 
+  contentMaxLenght(event: any) {
+    this.contentCharLenght = 1000 - event.target.textLength;
+    if(this.contentCharLenght <= 100)
+    document.getElementById("contentCharLenght")!.style.display = 'inline'
+    else
+    document.getElementById("contentCharLenght")!.style.display = 'none'
+  }
+
 
   expandDiv(){
     document.getElementById("form")!.style.backgroundColor = "lightgray"
 
-    document.getElementById("title")!.style.display = ''
-    document.getElementById("titleCharLenght")!.style.display = ''
-    document.getElementById("content")!.style.display = ''
-    document.getElementById("tags")!.style.display = ''
+    document.getElementById("title")!.style.display = 'inline'
+      document.getElementById("titleCharLenght")!.style.display = 'inline'
+    document.getElementById("content")!.style.display = 'inline'
+      document.getElementById("contentCharLenght")!.style.display = 'inline'
+    document.getElementById("tags")!.style.display = 'inline'
 
-    document.getElementById("createBtn")!.style.display = ''
-    document.getElementById("collapseBtn")!.style.display = ''
-    document.getElementById("cancelBtn")!.style.display = ''
+    document.getElementById("createBtn")!.style.display = 'inline'
+    document.getElementById("collapseBtn")!.style.display = 'inline'
+    document.getElementById("cancelBtn")!.style.display = 'inline'
     document.getElementById("expandBtn")!.style.display = 'none'
   }
 
@@ -270,14 +304,15 @@ export class CreatePostPageComponent implements OnInit{
     document.getElementById("form")!.style.borderBottom = "3px solid lightgray"
 
     document.getElementById("title")!.style.display = "none"
-    document.getElementById("titleCharLenght")!.style.display = "none"
+      document.getElementById("titleCharLenght")!.style.display = "none"
     document.getElementById("content")!.style.display = "none"
+      document.getElementById("contentCharLenght")!.style.display = "none"
     document.getElementById("tags")!.style.display = "none"
     
     document.getElementById("createBtn")!.style.display = "none"
     document.getElementById("collapseBtn")!.style.display = 'none'
     document.getElementById("cancelBtn")!.style.display = 'none'
-    document.getElementById("expandBtn")!.style.display = ''
+    document.getElementById("expandBtn")!.style.display = 'inline'
   }
   
 }
