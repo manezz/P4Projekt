@@ -16,16 +16,16 @@
 
         public PostUserResponse? User { get; set; } = new();
 
-        public List<PostTagResponse> Tags { get; set; } = new();
+        //public List<PostTagResponse> Tags { get; set; } = new();
     }
     public class PostUserResponse
     {
         public string UserName { get; set; } = string.Empty;
     }
-    public class PostTagResponse
-    {
-        public int TagId { get; set; }
+    //public class PostTagResponse
+    //{
+    //    public int TagId { get; set; }
 
-        public string Name { get; set; }
-    }
+    //    public string Name { get; set; }
+    //}
 }

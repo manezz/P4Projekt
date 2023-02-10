@@ -13,6 +13,7 @@
         Task<List<TagResponse>> GetAllTagsAsync();
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
+        Task<PostTagResponse> CreatePostTagAsync(TagResponse tagResponse, int postId)
     }
  
     public class PostService : IPostService
@@ -97,12 +98,36 @@
                 throw new ArgumentNullException();
             }
 
-            var tagResponses = newPost.Tags.Select(async x =>
+            //var tagResponses = newPost.Tags.Select(async x =>
+            //{
+            //    var await CreateTagAsync(x);
+            //    return await CreatePostTagAsync();
+
+            //}).ToList();
+
+            newPost.Tags.ForEach(async tagRequest =>
             {
-                await CreateTagAsync(x);
-            }).ToList();
+                var tagResponse = await CreateTagAsync(tagRequest);
+                await CreatePostTagAsync(tagResponse, post.PostId);
+
+            });
 
             return MapPostToPostResponse(post);
+        }
+
+        public async Task<PostTagResponse> CreatePostTagAsync(TagResponse tagResponse, int postId)
+        {
+            var postTag = await _postRepository.CreatePostTagAsync();
+        }
+
+        // change name
+        private PostsTag MapPostTagRequestToPostTag(TagResponse tagResponse, int postId)
+        {
+            return new PostsTag
+            {
+                PostId = tagResponse.TagId,
+                TagId = postId,
+            };
         }
 
         public async Task<PostResponse?> DeletePostAsync(int postId)
@@ -225,7 +250,7 @@
         {
             var tag = await _postRepository.CreateTagAsync(MapTagRequestToTag(newTag));
 
-            if (tag == null)
+            else if (tag == null)
             {
                 throw new ArgumentNullException();
             }

@@ -117,7 +117,7 @@
 
             if (tagId.Any())
             {
-                newTag.TagId = tagId.FirstOrDefault();
+                newTag.TagId = await tagId.FirstOrDefaultAsync();
                 return newTag;
             }
 
