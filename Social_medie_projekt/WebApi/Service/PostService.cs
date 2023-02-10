@@ -38,11 +38,11 @@
                 {
                     UserName = post.User.UserName,
                 },
-                Tags = post.Tags.Select(x => new PostTagResponse
-                {
-                    TagId = x.TagId,
-                    Name = x.Name
-                }).ToList()
+                //Tags = post.Tags.Select(x => new PostTagResponse
+                //{
+                //    TagId = x.TagId,
+                //    Name = x.Name
+                //}).ToList()
             };
         }
 
@@ -53,7 +53,7 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
-                //Tags = postRequest.Tags.Select(x => new Tag 
+                //Tags = postRequest.Tags.Select(x => new Tag
                 //{
                 //    Name = x.Name,
                 //}).ToList()
@@ -96,7 +96,11 @@
             {
                 throw new ArgumentNullException();
             }
-            //if(newPost.Tags.IndexOf())
+
+            var tagResponses = newPost.Tags.Select(async x =>
+            {
+                await CreateTagAsync(x);
+            }).ToList();
 
             return MapPostToPostResponse(post);
         }
@@ -192,19 +196,19 @@
             {
                 TagId = tag.TagId,
                 Name = tag.Name,
-                post = tag.Posts.Select(x => new TagPostResponse
-                {
-                    PostId = x.PostId,
-                    UserId = x.UserId,
-                    Title = x.Title,
-                    Desc = x.Desc,
-                    Date = x.Date,
-                    Likes = x.Likes,
-                    User = new PostUserResponse
-                    {
-                        UserName = x.User.UserName,
-                    }
-                }).ToList()
+                //post = tag.Posts.Select(x => new TagPostResponse
+                //{
+                //    PostId = x.PostId,
+                //    UserId = x.UserId,
+                //    Title = x.Title,
+                //    Desc = x.Desc,
+                //    Date = x.Date,
+                //    Likes = x.Likes,
+                //    User = new PostUserResponse
+                //    {
+                //        UserName = x.User.UserName,
+                //    }
+                //}).ToList()
             };
         }
 
@@ -220,6 +224,7 @@
         public async Task<TagResponse> CreateTagAsync(TagRequest newTag)
         {
             var tag = await _postRepository.CreateTagAsync(MapTagRequestToTag(newTag));
+
             if (tag == null)
             {
                 throw new ArgumentNullException();

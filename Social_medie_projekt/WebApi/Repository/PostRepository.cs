@@ -13,7 +13,7 @@
         Task<Liked> DeleteLikeAsync(Liked like);
         Task<List<Tag>> GetAllTagsAsync();
         Task<Tag?> GetTagByIdAsync(int id);
-        Task<Tag> CreateTagAsync(Tag newTags);
+        Task<Tag> CreateTagAsync(Tag newTag);
     }
 
     public class PostRepository : IPostRepository
@@ -52,7 +52,7 @@
             {
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
-                post.Tags = updatePost.Tags;
+                //post.Tags = updatePost.Tags;
 
                 _context.Update(post);
                 await _context.SaveChangesAsync();
@@ -109,22 +109,35 @@
             return like;
         }
 
-        public async Task<Tag> CreateTagAsync(Tag newTags)
+        public async Task<Tag> CreateTagAsync(Tag newTag)
         {
-            _context.Tags.Add(newTags);
+            var tagId = from tag in _context.Tags
+                       where tag.Name == newTag.Name
+                       select tag.TagId;
+
+            if (tagId.Any())
+            {
+                newTag.TagId = tagId.FirstOrDefault();
+                return newTag;
+            }
+
+            _context.Tags.Add(newTag);
             await _context.SaveChangesAsync();
-            newTags = await GetTagByIdAsync(newTags.TagId);
-            return newTags;
+
+            newTag = await GetTagByIdAsync(newTag.TagId);
+            return newTag;
         }
 
         public async Task<List<Tag>> GetAllTagsAsync()
         {
-            return await _context.Tags.Include(p => p.Posts).ToListAsync();
+            return await _context.Tags.ToListAsync();
+            //return await _context.Tags.Include(p => p.Posts).ToListAsync();
         }
 
         public async Task<Tag?> GetTagByIdAsync(int id)
         {
-            return await _context.Tags.Include(p => p.Posts).FirstOrDefaultAsync(x => x.TagId == id);
+            return await _context.Tags.FindAsync(id);
+            //return await _context.Tags.Include(p => p.Posts).FirstOrDefaultAsync(x => x.TagId == id);
         }
     }
 }

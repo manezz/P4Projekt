@@ -9,6 +9,7 @@
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        public DbSet<PostsTag> PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -61,7 +62,6 @@
                     Likes = 1,
                     Date = DateTime.Now,
                     UserId = 1,
-                    
                 },
 
                 new Posts
@@ -72,7 +72,6 @@
                     Likes = 0,
                     Date = DateTime.Now,
                     UserId = 2,
-                    
                 });
 
             modelBuilder.Entity<Liked>().HasData(
@@ -97,6 +96,28 @@
                 new Tag
                 {
                     Name = "howdy",
+                    TagId = 3,
+                });
+
+            modelBuilder.Entity<PostsTag>().HasData(
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 1,
+                },
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 2,
+                },
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 3,
+                },
+                new PostsTag
+                {
+                    PostId = 2,
                     TagId = 3,
                 });
         }

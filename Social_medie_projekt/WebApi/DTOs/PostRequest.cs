@@ -14,11 +14,7 @@
         public string Desc { get; set; } = string.Empty;
 
         //[Required]
-        //public List<PostTagRequest> Tags { get; set; } = new();
+        public List<TagRequest> Tags { get; set; } = new();
 
     }
-    //public class PostTagRequest
-    //{
-    //    public string ?Name { get; set; }
-    //}
 }
