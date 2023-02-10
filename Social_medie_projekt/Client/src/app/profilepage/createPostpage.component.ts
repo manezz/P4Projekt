@@ -144,7 +144,6 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   #createBtn, #expandBtn, #collapseBtn, #cancelBtn{
     border: none;
     border-radius: 15px;
-    background-color: darkgray;
   }
   #collapseBtn{
     width: 25px;
@@ -170,8 +169,11 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     bottom: 15px;
     font-size: 25px;
   }
+  button{
+    background-color: darkgray;
+  }
   button:hover{
-    background-color: rgb(80, 80, 180);
+    box-shadow: 0px 0px 10px 5px rgb(80, 80, 100);
     cursor: pointer;
   }
   button:active{
@@ -208,7 +210,6 @@ export class CreatePostPageComponent implements OnInit{
   }
 
   create(){
-    this.error = ''
     this.post = { 
       userId: this.currentUserId, 
       postId: 0, 
@@ -223,8 +224,6 @@ export class CreatePostPageComponent implements OnInit{
       },
       error: (err) => {
         console.warn(Object.values(err.error.errors).join(', '))
-        this.error = Object.values(err.error.errors).join(', ')
-        console.log(this.error)
       }
     });
   }
