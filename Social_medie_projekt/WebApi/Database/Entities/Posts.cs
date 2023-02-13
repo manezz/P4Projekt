@@ -2,12 +2,8 @@
 {
     public class Posts
     {
-
         [Key]
         public int PostId { get; set; } = 0;
-
-        [ForeignKey("User.UserId")]
-        public int UserId { get; set; } = 0;
 
         [Column(TypeName = "nvarchar(32)")]
         public string Title { get; set; } = string.Empty;
@@ -24,8 +20,9 @@
         [Column(TypeName ="datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
+        [ForeignKey("User.UserId")]
+        public int UserId { get; set; }
+
         public User User { get; set; }
-
-
     }
 }

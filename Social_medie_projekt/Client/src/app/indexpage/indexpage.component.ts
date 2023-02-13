@@ -21,7 +21,7 @@ import { Tags } from '../_models/tags';
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
     <!-- <p id="tags" *ngFor="let tag of tags">#{{tag.tag}}, </p> -->
-    <p id="tags">#{{post.tags}}, </p>
+    <p id="tags" *ngIf="post.tags">#{{post.tags}}, </p>
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     <button class="postBtn" id="like"><3</button>
   </div>

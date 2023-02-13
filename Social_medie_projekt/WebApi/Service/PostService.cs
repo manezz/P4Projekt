@@ -26,12 +26,17 @@
             return new PostResponse
             {
                 PostId = post.PostId,
-                UserId = post.UserId,
                 Title = post.Title,
                 Desc = post.Desc,
                 Tags = post.Tags,
                 Date = post.Date,
                 Likes = post.Likes,
+
+                User = new PostUserResponse
+                {
+                    UserId = post.UserId,
+                    UserName = post.User.UserName,
+                }
             };
         }
 
