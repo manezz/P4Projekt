@@ -14,6 +14,7 @@
         Task<List<Tag>> GetAllTagsAsync();
         Task<Tag?> GetTagByIdAsync(int id);
         Task<Tag> CreateTagAsync(Tag newTag);
+        Task<PostsTag> CreatePostTagAsync(PostsTag newPostsTag);
     }
 
     public class PostRepository : IPostRepository
@@ -126,6 +127,13 @@
 
             newTag = await GetTagByIdAsync(newTag.TagId);
             return newTag;
+        }
+
+        public async Task<PostsTag> CreatePostTagAsync(PostsTag postsTag)
+        {
+            _context.PostsTags.Add(postsTag);
+            await _context.SaveChangesAsync();
+            return postsTag;
         }
 
         public async Task<List<Tag>> GetAllTagsAsync()

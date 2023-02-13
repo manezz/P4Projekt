@@ -16,7 +16,7 @@
 
         public PostUserResponse? User { get; set; } = new();
 
-        //public List<PostTagResponse> Tags { get; set; } = new();
+        public List<TagResponse> Tags { get; set; } = new();
     }
     public class PostUserResponse
     {

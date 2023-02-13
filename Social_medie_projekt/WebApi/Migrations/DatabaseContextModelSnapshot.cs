@@ -42,7 +42,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 10, 12, 26, 15, 32, DateTimeKind.Local).AddTicks(506)
+                            LikedTime = new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2527)
                         });
                 });
 
@@ -121,7 +121,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 10, 12, 26, 15, 32, DateTimeKind.Local).AddTicks(488),
+                            Date = new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2511),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -130,7 +130,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 10, 12, 26, 15, 32, DateTimeKind.Local).AddTicks(491),
+                            Date = new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2515),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -147,8 +147,6 @@ namespace WebApi.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
 
                     b.ToTable("PostsTags");
 
@@ -241,14 +239,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 10, 12, 26, 15, 32, DateTimeKind.Local).AddTicks(470),
+                            Created = new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2493),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 10, 12, 26, 15, 32, DateTimeKind.Local).AddTicks(473),
+                            Created = new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2496),
                             LoginId = 2,
                             UserName = "222test222"
                         });
@@ -263,25 +261,6 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.Posts", "posts")
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebApi.Database.Entities.Tag", "tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("posts");
-
-                    b.Navigation("tag");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
