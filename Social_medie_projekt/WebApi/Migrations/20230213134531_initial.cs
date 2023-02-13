@@ -42,18 +42,6 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostsTags",
-                columns: table => new
-                {
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PostsTags", x => new { x.PostId, x.TagId });
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
                 {
@@ -110,10 +98,34 @@ namespace WebApi.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PostsTags",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostsTags", x => new { x.PostId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_PostsTags_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "PostId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostsTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "TagId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2527) });
+                values: new object[] { 1, 2, new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8295) });
 
             migrationBuilder.InsertData(
                 table: "Login",
@@ -122,17 +134,6 @@ namespace WebApi.Migrations
                 {
                     { 1, "Test1@mail.dk", "password", 0 },
                     { 2, "Test2@mail.dk", "password", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PostsTags",
-                columns: new[] { "PostId", "TagId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 1, 2 },
-                    { 1, 3 },
-                    { 2, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -150,8 +151,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2493), 1, "tester 1" },
-                    { 2, new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2496), 2, "222test222" }
+                    { 1, new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8261), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8265), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -159,14 +160,30 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2511), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 2, 13, 10, 54, 37, 252, DateTimeKind.Local).AddTicks(2515), "Woooooo!", 0, "Test!", 2 }
+                    { 1, new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8279), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8283), "Woooooo!", 0, "Test!", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PostsTags",
+                columns: new[] { "PostId", "TagId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 1, 3 },
+                    { 2, 3 }
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UserId",
                 table: "Posts",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostsTags_TagId",
+                table: "PostsTags",
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tags_Name",
@@ -188,10 +205,10 @@ namespace WebApi.Migrations
                 name: "Liked");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "PostsTags");
 
             migrationBuilder.DropTable(
-                name: "PostsTags");
+                name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Tags");
