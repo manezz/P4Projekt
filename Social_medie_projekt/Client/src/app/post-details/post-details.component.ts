@@ -9,9 +9,10 @@ import { Post } from '../_models/post';
   selector: 'app-post-details',
   template: `
   <div id="post">
+    <button class="editBtn" id="" *ngIf="post.user?.userId == this.currentUser.loginResponse.user.userId">⚙</button>
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      {{currentUser.loginResponse.user.userName}}
+      {{post.user?.userName}}
     </h5>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
@@ -38,13 +39,6 @@ export class PostDetailsComponent {
     user: {
       userId: 0, 
       userName: '',
-      created: new Date, 
-      login: {
-        loginId: 1, 
-        email: '', 
-        password: ''
-      }, 
-      posts: []
     } 
   }
 
@@ -54,8 +48,6 @@ export class PostDetailsComponent {
 
   ngOnInit(): void {
     this.authService.currentUser.subscribe(x => this.currentUser = x)
-
-    console.log(this.currentUser.loginResponse.user.userName)
     this.route.params.subscribe(params => { this.postService.GetPostByPostId(params['postId']).subscribe(x => this.post = x) })
   }
 

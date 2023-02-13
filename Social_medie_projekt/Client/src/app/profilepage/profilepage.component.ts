@@ -17,8 +17,8 @@ import { UserService } from '../_services/user.service';
     <p>{{this.currentUser.loginResponse.user.userName}}</p>
     ___________
     <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
-    <p> posts </p>
     <p> likes </p>
+    <p> chat </p>
   </mat-sidenav>
   
   <app-createPostpage></app-createPostpage>

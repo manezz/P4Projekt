@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'post-details/:postId', component: PostDetailsComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent },
   // { path: 'admin', component: AdminpageComponent, canActivate: [AuthGuard], data: {roles: [Role.Admin] } },
-];
+]
 
 
 @NgModule({
