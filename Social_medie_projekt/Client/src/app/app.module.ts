@@ -17,6 +17,7 @@ import { HeaderLoggedInComponent } from './header-footer/headerLoggedIn.componen
 import { HeaderLoggedOutComponent } from './header-footer/headerLoggedOut.component';
 import { FooterComponent } from './header-footer/footer.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
+import { EditPostComponent } from './post-details/editPost.component';
 
 //for Mat popups
 import { MatInputModule } from '@angular/material/input';
@@ -43,6 +44,7 @@ import { MatDividerModule} from '@angular/material/divider';
     HeaderLoggedOutComponent,
     FooterComponent,
     PostDetailsComponent,
+    EditPostComponent,
 
   ],
   imports: [

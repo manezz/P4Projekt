@@ -41,8 +41,8 @@ export class PostService {
   }
 
   //update post
-  updPost(){
-
+  editPost(post: Post){
+    return this.http.put<Post>(this.apiUrl, post)
   }
 
 }
