@@ -34,11 +34,33 @@ h1{
     border-radius: 10px;
 }
 
+.editBtn{
+    position: absolute ;
+    right: 20px;
+    top: 20px;
+    border: 0;
+    border-radius: 10px;
+    font-size: 18px;
+}
+.editBtn:hover{
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
+.editBtn:active{
+    background-color: rgb(39, 39, 39);
+    cursor: pointer;
+}
+
+#like:hover{
+    background-color: rgb(211, 211, 211);
+    cursor: pointer;
+}
 /* skal konstant være ændret hvis en post er liked */
 #like:focus{
     background-color: rgb(209, 43, 43);
     color: white;
 }
+
 
 mat-sidenav-container{
     height: calc(205vh - 115vh);
