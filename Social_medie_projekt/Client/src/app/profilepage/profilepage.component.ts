@@ -3,9 +3,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
-import { User } from '../_models/user';
 import { AuthService } from '../_services/auth.service';
-import { UserService } from '../_services/user.service';
 
 
 

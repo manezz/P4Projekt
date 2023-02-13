@@ -9,7 +9,7 @@ import { Post } from '../_models/post';
   selector: 'app-post-details',
   template: `
   <div id="post">
-    <button class="editBtn" id="" *ngIf="post.user?.userId == this.currentUser.loginResponse.user.userId">⚙</button>
+    <button class="editBtn" id="" *ngIf="post.user?.userId == this.currentUser.loginResponse.user.userId" [routerLink]="['/editPost', post.postId]">⚙</button>
     <h5 id="username"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
       {{post.user?.userName}}
