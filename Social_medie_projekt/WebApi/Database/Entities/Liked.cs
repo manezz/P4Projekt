@@ -12,8 +12,8 @@
         [Column(TypeName = "datetime")]
         public DateTime LikedTime { get; set; } = DateTime.Now;
 
-        //public User User { get; set; }
+        public User? User { get; set; }
 
-        //public Posts Posts { get; set; }
+        public Posts? Posts { get; set; }
     }
 }

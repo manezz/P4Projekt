@@ -14,8 +14,8 @@
         [Column(TypeName = "datetime")]
         public DateTime Created { get; set; } = DateTime.Now;
 
-        public Login Login { get; set; }
+        public Login? Login { get; set; }
 
-        public List<Posts> Posts { get; set; } = new();
+        public List<Posts>? Posts { get; set; }
     }
 }

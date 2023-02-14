@@ -20,8 +20,6 @@
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public User User { get; set; }
-
-        //public List<Tag> Tags { get; set; }
+        public User? User { get; set; }
     }
 }

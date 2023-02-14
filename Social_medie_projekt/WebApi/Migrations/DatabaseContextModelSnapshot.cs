@@ -35,6 +35,8 @@ namespace WebApi.Migrations
 
                     b.HasKey("UserId", "PostId");
 
+                    b.HasIndex("PostId");
+
                     b.ToTable("Liked");
 
                     b.HasData(
@@ -42,7 +44,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8295)
+                            LikedTime = new DateTime(2023, 2, 14, 12, 25, 36, 39, DateTimeKind.Local).AddTicks(8648)
                         });
                 });
 
@@ -121,7 +123,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8279),
+                            Date = new DateTime(2023, 2, 14, 12, 25, 36, 39, DateTimeKind.Local).AddTicks(8563),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -130,7 +132,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8283),
+                            Date = new DateTime(2023, 2, 14, 12, 25, 36, 39, DateTimeKind.Local).AddTicks(8628),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -241,17 +243,36 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8261),
+                            Created = new DateTime(2023, 2, 14, 12, 25, 36, 39, DateTimeKind.Local).AddTicks(8545),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 13, 14, 45, 31, 662, DateTimeKind.Local).AddTicks(8265),
+                            Created = new DateTime(2023, 2, 14, 12, 25, 36, 39, DateTimeKind.Local).AddTicks(8548),
                             LoginId = 2,
                             UserName = "222test222"
                         });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Posts", "Posts")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApi.Database.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
@@ -267,21 +288,21 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
                 {
-                    b.HasOne("WebApi.Database.Entities.Posts", "posts")
+                    b.HasOne("WebApi.Database.Entities.Posts", "Posts")
                         .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApi.Database.Entities.Tag", "tag")
+                    b.HasOne("WebApi.Database.Entities.Tag", "Tag")
                         .WithMany()
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("posts");
+                    b.Navigation("Posts");
 
-                    b.Navigation("tag");
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>

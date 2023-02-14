@@ -18,6 +18,11 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
+            //modelBuilder.Entity<Liked>()
+            //    .HasOne(e => e.UserId)
+            //    .WithMany()
+            //    .HasForeignKey(e => e.UserId)
+
             modelBuilder.Entity<Login>().HasData(
                 new Login
                 {
