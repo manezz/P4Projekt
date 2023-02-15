@@ -18,6 +18,11 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
+            modelBuilder.Entity<Liked>()
+                .HasOne(x => x.LikeUser)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Login>().HasData(
                 new Login
                 {
@@ -77,7 +82,7 @@
             modelBuilder.Entity<Liked>().HasData(
                 new Liked
                 {
-                    UserId = 2,
+                    LikeUserId = 2,
                     PostId = 1,
                     LikedTime = DateTime.Now
                 });

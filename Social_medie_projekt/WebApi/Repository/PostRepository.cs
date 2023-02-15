@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Repository
 {
-     public interface IPostRepository
+    public interface IPostRepository
     {
         Task<Posts> CreatePostAsync(Posts newPost);
         Task<Posts?> DeletePostAsync(int id);
@@ -37,7 +37,7 @@
         {
             var post = await GetPostByPostIdAsync(id);
 
-            if(post != null)
+            if (post != null)
             {
                 _context.Remove(post);
                 await _context.SaveChangesAsync();
@@ -49,7 +49,7 @@
         {
             var post = await GetPostByPostIdAsync(id);
 
-            if(post != null)
+            if (post != null)
             {
                 post.Title = updatePost.Title;
                 post.Desc = updatePost.Desc;
@@ -79,19 +79,19 @@
 
         public async Task<List<Posts>> GetAllPostsAsync()
         {
-           return await _context.Posts.Include(c => c.User)
-                .OrderByDescending(d => d.Date)
-                .ToListAsync();
+            return await _context.Posts.Include(c => c.PostUser)
+                 .OrderByDescending(d => d.Date)
+                 .ToListAsync();
         }
 
         public async Task<Posts?> GetPostByPostIdAsync(int postId)
         {
-            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
+            return await _context.Posts.Include(c => c.PostUser).FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
         public async Task<List<Posts>> GetPostByUserIdAsync(int userId)
         {
-            return await _context.Posts.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
+            return await _context.Posts.Include(c => c.PostUser).Where(x => userId == x.UserId).ToListAsync();
         }
 
         public async Task<Liked> CreateLikeAsync(Liked newLike)
@@ -113,8 +113,8 @@
         public async Task<Tag?> CreateTagAsync(Tag newTag)
         {
             var tagId = from tag in _context.Tags
-                       where tag.Name == newTag.Name
-                       select tag.TagId;
+                        where tag.Name == newTag.Name
+                        select tag.TagId;
 
             if (tagId.Any())
             {

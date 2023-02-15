@@ -15,7 +15,7 @@
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
     }
- 
+
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
@@ -36,7 +36,7 @@
                 Likes = post.Likes,
                 User = new PostUserResponse
                 {
-                    UserName = post.User.UserName,
+                    UserName = post.PostUser.UserName,
                 },
                 Tags = tags
             };
@@ -54,7 +54,7 @@
                 Likes = post.Likes,
                 User = new PostUserResponse
                 {
-                    UserName = post.User.UserName,
+                    UserName = post.PostUser.UserName,
                 },
                 //Tags = post.Tags.Select(x => new PostTagResponse
                 //{
@@ -87,7 +87,7 @@
         {
             return new Liked
             {
-                UserId = likedRequest.UserId,
+                LikeUserId = likedRequest.UserId,
                 PostId = likedRequest.PostId,
             };
         }
@@ -96,7 +96,7 @@
         {
             return new LikedResponse
             {
-                UserId = like.UserId,
+                UserId = like.LikeUserId,
                 PostId = like.PostId,
                 LikedTime = like.LikedTime,
             };
@@ -106,7 +106,7 @@
         {
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 
-            if(post == null)
+            if (post == null)
             {
                 throw new ArgumentNullException();
             }
@@ -127,7 +127,7 @@
         {
             var postTag = await _postRepository.CreatePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
 
-            if(postTag == null)
+            if (postTag == null)
             {
                 throw new ArgumentNullException();
             }
@@ -158,7 +158,7 @@
         {
             var post = await _postRepository.DeletePostAsync(postId);
 
-            if(post == null)
+            if (post == null)
             {
                 return null;
             }
@@ -170,7 +170,7 @@
         {
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
-            if(post != null)
+            if (post != null)
             {
                 return MapPostToPostResponse(post);
             }
@@ -181,7 +181,7 @@
         {
             List<Posts> posts = await _postRepository.GetAllPostsAsync();
 
-            if(posts == null)
+            if (posts == null)
             {
                 throw new ArgumentNullException();
             }
@@ -191,9 +191,9 @@
 
         public async Task<PostResponse?> GetPostByPostIdAsync(int postId)
         {
-           var posts = await _postRepository.GetPostByPostIdAsync(postId);
+            var posts = await _postRepository.GetPostByPostIdAsync(postId);
 
-            if(posts == null)
+            if (posts == null)
             {
                 return null;
             }

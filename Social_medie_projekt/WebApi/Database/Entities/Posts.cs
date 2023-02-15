@@ -5,7 +5,7 @@
         [Key]
         public int PostId { get; set; }
 
-        [ForeignKey("User.UserId")]
+        [ForeignKey("PostUser.UserId")]
         public int UserId { get; set; }
 
         [Column(TypeName = "nvarchar(32)")]
@@ -20,6 +20,6 @@
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
-        public User? User { get; set; }
+        public User? PostUser { get; set; }
     }
 }
