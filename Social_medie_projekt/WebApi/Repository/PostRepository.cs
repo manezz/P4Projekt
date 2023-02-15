@@ -3,17 +3,17 @@
      public interface IPostRepository
     {
         Task<Posts> CreatePostAsync(Posts newPost);
-        Task<Posts> DeletePostAsync(int id);
-        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
-        Task<Posts> UpdatePostLikesAsync(int id, int like);
+        Task<Posts?> DeletePostAsync(int id);
+        Task<Posts?> UpdatePostAsync(int id, Posts updatePost);
+        Task<Posts?> UpdatePostLikesAsync(int id, int like);
         Task<List<Posts>> GetAllPostsAsync();
         Task<Posts?> GetPostByPostIdAsync(int PostId);
-        Task<List<Posts?>> GetPostByUserIdAsync(int UserId);
+        Task<List<Posts>> GetPostByUserIdAsync(int UserId);
         Task<Liked> CreateLikeAsync(Liked newLike);
         Task<Liked> DeleteLikeAsync(Liked like);
         Task<List<Tag>> GetAllTagsAsync();
         Task<Tag?> GetTagByIdAsync(int id);
-        Task<Tag> CreateTagAsync(Tag newTag);
+        Task<Tag?> CreateTagAsync(Tag newTag);
         Task<PostsTag> CreatePostTagAsync(PostsTag newPostsTag);
     }
 
@@ -33,7 +33,7 @@
             return newPost;
         }
 
-        public async Task<Posts> DeletePostAsync(int id)
+        public async Task<Posts?> DeletePostAsync(int id)
         {
             var post = await GetPostByPostIdAsync(id);
 
@@ -45,7 +45,7 @@
             return post;
         }
 
-        public async Task<Posts> UpdatePostAsync(int id, Posts updatePost)
+        public async Task<Posts?> UpdatePostAsync(int id, Posts updatePost)
         {
             var post = await GetPostByPostIdAsync(id);
 
@@ -62,7 +62,7 @@
             return post;
         }
 
-        public async Task<Posts> UpdatePostLikesAsync(int id, int like)
+        public async Task<Posts?> UpdatePostLikesAsync(int id, int like)
         {
             var post = await GetPostByPostIdAsync(id);
 
@@ -89,7 +89,7 @@
             return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
-        public async Task<List<Posts?>> GetPostByUserIdAsync(int userId)
+        public async Task<List<Posts>> GetPostByUserIdAsync(int userId)
         {
             return await _context.Posts.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
         }
@@ -110,7 +110,7 @@
             return like;
         }
 
-        public async Task<Tag> CreateTagAsync(Tag newTag)
+        public async Task<Tag?> CreateTagAsync(Tag newTag)
         {
             var tagId = from tag in _context.Tags
                        where tag.Name == newTag.Name

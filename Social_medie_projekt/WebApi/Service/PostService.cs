@@ -24,7 +24,7 @@
             _postRepository = postRepository;
         }
 
-        private PostResponse MapPostToPostResponse(Posts post, List<TagResponse> tags)
+        private static PostResponse MapPostToPostResponse(Posts post, List<TagResponse> tags)
         {
             return new PostResponse
             {
@@ -42,7 +42,7 @@
             };
         }
 
-        private PostResponse MapPostToPostResponse(Posts post)
+        private static PostResponse MapPostToPostResponse(Posts post)
         {
             return new PostResponse
             {
@@ -64,7 +64,7 @@
             };
         }
 
-        private Posts MapPostRequestToPost(PostRequest postRequest)
+        private static Posts MapPostRequestToPost(PostRequest postRequest)
         {
             return new Posts
             {
@@ -74,7 +74,7 @@
             };
         }
 
-        private Posts MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
+        private static Posts MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
         {
             return new Posts
             {
@@ -83,7 +83,7 @@
             };
         }
 
-        private Liked MapLikeRequestToLike(LikedRequest likedRequest)
+        private static Liked MapLikeRequestToLike(LikedRequest likedRequest)
         {
             return new Liked
             {
@@ -92,7 +92,7 @@
             };
         }
 
-        private LikedResponse MapLikeToLikeResponse(Liked like)
+        private static LikedResponse MapLikeToLikeResponse(Liked like)
         {
             return new LikedResponse
             {
@@ -145,7 +145,7 @@
         }
 
         // change name
-        private PostsTag MapPostTagRequestToPostTag(int postId, int tagId)
+        private static PostsTag MapPostTagRequestToPostTag(int postId, int tagId)
         {
             return new PostsTag
             {
@@ -239,7 +239,7 @@
             return MapLikeToLikeResponse(like);
         }
 
-        public TagResponse MapTagToTagResponse(Tag tag)
+        private static TagResponse MapTagToTagResponse(Tag tag)
         {
             return new TagResponse
             {
@@ -261,7 +261,7 @@
             };
         }
 
-        public Tag MapTagRequestToTag(TagRequest tagRequest)
+        private static Tag MapTagRequestToTag(TagRequest tagRequest)
         {
             return new Tag
             {

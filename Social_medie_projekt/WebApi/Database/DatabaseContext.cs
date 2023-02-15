@@ -4,12 +4,12 @@
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-        public DbSet<Login> Login { get; set; }
-        public DbSet<User> User { get; set; }
-        public DbSet<Posts> Posts { get; set; }
-        public DbSet<Liked> Liked { get; set; }
-        public DbSet<Tag> Tags { get; set; }
-        public DbSet<PostsTag> PostsTags { get; set; }
+        public DbSet<Login>? Login { get; set; }
+        public DbSet<User>? User { get; set; }
+        public DbSet<Posts>? Posts { get; set; }
+        public DbSet<Liked>? Liked { get; set; }
+        public DbSet<Tag>? Tags { get; set; }
+        public DbSet<PostsTag>? PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -17,11 +17,6 @@
             {
                 e.HasIndex(t => t.Name).IsUnique();
             });
-
-            //modelBuilder.Entity<Liked>()
-            //    .HasOne(e => e.UserId)
-            //    .WithMany()
-            //    .HasForeignKey(e => e.UserId)
 
             modelBuilder.Entity<Login>().HasData(
                 new Login
