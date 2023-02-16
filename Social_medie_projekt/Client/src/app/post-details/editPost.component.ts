@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { AppComponent } from '../app.component';
 import { AuthService } from '../_services/auth.service';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '../_models/user';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms';
@@ -15,19 +13,19 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
       <form [formGroup]="postForm" id="form">
         
         <div class="formControl">
-          <textarea type="text" id="title" formControlName="Title" maxlength="100" (keyup)="titleMaxLenght($event)" placeholder="Title"></textarea>
+          <textarea type="text" id="title" formControlName="Title" ng-model="title" maxlength="100" (keyup)="titleMaxLenght($event)" placeholder="Title"></textarea>
           <span id="titleCharLenght">{{titleCharLenght}}</span>
         </div>
 
         <div class="formControl">
-          <textarea id="content" formControlName="Content" maxlength="1000" (keyup)="contentMaxLenght($event)" placeholder="Write about anything ..." 
+          <textarea id="content" formControlName="Content" ng-model="content" maxlength="1000" (keyup)="contentMaxLenght($event)" placeholder="Write about anything ..." 
             cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMaxRows="20">
           </textarea>
           <span id="contentCharLenght">{{contentCharLenght}}</span>
         </div>
 
         <div class="formControl">
-          <input type="text" id="tags" formControlName="Tags" placeholder="#Tags,"/>
+          <input type="text" id="tags" formControlName="Tags" ng-model="tags" placeholder="#Tags,"/>
         </div>
         
         <div class="buttonDiv">
@@ -35,6 +33,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
         </div>  
 
         <div class="buttonDiv">
+          <button id="deleteBtn" (click)="delete(this.post.postId)">Delete post</button>
         </div>  
 
       </form>
@@ -83,6 +82,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     max-width: 85%;
     overflow: hidden;
     max-height: 200px;
+    font-size: 24px;
   }
   #titleCharLenght{
     position: absolute;
@@ -106,6 +106,8 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   #tags{
     width: 100%;
     max-width: 85%;
+    font-size: 12px;
+    color: rgb(100,100,100);
   }
 
 
@@ -168,40 +170,67 @@ export class EditPostComponent {
   titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number //til at vise hvor mange tegn der kan være i post-content
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private postService: PostService){ }
-
-  ngOnInit(): void {
+  constructor(
+    private route: ActivatedRoute, 
+    private authService: AuthService, 
+    private postService: PostService,
+    private router: Router,
+  ){ 
     this.authService.currentUser.subscribe(x => this.currentUser = x)
     this.route.params.subscribe(params => { this.postService.GetPostByPostId(params['postId']).subscribe(x => this.post = x) })
   }
+  
+  ngOnInit() {
+        
+  }
+
+  insertValues(){
+    (<HTMLInputElement>document.getElementById("title")).value = this.post.title;
+    (<HTMLInputElement>document.getElementById("content")).value = this.post.desc;
+    (<HTMLInputElement>document.getElementById("tags")).value = this.post.tags;
+  }
 
   edit(){
-
     if(!this.postForm.pristine){
+      console.log(this.post)
+
       this.post = {
-        postId: 0, 
+        postId: this.post.postId,
         title: this.postForm.value.Title, 
         desc: this.postForm.value.Content,
         tags: this.postForm.value.Tags,
       }
-  
-      console.log(this.post)
 
-      // this.postService.editPost(this.post).subscribe({
-      //   next: (x) => {
-      //     this.posts.push(x);
-      //     // route to post-detail(post.postId)
-      //   },
-      //   error: (err) => {
-      //     console.warn(Object.values(err.error.errors).join(', '))
-      //   }
-      // });
+      console.log(this.post)
+      
+
+      // this.postService.editPost(this.post).subscribe()
+      // routes back to current posts post-detail
+      // this.router.navigate(["/post-details/", this.post.postId])
     }
     else{
+      this.insertValues()
       console.log("nothing changed")
+      console.log(this.post)
     }
 
     
+  }
+
+  delete(postId: number){
+    if(confirm("Are you sure you want to delete this post?")){
+      this.postService.deletePost(postId).subscribe({
+        next: (x) => {
+          this.posts.push(x);
+            // routes back to mainpage
+          this.router.navigate(["/main"])
+        },
+        error: (err) => {
+          console.warn(Object.values(err.error.errors).join(', '))
+        }
+      });
+      
+    }
   }
 
   resetPost():Post {

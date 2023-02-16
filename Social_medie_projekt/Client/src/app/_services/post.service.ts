@@ -36,13 +36,13 @@ export class PostService {
   }
 
   //delete post
-  delPost(){
-
+  deletePost(postId: number){
+    return this.http.delete<Post>(`${this.apiUrl}/${postId}`)
   }
 
   //update post
   editPost(post: Post){
-    return this.http.put<Post>(this.apiUrl, post)
+    return this.http.put<Post>(`${this.apiUrl}/${post.postId}`, post)
   }
 
 }
