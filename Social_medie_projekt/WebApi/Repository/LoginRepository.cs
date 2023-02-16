@@ -7,7 +7,7 @@
         Task<List<Login>> GetAllLoginAsync();
         Task<Login> CreateLoginAsync(Login newLogin);
         Task<Login?> FindLoginByIdAsync(int loginId);
-        Task<Login> FindLoginByEmailAsync(string email);
+        Task<Login?> FindLoginByEmailAsync(string email);
         Task<Login?> UpdateLoginById(int loginId, Login updatedLogin);
         Task<Login?> DeleteLoginByIdAsync(int loginId);
     }
@@ -54,8 +54,8 @@
                 .FirstOrDefaultAsync(x => x.LoginId == loginId);
         }
 
-        public async Task<Login> FindLoginByEmailAsync(string email)
-        {   
+        public async Task<Login?> FindLoginByEmailAsync(string email)
+        {
             return await _context.Login
                 .Include(L => L.User)
                 .Include(p => p.User.Posts)

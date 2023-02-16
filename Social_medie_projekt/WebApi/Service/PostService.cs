@@ -245,19 +245,6 @@
             {
                 TagId = tag.TagId,
                 Name = tag.Name,
-                //post = tag.Posts.Select(x => new TagPostResponse
-                //{
-                //    PostId = x.PostId,
-                //    UserId = x.UserId,
-                //    Title = x.Title,
-                //    Desc = x.Desc,
-                //    Date = x.Date,
-                //    Likes = x.Likes,
-                //    User = new PostUserResponse
-                //    {
-                //        UserName = x.User.UserName,
-                //    }
-                //}).ToList()
             };
         }
 
@@ -265,7 +252,6 @@
         {
             return new Tag
             {
-                //TagId = tagRequest.TagId,
                 Name = tagRequest.Name
             };
         }

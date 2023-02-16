@@ -12,6 +12,7 @@
             _postService = postService;
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         public async Task<IActionResult> GetAllPostsAsync()
         {
@@ -32,6 +33,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
@@ -52,6 +54,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetPostByUserIdAsync([FromRoute] int userId)
@@ -72,6 +75,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpPost]
         public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
         {
@@ -88,6 +92,7 @@
 
         }
 
+        [Authorize(Role.user)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
@@ -109,6 +114,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpDelete]
         [Route("{postId}")]
         public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
@@ -130,6 +136,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpPost]
         [Route("Like")]
         public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
@@ -146,6 +153,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpDelete]
         [Route("Like")]
         public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
@@ -167,6 +175,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("Tag")]
         public async Task<IActionResult> GetAllTagsAsync()
@@ -188,6 +197,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("Tag/{tagId}")]
         public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
@@ -208,6 +218,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpPost]
         [Route("Tag")]
         public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
@@ -224,5 +235,5 @@
             }
         }
     }
-    
+
 }
