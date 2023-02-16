@@ -5,8 +5,8 @@
         public int PostId { get; set; }
 
         
-        public string Title { get; set; }
-        public string Desc { get; set; }
+        public string? Title { get; set; }
+        public string? Desc { get; set; }
         public string? Tags { get; set; }
         public DateTime Date { get; set; }
         public int? Likes { get; set; }

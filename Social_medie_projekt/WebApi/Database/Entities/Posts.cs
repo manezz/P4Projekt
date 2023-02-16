@@ -5,10 +5,10 @@
         [Key]
         public int PostId { get; set; } = 0;
 
-        [Column(TypeName = "nvarchar(32)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string Title { get; set; } = string.Empty;
 
-        [Column(TypeName = "text")]
+        [Column(TypeName = "nvarchar(1000)")]
         public string Desc { get; set; } = string.Empty ;
 
         [Column(TypeName = "text")]

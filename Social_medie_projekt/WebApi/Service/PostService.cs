@@ -6,8 +6,10 @@
         Task<PostResponse?> GetPostByPostIdAsync(int Id);
         Task<List<PostResponse?>> GetPostByUserIdAsync(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
-        Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
-        Task<PostResponse?> DeletePostAsync(int postId);
+        Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
+        Task<PostResponse> DeletePostAsync(int postId);
+
+
         Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
         Task<LikedResponse?> DeleteLikeAsync(LikedRequest deleteLike);
     }
@@ -20,6 +22,8 @@
         {
             _postRepository = postRepository;
         }
+
+
 
         private PostResponse MapPostToPostResponse(Posts post)
         {
@@ -51,6 +55,8 @@
             };
         }
 
+
+
         private Posts MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
         {
             return new Posts
@@ -60,6 +66,8 @@
                 Tags = postUpdateRequest.Tags,
             };
         }
+
+
 
         private Liked MapLikeRequestToLike(LikedRequest likedRequest)
         {
@@ -82,48 +90,11 @@
 
 
 
-
-        public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
-        {
-            var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
-
-            if(post == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return MapPostToPostResponse(post);
-
-        }
-
-        public async Task<PostResponse?> DeletePostAsync(int postId)
-        {
-            var post = await _postRepository.DeletePostAsync(postId);
-
-            if(post == null)
-            {
-                return null;
-            }
-
-            return MapPostToPostResponse(post);
-        }
-
-        public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
-        {
-            var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
-
-            if(post != null)
-            {
-                return MapPostToPostResponse(post);
-            }
-            return null;
-        }
-
         public async Task<List<PostResponse>> GetAllPostsAsync()
         {
             List<Posts> posts = await _postRepository.GetAllAsync();
 
-            if(posts == null)
+            if (posts == null)
             {
                 throw new ArgumentNullException();
             }
@@ -133,9 +104,9 @@
 
         public async Task<PostResponse?> GetPostByPostIdAsync(int postId)
         {
-           var posts = await _postRepository.GetPostByPostIdAsync(postId);
+            var posts = await _postRepository.GetPostByPostIdAsync(postId);
 
-            if(posts == null)
+            if (posts == null)
             {
                 return null;
             }
@@ -152,6 +123,48 @@
             }
             return posts.Select(post => MapPostToPostResponse(post)).ToList();
         }
+
+
+
+        public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
+        {
+            var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
+
+            if(post == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return MapPostToPostResponse(post);
+
+        }
+
+        public async Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
+        {
+            var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
+
+            if(post != null)
+            {
+                return MapPostToPostResponse(post);
+            }
+            return null;
+        }
+
+        public async Task<PostResponse> DeletePostAsync(int postId)
+        {
+            var post = await _postRepository.DeletePostAsync(postId);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            return MapPostToPostResponse(post);
+        }
+
+        
+
+        
 
         public async Task<LikedResponse> CreateLikeAsync(LikedRequest newLike)
         {
