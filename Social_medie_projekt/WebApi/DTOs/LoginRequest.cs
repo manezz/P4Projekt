@@ -2,9 +2,9 @@
 {
     public class LoginRequest
     {
-       [Required]
-       [StringLength(64, ErrorMessage = "Email cannot be longer than 64 Chars")]
-       public string Email { get; set; } = string.Empty;
+        [Required]
+        [StringLength(64, ErrorMessage = "Email cannot be longer than 64 Chars")]
+        public string Email { get; set; } = string.Empty;
 
         [Required]
         [StringLength (64)]

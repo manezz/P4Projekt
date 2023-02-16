@@ -5,9 +5,8 @@
         Task<List<UserResponse>> GetAllUsers();
         Task<UserResponse?> FindUserAsync(int id);
         Task<UserResponse> CreateUserAsync(UserRequest newUser);
-        Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser);
-        Task<UserResponse> DeleteUserAsync(int id);
-
+        Task<UserResponse?> UpdateUserAsync(int id, UserRequest updatedUser);
+        Task<UserResponse?> DeleteUserAsync(int id);
     }
 
     public class UserService : IUserService
@@ -37,11 +36,10 @@
                     PostId = x.PostId,
                     Title = x.Title,
                     Desc = x.Desc,
-                    Tags = x.Tags,
                     Likes = x.Likes,
                     Date = x.Date
                 }).ToList()
-             
+
             };
         }
 
@@ -57,7 +55,7 @@
                     Password = userRequest.Login.Password,
                     Type = userRequest.Login.Type
                 },
-   
+
             };
         }
 
@@ -73,11 +71,11 @@
             return MapUserToUserResponse(user);
         }
 
-        public async Task<UserResponse> DeleteUserAsync(int id)
+        public async Task<UserResponse?> DeleteUserAsync(int id)
         {
-            var user = await _userRepository.DeleteUserAsync(id);   
+            var user = await _userRepository.DeleteUserAsync(id);
 
-            if(user != null)
+            if (user != null)
             {
                 return MapUserToUserResponse(user);
             }
@@ -99,19 +97,19 @@
         {
             List<User> user = await _userRepository.GetAllUsersAsync();
 
-            if(user == null)
+            if (user == null)
             {
                 throw new ArgumentNullException();
             }
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
+        public async Task<UserResponse?> UpdateUserAsync(int id, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateUserAsync(id, MapUserRequestToUser(updatedUser));
 
 
-            if(user != null)
+            if (user != null)
             {
                 return MapUserToUserResponse(user);
             }

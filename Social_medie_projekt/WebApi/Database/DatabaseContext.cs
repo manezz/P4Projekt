@@ -8,10 +8,21 @@
         public DbSet<User> User { get; set; }
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Liked> Liked { get; set; }
-
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<PostsTag> PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Tag>(e =>
+            {
+                e.HasIndex(t => t.Name).IsUnique();
+            });
+
+            modelBuilder.Entity<Liked>()
+                .HasOne(x => x.LikeUser)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Login>().HasData(
                 new Login
                 {
@@ -27,7 +38,6 @@
                     Email = "Test2@mail.dk",
                     Password = "password",
                     Type = (Role)1
-
                 });
 
             modelBuilder.Entity<User>().HasData(
@@ -47,7 +57,8 @@
                     Created = DateTime.Now
                 });
 
-            modelBuilder.Entity<Posts>().HasData(
+            modelBuilder.Entity<Posts>()
+                .HasData(
                 new Posts
                 {
                     PostId = 1,
@@ -56,7 +67,6 @@
                     Likes = 1,
                     Date = DateTime.Now,
                     UserId = 1,
-                    
                 },
 
                 new Posts
@@ -67,17 +77,53 @@
                     Likes = 0,
                     Date = DateTime.Now,
                     UserId = 2,
-                    
                 });
-
-
 
             modelBuilder.Entity<Liked>().HasData(
                 new Liked
                 {
-                    UserId = 2,
+                    LikeUserId = 2,
                     PostId = 1,
                     LikedTime = DateTime.Now
+                });
+
+            modelBuilder.Entity<Tag>().HasData(
+                new Tag
+                {
+                    Name = "sax",
+                    TagId = 1,
+                },
+                new Tag
+                {
+                    Name = "fax",
+                    TagId = 2,
+                },
+                new Tag
+                {
+                    Name = "howdy",
+                    TagId = 3,
+                });
+
+            modelBuilder.Entity<PostsTag>().HasData(
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 1,
+                },
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 2,
+                },
+                new PostsTag
+                {
+                    PostId = 1,
+                    TagId = 3,
+                },
+                new PostsTag
+                {
+                    PostId = 2,
+                    TagId = 3,
                 });
         }
     }

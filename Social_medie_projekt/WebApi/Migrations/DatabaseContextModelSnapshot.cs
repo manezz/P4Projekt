@@ -24,7 +24,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("LikeUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("PostId")
@@ -33,16 +33,21 @@ namespace WebApi.Migrations
                     b.Property<DateTime>("LikedTime")
                         .HasColumnType("datetime");
 
-                    b.HasKey("UserId", "PostId");
+                    b.HasKey("LikeUserId", "PostId");
+
+                    b.HasIndex("LikeUserId")
+                        .IsUnique();
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Liked");
 
                     b.HasData(
                         new
                         {
-                            UserId = 2,
+                            LikeUserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5330)
+                            LikedTime = new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7161)
                         });
                 });
 
@@ -104,9 +109,6 @@ namespace WebApi.Migrations
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
 
-                    b.Property<string>("Tags")
-                        .HasColumnType("text");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
@@ -124,22 +126,94 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5313),
+                            Date = new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7147),
                             Desc = "tadnawdnada",
                             Likes = 1,
-                            Tags = "",
                             Title = "testestestest",
                             UserId = 1
                         },
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5316),
+                            Date = new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7150),
                             Desc = "Woooooo!",
                             Likes = 0,
-                            Tags = "",
                             Title = "Test!",
                             UserId = 2
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PostsTags");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            TagId = 1
+                        },
+                        new
+                        {
+                            PostId = 1,
+                            TagId = 2
+                        },
+                        new
+                        {
+                            PostId = 1,
+                            TagId = 3
+                        },
+                        new
+                        {
+                            PostId = 2,
+                            TagId = 3
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
+                {
+                    b.Property<int>("TagId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("TagId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Tags");
+
+                    b.HasData(
+                        new
+                        {
+                            TagId = 1,
+                            Name = "sax"
+                        },
+                        new
+                        {
+                            TagId = 2,
+                            Name = "fax"
+                        },
+                        new
+                        {
+                            TagId = 3,
+                            Name = "howdy"
                         });
                 });
 
@@ -172,28 +246,66 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5296),
+                            Created = new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7129),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5300),
+                            Created = new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7133),
                             LoginId = 2,
                             UserName = "222test222"
                         });
                 });
 
+            modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.User", "LikeUser")
+                        .WithOne()
+                        .HasForeignKey("WebApi.Database.Entities.Liked", "LikeUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("WebApi.Database.Entities.Posts", "Posts")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LikeUser");
+
+                    b.Navigation("Posts");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Posts", b =>
                 {
-                    b.HasOne("WebApi.Database.Entities.User", "User")
+                    b.HasOne("WebApi.Database.Entities.User", "PostUser")
                         .WithMany("Posts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("PostUser");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Posts", "Posts")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebApi.Database.Entities.Tag", "Tag")
+                        .WithMany()
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Posts");
+
+                    b.Navigation("Tag");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>

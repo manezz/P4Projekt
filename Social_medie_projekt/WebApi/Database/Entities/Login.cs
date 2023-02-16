@@ -1,6 +1,4 @@
-﻿
-
-namespace WebApi.Database.Entities
+﻿namespace WebApi.Database.Entities
 {
     public class Login
     {
@@ -17,6 +15,5 @@ namespace WebApi.Database.Entities
         public Role Type { get; set; } = 0;
 
         public User? User { get; set; }
-
     }
 }

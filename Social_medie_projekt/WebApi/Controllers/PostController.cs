@@ -12,14 +12,15 @@
             _postService = postService;
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllPostsAsync()
         {
             try
             {
                 List<PostResponse> posts = await _postService.GetAllPostsAsync();
 
-                if(posts.Count() == 0)
+                if (posts.Count() == 0)
                 {
                     return NoContent();
 
@@ -32,6 +33,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
@@ -40,18 +42,19 @@
             {
                 var postResponse = await _postService.GetPostByPostIdAsync(postId);
 
-                if(postResponse == null)
+                if (postResponse == null)
                 {
                     return NotFound();
                 }
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
 
+        [Authorize(Role.user)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetPostByUserIdAsync([FromRoute] int userId)
@@ -72,6 +75,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpPost]
         public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
         {
@@ -81,13 +85,14 @@
 
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
 
         }
 
+        [Authorize(Role.user)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
@@ -109,6 +114,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpDelete]
         [Route("{postId}")]
         public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
@@ -124,12 +130,13 @@
 
                 return Ok(postResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
 
+        [Authorize(Role.user)]
         [HttpPost]
         [Route("Like")]
         public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
@@ -146,6 +153,7 @@
             }
         }
 
+        [Authorize(Role.user)]
         [HttpDelete]
         [Route("Like")]
         public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
@@ -166,6 +174,66 @@
                 return Problem(ex.Message);
             }
         }
+
+        [Authorize(Role.user)]
+        [HttpGet]
+        [Route("Tag")]
+        public async Task<IActionResult> GetAllTagsAsync()
+        {
+            try
+            {
+                List<TagResponse> tags = await _postService.GetAllTagsAsync();
+
+                if (tags.Count() == 0)
+                {
+                    return NoContent();
+
+                }
+                return Ok(tags);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [Authorize(Role.user)]
+        [HttpGet]
+        [Route("Tag/{tagId}")]
+        public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
+        {
+            try
+            {
+                var tagResponse = await _postService.GetTagById(tagId);
+
+                if (tagResponse == null)
+                {
+                    return NotFound();
+                }
+                return Ok(tagResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [Authorize(Role.user)]
+        [HttpPost]
+        [Route("Tag")]
+        public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
+        {
+            try
+            {
+                TagResponse tagResponse = await _postService.CreateTagAsync(newTag);
+
+                return Ok(tagResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
     }
-    
+
 }

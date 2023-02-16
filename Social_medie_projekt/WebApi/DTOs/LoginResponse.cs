@@ -3,8 +3,11 @@
     public class LoginResponse
     {
         public int LoginId { get; set; }
+
         public string Email { get; set; } = string.Empty;
+
         public Role Type { get; set; } = 0;
+
         public LoginUserResponse? User { get; set; } = new();
     }
 
@@ -14,6 +17,7 @@
         public int UserId { get; set; } 
         public string UserName { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
+
         public List<UserPostLoginResponse> Posts { get; set; } = new();
     }
 

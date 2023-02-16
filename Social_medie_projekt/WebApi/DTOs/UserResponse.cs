@@ -6,15 +6,18 @@
 
         public string UserName { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
+
         public UserLoginResponse Login { get; set; }
 
         public List<UserPostResponse> Posts { get; set; } = new();
-
     }
+
     public class UserLoginResponse
     {
         public int LoginId { get; set; }
+
         public string Email { get; set; } = string.Empty;
+
         public Role Type { get; set; }
     }
 
