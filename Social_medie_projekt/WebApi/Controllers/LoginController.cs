@@ -1,6 +1,4 @@
-﻿using WebApi.Authorization;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
