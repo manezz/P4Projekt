@@ -106,7 +106,9 @@
         {
             var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
 
-            if (post == null)
+            var isNull = post.GetType().GetProperties().Any(x => x.GetValue(post) == null);
+
+            if (isNull)
             {
                 throw new ArgumentNullException();
             }

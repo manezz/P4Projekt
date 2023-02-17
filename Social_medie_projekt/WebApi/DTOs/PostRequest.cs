@@ -6,15 +6,14 @@
         public int UserId { get; set; }
 
         [Required]
-        [MaxLength(100, ErrorMessage ="You have reached the title limit")]
+        [MaxLength(100, ErrorMessage = "You have reached the title limit")]
         public string Title { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(300, ErrorMessage = "You have reached the limit of 300 Characters")]
         public string Desc { get; set; } = string.Empty;
 
-        //[Required]
-        public List<TagRequest> Tags { get; set; } = new();
+        public List<TagRequest>? Tags { get; set; }
 
     }
 }
