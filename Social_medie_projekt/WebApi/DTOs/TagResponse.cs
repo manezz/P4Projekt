@@ -4,9 +4,9 @@
     {
         public int TagId { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public List<TagPostResponse> post { get; set; }
+        public List<TagPostResponse>? Post { get; set; }
     }
     public class TagPostResponse
     {
@@ -14,11 +14,11 @@
 
         public int UserId { get; set; }
 
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
-        public string Desc { get; set; }
+        public string Desc { get; set; } = string.Empty;
 
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; }
 
         public int? Likes { get; set; }
 

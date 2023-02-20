@@ -157,8 +157,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7129), 1, "tester 1" },
-                    { 2, new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7133), 2, "222test222" }
+                    { 1, new DateTime(2023, 2, 20, 8, 51, 51, 175, DateTimeKind.Local).AddTicks(1921), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 20, 8, 51, 51, 175, DateTimeKind.Local).AddTicks(1925), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -166,14 +166,14 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7147), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7150), "Woooooo!", 0, "Test!", 2 }
+                    { 1, new DateTime(2023, 2, 20, 8, 51, 51, 175, DateTimeKind.Local).AddTicks(1941), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 20, 8, 51, 51, 175, DateTimeKind.Local).AddTicks(1945), "Woooooo!", 0, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "LikeUserId", "PostId", "LikedTime" },
-                values: new object[] { 2, 1, new DateTime(2023, 2, 15, 13, 46, 44, 289, DateTimeKind.Local).AddTicks(7161) });
+                values: new object[] { 2, 1, new DateTime(2023, 2, 20, 8, 51, 51, 175, DateTimeKind.Local).AddTicks(1957) });
 
             migrationBuilder.InsertData(
                 table: "PostsTags",
