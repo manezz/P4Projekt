@@ -130,7 +130,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId))
+                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Type != Role.admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
