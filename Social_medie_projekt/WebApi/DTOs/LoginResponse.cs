@@ -8,7 +8,7 @@
 
         public Role Type { get; set; }
 
-        public LoginUserResponse? User { get; set; } = new();
+        public LoginUserResponse User { get; set; } = new();
     }
 
 

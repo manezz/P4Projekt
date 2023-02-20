@@ -18,7 +18,7 @@
         {
             try
             {
-                SignInResponse response = await _loginService.AuthenticateUser(login);
+                SignInResponse? response = await _loginService.AuthenticateUser(login);
 
                 if (response == null)
                 {
@@ -58,9 +58,8 @@
             {
                 List<LoginResponse> logins = await _loginService.GetAllLoginAsync();
 
-                if (logins.Count() == 0)
+                if (logins.Count == 0)
                 {
-
                     return NoContent();
                 }
 
@@ -99,7 +98,7 @@
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {
@@ -129,7 +128,7 @@
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {
@@ -158,7 +157,7 @@
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {

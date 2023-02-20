@@ -12,7 +12,7 @@
         public string Password { get; set; } = string.Empty;
 
         [Column(TypeName = "int")]
-        public Role Type { get; set; } = Role.user;
+        public Role Type { get; set; }
 
         public User? User { get; set; }
     }

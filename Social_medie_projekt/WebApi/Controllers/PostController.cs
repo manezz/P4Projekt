@@ -81,6 +81,13 @@
         {
             try
             {
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+
+                if (currentUser != null && newPost.UserId != currentUser.User.UserId)
+                {
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
                 var postResponse = await _postService.CreatePostAsync(newPost);
 
                 return Ok(postResponse);

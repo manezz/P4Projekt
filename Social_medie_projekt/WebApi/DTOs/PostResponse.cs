@@ -18,14 +18,9 @@
 
         public List<TagResponse>? Tags { get; set; }
     }
+
     public class PostUserResponse
     {
         public string UserName { get; set; } = string.Empty;
     }
-    //public class PostTagResponse
-    //{
-    //    public int TagId { get; set; }
-
-    //    public string Name { get; set; }
-    //}
 }
