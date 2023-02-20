@@ -20,7 +20,7 @@
             {
                 List<PostResponse> posts = await _postService.GetAllPostsAsync();
 
-                if (posts.Count() == 0)
+                if (posts.Count == 0)
                 {
                     return NoContent();
 
@@ -128,6 +128,13 @@
         {
             try
             {
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+
+                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId))
+                {
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
                 var postResponse = await _postService.DeletePostAsync(postId);
 
                 if (postResponse == null)
@@ -191,7 +198,7 @@
             {
                 List<TagResponse> tags = await _postService.GetAllTagsAsync();
 
-                if (tags.Count() == 0)
+                if (tags.Count == 0)
                 {
                     return NoContent();
 
