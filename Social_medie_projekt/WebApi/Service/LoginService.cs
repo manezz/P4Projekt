@@ -3,9 +3,8 @@
     public interface ILoginService
     {
         Task<SignInResponse> AuthenticateUser(SignInRequest login);
-        Task<LoginResponse> RegisterAsync(UserSignupRequest newUser);
+        Task<LoginResponse> RegisterAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllLoginAsync();
-        Task<LoginResponse> CreateLoginAsync(LoginRequest newLogin);
         Task<LoginResponse> FindLoginByIdAsync(int loginId);
         Task<LoginResponse?> UpdateLoginAsync(int loginId, LoginRequest updatedLogin);
         Task<LoginResponse?> DeleteLoginAsync(int loginId);
@@ -57,23 +56,15 @@
             {
                 Email = loginRequest.Email,
                 Type = loginRequest.Type,
-                Password = loginRequest.Password
-            };
-        }
-
-        private Login MapCustomerSignupRequestToLogin(UserSignupRequest userSignupRequest)
-        {
-            return new Login
-            {
-                Email = userSignupRequest.Email,
-                Type = Role.user,
-                Password = userSignupRequest.Password,
+                Password = loginRequest.Password,
                 User = new()
                 {
-                    UserName = userSignupRequest.User.UserName,
+                    UserName = loginRequest.User.UserName
                 }
             };
         }
+
+
 
 
         public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
@@ -117,9 +108,9 @@
             return null;
         }
 
-        public async Task<LoginResponse> RegisterAsync(UserSignupRequest newUser)
+        public async Task<LoginResponse> RegisterAsync(LoginRequest newUser)
         {
-            var user = await _loginRepository.RegisterAsync(MapCustomerSignupRequestToLogin(newUser));
+            var user = await _loginRepository.RegisterAsync(MapLoginRequestToLogin(newUser));
 
             if (user == null)
             {
@@ -128,6 +119,9 @@
 
             return MapLoginToLoginResponse(user);
         }
+
+
+
 
         public async Task<List<LoginResponse>> GetAllLoginAsync()
         {
@@ -139,19 +133,6 @@
             }
 
             return logins.Select(login => MapLoginToLoginResponse(login)).ToList();
-        }
-
-        public async Task<LoginResponse> CreateLoginAsync(LoginRequest newLogin)
-        {
-            var login = await _loginRepository.CreateLoginAsync(MapLoginRequestToLogin(newLogin));
-
-            if (login == null)
-            {
-
-                throw new ArgumentNullException();
-            }
-
-            return MapLoginToLoginResponse(login);
         }
 
         public async Task<LoginResponse> FindLoginByIdAsync(int loginId)

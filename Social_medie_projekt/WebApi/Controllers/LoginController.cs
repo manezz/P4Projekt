@@ -37,8 +37,8 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [Route("Register")]
-        public async Task<IActionResult> RegisterAsync([FromBody] UserSignupRequest register)
+        [Route("register")]
+        public async Task<IActionResult> RegisterAsync([FromBody] LoginRequest register)
         {
             try
             {
@@ -51,6 +51,10 @@ namespace WebApi.Controllers
                 return Problem(ex.Message);
             }
         }
+
+
+
+
 
         [Authorize(Role.admin)]
         [HttpGet]
@@ -69,24 +73,6 @@ namespace WebApi.Controllers
                 return Ok(logins);
 
             }
-            catch (Exception ex)
-            {
-
-                return Problem(ex.Message);
-            }
-        }
-
-        [Authorize(Role.admin)]
-        [HttpPost]
-        public async Task<IActionResult> CreateLoginAsync([FromBody] LoginRequest newLogin)
-        {
-            try
-            {
-                LoginResponse loginResponse = await _loginService.CreateLoginAsync(newLogin);
-
-                return Ok(loginResponse);
-            }
-
             catch (Exception ex)
             {
 

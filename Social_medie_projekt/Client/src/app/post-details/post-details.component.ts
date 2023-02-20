@@ -31,7 +31,7 @@ export class PostDetailsComponent {
     title: '',
     desc: '',
     tags: '',
-    likes: 0,
+    likes: 0, 
     date: new Date,
     user: {
       userId: 0, 
@@ -39,9 +39,11 @@ export class PostDetailsComponent {
     } 
   }
 
-
-
-  constructor(private route: ActivatedRoute, private authService: AuthService, private postService: PostService){ }
+  constructor(
+    private route: ActivatedRoute, 
+    private authService: AuthService, 
+    private postService: PostService
+  ){ }
 
   ngOnInit(): void  {
     this.authService.currentUser.subscribe(x => this.currentUser = x)      

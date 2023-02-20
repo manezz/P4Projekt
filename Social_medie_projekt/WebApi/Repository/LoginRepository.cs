@@ -5,7 +5,6 @@
     {
         Task<Login> RegisterAsync(Login newUser);
         Task<List<Login>> GetAllLoginAsync();
-        Task<Login> CreateLoginAsync(Login newLogin);
         Task<Login?> FindLoginByIdAsync(int loginId);
         Task<Login> FindLoginByEmailAsync(string email);
         Task<Login?> UpdateLoginById(int loginId, Login updatedLogin);
@@ -16,16 +15,15 @@
     {
         private readonly DatabaseContext _context;
 
-        public LoginRepository(DatabaseContext context)
-        {
-            _context = context;
-        }
+        public LoginRepository(DatabaseContext context){ _context = context; }
+
+
 
         public async Task<Login> RegisterAsync(Login newUser)
         {
-            if (_context.User.Any(u => u.Login.Email == newUser.Email))
+            if (_context.User.Any(u => u.Login.Email.ToLower() == newUser.Email.ToLower()))
             {
-                throw new Exception(String.Format("The email {0} is not available", newUser.Email));
+                throw new Exception(String.Format("User already exists", newUser.Email));
             }
 
             _context.Login.Add(newUser);
@@ -33,18 +31,14 @@
             return newUser;
         }
 
+
+
+
         public async Task<List<Login>> GetAllLoginAsync()
         {
             return await _context.Login
                 .Include(l => l.User)
                 .ToListAsync();
-        }
-
-        public async Task<Login> CreateLoginAsync(Login newLogin)
-        {
-            _context.Login.Add(newLogin);
-            await _context.SaveChangesAsync();
-            return newLogin;
         }
 
         public async Task<Login?> FindLoginByIdAsync(int loginId)

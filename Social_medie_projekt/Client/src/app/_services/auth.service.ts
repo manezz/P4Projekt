@@ -43,15 +43,15 @@ export class AuthService {
       return user;
     }))
   }
+
   logout(){
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<SignInResponse>(JSON.parse(sessionStorage.getItem('currentUser') as string));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  register(email: string, password: string, firstName: string, lastName: string, address: string): Observable<any> {
-    let registerUrl = `${environment.apiUrl}Login/Register`;
-    return this.http.post(registerUrl, {"email": email, "password": password, "user": {"firstName": firstName, "lastName": lastName, "address": address}
-  });
+  register(login: Login): Observable<Login> {
+    let registerUrl = `${environment.apiUrl}login/register/`;
+    return this.http.post<Login>(registerUrl, login)
   }
 }

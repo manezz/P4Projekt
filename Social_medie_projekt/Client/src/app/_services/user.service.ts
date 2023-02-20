@@ -21,11 +21,6 @@ export class UserService {
     getAllSelf(userId: number): Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/${userId}`)
     }
-
-    //opretter ikke en user, men et login med en user tilknyttet
-    createUserOnLogin(login: Login): Observable<Login>{
-        return this.http.post<Login>(environment.apiUrl + 'login/register/', login)
-    }
     
     updateUser(Id:number,user:User): Observable<User>{
         return this.http.put<User>(`${this.apiUrl}/${Id}`,user)

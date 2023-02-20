@@ -136,50 +136,49 @@ export class CreateUserPageComponent implements OnInit {
 
 
   create():void{
-    if(true){
 
-      this.login = { 
-        loginId:0, 
-        email: this.userForm.value.Email, 
-        password: this.userForm.value.Password,
-        user:{ 
-          userId:0, 
-          userName: this.userForm.value.UserName,
-        }
+    this.login = { 
+      loginId:0, 
+      email: this.userForm.value.Email, 
+      password: this.userForm.value.Password,
+      user:{ 
+        userId:0, 
+        userName: this.userForm.value.UserName,
       }
-      
-      this.userService.createUserOnLogin(this.login).subscribe({
-        next: (x) => {
-          this.logins.push(x);
-
-          // opens popup window
-          this.dialog.open(SuccessPopup, {
-            width: '750px',
-            height: '400px',
-            panelClass: 'dialog-container',
-            position: {left: '30%', top: '-600px'}
-          });
-
-          // user gets logged in right away
-          this.auth.login(this.userForm.value.Email, this.userForm.value.Password).subscribe({
-            next: () => {
-              let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main';
-              this.router.navigate([returnUrl])
-              this.AppComponent.validateHeader()
-            }
-          });
-        },
-        error: (err) => {
-          // change inputfields to red border
-          document.getElementById("UserName")!.style.borderColor = "red"
-          document.getElementById("Email")!.style.borderColor = "red"
-          document.getElementById("Password")!.style.borderColor = "red"
-
-          console.warn(Object.values(err.error.errors).join(', '));
-          this.errors = Object.values(err.error.errors).join(', ');
-        }
-      });
     }
+    
+    this.auth.register(this.login).subscribe({
+      next: (x) => {
+        this.logins.push(x);
+
+        // opens popup window
+        this.dialog.open(SuccessPopup, {
+          width: '750px',
+          height: '400px',
+          panelClass: 'dialog-container',
+          position: {left: '30%', top: '-600px'}
+        });
+
+        // user gets logged in right away
+        this.auth.login(this.userForm.value.Email, this.userForm.value.Password).subscribe({
+          next: () => {
+            let returnUrl = this.route.snapshot.queryParams['returnUrl']||'/main'
+            this.router.navigate([returnUrl])
+            this.AppComponent.validateHeader()
+          }
+        });
+      },
+      error: (err) => {
+        // change inputfields to red border
+        document.getElementById("UserName")!.style.borderColor = "red"
+        document.getElementById("Email")!.style.borderColor = "red"
+        document.getElementById("Password")!.style.borderColor = "red"
+
+        console.warn(Object.values(err.error.errors).join(', '))
+        
+      }
+    });
+    
   }
 
   cancel(){
@@ -190,7 +189,7 @@ export class CreateUserPageComponent implements OnInit {
     document.getElementById("UserName")!.style.borderColor = "black"
     document.getElementById("Email")!.style.borderColor = "black"
     document.getElementById("Password")!.style.borderColor = "black"
-  }  
+  }
 
   popup(){
     // opens popup window
@@ -202,6 +201,9 @@ export class CreateUserPageComponent implements OnInit {
     });
   }
 }
+
+
+
 
 @Component({
   selector: 'app-createpage-popup',

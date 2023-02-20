@@ -47,9 +47,9 @@ namespace WebApi.Migrations
                 {
                     UserId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LoginId = table.Column<int>(type: "int", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(32)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Created = table.Column<DateTime>(type: "datetime", nullable: false),
+                    LoginId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -68,12 +68,12 @@ namespace WebApi.Migrations
                 {
                     PostId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(32)", nullable: false),
-                    Desc = table.Column<string>(type: "text", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Desc = table.Column<string>(type: "nvarchar(1000)", nullable: false),
                     Tags = table.Column<string>(type: "text", nullable: true),
                     Likes = table.Column<int>(type: "int", nullable: true),
-                    Date = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +89,7 @@ namespace WebApi.Migrations
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5330) });
+                values: new object[] { 1, 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3385) });
 
             migrationBuilder.InsertData(
                 table: "Login",
@@ -105,8 +105,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5296), 1, "tester 1" },
-                    { 2, new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5300), 2, "222test222" }
+                    { 1, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3351), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3354), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -114,8 +114,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Tags", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5313), "tadnawdnada", 1, "", "testestestest", 1 },
-                    { 2, new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5316), "Woooooo!", 0, "", "Test!", 2 }
+                    { 1, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3367), "tadnawdnada", 1, "", "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3370), "Woooooo!", 0, "", "Test!", 2 }
                 });
 
             migrationBuilder.CreateIndex(

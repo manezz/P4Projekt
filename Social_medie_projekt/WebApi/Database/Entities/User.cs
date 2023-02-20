@@ -9,7 +9,7 @@
         public string UserName { get; set; } = string.Empty;
 
         [Column(TypeName = "datetime")]
-        public DateTime Created { get; set; } = new DateTime();
+        public DateTime Created { get; set; } = DateTime.Now;
 
         [ForeignKey("Login.LoginId")]
         public int LoginId { get; set; }

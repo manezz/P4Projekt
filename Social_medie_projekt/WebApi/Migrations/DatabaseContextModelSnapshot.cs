@@ -42,7 +42,7 @@ namespace WebApi.Migrations
                         {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5330)
+                            LikedTime = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3385)
                         });
                 });
 
@@ -99,7 +99,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Desc")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<int?>("Likes")
                         .HasColumnType("int");
@@ -109,7 +109,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -124,7 +124,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5313),
+                            Date = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3367),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Tags = "",
@@ -134,7 +134,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5316),
+                            Date = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3370),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Tags = "",
@@ -172,14 +172,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5296),
+                            Created = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3351),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 9, 8, 10, 9, 81, DateTimeKind.Local).AddTicks(5300),
+                            Created = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3354),
                             LoginId = 2,
                             UserName = "222test222"
                         });

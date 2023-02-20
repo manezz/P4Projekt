@@ -99,7 +99,7 @@ export class LoginpageComponent {
   
   message = '';
   userForm: FormGroup = this.resetForm();
-  userlogin: Login = { loginId:0, email: "", password:"" }
+  userlogin: Login = { loginId:0, email:"", password:"" }
 
   resetForm(): FormGroup{
     return new FormGroup({
@@ -117,7 +117,7 @@ export class LoginpageComponent {
         this.router.navigate([returnUrl])
 
         // opretter en talkservice til chat når user logger ind
-        this.talkService.createCurrentSession();
+        // this.talkService.createCurrentSession();
 
         // ændrer headeren
         this.AppComponent.validateHeader()
