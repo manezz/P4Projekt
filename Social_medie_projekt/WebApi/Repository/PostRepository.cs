@@ -13,6 +13,7 @@
         Task<Liked> DeleteLikeAsync(Liked like);
         Task<List<Tag>> GetAllTagsAsync();
         Task<Tag?> GetTagByIdAsync(int id);
+        Task<List<Tag?>> GetTagsByPostIdAsync(int postId);
         Task<Tag?> CreateTagAsync(Tag newTag);
         Task<PostsTag> CreatePostTagAsync(PostsTag newPostsTag);
     }
@@ -86,12 +87,17 @@
 
         public async Task<Posts?> GetPostByPostIdAsync(int postId)
         {
-            return await _context.Posts.Include(c => c.PostUser).FirstOrDefaultAsync(x => postId == x.PostId);
+            return await _context.Posts
+                .Include(c => c.PostUser)
+                .FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
         public async Task<List<Posts>> GetPostByUserIdAsync(int userId)
         {
-            return await _context.Posts.Include(c => c.PostUser).Where(x => userId == x.UserId).ToListAsync();
+            return await _context.Posts
+                .Include(c => c.PostUser)
+                .Where(x => userId == x.UserId)
+                .ToListAsync();
         }
 
         public async Task<Liked> CreateLikeAsync(Liked newLike)
@@ -140,6 +146,16 @@
         {
             return await _context.Tags.ToListAsync();
             //return await _context.Tags.Include(p => p.Posts).ToListAsync();
+        }
+
+        public async Task<List<Tag?>> GetTagsByPostIdAsync(int postId)
+        {
+            return await _context.PostsTags
+                .Include(p => p.Posts)
+                .Include(t => t.Tag)
+                .Where(x => x.PostId == postId)
+                .Select(x => x.Tag)
+                .ToListAsync();
         }
 
         public async Task<Tag?> GetTagByIdAsync(int id)

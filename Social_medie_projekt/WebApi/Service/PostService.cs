@@ -191,6 +191,14 @@
             {
                 return null;
             }
+
+            var tags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (tags == null)
+            {
+                return null;
+            }
+
             return MapPostToPostResponse(posts);
         }
 
