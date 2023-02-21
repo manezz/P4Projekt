@@ -2,8 +2,9 @@
 {
     public interface ILikeService
     {
+        Task<LikeResponse?> CheckLike(int KeyId);
         Task<LikeResponse> CreateLikeAsync(LikeRequest newLike);
-        Task<LikeResponse?> DeleteLikeAsync(LikeRequest deleteLike);
+        Task<LikeResponse?> DeleteLikeAsync(int keyId);
     }
 
     public class LikeService : ILikeService
@@ -20,58 +21,78 @@
 
 
 
-        private Liked MapLikeRequestToLike(LikeRequest likedRequest)
+        private Like MapLikeRequestToLike(LikeRequest likedRequest)
         {
-            return new Liked
+            return new Like
             {
                 UserId = likedRequest.UserId,
                 PostId = likedRequest.PostId,
-                IsLiked = likedRequest.IsLiked,
+                //IsLiked = likedRequest.IsLiked,
             };
         }
 
-        private LikeResponse MapLikeToLikeResponse(Liked like)
+        private LikeResponse MapLikeToLikeResponse(Like like)
         {
             return new LikeResponse
             {
                 UserId = like.UserId,
                 PostId = like.PostId,
-                IsLiked = like.IsLiked,
+                //IsLiked = like.IsLiked,
             };
         }
 
 
 
-
-
-        public async Task<LikeResponse> CreateLikeAsync(LikeRequest newLike)
+        public async Task<LikeResponse?> CheckLike(int KeyId)
         {
-            var like = await _likeRepository.CreateLikeAsync(MapLikeRequestToLike(newLike));
+            var like = await _likeRepository.CheckLike(KeyId);
 
-            // Updates post to one more like
-            var post = await _postRepository.UpdatePostLikesAsync(newLike.PostId, 1);
-
-            if (post == null)
+            if (like == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
-
             return MapLikeToLikeResponse(like);
         }
 
-        public async Task<LikeResponse?> DeleteLikeAsync(LikeRequest deleteLike)
+        public async Task<List<LikeResponse?>> GetAllUsersLikes(int userId)
         {
-            var like = await _likeRepository.DeleteLikeAsync(MapLikeRequestToLike(deleteLike));
+            var likes = await _likeRepository.GetAllUsersLikes(userId);
 
-            // Updates post to one less like
-            var post = await _postRepository.UpdatePostLikesAsync(deleteLike.PostId, -1);
-
-            if (like == null || post == null)
+            if (likes == null)
             {
-                throw new ArgumentNullException();
+                return null;
+            }
+            return likes.Select(like => MapLikeToLikeResponse(like)).ToList();
+        }
+
+        public async Task<LikeResponse> CreateLikeAsync(LikeRequest newLike)
+        {
+            // Updates post to one more like
+            var post = await _postRepository.UpdatePostLikesAsync(newLike.PostId, 1);
+
+            if (post == null){
+                throw new ArgumentNullException("Post doesn't exist");
+            }
+            else{
+                var like = await _likeRepository.CreateLikeAsync(MapLikeRequestToLike(newLike));
+                return MapLikeToLikeResponse(like);
+            }
+        }
+
+        public async Task<LikeResponse?> DeleteLikeAsync(int keyId)
+        {
+            // Deletes like
+            var like = await _likeRepository.DeleteLikeAsync(keyId);
+    
+            // Updates post to one less like
+            var post = await _postRepository.UpdatePostLikesAsync(like.PostId, -1);
+
+            if (post == null)
+            {
+                throw new ArgumentNullException("Post doesn't exist");
             }
 
-            return MapLikeToLikeResponse(like);
+            return MapLikeToLikeResponse(like); 
         }
     }
 }

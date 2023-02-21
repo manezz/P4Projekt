@@ -22,7 +22,7 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Database.Entities.Liked", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -30,19 +30,37 @@ namespace WebApi.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("LikedTime")
-                        .HasColumnType("datetime");
+                    b.Property<int>("KeyId")
+                        .HasColumnType("int");
 
                     b.HasKey("UserId", "PostId");
 
-                    b.ToTable("Liked");
+                    b.ToTable("Like");
 
                     b.HasData(
                         new
                         {
+                            UserId = 1,
+                            PostId = 1,
+                            KeyId = 1
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            PostId = 2,
+                            KeyId = 2
+                        },
+                        new
+                        {
                             UserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3385)
+                            KeyId = 3
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 2,
+                            KeyId = 4
                         });
                 });
 
@@ -124,7 +142,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3367),
+                            Date = new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9189),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Tags = "",
@@ -134,7 +152,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3370),
+                            Date = new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9192),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Tags = "",
@@ -172,14 +190,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3351),
+                            Created = new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9173),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3354),
+                            Created = new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9177),
                             LoginId = 2,
                             UserName = "222test222"
                         });

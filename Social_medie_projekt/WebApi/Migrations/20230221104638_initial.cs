@@ -14,16 +14,16 @@ namespace WebApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Liked",
+                name: "Like",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    LikedTime = table.Column<DateTime>(type: "datetime", nullable: false)
+                    KeyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Liked", x => new { x.UserId, x.PostId });
+                    table.PrimaryKey("PK_Like", x => new { x.UserId, x.PostId });
                 });
 
             migrationBuilder.CreateTable(
@@ -87,9 +87,15 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Liked",
-                columns: new[] { "PostId", "UserId", "LikedTime" },
-                values: new object[] { 1, 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3385) });
+                table: "Like",
+                columns: new[] { "PostId", "UserId", "KeyId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 1, 2 },
+                    { 1, 2, 3 },
+                    { 2, 2, 4 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Login",
@@ -105,8 +111,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3351), 1, "tester 1" },
-                    { 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3354), 2, "222test222" }
+                    { 1, new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9173), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9177), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -114,8 +120,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Tags", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3367), "tadnawdnada", 1, "", "testestestest", 1 },
-                    { 2, new DateTime(2023, 2, 20, 12, 5, 32, 535, DateTimeKind.Local).AddTicks(3370), "Woooooo!", 0, "", "Test!", 2 }
+                    { 1, new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9189), "tadnawdnada", 1, "", "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 21, 11, 46, 38, 137, DateTimeKind.Local).AddTicks(9192), "Woooooo!", 0, "", "Test!", 2 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -134,7 +140,7 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Liked");
+                name: "Like");
 
             migrationBuilder.DropTable(
                 name: "Posts");

@@ -3,14 +3,12 @@
     public class LikeRequest
     {
         [Required]
-        public int KeyId { get; set; }
+        public int KeyId { get; set; } = 0;
 
         [Required]
-        public int UserId { get; set; }
+        public int UserId { get; set; } = 0;
 
         [Required]
-        public int PostId { get; set; }
-
-        public Boolean IsLiked { get; set; }
+        public int PostId { get; set; } = 0;
     }
 }

@@ -2,8 +2,10 @@
 {
     public interface ILikeRepository
     {
-        Task<Liked> CreateLikeAsync(Liked newLike);
-        Task<Liked> DeleteLikeAsync(Liked like);
+        Task<Like?> CheckLike(int KeyId);
+        Task<List<Like?>> GetAllUsersLikes(int userId);
+        Task<Like> CreateLikeAsync(Like newLike);
+        Task<Like> DeleteLikeAsync(int keyId);
     }
 
     public class LikeRepository : ILikeRepository
@@ -16,20 +18,35 @@
         }
 
 
-        public async Task<Liked> CreateLikeAsync(Liked like)
+        public async Task<Like?> CheckLike(int KeyId)
         {
-            _context.Liked.Add(like);
+            return await _context.Like.FirstOrDefaultAsync(x => KeyId == x.KeyId);
+        }
+
+        public async Task<List<Like?>> GetAllUsersLikes(int userId)
+        {
+            return await _context.Like.Include(c => c.PostId).Where(x => userId == x.UserId).ToListAsync();
+        }
+
+        public async Task<Like> CreateLikeAsync(Like like)
+        {
+            _context.Like.Add(like);
 
             await _context.SaveChangesAsync();
             return like;
         }
 
-        public async Task<Liked> DeleteLikeAsync(Liked unLike)
+        public async Task<Like> DeleteLikeAsync(int keyId)
         {
-            _context.Liked.Remove(unLike);
+            var like = await CheckLike(keyId);
 
-            await _context.SaveChangesAsync();
-            return unLike;
+            if (like != null)
+            {
+                _context.Remove(like);
+                await _context.SaveChangesAsync();
+            }
+
+            return like;
         }
     }
 }

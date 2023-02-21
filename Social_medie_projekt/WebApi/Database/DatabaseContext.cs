@@ -7,7 +7,7 @@
         public DbSet<Login> Login { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Posts> Posts { get; set; }
-        public DbSet<Liked> Liked { get; set; }
+        public DbSet<Like> Like { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -72,12 +72,30 @@
 
 
 
-            modelBuilder.Entity<Liked>().HasData(
-                new Liked
+            modelBuilder.Entity<Like>().HasData(
+                new Like
                 {
+                    KeyId = 1,
+                    UserId = 1,
+                    PostId = 1
+                },
+                new Like
+                {
+                    KeyId = 2,
+                    UserId = 1,
+                    PostId = 2
+                },
+                new Like
+                {
+                    KeyId = 3,
                     UserId = 2,
-                    PostId = 1,
-                    IsLiked = true,
+                    PostId = 1
+                },
+                new Like
+                {
+                    KeyId = 4,
+                    UserId = 2,
+                    PostId = 2
                 });
         }
     }

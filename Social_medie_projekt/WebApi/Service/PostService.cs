@@ -65,22 +65,21 @@
 
 
 
-        private Liked MapLikeRequestToLike(LikeRequest likedRequest)
+        private Like MapLikeRequestToLike(LikeRequest likedRequest)
         {
-            return new Liked
+            return new Like
             {
                 UserId = likedRequest.UserId,
                 PostId = likedRequest.PostId,
             };
         }
 
-        private LikeResponse MapLikeToLikeResponse(Liked like)
+        private LikeResponse MapLikeToLikeResponse(Like like)
         {
             return new LikeResponse
             {
                 UserId = like.UserId,
-                PostId = like.PostId,
-                IsLiked = like.IsLiked,
+                PostId = like.PostId
             };
         }
 

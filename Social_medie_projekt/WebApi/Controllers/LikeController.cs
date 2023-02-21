@@ -12,6 +12,48 @@
         }
 
 
+        [HttpGet]
+        [Route("{keyId}")]
+        public async Task<IActionResult> CheckLike([FromRoute] int keyId)
+        {
+            try
+            {
+                LikeResponse likeResponse = await _likeService.CheckLike(keyId);
+
+                if (likeResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(likeResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("user/{userId}")]
+        public async Task<IActionResult> GetAllUsersLikes([FromRoute] int userId)
+        {
+            try
+            {
+                LikeResponse likeResponse = await _likeService.CheckLike(userId);
+
+                if (likeResponse == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(likeResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
         [HttpPost]
         [Route("like")]
         public async Task<IActionResult> LikePost([FromBody] LikeRequest like)
@@ -29,12 +71,12 @@
         }
 
         [HttpDelete]
-        [Route("UnLike")]
-        public async Task<IActionResult> UnlikePost([FromBody] LikeRequest like)
+        [Route("{keyId}")]
+        public async Task<IActionResult> UnlikePost([FromRoute] int keyId)
         {
             try
             {
-                var likeResponse = await _likeService.DeleteLikeAsync(like);
+                var likeResponse = await _likeService.DeleteLikeAsync(keyId);
 
                 if (likeResponse == null)
                 {

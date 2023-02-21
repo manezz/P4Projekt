@@ -5,7 +5,5 @@
         public int UserId { get; set; }
 
         public int PostId { get; set; }
-
-        public Boolean IsLiked { get; set; }
     }
 }
