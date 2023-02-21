@@ -77,7 +77,7 @@
                 {
                     UserId = 2,
                     PostId = 1,
-                    LikedTime = DateTime.Now
+                    IsLiked = true,
                 });
         }
     }

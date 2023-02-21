@@ -2,15 +2,13 @@
 {
      public interface IPostRepository
     {
-        Task<Posts> CreatePostAsync(Posts newPost);
-        Task<Posts> DeletePostAsync(int id);
-        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
-        Task<Posts> UpdatePostLikesAsync(int id, int like);
         Task<List<Posts>> GetAllAsync();
         Task<Posts?> GetPostByPostIdAsync(int PostId);
-        Task<List<Posts?>> GetPostByUserIdAsync(int UserId);
-        Task<Liked> CreateLikeAsync(Liked newLike);
-        Task<Liked> DeleteLikeAsync(Liked like);
+        Task<List<Posts?>> GetAllPostsByUserIdAsync(int UserId);
+        Task<Posts> CreatePostAsync(Posts newPost);
+        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
+        Task<Posts> DeletePostAsync(int id);
+        Task<Posts> UpdatePostLikesAsync(int id, int like);        
     }
 
     public class PostRepository : IPostRepository
@@ -22,23 +20,28 @@
             _context = context;
         }
 
+        public async Task<List<Posts>> GetAllAsync()
+        {
+            return await _context.Posts.Include(c => c.User)
+                 .OrderByDescending(d => d.Date)
+                 .ToListAsync();
+        }
+
+        public async Task<Posts?> GetPostByPostIdAsync(int postId)
+        {
+            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
+        }
+
+        public async Task<List<Posts?>> GetAllPostsByUserIdAsync(int userId)
+        {
+            return await _context.Posts.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
+        }
+
         public async Task<Posts> CreatePostAsync(Posts newPost)
         {
             _context.Posts.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
-        }
-
-        public async Task<Posts> DeletePostAsync(int id)
-        {
-            var post = await GetPostByPostIdAsync(id);
-
-            if(post != null)
-            {
-                _context.Remove(post);
-                await _context.SaveChangesAsync();
-            }
-            return post;
         }
 
         public async Task<Posts> UpdatePostAsync(int id, Posts updatePost)
@@ -57,8 +60,23 @@
             }
 
             return post;
+        }       
+
+        public async Task<Posts> DeletePostAsync(int id)
+        {
+            var post = await GetPostByPostIdAsync(id);
+
+            if(post != null)
+            {
+                _context.Remove(post);
+                await _context.SaveChangesAsync();
+            }
+            return post;
         }
 
+
+
+        // For updating each post that has/needs a like from likeService
         public async Task<Posts> UpdatePostLikesAsync(int id, int like)
         {
             var post = await GetPostByPostIdAsync(id);
@@ -72,39 +90,6 @@
             }
 
             return post;
-        }
-
-        public async Task<List<Posts>> GetAllAsync()
-        {
-           return await _context.Posts.Include(c => c.User)
-                .OrderByDescending(d => d.Date)
-                .ToListAsync();
-        }
-
-        public async Task<Posts?> GetPostByPostIdAsync(int postId)
-        {
-            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
-        }
-
-        public async Task<List<Posts?>> GetPostByUserIdAsync(int userId)
-        {
-            return await _context.Posts.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
-        }
-
-        public async Task<Liked> CreateLikeAsync(Liked newLike)
-        {
-            _context.Liked.Add(newLike);
-
-            await _context.SaveChangesAsync();
-            return newLike;
-        }
-
-        public async Task<Liked> DeleteLikeAsync(Liked like)
-        {
-            _context.Liked.Remove(like);
-
-            await _context.SaveChangesAsync();
-            return like;
         }
     }
 }

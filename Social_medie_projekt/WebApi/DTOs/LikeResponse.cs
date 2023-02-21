@@ -1,11 +1,11 @@
 ﻿namespace WebApi.DTOs
 {
-    public class LikedResponse
+    public class LikeResponse
     {
         public int UserId { get; set; }
 
         public int PostId { get; set; }
 
-        public DateTime LikedTime { get; set; }
+        public Boolean IsLiked { get; set; }
     }
 }

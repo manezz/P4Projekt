@@ -34,7 +34,7 @@
 
         [HttpGet]
         [Route("{postId}")]
-        public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
+        public async Task<IActionResult> GetPostByPostId([FromRoute] int postId)
         {
             try
             {
@@ -54,11 +54,11 @@
 
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetPostByUserIdAsync([FromRoute] int userId)
+        public async Task<IActionResult> GetAllPostsByUserId([FromRoute] int userId)
         {
             try
             {
-                var postResponse = await _postService.GetPostByUserIdAsync(userId);
+                var postResponse = await _postService.GetAllPostsByUserIdAsync(userId);
 
                 if (postResponse == null)
                 {
@@ -73,7 +73,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
+        public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
             try
             {
@@ -90,7 +90,7 @@
 
         [HttpPut]
         [Route("{postId}")]
-        public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
+        public async Task<IActionResult> UpdatePost([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
         {
             try
             {
@@ -111,7 +111,7 @@
 
         [HttpDelete]
         [Route("{postId}")]
-        public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
+        public async Task<IActionResult> DeletePost([FromRoute] int postId)
         {
             try
             {
@@ -125,43 +125,6 @@
                 return Ok(postResponse);
             }
             catch(Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [Route("Like")]
-        public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
-        {
-            try
-            {
-                var likedResponse = await _postService.CreateLikeAsync(newLike);
-
-                return Ok(likedResponse);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
-
-        [HttpDelete]
-        [Route("Like")]
-        public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
-        {
-            try
-            {
-                var likedResponse = await _postService.DeleteLikeAsync(deleteLike);
-
-                if (likedResponse == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(likedResponse);
-            }
-            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }

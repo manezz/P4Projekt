@@ -3,13 +3,15 @@
     [PrimaryKey(nameof(UserId), nameof(PostId))]
     public class Liked
     {
+        [Key]
+        public int KeyId { get; set; } = 0;
+
         [ForeignKey("User.UserId")]
         public int UserId { get; set; } = 0;
 
         [ForeignKey("Posts.PostId")]
         public int PostId { get; set; } = 0;
 
-        [Column(TypeName = "datetime")]
-        public DateTime LikedTime { get; set; } = DateTime.Now;
+        public Boolean IsLiked { get; set; } = false;
     }
 }

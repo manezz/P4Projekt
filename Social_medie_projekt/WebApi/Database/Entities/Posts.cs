@@ -9,7 +9,7 @@
         public string Title { get; set; } = string.Empty;
 
         [Column(TypeName = "nvarchar(1000)")]
-        public string Desc { get; set; } = string.Empty ;
+        public string Desc { get; set; } = string.Empty;
 
         [Column(TypeName = "text")]
         public string? Tags { get; set; } = string.Empty;
