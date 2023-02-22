@@ -16,7 +16,7 @@
 
         public Login Login { get; set; }
 
-        public List<Posts>? Posts { get; set; } = new();
+        public List<Post>? Posts { get; set; } = new();
 
     }
 }

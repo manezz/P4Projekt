@@ -12,16 +12,25 @@
  
     public class PostService : IPostService
     {
-
         private readonly IPostRepository _postRepository;
+
         public PostService(IPostRepository postRepository)
         {
             _postRepository = postRepository;
         }
 
+        private Post MapPostRequestToPost(PostRequest postRequest)
+        {
+            return new Post
+            {
+                UserId = postRequest.UserId,
+                Title = postRequest.Title,
+                Desc = postRequest.Desc,
+                Tags = postRequest.Tags,
+            };
+        }
 
-
-        private PostResponse MapPostToPostResponse(Posts post)
+        private PostResponse MapPostToPostResponse(Post post)
         {
             return new PostResponse
             {
@@ -40,22 +49,10 @@
             };
         }
 
-        private Posts MapPostRequestToPost(PostRequest postRequest)
+ 
+        private Post MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
         {
-            return new Posts
-            {
-                UserId = postRequest.UserId,
-                Title = postRequest.Title,
-                Desc = postRequest.Desc,
-                Tags = postRequest.Tags,
-            };
-        }
-
-
-
-        private Posts MapPostUpdateRequestToPost(PostUpdateRequest postUpdateRequest)
-        {
-            return new Posts
+            return new Post
             {
                 Title = postUpdateRequest.Title,
                 Desc = postUpdateRequest.Desc,
@@ -65,29 +62,10 @@
 
 
 
-        private Like MapLikeRequestToLike(LikeRequest likedRequest)
-        {
-            return new Like
-            {
-                UserId = likedRequest.UserId,
-                PostId = likedRequest.PostId,
-            };
-        }
-
-        private LikeResponse MapLikeToLikeResponse(Like like)
-        {
-            return new LikeResponse
-            {
-                UserId = like.UserId,
-                PostId = like.PostId
-            };
-        }
-
-
 
         public async Task<List<PostResponse>> GetAllPostsAsync()
         {
-            List<Posts> posts = await _postRepository.GetAllAsync();
+            List<Post> posts = await _postRepository.GetAllAsync();
 
             if (posts == null)
             {
@@ -110,7 +88,7 @@
 
         public async Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId)
         {
-            var posts = await _postRepository.GetAllPostsByUserIdAsync(userId);
+            List<Post?> posts = await _postRepository.GetAllPostsByUserIdAsync(userId);
 
             if (posts == null)
             {

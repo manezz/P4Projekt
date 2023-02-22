@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    public class Posts
+    public class Post
     {
         [Key]
         public int PostId { get; set; } = 0;
@@ -19,6 +19,8 @@
 
         [Column(TypeName ="datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
+
+
 
         [ForeignKey("User.UserId")]
         public int UserId { get; set; }
