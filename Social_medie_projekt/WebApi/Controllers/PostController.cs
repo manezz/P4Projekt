@@ -14,7 +14,7 @@
             _likeService = likeService;
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllPostsAsync()
         {
@@ -35,7 +35,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByPostId([FromRoute] int postId)
@@ -56,7 +56,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetAllPostsByUserId([FromRoute] int userId)
@@ -77,7 +77,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
@@ -85,10 +85,11 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && newPost.UserId != currentUser.User.UserId)
-                {
-                    return Unauthorized(new { message = "Unauthorized" });
-                }
+                    // unødvendigt? der er allerede authorization på selve HttpPost
+                //if (currentUser != null && newPost.UserId != currentUser.User.UserId)
+                //{
+                //    return Unauthorized(new { message = "Unauthorized" });
+                //}
 
                 var postResponse = await _postService.CreatePostAsync(newPost);
 
@@ -101,7 +102,7 @@
 
         }
 
-        [Authorize(Role.user)]
+        //[Authorize(Role.user)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePost([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
@@ -123,7 +124,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpDelete]
         [Route("{postId}")]
         public async Task<IActionResult> DeletePost([FromRoute] int postId)
@@ -156,51 +157,8 @@
 
 
 
-        //[Authorize(Role.user, Role.admin)]
-        //[HttpPost]
-        //[Route("Like")]
-        //public async Task<IActionResult> CreateLikeAsync([FromBody] LikeRequest newLike)
-        //{
-        //    try
-        //    {
-        //        var likedResponse = await _likeService.CreateLikeAsync(newLike);
-
-        //        return Ok(likedResponse);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
 
         //[Authorize(Role.user, Role.admin)]
-        //[HttpDelete]
-        //[Route("Like")]
-        //public async Task<IActionResult> DeleteLikeAsync([FromBody] int keyId)
-        //{
-        //    try
-        //    {
-        //        var likedResponse = await _likeService.DeleteLikeAsync(keyId);
-
-        //        if (likedResponse == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        return Ok(likedResponse);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return Problem(ex.Message);
-        //    }
-        //}
-
-
-
-
-
-
-        [Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("Tag")]
         public async Task<IActionResult> GetAllTagsAsync()
@@ -221,7 +179,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("Tag/{tagId}")]
         public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
@@ -242,7 +200,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        //[Authorize(Role.user, Role.admin)]
         [HttpPost]
         [Route("Tag")]
         public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
