@@ -12,7 +12,7 @@
             _postService = postService;
         }
 
-        [Authorize(Role.user)]
+        [Authorize(Role.user, Role.admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllPostsAsync()
         {
@@ -75,7 +75,7 @@
             }
         }
 
-        [Authorize(Role.user)]
+        [Authorize(Role.user, Role.admin)]
         [HttpPost]
         public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
         {
@@ -92,7 +92,7 @@
 
         }
 
-        [Authorize(Role.user)]
+        [Authorize(Role.user, Role.admin)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
