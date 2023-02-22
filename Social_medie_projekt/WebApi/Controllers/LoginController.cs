@@ -1,6 +1,4 @@
-﻿using WebApi.Authorization;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +18,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                SignInResponse response = await _loginService.AuthenticateUser(login);
+                SignInResponse? response = await _loginService.AuthenticateUser(login);
 
                 if (response == null)
                 {
@@ -60,9 +58,8 @@ namespace WebApi.Controllers
             {
                 List<LoginResponse> logins = await _loginService.GetAllLoginAsync();
 
-                if (logins.Count() == 0)
+                if (logins.Count == 0)
                 {
-
                     return NoContent();
                 }
 
@@ -101,7 +98,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {
@@ -131,7 +128,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {
@@ -160,7 +157,7 @@ namespace WebApi.Controllers
         {
             try
             {
-                LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
                 {

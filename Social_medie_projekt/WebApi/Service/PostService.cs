@@ -4,7 +4,7 @@
     {
         Task<List<PostResponse>> GetAllPostsAsync();
         Task<PostResponse?> GetPostByPostIdAsync(int Id);
-        Task<List<PostResponse?>> GetPostByUserIdAsync(int Id);
+        Task<List<PostResponse>> GetPostByUserIdAsync(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
@@ -17,6 +17,7 @@
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
         Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId);
         Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId);
+        Task<List<TagResponse>> GetTagsByPostIdAsync(int postId);
     }
 
     public class PostService : IPostService
@@ -175,6 +176,18 @@
                 return null;
             }
             return MapTagToTagResponse(tags);
+        }
+
+        public async Task<List<TagResponse>> GetTagsByPostIdAsync(int postId)
+        {
+            var tags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (tags == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
         public async Task<TagResponse> CreateTagAsync(TagRequest newTag)
