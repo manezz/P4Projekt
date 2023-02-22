@@ -203,7 +203,7 @@ namespace WebApi.Migrations
                 name: "IX_Like_UserId",
                 table: "Like",
                 column: "UserId",
-                unique: true);
+                unique: false); // set to false
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",
