@@ -6,7 +6,7 @@
 
         public DbSet<Login> Login { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Posts> Posts { get; set; }
+        public DbSet<Post> Posts { get; set; }
         public DbSet<Like> Like { get; set; }
 
 
@@ -47,8 +47,8 @@
                     Created = DateTime.Now
                 });
 
-            modelBuilder.Entity<Posts>().HasData(
-                new Posts
+            modelBuilder.Entity<Post>().HasData(
+                new Post
                 {
                     PostId = 1,
                     Title = "testestestest",
@@ -59,7 +59,7 @@
                     
                 },
 
-                new Posts
+                new Post
                 {
                     PostId = 2,
                     Title = "Test!",
