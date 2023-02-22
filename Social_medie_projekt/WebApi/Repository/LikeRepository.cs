@@ -30,9 +30,13 @@
 
         public async Task<Like> CreateLikeAsync(Like like)
         {
-            _context.Like.Add(like);
 
-            await _context.SaveChangesAsync();
+            if(CheckLike(like.KeyId) != null)
+            {
+                _context.Like.Add(like);
+                await _context.SaveChangesAsync();
+            }
+
             return like;
         }
 
