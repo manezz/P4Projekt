@@ -2,7 +2,7 @@
 {
     public interface ILikeService
     {
-        Task<LikeResponse?> CheckLike(int KeyId);
+        Task<LikeResponse?> FindLike(int KeyId);
         Task<List<LikeResponse>?> GetAllLikesFromUser(int userId);
         Task<LikeResponse> CreateLikeAsync(LikeRequest newLike);
         Task<LikeResponse?> DeleteLikeAsync(int keyId);
@@ -42,17 +42,16 @@
                 },
 
                 User = new LikeUserResponse{
-                    UserId = like.UserId,
-                    UserName = like.User.UserName
+                    UserId = like.UserId
                 }
             };
         }
 
 
 
-        public async Task<LikeResponse?> CheckLike(int KeyId)
+        public async Task<LikeResponse?> FindLike(int KeyId)
         {
-            var like = await _likeRepository.CheckLike(KeyId);
+            var like = await _likeRepository.FindLike(KeyId);
 
             if (like == null)
             {

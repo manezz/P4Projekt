@@ -40,8 +40,8 @@ namespace WebApi.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId");
-                        //.IsUnique();
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Like");
 
@@ -290,14 +290,14 @@ namespace WebApi.Migrations
                     b.HasOne("WebApi.Database.Entities.Post", "Post")
                         .WithMany()
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                    //.IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.User", "User")
                         .WithOne()
                         .HasForeignKey("WebApi.Database.Entities.Like", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
-                        //.IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
 
                     b.Navigation("Post");
 

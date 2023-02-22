@@ -14,11 +14,11 @@
 
         [HttpGet]
         [Route("{keyId}")]
-        public async Task<IActionResult> CheckLike([FromRoute] int keyId)
+        public async Task<IActionResult> FindLike([FromRoute] int keyId)
         {
             try
             {
-                LikeResponse likeResponse = await _likeService.CheckLike(keyId);
+                LikeResponse likeResponse = await _likeService.FindLike(keyId);
 
                 if (likeResponse == null)
                 {
