@@ -6,7 +6,7 @@
         Task<Login> RegisterAsync(Login newUser);
         Task<List<Login>> GetAllLoginAsync();
         Task<Login?> FindLoginByIdAsync(int loginId);
-        Task<Login> FindLoginByEmailAsync(string email);
+        Task<Login?> FindLoginByEmailAsync(string email);
         Task<Login?> UpdateLoginById(int loginId, Login updatedLogin);
         Task<Login?> DeleteLoginByIdAsync(int loginId);
     }
@@ -38,6 +38,7 @@
         {
             return await _context.Login
                 .Include(l => l.User)
+                .Include(p => p.User.Posts.OrderByDescending(Posts => Posts.Date))
                 .ToListAsync();
         }
 
@@ -45,14 +46,14 @@
         {
             return await _context.Login
                 .Include(l => l.User)
+                .Include(p => p.User.Posts)
                 .FirstOrDefaultAsync(x => x.LoginId == loginId);
         }
 
-        public async Task<Login> FindLoginByEmailAsync(string email)
-        {   
+        public async Task<Login?> FindLoginByEmailAsync(string email)
+        {
             return await _context.Login
                 .Include(L => L.User)
-                .Include(p => p.User.Posts)
                 .Include(P => P.User.Posts.OrderByDescending(Posts => Posts.Date))
                 .FirstOrDefaultAsync(x => x.Email == email);
         }

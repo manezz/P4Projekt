@@ -13,6 +13,9 @@
         public PostUserResponse User { get; set; } = new();
     }
 
+        public List<TagResponse>? Tags { get; set; }
+    }
+
     public class PostUserResponse
     {
         public int UserId { get; set; }

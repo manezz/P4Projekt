@@ -5,32 +5,35 @@
         public int UserId { get; set; }
 
         public string UserName { get; set; } = string.Empty;
-        public DateTime Created { get; set; } = DateTime.Now;
-        public UserLoginResponse Login { get; set; }
+        public DateTime Created { get; set; }
+
+        public UserLoginResponse? Login { get; set; }
 
         public List<UserPostResponse> Posts { get; set; } = new();
-
     }
+
     public class UserLoginResponse
     {
         public int LoginId { get; set; }
+
         public string Email { get; set; } = string.Empty;
+
         public Role Type { get; set; }
     }
 
     public class UserPostResponse
     {
-        public int PostId { get; set; } 
+        public int PostId { get; set; }
 
         public string Title { get; set; } = string.Empty;
 
         public string Desc { get; set; } = string.Empty;
         public string Tags { get; set; } = string.Empty;
 
-        public int? Likes { get; set; } 
+        public int? Likes { get; set; }
 
-        public DateTime Date { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; }
     }
 
-    
+
 }

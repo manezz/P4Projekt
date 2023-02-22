@@ -3,7 +3,7 @@
     public class Post
     {
         [Key]
-        public int PostId { get; set; } = 0;
+        public int PostId { get; set; }
 
         [Column(TypeName = "nvarchar(100)")]
         public string Title { get; set; } = string.Empty;
@@ -15,9 +15,9 @@
         public string? Tags { get; set; } = string.Empty;
 
         [Column(TypeName = "int")]
-        public int? Likes { get; set; } = 0;
+        public int Likes { get; set; } = 0;
 
-        [Column(TypeName ="datetime")]
+        [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
 

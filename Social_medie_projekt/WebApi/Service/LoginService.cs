@@ -20,37 +20,32 @@
             _jwtUtils = jwtUtils;
         }
 
-        private LoginResponse MapLoginToLoginResponse(Login login)
+        private static LoginResponse MapLoginToLoginResponse(Login login)
         {
-            if (login.User == null)
+            return new LoginResponse
             {
-                return new LoginResponse
-                {
-                    LoginId = login.LoginId,
-                    Email = login.Email,
-                    Type = login.Type,
-                };
-            }
-            else
-            {
-                return new LoginResponse
-                {
-                    LoginId = login.LoginId,
-                    Email = login.Email,
-                    Type = login.Type,
+                LoginId = login.LoginId,
+                Email = login.Email,
+                Type = login.Type,
 
-                    User = new LoginUserResponse
+                User = new LoginUserResponse
+                {
+                    UserId = login.User.UserId,
+                    UserName = login.User.UserName,
+                    Created = login.User.Created,
+                    Posts = login.User.Posts.Select(x => new UserPostLoginResponse
                     {
-                        UserId = login.User.UserId,
-                        UserName = login.User.UserName,
-                        Created = login.User.Created
-                    }
-                };
-            }
-
+                        PostId = x.PostId,
+                        Title = x.Title,
+                        Desc = x.Desc,
+                        Likes = x.Likes,
+                        Date = x.Date
+                    }).ToList()
+                }
+            };
         }
 
-        private Login MapLoginRequestToLogin(LoginRequest loginRequest)
+        private static Login MapCustomerSignupRequestToLogin(UserSignupRequest userSignupRequest)
         {
             return new Login
             {
@@ -65,14 +60,13 @@
         }
 
 
-
-
-        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
+        public async Task<SignInResponse?> AuthenticateUser(SignInRequest login)
         {
-            Login user = await _loginRepository.FindLoginByEmailAsync(login.Email);
+            Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
+
             if (user == null)
             {
-                return null;
+                throw new ArgumentNullException();
             }
 
             if (user.Password == login.Password)
@@ -94,12 +88,10 @@
                                 PostId = x.PostId,
                                 Title = x.Title,
                                 Desc = x.Desc,
-                                Tags = x.Tags,
                                 Likes = x.Likes,
                                 Date = x.Date
                             }).ToList()
                         }
-
                     },
                     Token = _jwtUtils.GenerateJwtToken(user)
                 };

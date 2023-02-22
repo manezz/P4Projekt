@@ -110,7 +110,6 @@ namespace WebApi.Controllers
             {
                 LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
 
-
                 if (currentUser != null && userId != currentUser.User.UserId && currentUser.Type != Role.admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });

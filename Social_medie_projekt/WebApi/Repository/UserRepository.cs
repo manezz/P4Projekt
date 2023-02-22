@@ -3,11 +3,10 @@
     public interface IUserRepository
     {
         Task<List<User>> GetAllUsersAsync();
-        Task<User> FindUserByIdAsync(int id);
+        Task<User?> FindUserByIdAsync(int id);
         Task<User> CreateUserAsync(User newUser);
-        Task<User> UpdateUserAsync(int id,User updatedUser);
-
-        Task<User> DeleteUserAsync(int id);
+        Task<User?> UpdateUserAsync(int id, User updatedUser);
+        Task<User?> DeleteUserAsync(int id);
     }
 
     public class UserRepository : IUserRepository
@@ -32,11 +31,11 @@
             return newUser;
         }
 
-        public async Task<User> DeleteUserAsync(int id)
+        public async Task<User?> DeleteUserAsync(int id)
         {
             var user = await FindUserByIdAsync(id);
 
-            if(user != null)
+            if (user != null)
             {
                 _context.User.Remove(user);
                 await _context.SaveChangesAsync();
@@ -44,14 +43,14 @@
             return user;
         }
 
-        public async Task<User> FindUserByIdAsync(int id)
+        public async Task<User?> FindUserByIdAsync(int id)
         {
             return await _context.User
                 .Include(l => l.Login)
                 .Include(P => P.Posts.OrderByDescending(Posts => Posts.Date))
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
-        
+
         public async Task<List<User>> GetAllUsersAsync()
         {
             return await _context.User
@@ -60,11 +59,11 @@
                 .ToListAsync();
         }
 
-        public async Task<User> UpdateUserAsync(int id, User updatedUser)
+        public async Task<User?> UpdateUserAsync(int id, User updatedUser)
         {
             var user = await FindUserByIdAsync(id);
 
-            if(user != null)
+            if (user != null)
             {
                 _context.Remove(user);
                 await _context.SaveChangesAsync();
