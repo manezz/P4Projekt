@@ -45,7 +45,7 @@
             };
         }
 
-        private static Login MapCustomerSignupRequestToLogin(UserSignupRequest userSignupRequest)
+        private static Login MapLoginRequestToLogin(LoginRequest loginRequest)
         {
             return new Login
             {
@@ -60,7 +60,7 @@
         }
 
 
-        public async Task<SignInResponse?> AuthenticateUser(SignInRequest login)
+        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
         {
             Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
 
@@ -82,15 +82,7 @@
                         {
                             UserId = user.User.UserId,
                             UserName = user.User.UserName,
-                            Created = user.User.Created,
-                            Posts = user.User.Posts.Select(x => new UserPostLoginResponse
-                            {
-                                PostId = x.PostId,
-                                Title = x.Title,
-                                Desc = x.Desc,
-                                Likes = x.Likes,
-                                Date = x.Date
-                            }).ToList()
+                            Created = user.User.Created
                         }
                     },
                     Token = _jwtUtils.GenerateJwtToken(user)

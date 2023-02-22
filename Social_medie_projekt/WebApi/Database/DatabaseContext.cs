@@ -6,9 +6,9 @@
 
         public DbSet<Login> Login { get; set; }
         public DbSet<User> User { get; set; }
-        public DbSet<Post> Posts { get; set; }
+        public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
-        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Tag> Tag { get; set; }
         public DbSet<PostsTag> PostsTags { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -18,8 +18,8 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
-            modelBuilder.Entity<Liked>()
-                .HasOne(x => x.LikeUser)
+            modelBuilder.Entity<Like>()
+                .HasOne(x => x.User)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
 

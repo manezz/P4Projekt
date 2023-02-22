@@ -4,7 +4,7 @@ import { Data } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
-import { Tags } from '../_models/tags';
+import { Tag } from '../_models/tags';
 
 
 @Component({
@@ -52,8 +52,8 @@ export class IndexpageComponent {
   //   posts: []}
   // }
 
-  tags: Tags[] = []
-  tag: Tags= { tagId: 0, tag: '' }
+  tags: Tag[] = []
+  tag: Tag= { tagId: 0, tag: '' }
 
   constructor(
     private postService: PostService,

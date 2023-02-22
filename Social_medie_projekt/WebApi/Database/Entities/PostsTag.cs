@@ -9,7 +9,7 @@
         [ForeignKey("Tag.TagId")]
         public int TagId { get; set; }
 
-        public Posts? Posts { get; set; }
+        public Post? Posts { get; set; }
 
         public Tag? Tag { get; set; }
     }

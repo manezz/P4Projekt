@@ -2,15 +2,20 @@
 {
     public interface IPostRepository
     {
-        Task<Posts> CreatePostAsync(Posts newPost);
-        Task<Posts> DeletePostAsync(int id);
-        Task<Posts> UpdatePostAsync(int id, Posts updatePost);
-        Task<Posts> UpdatePostLikesAsync(int id, int like);
-        Task<List<Posts>> GetAllAsync();
-        Task<Posts?> GetPostByPostIdAsync(int PostId);
-        Task<List<Posts?>> GetPostByUserIdAsync(int UserId);
-        Task<Liked> CreateLikeAsync(Liked newLike);
-        Task<Liked> DeleteLikeAsync(Liked like);
+        Task<Post> CreatePostAsync(Post newPost);
+        Task<Post> DeletePostAsync(int id);
+        Task<Post> UpdatePostAsync(int id, Post updatePost);
+        Task<Post> UpdatePostLikesAsync(int id, int like);
+        Task<List<Post>> GetAllAsync();
+        Task<Post?> GetPostByPostIdAsync(int PostId);
+        Task<List<Post?>> GetAllPostsByUserIdAsync(int UserId);
+
+
+        Task<List<Tag>> GetAllTagsAsync();
+        Task<Tag?> GetTagByIdAsync(int id);
+        Task<List<Tag?>> GetTagsByPostIdAsync(int postId);
+        Task<Tag?> CreateTagAsync(Tag newTag);
+        Task<PostsTag> CreatePostTagAsync(PostsTag postsTag);
     }
 
     public class PostRepository : IPostRepository
@@ -24,24 +29,24 @@
 
         public async Task<List<Post>> GetAllAsync()
         {
-            return await _context.Posts.Include(c => c.User)
+            return await _context.Post.Include(c => c.User)
                  .OrderByDescending(d => d.Date)
                  .ToListAsync();
         }
 
         public async Task<Post?> GetPostByPostIdAsync(int postId)
         {
-            return await _context.Posts.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
+            return await _context.Post.Include(c => c.User).FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
         public async Task<List<Post?>> GetAllPostsByUserIdAsync(int userId)
         {
-            return await _context.Posts.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
+            return await _context.Post.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
         }
 
         public async Task<Post> CreatePostAsync(Post newPost)
         {
-            _context.Posts.Add(newPost);
+            _context.Post.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
         }
@@ -93,9 +98,15 @@
             return post;
         }
 
+
+
+
+
+
+
         public async Task<Tag?> CreateTagAsync(Tag newTag)
         {
-            var tagId = from tag in _context.Tags
+            var tagId = from tag in _context.Tag
                         where tag.Name == newTag.Name
                         select tag.TagId;
 
@@ -105,7 +116,7 @@
                 return newTag;
             }
 
-            _context.Tags.Add(newTag);
+            _context.Tag.Add(newTag);
             await _context.SaveChangesAsync();
 
             newTag = await GetTagByIdAsync(newTag.TagId);
@@ -121,7 +132,7 @@
 
         public async Task<List<Tag>> GetAllTagsAsync()
         {
-            return await _context.Tags.ToListAsync();
+            return await _context.Tag.ToListAsync();
             //return await _context.Tags.Include(p => p.Posts).ToListAsync();
         }
 
@@ -137,7 +148,7 @@
 
         public async Task<Tag?> GetTagByIdAsync(int id)
         {
-            return await _context.Tags.FindAsync(id);
+            return await _context.Tag.FindAsync(id);
             //return await _context.Tags.Include(p => p.Posts).FirstOrDefaultAsync(x => x.TagId == id);
         }
     }
