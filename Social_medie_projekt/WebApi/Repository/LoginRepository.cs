@@ -25,7 +25,7 @@
         {
             if (_context.User.Any(u => u.Login.Email == newUser.Email))
             {
-                throw new Exception(String.Format("The email {0} is not available", newUser.Email));
+                throw new Exception(string.Format("The email {0} is not available", newUser.Email));
             }
 
             _context.Login.Add(newUser);
@@ -37,6 +37,7 @@
         {
             return await _context.Login
                 .Include(l => l.User)
+                .Include(p => p.User.Posts.OrderByDescending(Posts => Posts.Date))
                 .ToListAsync();
         }
 
@@ -51,6 +52,7 @@
         {
             return await _context.Login
                 .Include(l => l.User)
+                .Include(p => p.User.Posts)
                 .FirstOrDefaultAsync(x => x.LoginId == loginId);
         }
 
@@ -58,7 +60,6 @@
         {
             return await _context.Login
                 .Include(L => L.User)
-                .Include(p => p.User.Posts)
                 .Include(P => P.User.Posts.OrderByDescending(Posts => Posts.Date))
                 .FirstOrDefaultAsync(x => x.Email == email);
         }

@@ -15,7 +15,7 @@
         public string Desc { get; set; } = string.Empty;
 
         [Column(TypeName = "int")]
-        public int? Likes { get; set; } = 0;
+        public int Likes { get; set; } = 0;
 
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
