@@ -3,7 +3,7 @@
     public interface ILikeRepository
     {
         Task<Like?> CheckLike(int KeyId);
-        Task<List<Like?>> GetAllUsersLikes(int userId);
+        Task<List<Like>?> GetAllLikesFromUser(int userId);
         Task<Like> CreateLikeAsync(Like newLike);
         Task<Like> DeleteLikeAsync(int keyId);
     }
@@ -23,9 +23,9 @@
             return await _context.Like.FirstOrDefaultAsync(x => KeyId == x.KeyId);
         }
 
-        public async Task<List<Like?>> GetAllUsersLikes(int userId)
+        public async Task<List<Like>?> GetAllLikesFromUser(int userId)
         {
-            return await _context.Like.Include(c => c.PostId).Where(x => userId == x.UserId).ToListAsync();
+            return await _context.Like.Include(c => c.User).Where(x => userId == x.UserId).ToListAsync();
         }
 
         public async Task<Like> CreateLikeAsync(Like like)

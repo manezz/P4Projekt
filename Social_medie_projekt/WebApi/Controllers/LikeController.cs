@@ -35,11 +35,11 @@
 
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetAllUsersLikes([FromRoute] int userId)
+        public async Task<IActionResult> GetAllLikesFromUser([FromRoute] int userId)
         {
             try
             {
-                LikeResponse likeResponse = await _likeService.CheckLike(userId);
+                var likeResponse = await _likeService.GetAllLikesFromUser(userId);
 
                 if (likeResponse == null)
                 {

@@ -3,13 +3,13 @@
     public interface ILikeService
     {
         Task<LikeResponse?> CheckLike(int KeyId);
+        Task<List<LikeResponse>?> GetAllLikesFromUser(int userId);
         Task<LikeResponse> CreateLikeAsync(LikeRequest newLike);
         Task<LikeResponse?> DeleteLikeAsync(int keyId);
     }
 
     public class LikeService : ILikeService
     {
-
         private readonly ILikeRepository _likeRepository;
         private readonly IPostRepository _postRepository;
 
@@ -25,9 +25,9 @@
         {
             return new Like
             {
-                UserId = likedRequest.UserId,
+                KeyId = likedRequest.KeyId,
                 PostId = likedRequest.PostId,
-                //IsLiked = likedRequest.IsLiked,
+                UserId = likedRequest.UserId,
             };
         }
 
@@ -35,9 +35,16 @@
         {
             return new LikeResponse
             {
-                UserId = like.UserId,
-                PostId = like.PostId,
-                //IsLiked = like.IsLiked,
+                KeyId = like.KeyId,
+    
+                Post = new LikePostResponse{
+                    PostId = like.PostId
+                },
+
+                User = new LikeUserResponse{
+                    UserId = like.UserId,
+                    UserName = like.User.UserName
+                }
             };
         }
 
@@ -54,9 +61,9 @@
             return MapLikeToLikeResponse(like);
         }
 
-        public async Task<List<LikeResponse?>> GetAllUsersLikes(int userId)
+        public async Task<List<LikeResponse>?> GetAllLikesFromUser(int userId)
         {
-            var likes = await _likeRepository.GetAllUsersLikes(userId);
+            List<Like>? likes = await _likeRepository.GetAllLikesFromUser(userId);
 
             if (likes == null)
             {
