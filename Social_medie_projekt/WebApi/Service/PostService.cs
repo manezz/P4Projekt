@@ -199,7 +199,7 @@
                 return null;
             }
 
-            return MapPostToPostResponse(posts);
+            return (MapPostToPostResponse(posts, tags.Select(Tag => MapTagToTagResponse(Tag)).ToList()));
         }
 
         public async Task<List<PostResponse>> GetPostByUserIdAsync(int userId)
