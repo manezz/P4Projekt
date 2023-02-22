@@ -31,7 +31,6 @@
                     Password = "password",
                     Type = 0
                 },
-
                 new Login
                 {
                     LoginId = 2,
@@ -48,7 +47,6 @@
                     UserName = "tester 1",
                     Created = DateTime.Now
                 },
-
                 new User
                 {
                     UserId = 2,
@@ -67,7 +65,6 @@
                     Date = DateTime.Now,
                     UserId = 1,
                 },
-
                 new Post
                 {
                     PostId = 2,
@@ -77,8 +74,6 @@
                     Date = DateTime.Now,
                     UserId = 2,
                 });
-
-
 
             modelBuilder.Entity<Like>().HasData(
                 new Like
