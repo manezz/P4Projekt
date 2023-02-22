@@ -10,6 +10,6 @@
         [MaxLength(300, ErrorMessage = "You have reached the limit of 300 Characters")]
         public string Desc { get; set; } = string.Empty;
 
-        public string Tags { get; set; } = string.Empty;
+        public List<TagRequest> Tags { get; set; }
     }
 }

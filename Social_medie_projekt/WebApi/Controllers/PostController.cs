@@ -99,7 +99,7 @@
 
         }
 
-        [Authorize(Role.user)]
+        [Authorize(Role.user, Role.admin)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
