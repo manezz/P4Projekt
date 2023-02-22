@@ -212,7 +212,7 @@
                 throw new ArgumentNullException();
             }
 
-            return posts.Select(post => MapPostToPostResponse(post)).ToList();
+            return posts.Select(post => MapPostToPostResponse(post, GetTagsByPostIdAsync(post.PostId).Result)).ToList();
         }
 
         public async Task<LikedResponse> CreateLikeAsync(LikedRequest newLike)
