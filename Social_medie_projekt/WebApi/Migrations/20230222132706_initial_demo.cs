@@ -109,7 +109,7 @@ namespace WebApi.Migrations
                         column: x => x.UserId,
                         principalTable: "User",
                         principalColumn: "UserId");
-                });
+        });
 
             migrationBuilder.CreateTable(
                 name: "PostsTags",
@@ -159,8 +159,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9014), 1, "tester 1" },
-                    { 2, new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9018), 2, "222test222" }
+                    { 1, new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9612), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9616), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -168,8 +168,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Tags", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9032), "tadnawdnada", 1, "", "testestestest", 1 },
-                    { 2, new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9035), "Woooooo!", 0, "", "Test!", 2 }
+                    { 1, new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9631), "tadnawdnada", 1, "", "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9634), "Woooooo!", 0, "", "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -203,7 +203,7 @@ namespace WebApi.Migrations
                 name: "IX_Like_UserId",
                 table: "Like",
                 column: "UserId",
-                unique: false);
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",

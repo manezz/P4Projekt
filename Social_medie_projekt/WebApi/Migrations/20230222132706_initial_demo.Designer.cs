@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230222115055_initial_demo")]
+    [Migration("20230222132706_initial_demo")]
     partial class initialdemo
     {
         /// <inheritdoc />
@@ -153,7 +153,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9032),
+                            Date = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9631),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Tags = "",
@@ -163,7 +163,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9035),
+                            Date = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9634),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Tags = "",
@@ -275,14 +275,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9014),
+                            Created = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9612),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 22, 12, 50, 55, 629, DateTimeKind.Local).AddTicks(9018),
+                            Created = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9616),
                             LoginId = 2,
                             UserName = "222test222"
                         });

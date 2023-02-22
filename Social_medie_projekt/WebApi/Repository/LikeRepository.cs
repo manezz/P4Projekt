@@ -31,12 +31,13 @@
         public async Task<Like> CreateLikeAsync(Like like)
         {
 
-            if(CheckLike(like.KeyId) != null)
-            {
-                _context.Like.Add(like);
-                await _context.SaveChangesAsync();
-            }
+            //if(CheckLike(like.KeyId) != null)
+            //{
+            //    throw new Exception("Post aldready liked");
+            //}
 
+            _context.Like.Add(like);
+            await _context.SaveChangesAsync();
             return like;
         }
 

@@ -8,8 +8,6 @@
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
-        //Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
-        //Task<LikedResponse?> DeleteLikeAsync(LikedRequest deleteLike);
         Task<List<TagResponse>> GetAllTagsAsync();
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);

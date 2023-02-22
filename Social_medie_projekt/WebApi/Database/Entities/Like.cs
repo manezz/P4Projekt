@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    //[PrimaryKey(nameof(KeyId))]
+    [PrimaryKey(nameof(KeyId))]
     public class Like
     {
         [Key]

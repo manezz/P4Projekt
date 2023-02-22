@@ -25,7 +25,7 @@
         {
             return new Like
             {
-                KeyId = likedRequest.KeyId,
+                //KeyId = likedRequest.KeyId,
                 PostId = likedRequest.PostId,
                 UserId = likedRequest.UserId,
             };

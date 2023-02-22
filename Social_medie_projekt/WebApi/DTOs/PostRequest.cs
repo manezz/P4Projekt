@@ -13,7 +13,8 @@
         [MaxLength(1000, ErrorMessage = "You have reached the limit of 1000 Characters")]
         public string Desc { get; set; } = string.Empty;
 
-        public List<TagRequest>? Tags { get; set; }
+        public string Tags { get; set; }
 
+        //public List<TagRequest>? Tags { get; set; }
     }
 }
