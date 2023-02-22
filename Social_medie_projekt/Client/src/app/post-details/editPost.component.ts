@@ -10,7 +10,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   template: `
   <div class="body">
     <div class="post">
-      <form [formGroup]="postForm" id="form">
+      <form [formGroup]="postForm" id="form" (ngSubmit)="edit()">
         
         <div class="formControl">
           <textarea type="text" id="title" formControlName="Title" ng-model="title" maxlength="100" (keyup)="titleMaxLenght($event)" placeholder="Title"></textarea>
@@ -29,11 +29,11 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
         </div>
         
         <div class="buttonDiv">
-          <button id="createBtn" (click)="edit()">Edit post</button>
+          <button id="editBtn">Edit post</button>
         </div>  
 
         <div class="buttonDiv">
-          <button id="deleteBtn" (click)="delete(this.post.postId)">Delete post</button>
+          <button id="deleteBtn" (click)="delete(this.post.postId)">🗑</button>
         </div>  
 
       </form>
@@ -118,36 +118,22 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     justify-content: center;
     margin-top: 20px;
   }
-  #createBtn{
+  #editBtn{
     width: 150px;
     height: 35px;
     font-size: 25px;
   }
-  #createBtn, #expandBtn, #collapseBtn, #cancelBtn{
+  #editBtn, #deleteBtn{
     border: none;
     border-radius: 15px;
   }
-  #collapseBtn{
+  #deleteBtn{
     width: 25px;
     height: 25px;
     position: absolute;
     bottom: 20px;
-    right: 5px;
-  }
-  #cancelBtn{
-    width: 25px;
-    height: 25px;
-    position: absolute;
-    bottom: 20px;
-    right: 35px;
+    right: 0px;
     font-size: 15px;
-  }
-  #expandBtn{
-    width: 150px;
-    height: 35px;
-    position: absolute;
-    bottom: 15px;
-    font-size: 25px;
   }
   button{
     background-color: darkgray;
@@ -195,29 +181,23 @@ export class EditPostComponent {
 
   edit(){
     if(!this.postForm.pristine){
-      console.log(this.post)
-
       this.post = {
         postId: this.post.postId,
         title: this.postForm.value.Title, 
         desc: this.postForm.value.Content,
         tags: this.postForm.value.Tags,
       }
-
-      console.log(this.post)
       
+      this.postService.editPost(this.post).subscribe()
 
-      // this.postService.editPost(this.post).subscribe()
       // routes back to current posts post-detail
-      // this.router.navigate(["/post-details/", this.post.postId])
+      this.router.navigate(["/post-details/", this.post.postId])
     }
     else{
       this.insertValues()
       console.log("nothing changed")
       console.log(this.post)
-    }
-
-    
+    }    
   }
 
   delete(postId: number){
@@ -225,6 +205,7 @@ export class EditPostComponent {
       this.postService.deletePost(postId).subscribe({
         next: (x) => {
           this.posts.push(x);
+          
             // routes back to mainpage
           this.router.navigate(["/main"])
         },
@@ -232,7 +213,6 @@ export class EditPostComponent {
           console.warn(Object.values(err.error.errors).join(', '))
         }
       });
-      
     }
   }
 
