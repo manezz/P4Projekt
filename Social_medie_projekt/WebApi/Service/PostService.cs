@@ -14,6 +14,7 @@
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
         Task<TagResponse> UpdateTagAsync(TagRequest newTag);
+        Task<List<PostTagResponse>> GetPostTagsByPostId(int postId);
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
         Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId);
         Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId);
@@ -71,7 +72,7 @@
                 throw new ArgumentNullException();
             }
 
-            var tags = newPost.Tags!.Select(tag => CreateTagAsync(tag).Result).ToList();
+            var tags = newPost.Tags.Select(tag => CreateTagAsync(tag).Result).ToList();
 
             _ = tags.Select(async tagResponse => await CreatePostTagAsync(post.PostId, tagResponse.TagId)).ToList();
 
@@ -92,6 +93,8 @@
 
         public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
         {
+            var oldtags = await GetTagsByPostIdAsync(postId);
+
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
             if (post == null)
@@ -99,17 +102,57 @@
                 throw new ArgumentNullException();
                 //return MapPostToPostResponse(post);
             }
+
             //Re-using CreateTagAsync since it already checks tag and does the necessary processes
-            var tags = updatePost.Tags.Select(tag => UpdateTagAsync(tag).Result).ToList();
-            if (post == null)
+            //var tags = updatePost.Tags.Select(tag => UpdateTagAsync(tag).Result).ToList();
+
+            //var createtags = new List<object>();
+
+            //foreach (var tag in updatePost.Tags)
+            //{
+            //    createtags.Add(oldtags.Select(t => t.GetType().GetProperties().GetValue(t => t) == tag));
+            //}
+
+            //var createTags = oldtags
+            //    .Where(x => x.Name == updatePost.Tags.All())
+            //    .Select(x => x)
+            //    .ToList();
+
+            var tags = updatePost.Tags.Select(tag => CreateTagAsync(tag).Result).ToList();
+            var posttagsToDelete = await GetPostTagsByPostId(postId);
+            //var posttagtagId = await 
+
+            if (oldtags != tags)
+            {
+                foreach (var posttag in posttagsToDelete)
+                {
+                    //_postRepository.
+
+                    //DeletePostTagByPostIdAsync(postId, posttag.TagId);
+
+                    //await _postRepository.DeletePostTagAsync(MapPostTagResponseToPostTag(posttag));
+                }
+                //DeletePostTagByPostIdAsync(postId, )
+            }
+
+            _ = tags.Select(async tagResponse => await CreatePostTagAsync(post.PostId, tagResponse.TagId)).ToList();
+
+            //_ = tags.Select(async tagResponse => await UpdatePostTagByPostIdAsync(post.PostId, tagResponse.TagId)).ToList();
+
+            return MapPostToPostResponse(post, tags);
+            //return null;
+        }
+
+        public async Task<List<PostTagResponse>> GetPostTagsByPostId(int postId)
+        {
+            var postTags = await _postRepository.GetPostTagsByPostId(postId);
+
+            if (postTags == null)
             {
                 throw new ArgumentNullException();
             }
 
-            _ = tags.Select(async tagResponse => await UpdatePostTagByPostIdAsync(post.PostId, tagResponse.TagId)).ToList();
-
-            return MapPostToPostResponse(post, tags);
-            //return null;
+            return postTags.Select(posttag => MapPostTagToPostTagResponse(posttag)).ToList();
         }
 
         public async Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId)
@@ -140,7 +183,7 @@
 
         public async Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId)
         {
-            var postTag = await _postRepository.UpdatePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postRepository.DeletePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {
@@ -181,7 +224,6 @@
             {
                 throw new ArgumentNullException();
             }
-
             return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
@@ -321,7 +363,15 @@
                 TagId = postsTag.TagId,
             };
         }
-
+        //New mapping
+        private static PostsTag MapPostTagResponseToPostTag(PostTagResponse postTagResponse)
+        {
+            return new PostsTag
+            {
+                PostId = postTagResponse.PostId,
+                TagId = postTagResponse.TagId,
+            };
+        }
         // change name
         private static PostsTag MapPostTagRequestToPostTag(int postId, int tagId)
         {

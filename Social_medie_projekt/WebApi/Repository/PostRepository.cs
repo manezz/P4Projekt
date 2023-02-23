@@ -16,6 +16,7 @@
         Task<List<Tag?>> GetTagsByPostIdAsync(int postId);
         Task<Tag?> CreateTagAsync(Tag newTag);
         Task<Tag?> UpdateTagAsync(Tag updateTag);
+        Task<List<PostsTag>> GetPostTagsByPostId(int postId);
         Task<PostsTag> CreatePostTagAsync(PostsTag newPostsTag);
         Task<PostsTag> DeletePostTagAsync(PostsTag newPostsTag);
         Task<PostsTag> UpdatePostTagAsync(PostsTag newPostsTag);
@@ -163,6 +164,16 @@
             return updateTag;
         }
 
+        public async Task<List<PostsTag>> GetPostTagsByPostId(int postId)
+        {
+            return await _context.PostsTags
+                .Include(p => p.Posts)
+                .Include(t => t.Tag)
+                .Where(p => p.PostId == postId)
+                .Select(p => p)
+                .ToListAsync();
+        }
+
         public async Task<PostsTag> CreatePostTagAsync(PostsTag postsTag)
         {
             _context.PostsTags.Add(postsTag);
@@ -173,20 +184,23 @@
         public async Task<PostsTag> UpdatePostTagAsync(PostsTag postsTag)
         //public async Task<List<PostsTag>> UpdatePostTagAsync(PostsTag postsTag)
         {
-            var postag2 = from posttag in _context.PostsTags
-                         where posttag.PostId == postsTag.PostId
-                         where posttag.TagId != postsTag.TagId
-                         select posttag;
+            //var postag2 = from posttag in _context.PostsTags
+            //             where posttag.PostId == postsTag.PostId
+            //             where posttag.TagId != postsTag.TagId
+            //             select posttag;
 
-            var postag = await _context.PostsTags
-                .Where(x => x.PostId == postsTag.PostId)
-                .Where(x => x.TagId == postsTag.TagId)
-                .Select(x => x)
-                .ToListAsync();
+            //var postag = await _context.PostsTags
+            //    .Where(x => x.PostId == postsTag.PostId)
+            //    .Where(x => x.TagId == postsTag.TagId)
+            //    .Select(x => x)
+            //    .ToListAsync();
+            Console.Write("hej");
+
+            var postag = await GetTagsByPostIdAsync(postsTag.PostId);
 
             //var postag = await _context.PostsTags.FindAsync(postsTag.PostId, postsTag.TagId);
 
-            //Console.Write("hej");
+            Console.Write("hej");
             //if (postag2.Any())
             //{
             //    //_context.PostsTags.Remove(postag2);
@@ -206,6 +220,15 @@
 
         public async Task<PostsTag> DeletePostTagAsync(PostsTag postsTag)
         {
+            var deletePostTag = from posttag in _context.PostsTags
+                                where posttag.PostId == postsTag.PostId
+                                //where posttag.TagId != postsTag.TagId
+                                select posttag;
+
+            foreach (var posttag in deletePostTag)
+            {
+                //_context.PostsTags.ExecuteDelete(posttag);
+            }
             _context.PostsTags.Remove(postsTag);
             await _context.SaveChangesAsync();
             return postsTag;
@@ -217,7 +240,7 @@
             //return await _context.Tags.Include(p => p.Posts).ToListAsync();
         }
 
-        public async Task<List<Tag?>> GetTagsByPostIdAsync(int postId)
+        public async Task<List<Tag?>> GetTagsByPostIdAsync(int postId) //BRUG MIG TIL AT FINDE TIL AT OPDATEERER POSTTAG!!!!!!!!!!!!!!!!!!!!!!!!!!!
         {
             return await _context.PostsTags
                 .Include(p => p.Posts)
