@@ -194,13 +194,11 @@
             //    .Where(x => x.TagId == postsTag.TagId)
             //    .Select(x => x)
             //    .ToListAsync();
-            Console.Write("hej");
 
             var postag = await GetTagsByPostIdAsync(postsTag.PostId);
 
             //var postag = await _context.PostsTags.FindAsync(postsTag.PostId, postsTag.TagId);
 
-            Console.Write("hej");
             //if (postag2.Any())
             //{
             //    //_context.PostsTags.Remove(postag2);
@@ -220,16 +218,16 @@
 
         public async Task<PostsTag> DeletePostTagAsync(PostsTag postsTag)
         {
-            var deletePostTag = from posttag in _context.PostsTags
-                                where posttag.PostId == postsTag.PostId
-                                //where posttag.TagId != postsTag.TagId
-                                select posttag;
+            //var deletePostTag = from posttag in _context.PostsTags
+            //                    where posttag.PostId == postsTag.PostId
+            //                    //where posttag.TagId != postsTag.TagId
+            //                    select posttag;
 
-            foreach (var posttag in deletePostTag)
-            {
-                //_context.PostsTags.ExecuteDelete(posttag);
-            }
-            _context.PostsTags.Remove(postsTag);
+            //foreach (var posttag in deletePostTag)
+            //{
+            //    //_context.PostsTags.ExecuteDelete(posttag);
+            //}
+            _context.Remove(postsTag);
             await _context.SaveChangesAsync();
             return postsTag;
         }

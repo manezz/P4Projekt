@@ -6,7 +6,7 @@
         Task<PostResponse?> GetPostByPostIdAsync(int Id);
         Task<List<PostResponse>> GetPostByUserIdAsync(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
-        Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
+        Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
         Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
         Task<LikedResponse?> DeleteLikeAsync(LikedRequest deleteLike);
@@ -14,7 +14,7 @@
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
         Task<TagResponse> UpdateTagAsync(TagRequest newTag);
-        Task<List<PostTagResponse>> GetPostTagsByPostId(int postId);
+        Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId);
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
         Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId);
         Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId);
@@ -91,59 +91,55 @@
             return MapPostToPostResponse(post);
         }
 
-        public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
+        public async Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
         {
-            var oldtags = await GetTagsByPostIdAsync(postId);
+            var oldtags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (oldtags == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var updateTags = updatePost.Tags.Select(x => MapTagRequestToTag(x)).ToList();
 
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
             if (post == null)
             {
                 throw new ArgumentNullException();
-                //return MapPostToPostResponse(post);
             }
 
-            //Re-using CreateTagAsync since it already checks tag and does the necessary processes
-            //var tags = updatePost.Tags.Select(tag => UpdateTagAsync(tag).Result).ToList();
+            var tagCreate = updateTags.Select(x => x.Name).Except(oldtags.Select(x => x.Name)).ToList();
 
-            //var createtags = new List<object>();
+            var tagDelete = tagCreate.Except(oldtags.Select(x => x.Name)).ToList();
 
-            //foreach (var tag in updatePost.Tags)
-            //{
-            //    createtags.Add(oldtags.Select(t => t.GetType().GetProperties().GetValue(t => t) == tag));
-            //}
-
-            //var createTags = oldtags
-            //    .Where(x => x.Name == updatePost.Tags.All())
+            //var tagCreate = updateTags
+            //    .Where(x => x.Name.Except(oldtags.Select(s => s.Name)))
             //    .Select(x => x)
             //    .ToList();
 
-            var tags = updatePost.Tags.Select(tag => CreateTagAsync(tag).Result).ToList();
-            var posttagsToDelete = await GetPostTagsByPostId(postId);
-            //var posttagtagId = await 
+            //var tagDelete = updateTags
+            //    .Where(x => x.Name == t.Name)
+            //    .Select(x => x)
+            //    .ToList();
 
-            if (oldtags != tags)
+            //var tagsDeleted = tagDelete.Select(tag => DeletePostTagByPostIdAsync(postId, tag.TagId)).ToList();
+
+            //var tagsCreated = tagCreate.Select(tag => CreateTagAsync(tag).Result).ToList();
+
+            //_ = tagsCreated.Select(async tag => await CreatePostTagAsync(post.PostId, tag.TagId)).ToList();
+
+            var currentTags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (currentTags == null)
             {
-                foreach (var posttag in posttagsToDelete)
-                {
-                    //_postRepository.
-
-                    //DeletePostTagByPostIdAsync(postId, posttag.TagId);
-
-                    //await _postRepository.DeletePostTagAsync(MapPostTagResponseToPostTag(posttag));
-                }
-                //DeletePostTagByPostIdAsync(postId, )
+                throw new ArgumentNullException();
             }
 
-            _ = tags.Select(async tagResponse => await CreatePostTagAsync(post.PostId, tagResponse.TagId)).ToList();
-
-            //_ = tags.Select(async tagResponse => await UpdatePostTagByPostIdAsync(post.PostId, tagResponse.TagId)).ToList();
-
-            return MapPostToPostResponse(post, tags);
-            //return null;
+            return MapPostToPostResponse(post, currentTags);
         }
 
-        public async Task<List<PostTagResponse>> GetPostTagsByPostId(int postId)
+        public async Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId)
         {
             var postTags = await _postRepository.GetPostTagsByPostId(postId);
 
@@ -224,6 +220,7 @@
             {
                 throw new ArgumentNullException();
             }
+
             return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
@@ -236,6 +233,18 @@
                 throw new ArgumentNullException();
             }
             return MapTagToTagResponse(tag);
+        }
+
+        private async Task<Tag> CreateTagAsync(Tag newTag)
+        {
+            var tag = await _postRepository.CreateTagAsync(newTag);
+
+            if (tag == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return tag;
         }
 
         public async Task<TagResponse> UpdateTagAsync(TagRequest newTag)
@@ -292,6 +301,29 @@
                     UserName = post.PostUser.UserName,
                 },
                 Tags = tags
+            };
+        }
+
+        private static PostResponse MapPostToPostResponse(Posts post, List<Tag> tags)
+        {
+            return new PostResponse
+            {
+                PostId = post.PostId,
+                UserId = post.UserId,
+                Title = post.Title,
+                Desc = post.Desc,
+                Date = post.Date,
+                Likes = post.Likes,
+                User = new PostUserResponse
+                {
+                    UserName = post.PostUser.UserName,
+                },
+                Tags = tags.Select(x => new TagResponse
+                {
+                    TagId = x.TagId,
+                    Name = x.Name,
+                })
+                .ToList()
             };
         }
 
