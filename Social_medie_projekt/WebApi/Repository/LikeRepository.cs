@@ -2,11 +2,10 @@
 {
     public interface ILikeRepository
     {
-        Task<Like?> FindLike(int KeyId);
-        Task<Like?> CheckLike(int userId, int postId);
+        Task<Like?> FindLike(int userId, int postId);
         Task<List<Like>?> GetAllLikesFromUser(int userId);
         Task<Like> CreateLikeAsync(Like newLike);
-        Task<Like> DeleteLikeAsync(int keyId);
+        Task<Like> DeleteLikeAsync(int userId, int postId);
     }
 
     public class LikeRepository : ILikeRepository
@@ -19,14 +18,9 @@
         }
 
 
-        public async Task<Like?> FindLike(int KeyId)
-        {
-            return await _context.Like.FirstOrDefaultAsync(x => KeyId == x.KeyId);
-        }
 
-        public async Task<Like?> CheckLike(int userId, int postId)
+        public async Task<Like?> FindLike(int userId, int postId)
         {
-            // skal KUN returnere noget hvis user har liket post
             return await _context.Like.Where(x => userId == x.UserId).Where(y => postId == y.PostId).FirstOrDefaultAsync();
         }
 
@@ -38,10 +32,9 @@
 
         public async Task<Like> CreateLikeAsync(Like like)
         {
-
-            if (CheckLike(like.UserId, like.PostId) != null)
+            if (await FindLike(like.UserId, like.PostId) != null)
             {
-                throw new Exception("Post aldready liked");
+                throw new Exception ("Post aldready liked");
             }
 
             _context.Like.Add(like);
@@ -49,9 +42,9 @@
             return like;
         }
 
-        public async Task<Like> DeleteLikeAsync(int keyId)
+        public async Task<Like> DeleteLikeAsync(int userId, int postId)
         {
-            var like = await FindLike(keyId);
+            var like = await FindLike(userId, postId);
 
             if (like != null)
             {

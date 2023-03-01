@@ -2,7 +2,6 @@
 {
     public class LikeResponse
     {
-        public int KeyId { get; set; }
 
         public LikePostResponse Post { get; set; } = new();
         

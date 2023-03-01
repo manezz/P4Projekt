@@ -12,13 +12,8 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-    [Migration("20230222132706_initial_demo")]
-    partial class initialdemo
-========
-    [Migration("20230223133506_initial")]
+    [Migration("20230301112129_initial")]
     partial class initial
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,61 +27,40 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
                 {
-                    b.Property<int>("KeyId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("KeyId"));
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                    b.HasKey("KeyId");
-========
-                    b.HasKey("LikeUserId", "PostId");
-
-                    b.HasIndex("LikeUserId");
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                    b.HasKey("UserId", "PostId");
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Like");
 
                     b.HasData(
                         new
                         {
-                            KeyId = 1,
-                            PostId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                            UserId = 1
+                            UserId = 1,
+                            PostId = 1
                         },
                         new
                         {
-                            KeyId = 2,
-                            PostId = 2,
-                            UserId = 1
+                            UserId = 1,
+                            PostId = 2
                         },
                         new
                         {
-                            KeyId = 3,
-                            PostId = 1,
-                            UserId = 2
+                            UserId = 2,
+                            PostId = 1
                         },
                         new
                         {
-                            KeyId = 4,
-                            PostId = 2,
-                            UserId = 2
-========
-                            LikedTime = new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9762)
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                            UserId = 2,
+                            PostId = 2
                         });
                 });
 
@@ -168,11 +142,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                            Date = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9631),
-========
-                            Date = new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9745),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                            Date = new DateTime(2023, 3, 1, 12, 21, 29, 458, DateTimeKind.Local).AddTicks(7554),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Tags = "",
@@ -182,11 +152,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                            Date = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9634),
-========
-                            Date = new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9748),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                            Date = new DateTime(2023, 3, 1, 12, 21, 29, 458, DateTimeKind.Local).AddTicks(7557),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Tags = "",
@@ -195,7 +161,7 @@ namespace WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
                 {
                     b.Property<int>("PostId")
                         .HasColumnType("int");
@@ -203,11 +169,14 @@ namespace WebApi.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("PostId", "TagId");
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("PostsTags");
+                    b.ToTable("PostTag");
 
                     b.HasData(
                         new
@@ -242,7 +211,7 @@ namespace WebApi.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(32)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("TagId");
 
@@ -298,22 +267,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                            Created = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9612),
-========
-                            Created = new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9726),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                            Created = new DateTime(2023, 3, 1, 12, 21, 29, 458, DateTimeKind.Local).AddTicks(7539),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230222132706_initial_demo.Designer.cs
-                            Created = new DateTime(2023, 2, 22, 14, 27, 6, 611, DateTimeKind.Local).AddTicks(9616),
-========
-                            Created = new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9730),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.Designer.cs
+                            Created = new DateTime(2023, 3, 1, 12, 21, 29, 458, DateTimeKind.Local).AddTicks(7542),
                             LoginId = 2,
                             UserName = "222test222"
                         });
@@ -328,9 +289,9 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("WebApi.Database.Entities.Like", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");
@@ -349,7 +310,7 @@ namespace WebApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebApi.Database.Entities.PostsTag", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.Post", "Posts")
                         .WithMany()

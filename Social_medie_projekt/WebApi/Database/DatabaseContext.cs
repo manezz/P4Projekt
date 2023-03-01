@@ -9,7 +9,7 @@
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<Tag> Tag { get; set; }
-        public DbSet<PostsTag> PostsTags { get; set; }
+        public DbSet<PostTag> PostTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,13 +18,10 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
-            modelBuilder.Entity<Liked>().HasIndex(x => new { x.LikeUserId })
-                .IsUnique(false);
 
-            modelBuilder.Entity<Liked>()
-                .HasOne(x => x.LikeUser)
-                .WithOne()
-                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Like>().HasIndex(x => new { x.UserId })
+                .IsUnique(false);
 
             modelBuilder.Entity<Login>().HasData(
                 new Login
@@ -81,25 +78,21 @@
             modelBuilder.Entity<Like>().HasData(
                 new Like
                 {
-                    KeyId = 1,
                     UserId = 1,
                     PostId = 1
                 },
                 new Like
                 {
-                    KeyId = 2,
                     UserId = 1,
                     PostId = 2
                 },
                 new Like
                 {
-                    KeyId = 3,
                     UserId = 2,
                     PostId = 1
                 },
                 new Like
                 {
-                    KeyId = 4,
                     UserId = 2,
                     PostId = 2
                 });
@@ -121,23 +114,23 @@
                     TagId = 3,
                 });
 
-            modelBuilder.Entity<PostsTag>().HasData(
-                new PostsTag
+            modelBuilder.Entity<PostTag>().HasData(
+                new PostTag
                 {
                     PostId = 1,
                     TagId = 1,
                 },
-                new PostsTag
+                new PostTag
                 {
                     PostId = 1,
                     TagId = 2,
                 },
-                new PostsTag
+                new PostTag
                 {
                     PostId = 1,
                     TagId = 3,
                 },
-                new PostsTag
+                new PostTag
                 {
                     PostId = 2,
                     TagId = 3,

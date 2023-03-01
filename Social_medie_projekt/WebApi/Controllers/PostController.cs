@@ -77,20 +77,15 @@
             }
         }
 
+
+
+
         //[Authorize(Role.user, Role.admin)]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
             try
             {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
-
-                    // unødvendigt? der er allerede authorization på selve HttpPost
-                //if (currentUser != null && newPost.UserId != currentUser.User.UserId)
-                //{
-                //    return Unauthorized(new { message = "Unauthorized" });
-                //}
-
                 var postResponse = await _postService.CreatePostAsync(newPost);
 
                 return Ok(postResponse);
@@ -153,44 +148,11 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
-        [HttpPost]
-        [Route("Like")]
-        public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
-        {
-            try
-            {
-                var likedResponse = await _postService.CreateLikeAsync(newLike);
 
-                return Ok(likedResponse);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
 
-        [Authorize(Role.user, Role.admin)]
-        [HttpDelete]
-        [Route("Like")]
-        public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
-        {
-            try
-            {
-                var likedResponse = await _postService.DeleteLikeAsync(deleteLike);
+      
 
-                if (likedResponse == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(likedResponse);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
+        // --------------------- TAG ---------------------
 
         //[Authorize(Role.user, Role.admin)]
         [HttpGet]

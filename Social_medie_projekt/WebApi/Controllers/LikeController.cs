@@ -13,12 +13,12 @@
 
 
         [HttpGet]
-        [Route("{keyId}")]
-        public async Task<IActionResult> FindLike([FromRoute] int keyId)
+        [Route("{postId}/{userId}")]
+        public async Task<IActionResult> FindLike([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
-                LikeResponse likeResponse = await _likeService.FindLike(keyId);
+                LikeResponse likeResponse = await _likeService.FindLike(userId, postId);
 
                 if (likeResponse == null)
                 {
@@ -55,7 +55,7 @@
         }
 
         [HttpPost]
-        [Route("like")]
+        //[Route("like")]
         public async Task<IActionResult> LikePost([FromBody] LikeRequest like)
         {
             try
@@ -71,12 +71,12 @@
         }
 
         [HttpDelete]
-        [Route("{keyId}")]
-        public async Task<IActionResult> UnlikePost([FromRoute] int keyId)
+        [Route("{userId}/{postId}")]
+        public async Task<IActionResult> UnlikePost([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
-                var likeResponse = await _likeService.DeleteLikeAsync(keyId);
+                var likeResponse = await _likeService.DeleteLikeAsync(userId, postId);
 
                 if (likeResponse == null)
                 {
