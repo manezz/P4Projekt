@@ -35,8 +35,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("LikeUserId", "PostId");
 
-                    b.HasIndex("LikeUserId")
-                        .IsUnique();
+                    b.HasIndex("LikeUserId");
 
                     b.HasIndex("PostId");
 
@@ -47,7 +46,7 @@ namespace WebApi.Migrations
                         {
                             LikeUserId = 2,
                             PostId = 1,
-                            LikedTime = new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3499)
+                            LikedTime = new DateTime(2023, 3, 1, 13, 38, 48, 420, DateTimeKind.Local).AddTicks(9342)
                         });
                 });
 
@@ -126,7 +125,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3483),
+                            Date = new DateTime(2023, 3, 1, 13, 38, 48, 420, DateTimeKind.Local).AddTicks(9327),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -135,7 +134,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3487),
+                            Date = new DateTime(2023, 3, 1, 13, 38, 48, 420, DateTimeKind.Local).AddTicks(9330),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -246,14 +245,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3464),
+                            Created = new DateTime(2023, 3, 1, 13, 38, 48, 420, DateTimeKind.Local).AddTicks(9310),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3468),
+                            Created = new DateTime(2023, 3, 1, 13, 38, 48, 420, DateTimeKind.Local).AddTicks(9313),
                             LoginId = 2,
                             UserName = "222test222"
                         });
