@@ -6,7 +6,7 @@
         Task<PostResponse?> GetPostByPostIdAsync(int Id);
         Task<List<PostResponse>> GetPostByUserIdAsync(int Id);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
-        Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
+        Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
         Task<LikedResponse> CreateLikeAsync(LikedRequest newLike);
         Task<LikedResponse?> DeleteLikeAsync(LikedRequest deleteLike);
@@ -14,6 +14,7 @@
         Task<TagResponse?> GetTagById(int Id);
         Task<TagResponse> CreateTagAsync(TagRequest newTag);
         Task<TagResponse> UpdateTagAsync(TagRequest newTag);
+        Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId);
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
         Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId);
         Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId);
@@ -71,7 +72,7 @@
                 throw new ArgumentNullException();
             }
 
-            var tags = newPost.Tags!.Select(tag => CreateTagAsync(tag).Result).ToList();
+            var tags = newPost.Tags.Select(tag => CreateTagAsync(tag).Result).ToList();
 
             _ = tags.Select(async tagResponse => await CreatePostTagAsync(post.PostId, tagResponse.TagId)).ToList();
 
@@ -90,26 +91,68 @@
             return MapPostToPostResponse(post);
         }
 
-        public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
+        public async Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
         {
+            var oldtags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (oldtags == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var updateTags = updatePost.Tags
+                .Select(x => MapTagRequestToTag(x))
+                .ToList();
+
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
             if (post == null)
             {
                 throw new ArgumentNullException();
-                //return MapPostToPostResponse(post);
             }
-            //Re-using CreateTagAsync since it already checks tag and does the necessary processes
-            var tags = updatePost.Tags.Select(tag => UpdateTagAsync(tag).Result).ToList();
-            if (post == null)
+
+            var tagCreate = updateTags
+                .Where(x => !(oldtags.Select(z => z.Name))
+                .Contains(x.Name))
+                .ToList();
+
+            var tagDelete = oldtags
+                .Where(x => !(updateTags.Select(z => z.Name))
+                .Contains(x.Name))
+                .ToList();
+
+            var tagsDeleted = tagDelete
+                .Select(x => DeletePostTagByPostIdAsync(postId, x.TagId).Result)
+                .ToList();
+
+            var tagsCreated = tagCreate
+                .Select(x => CreateTagAsync(x).Result)
+                .ToList();
+
+            _ = tagsCreated
+                .Select(x => CreatePostTagAsync(post.PostId, x.TagId).Result)
+                .ToList();
+
+            var currentTags = await _postRepository.GetTagsByPostIdAsync(postId);
+
+            if (currentTags == null)
             {
                 throw new ArgumentNullException();
             }
 
-            _ = tags.Select(async tagResponse => await UpdatePostTagByPostIdAsync(post.PostId, tagResponse.TagId)).ToList();
+            return MapPostToPostResponse(post, currentTags);
+        }
 
-            return MapPostToPostResponse(post, tags);
-            //return null;
+        public async Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId)
+        {
+            var postTags = await _postRepository.GetPostTagsByPostId(postId);
+
+            if (postTags == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return postTags.Select(posttag => MapPostTagToPostTagResponse(posttag)).ToList();
         }
 
         public async Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId)
@@ -140,7 +183,7 @@
 
         public async Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId)
         {
-            var postTag = await _postRepository.UpdatePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postRepository.DeletePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {
@@ -194,6 +237,18 @@
                 throw new ArgumentNullException();
             }
             return MapTagToTagResponse(tag);
+        }
+
+        private async Task<Tag> CreateTagAsync(Tag newTag)
+        {
+            var tag = await _postRepository.CreateTagAsync(newTag);
+
+            if (tag == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return tag;
         }
 
         public async Task<TagResponse> UpdateTagAsync(TagRequest newTag)
@@ -250,6 +305,29 @@
                     UserName = post.PostUser.UserName,
                 },
                 Tags = tags
+            };
+        }
+
+        private static PostResponse MapPostToPostResponse(Posts post, List<Tag> tags)
+        {
+            return new PostResponse
+            {
+                PostId = post.PostId,
+                UserId = post.UserId,
+                Title = post.Title,
+                Desc = post.Desc,
+                Date = post.Date,
+                Likes = post.Likes,
+                User = new PostUserResponse
+                {
+                    UserName = post.PostUser.UserName,
+                },
+                Tags = tags.Select(x => new TagResponse
+                {
+                    TagId = x.TagId,
+                    Name = x.Name,
+                })
+                .ToList()
             };
         }
 
@@ -321,7 +399,15 @@
                 TagId = postsTag.TagId,
             };
         }
-
+        //New mapping
+        private static PostsTag MapPostTagResponseToPostTag(PostTagResponse postTagResponse)
+        {
+            return new PostsTag
+            {
+                PostId = postTagResponse.PostId,
+                TagId = postTagResponse.TagId,
+            };
+        }
         // change name
         private static PostsTag MapPostTagRequestToPostTag(int postId, int tagId)
         {
