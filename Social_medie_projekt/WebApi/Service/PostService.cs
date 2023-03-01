@@ -100,7 +100,9 @@
                 throw new ArgumentNullException();
             }
 
-            var updateTags = updatePost.Tags.Select(x => MapTagRequestToTag(x)).ToList();
+            var updateTags = updatePost.Tags
+                .Select(x => MapTagRequestToTag(x))
+                .ToList();
 
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
@@ -109,25 +111,27 @@
                 throw new ArgumentNullException();
             }
 
-            var tagCreate = updateTags.Select(x => x.Name).Except(oldtags.Select(x => x.Name)).ToList();
+            var tagCreate = updateTags
+                .Where(x => !(oldtags.Select(z => z.Name))
+                .Contains(x.Name))
+                .ToList();
 
-            var tagDelete = tagCreate.Except(oldtags.Select(x => x.Name)).ToList();
+            var tagDelete = oldtags
+                .Where(x => !(updateTags.Select(z => z.Name))
+                .Contains(x.Name))
+                .ToList();
 
-            //var tagCreate = updateTags
-            //    .Where(x => x.Name.Except(oldtags.Select(s => s.Name)))
-            //    .Select(x => x)
-            //    .ToList();
+            var tagsDeleted = tagDelete
+                .Select(x => DeletePostTagByPostIdAsync(postId, x.TagId).Result)
+                .ToList();
 
-            //var tagDelete = updateTags
-            //    .Where(x => x.Name == t.Name)
-            //    .Select(x => x)
-            //    .ToList();
+            var tagsCreated = tagCreate
+                .Select(x => CreateTagAsync(x).Result)
+                .ToList();
 
-            //var tagsDeleted = tagDelete.Select(tag => DeletePostTagByPostIdAsync(postId, tag.TagId)).ToList();
-
-            //var tagsCreated = tagCreate.Select(tag => CreateTagAsync(tag).Result).ToList();
-
-            //_ = tagsCreated.Select(async tag => await CreatePostTagAsync(post.PostId, tag.TagId)).ToList();
+            _ = tagsCreated
+                .Select(x => CreatePostTagAsync(post.PostId, x.TagId).Result)
+                .ToList();
 
             var currentTags = await _postRepository.GetTagsByPostIdAsync(postId);
 
