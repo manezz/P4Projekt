@@ -157,8 +157,13 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230223093931_socialtmedie.cs
                     { 1, new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3464), 1, "tester 1" },
                     { 2, new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3468), 2, "222test222" }
+========
+                    { 1, new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9726), 1, "tester 1" },
+                    { 2, new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9730), 2, "222test222" }
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.cs
                 });
 
             migrationBuilder.InsertData(
@@ -166,14 +171,23 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230223093931_socialtmedie.cs
                     { 1, new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3483), "tadnawdnada", 1, "testestestest", 1 },
                     { 2, new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3487), "Woooooo!", 0, "Test!", 2 }
+========
+                    { 1, new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9745), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9748), "Woooooo!", 0, "Test!", 2 }
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.cs
                 });
 
             migrationBuilder.InsertData(
                 table: "Liked",
                 columns: new[] { "LikeUserId", "PostId", "LikedTime" },
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230223093931_socialtmedie.cs
                 values: new object[] { 2, 1, new DateTime(2023, 2, 23, 10, 39, 31, 303, DateTimeKind.Local).AddTicks(3499) });
+========
+                values: new object[] { 2, 1, new DateTime(2023, 2, 23, 14, 35, 6, 112, DateTimeKind.Local).AddTicks(9762) });
+>>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230223133506_initial.cs
 
             migrationBuilder.InsertData(
                 table: "PostsTags",
@@ -189,8 +203,7 @@ namespace WebApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Liked_LikeUserId",
                 table: "Liked",
-                column: "LikeUserId",
-                unique: true);
+                column: "LikeUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Liked_PostId",
