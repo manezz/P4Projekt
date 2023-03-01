@@ -40,8 +40,7 @@ namespace WebApi.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("LikeUserId");
 
                     b.ToTable("Like");
 

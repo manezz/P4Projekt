@@ -153,10 +153,44 @@
             }
         }
 
+        [Authorize(Role.user, Role.admin)]
+        [HttpPost]
+        [Route("Like")]
+        public async Task<IActionResult> CreateLikeAsync([FromBody] LikedRequest newLike)
+        {
+            try
+            {
+                var likedResponse = await _postService.CreateLikeAsync(newLike);
 
+                return Ok(likedResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
+        [Authorize(Role.user, Role.admin)]
+        [HttpDelete]
+        [Route("Like")]
+        public async Task<IActionResult> DeleteLikeAsync([FromBody] LikedRequest deleteLike)
+        {
+            try
+            {
+                var likedResponse = await _postService.DeleteLikeAsync(deleteLike);
 
+                if (likedResponse == null)
+                {
+                    return NotFound();
+                }
 
+                return Ok(likedResponse);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
 
         //[Authorize(Role.user, Role.admin)]
         [HttpGet]

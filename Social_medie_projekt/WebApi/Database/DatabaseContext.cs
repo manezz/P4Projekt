@@ -18,8 +18,11 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
-            modelBuilder.Entity<Like>()
-                .HasOne(x => x.User)
+            modelBuilder.Entity<Liked>().HasIndex(x => new { x.LikeUserId })
+                .IsUnique(false);
+
+            modelBuilder.Entity<Liked>()
+                .HasOne(x => x.LikeUser)
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
 
