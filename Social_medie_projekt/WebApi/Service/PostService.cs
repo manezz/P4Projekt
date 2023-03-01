@@ -74,7 +74,7 @@
 
             var tags = newPost.Tags.Select(tag => CreateTagAsync(tag).Result).ToList();
 
-            _ = tags.Select(async tagResponse => await CreatePostTagAsync(post.PostId, tagResponse.TagId)).ToList();
+            _ = tags.Select(tagResponse => CreatePostTagAsync(post.PostId, tagResponse.TagId).Result).ToList();
 
             return MapPostToPostResponse(post, tags);
         }
