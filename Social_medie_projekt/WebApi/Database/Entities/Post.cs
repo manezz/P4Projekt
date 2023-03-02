@@ -17,8 +17,6 @@
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
-
-
         [ForeignKey("User.UserId")]
         public int UserId { get; set; }
 

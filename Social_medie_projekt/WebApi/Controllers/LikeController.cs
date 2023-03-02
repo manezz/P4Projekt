@@ -55,7 +55,6 @@
         }
 
         [HttpPost]
-        //[Route("like")]
         public async Task<IActionResult> LikePost([FromBody] LikeRequest like)
         {
             try
@@ -90,8 +89,5 @@
                 return Problem(ex.Message);
             }
         }
-
-
-
     }
 }
