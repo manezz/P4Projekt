@@ -14,7 +14,7 @@
             _likeService = likeService;
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.user, Role.admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllPostsAsync()
         {
@@ -35,7 +35,7 @@
             }
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByPostId([FromRoute] int postId)
@@ -56,7 +56,7 @@
             }
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.user, Role.admin)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetAllPostsByUserId([FromRoute] int userId)
@@ -80,7 +80,7 @@
 
 
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.user, Role.admin)]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
@@ -97,7 +97,7 @@
 
         }
 
-        //[Authorize(Role.user)]
+        [Authorize(Role.user)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePost([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
@@ -119,7 +119,7 @@
             }
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.user, Role.admin)]
         [HttpDelete]
         [Route("{postId}")]
         public async Task<IActionResult> DeletePost([FromRoute] int postId)
