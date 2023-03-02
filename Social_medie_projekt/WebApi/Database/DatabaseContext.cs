@@ -18,10 +18,13 @@
                 e.HasIndex(t => t.Name).IsUnique();
             });
 
-
-
             modelBuilder.Entity<Like>().HasIndex(x => new { x.UserId })
                 .IsUnique(false);
+
+            modelBuilder.Entity<Like>()
+                .HasOne(x => x.User)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Login>().HasData(
                 new Login
