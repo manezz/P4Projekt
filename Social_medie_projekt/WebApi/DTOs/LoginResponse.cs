@@ -15,7 +15,7 @@
     {
         public int UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
-        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Created { get; set; }
         public List<UserPostLoginResponse>? Posts { get; set; } = new();
     }
 

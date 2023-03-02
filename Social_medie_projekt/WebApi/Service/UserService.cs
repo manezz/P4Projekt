@@ -48,7 +48,6 @@
             return new User
             {
                 UserName = userRequest.UserName,
-                Created = userRequest.Created,
                 Login = new()
                 {
                     Email = userRequest.Login.Email,

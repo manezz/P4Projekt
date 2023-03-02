@@ -14,7 +14,7 @@
         [ForeignKey("Login.LoginId")]
         public int LoginId { get; set; }
 
-        public Login Login { get; set; }
+        public Login? Login { get; set; }
 
         public List<Post>? Posts { get; set; } = new();
 

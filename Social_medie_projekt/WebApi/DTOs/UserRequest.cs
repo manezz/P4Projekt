@@ -6,10 +6,7 @@
         [StringLength(32, ErrorMessage = "Cannot be longer than 32 chars.")]
         public string UserName { get; set; } = string.Empty;
 
-        [Required]
-        public DateTime Created { get; set; } = DateTime.Now;
-
-        public UserLogin Login { get; set; }
+        public UserLogin? Login { get; set; }
     }
     public class UserLogin
     {
