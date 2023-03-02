@@ -23,8 +23,8 @@ namespace WebApi.Authorization
 
 
             // user returns "null" - should return a userlogin when authorized
-            UserResponse user = (UserResponse)context.HttpContext.Items["Login"];
-            if (user == null || (_roles.Any() && !_roles.Contains(user.Login.Type)))
+            LoginResponse login = (LoginResponse)context.HttpContext.Items["Login"];
+            if (login == null || (_roles.Any() && !_roles.Contains(login.Type)))
             {
                 //outcommented as workaround untill fixed
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };

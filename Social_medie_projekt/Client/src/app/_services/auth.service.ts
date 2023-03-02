@@ -12,17 +12,17 @@ import { SignInResponse } from '../Req-Res/signInResponse';
   providedIn: 'root'
 })
 export class AuthService {
-  private currentUserSubject: BehaviorSubject<Login>;
-  currentUser: Observable<Login>;
+  private currentUserSubject: BehaviorSubject<SignInResponse>;
+  currentUser: Observable<SignInResponse>;
 
   constructor(private http: HttpClient) { 
-    this.currentUserSubject = new BehaviorSubject<Login>(
+    this.currentUserSubject = new BehaviorSubject<SignInResponse>(
       JSON.parse(sessionStorage.getItem('currentUser') as string)
     );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get CurrentUserValue(): Login {
+  public get CurrentUserValue(): SignInResponse {
     return this.currentUserSubject.value;
   }
 
@@ -36,17 +36,17 @@ export class AuthService {
 
   login(email: string, password: string){
     let authenticateUrl = `${environment.apiUrl}Login/authenticate`;
-    return this.http.post<Login>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {
+    return this.http.post<SignInResponse>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {
       sessionStorage.setItem('currentUser', JSON.stringify(user));
 
-      this.currentUserSubject.next(user as Login);
+      this.currentUserSubject.next(user as SignInResponse);
       return user;
     }))
   }
 
   logout(){
     sessionStorage.removeItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<Login>(JSON.parse(sessionStorage.getItem('currentUser') as string));
+    this.currentUserSubject = new BehaviorSubject<SignInResponse>(JSON.parse(sessionStorage.getItem('currentUser') as string));
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
