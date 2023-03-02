@@ -156,13 +156,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.cs
-                    { 1, new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7608), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7611), 2, "222test222" }
-========
-                    { 1, new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9262), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9266), 2, "222test222" }
->>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.cs
+                    { 1, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4244), 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4247), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -170,13 +165,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.cs
-                    { 1, new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7626), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7629), "Woooooo!", 0, "Test!", 2 }
-========
-                    { 1, new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9280), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9283), "Woooooo!", 0, "Test!", 2 }
->>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.cs
+                    { 1, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4262), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4265), "Woooooo!", 0, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(

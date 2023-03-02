@@ -136,7 +136,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9280),
+                            Date = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4262),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -145,7 +145,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9283),
+                            Date = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4265),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -256,14 +256,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9262),
+                            Created = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4244),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9266),
+                            Created = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4247),
                             LoginId = 2,
                             UserName = "222test222"
                         });
