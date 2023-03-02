@@ -9,7 +9,7 @@
 
         public UserLoginResponse? Login { get; set; }
 
-        public List<UserPostResponse> Posts { get; set; } = new();
+        public List<UserPostResponse?> Posts { get; set; } = new();
     }
 
     public class UserLoginResponse
