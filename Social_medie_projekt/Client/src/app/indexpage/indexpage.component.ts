@@ -4,6 +4,7 @@ import { Data } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
+import { Login } from '../_models/login';
 import { Tag } from '../_models/tags';
 
 
@@ -53,7 +54,9 @@ export class IndexpageComponent {
   // }
 
   tags: Tag[] = []
-  tag: Tag= { tagId: 0, tag: '' }
+  tag: Tag = { tagId: 0, tag: '' }
+
+
 
   constructor(
     private postService: PostService,
@@ -62,7 +65,8 @@ export class IndexpageComponent {
   { }
 
   ngOnInit(): void {
-    this.postService.getAll().subscribe(x => this.posts = x)
+
+    this.postService.getAll().subscribe(p => this.posts = p)
   }
 
 }
