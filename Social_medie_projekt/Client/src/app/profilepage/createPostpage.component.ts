@@ -192,8 +192,8 @@ export class CreatePostPageComponent implements OnInit{
   ){ }
   
   error: string
-  currentUser: any = {}
-  currentUserId: number
+  currentUser?: any = {}
+  currentUserId?: number
   post: Post = this.resetPost()
   posts: Post[] = []
   postForm: FormGroup = this.resetForm()
@@ -205,7 +205,7 @@ export class CreatePostPageComponent implements OnInit{
     this.resetPost()
     this.titleCharLenght = 100
     this.auth.currentUser.subscribe(x => { this.currentUser = x })
-    this.currentUserId = this.auth.CurrentUserValue.loginResponse.user.userId
+    this.currentUserId = this.auth.CurrentUserValue.user?.userId
     this.collapseDiv()
   }
 
@@ -249,8 +249,8 @@ export class CreatePostPageComponent implements OnInit{
       likes: 0, 
       user: { 
         userId: this.currentUserId, 
-        userName: this.auth.CurrentUserValue.loginResponse.user.userName, 
-        created: this.auth.CurrentUserValue.loginResponse.user.created 
+        userName: this.auth.CurrentUserValue.user?.userName, 
+        created: this.auth.CurrentUserValue.user?.created 
       } 
     }
   }

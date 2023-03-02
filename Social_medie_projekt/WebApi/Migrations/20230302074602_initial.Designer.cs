@@ -12,7 +12,11 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.Designer.cs
     [Migration("20230302074602_initial")]
+========
+    [Migration("20230302080032_initial")]
+>>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.Designer.cs
     partial class initial
     {
         /// <inheritdoc />
@@ -139,7 +143,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.Designer.cs
                             Date = new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7626),
+========
+                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9280),
+>>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.Designer.cs
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -148,7 +156,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.Designer.cs
                             Date = new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7629),
+========
+                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9283),
+>>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.Designer.cs
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -259,14 +271,22 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.Designer.cs
                             Created = new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7608),
+========
+                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9262),
+>>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.Designer.cs
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
+<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230302074602_initial.Designer.cs
                             Created = new DateTime(2023, 3, 2, 8, 46, 2, 556, DateTimeKind.Local).AddTicks(7611),
+========
+                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9266),
+>>>>>>>> bjarke:Social_medie_projekt/WebApi/Migrations/20230302080032_initial.Designer.cs
                             LoginId = 2,
                             UserName = "222test222"
                         });

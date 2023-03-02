@@ -23,6 +23,7 @@ import { User } from '../_models/user';
     display: inline-block;
     width: 40px;
     margin-right: 10px;
+    background-color: transparent;
   }
   #logo:hover{
     cursor: pointer;

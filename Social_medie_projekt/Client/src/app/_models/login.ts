@@ -9,3 +9,5 @@ export interface Login {
     token?: string;
     user?: User;
 }
+
+export { Role }

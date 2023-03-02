@@ -32,13 +32,12 @@ export class TalkService {
     this.currentSessionDeferred.resolve(session);
   }
   
-  async createTalkUser(applicationUser: User) : Promise<any> {
+  async createTalkUser(applicationUser: any) : Promise<any> {
     await Talk.ready;
 
     return new Talk.User({
       id: applicationUser.userId,
       name: applicationUser.userName,
-      // photoUrl: applicationUser.profilePictureUrl
     });
   }
 
