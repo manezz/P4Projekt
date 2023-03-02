@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
     display: inline-block;
     width: 40px;
     margin-right: 10px;
+    background-color: transparent;
   }
   #logo:hover{
     cursor: pointer;
