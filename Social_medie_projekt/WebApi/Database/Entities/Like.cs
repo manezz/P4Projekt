@@ -3,11 +3,11 @@
     [PrimaryKey(nameof(UserId), nameof(PostId))]
     public class Like
     {
-        [Key]
-        public int UserId { get; set; } = 0;        
+        [ForeignKey("User.UserId")]
+        public int UserId { get; set; }     
 
-        [Key]
-        public int PostId { get; set; } = 0;
+        [ForeignKey("Post.PostId")]
+        public int PostId { get; set; }
 
         public Post? Post { get; set; }
 
