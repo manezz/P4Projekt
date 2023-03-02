@@ -2,8 +2,8 @@
 {
     public class SignInResponse
     {
-        public string Token { get; set; }
+        public string Token { get; set; } = string.Empty;
 
-        public LoginResponse LoginResponse { get; set; }
+        public LoginResponse? LoginResponse { get; set; }
     }
 }
