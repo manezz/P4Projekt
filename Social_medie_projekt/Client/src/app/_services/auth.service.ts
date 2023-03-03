@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { BehaviorSubject, first, last, map, Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
-import { Role } from '../_models/role'
-import { User } from '../_models/user'
 import { Login } from '../_models/login'
-import { EmailValidator } from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +25,7 @@ export class AuthService {
 
 
 
-  
+
   public getUser(): any {
     const user = window.sessionStorage.getItem('currentUser')
     if (user) {
@@ -43,8 +40,6 @@ export class AuthService {
     return this.http.post<Login>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {
       sessionStorage.setItem('currentUser', JSON.stringify(user))
       this.currentUserSubject?.next(user as Login)
-      console.log(user)
-      // already returns user so no return needed down here
     }))
   }
 
