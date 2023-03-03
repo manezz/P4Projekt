@@ -34,7 +34,7 @@ export class ChatComponent {
   }
   
   private async preloadChatPopup(vendor: User) {
-    this.chatPopup = await this.talkService.createPopup(vendor, false);
+    // this.chatPopup = await this.talkService.createPopup(vendor, false);
     this.chatPopup.mount({ show: false });
   }
 }
