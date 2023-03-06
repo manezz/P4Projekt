@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { AuthService } from '../_services/auth.service';
-import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { User } from '../_models/user';
 
 @Component({
@@ -11,7 +10,7 @@ import { User } from '../_models/user';
       <div class="nav">
         <img id="logo" class="linkLeft" src="/assets/images/socialmachine.png"  routerLink="/main">
         <a class="linkRight" [routerLink]="['/']" (click)="logOut()">Logout</a>
-        <a class="linkRight" [routerLink]="['/profile', this.currentUser.loginResponse.user.userId]" >Profile</a>
+        <a class="linkRight" [routerLink]="['/profile']" >Profile</a>
       </div>
     </nav>
   `,
@@ -48,11 +47,11 @@ import { User } from '../_models/user';
 export class HeaderLoggedInComponent {
   
   constructor(
-    private auth: AuthService,  
-    private router: Router, 
-    private route: ActivatedRoute,
-    private AppComponent: AppComponent,)
-  { this.auth.currentUser.subscribe(x => this.currentUser = x ) }
+    private auth: AuthService,
+    private AppComponent: AppComponent)
+  { 
+    this.auth.currentUser.subscribe(x => this.currentUser = x)
+  }
   
   
   currentUser: any

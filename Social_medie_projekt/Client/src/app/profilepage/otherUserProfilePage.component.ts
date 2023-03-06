@@ -24,7 +24,7 @@ import { UserService } from '../_services/user.service';
   <div id="post" *ngFor="let post of posts"  [routerLink]="['/post-details', post.postId]">
     <div id="user"> 
       <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-      <h5>{{user.userName}}</h5>
+      <h5>{{post.user?.userName}}</h5>
     </div>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
@@ -51,8 +51,6 @@ export class OtherUserProfilePageComponent implements OnInit{
     console.log(this.route.params)
     this.route.params.subscribe(params => { this.userService.getUser(params['userId']).subscribe(x => this.user = x) })
     this.route.params.subscribe(params => { this.postService.GetPostByUserId((params['userId'])).subscribe(x=> this.posts = x) })
-    
-    
   }
 
 }
