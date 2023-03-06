@@ -37,7 +37,9 @@ export class AuthService {
 
   login(email: string, password: string){
     let authenticateUrl = `${environment.apiUrl}Login/authenticate`
-    return this.http.post<Login>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {
+    
+    return this.http.post<Login>(authenticateUrl, { "email": email, "password": password})
+    .pipe(map(user => {
       sessionStorage.setItem('currentUser', JSON.stringify(user))
       this.currentUserSubject?.next(user as Login)
     }))

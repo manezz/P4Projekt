@@ -8,6 +8,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreateUserPageComponent } from './loginpage/createUserpage.component';
 import { CreatePostPageComponent } from './profilepage/createPostpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { OtherUserProfilePageComponent } from './profilepage/otherUserProfilePage.component';
 import { PostDetailsComponent } from './post-details/post-details.component';
 import { EditPostComponent } from './post-details/editPost.component';
 import { ChatComponent } from './indexpage/chat.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
   { path: 'createpost', component: CreatePostPageComponent },
   { path: 'main', component: IndexpageComponent, canActivate: [AuthGuard] }, 
   { path: 'profile', component: ProfilepageComponent, canActivate: [AuthGuard] },
-  { path: 'profile/:userId', component: ProfilepageComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:userId', component: OtherUserProfilePageComponent, canActivate: [AuthGuard] },
   { path: 'post-details/:postId', component: PostDetailsComponent, canActivate: [AuthGuard] },
   { path: 'editPost/:postId', component: EditPostComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent },

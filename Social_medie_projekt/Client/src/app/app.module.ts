@@ -13,6 +13,7 @@ import { LoginpageComponent } from './loginpage/loginpage.component';
 import { CreateUserPageComponent } from './loginpage/createUserpage.component';
 import { CreatePostPageComponent } from './profilepage/createPostpage.component';
 import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { OtherUserProfilePageComponent } from './profilepage/otherUserProfilePage.component';
 import { HeaderLoggedInComponent } from './header-footer/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './header-footer/headerLoggedOut.component';
 import { FooterComponent } from './header-footer/footer.component';
@@ -40,6 +41,7 @@ import { MatDividerModule} from '@angular/material/divider';
     CreateUserPageComponent,
     CreatePostPageComponent,
     ProfilepageComponent,
+    OtherUserProfilePageComponent,
     HeaderLoggedInComponent,
     HeaderLoggedOutComponent,
     FooterComponent,

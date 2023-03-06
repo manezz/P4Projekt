@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 
@@ -9,8 +9,10 @@ import { Post } from '../_models/post';
   template: `
   <div id="post">
     <button class="editBtn" id="" *ngIf="post.user?.userId == this.currentUser.loginResponse.user.userId" [routerLink]="['/editPost', post.postId]">⚙</button>
-    <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
-    <h5 id="username">{{post.user?.userName}}</h5>
+    <div id="user" (click)="postLink(this.post.user)"> 
+      <img class="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+      <h5>{{post.user?.userName}}</h5>
+    </div>
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
     <!-- <p id="tags" *ngFor="let tag of tags">#{{tag.tag}}, </p> -->
@@ -42,12 +44,25 @@ export class PostDetailsComponent {
   constructor(
     private route: ActivatedRoute, 
     private authService: AuthService, 
-    private postService: PostService
+    private postService: PostService,
+    private router: Router
   ){ }
 
   ngOnInit(): void  {
     this.authService.currentUser.subscribe(x => this.currentUser = x)      
     this.route.params.subscribe(params => { this.postService.GetPostByPostId(params['postId']).subscribe(x => this.post = x) })
+  }
+
+  postLink(user: any) {
+    if(user.userId == this.currentUser.loginResponse.user.userId){
+      // linker til brugerens egen profilside
+      this.router.navigateByUrl('/profile')
+    }
+    else{
+      // linker til en andens bruger profilside
+      // skal også sende userId med for at finde useren
+      this.router.navigate(['/profile/', user.userId])
+    }
   }
 
 }
