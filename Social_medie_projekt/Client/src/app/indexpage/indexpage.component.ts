@@ -4,9 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth.service';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
-import { Login } from '../_models/login';
 import { Tag } from '../_models/tags';
-import { OtherUserProfilePageComponent } from '../profilepage/otherUserProfilePage.component';
 
 
 @Component({
@@ -23,10 +21,11 @@ import { OtherUserProfilePageComponent } from '../profilepage/otherUserProfilePa
     <div id="content">
       <h1 id="title">{{post.title}}</h1>
       <h3 id="description">{{post.desc}}</h3>
-      <p id="tags" *ngIf="post.tags">#{{post.tags}}, </p>
+      <p id="tags" *ngIf="post.tags">#{{post.tags.tag}}, </p>
       <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     </div>
     <button class="postBtn" id="like"><3</button>
+    <button class="editBtn" id="edit" *ngIf="this.currentUser.loginResponse.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
   </div>
   
   `,
@@ -63,6 +62,10 @@ export class IndexpageComponent {
       // linker til en andens bruger profilside
       this.router.navigate(['/profile/', user.userId])
     }
+  }
+
+  editPost(){
+    console.log(this.currentUser.loginResponse.user.userId)
   }
 
 }

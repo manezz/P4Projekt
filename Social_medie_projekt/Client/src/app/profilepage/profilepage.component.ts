@@ -29,10 +29,11 @@ import { AuthService } from '../_services/auth.service';
     <div id="content">
       <h1 id="title">{{post.title}}</h1>
       <h3 id="description">{{post.desc}}</h3>
-      <p id="tags" *ngIf="post.tags">#{{post.tags}}, </p>
+      <p id="tags" *ngIf="post.tags">#{{post.tags.tag}}, </p>
       <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     </div>
     <button class="postBtn" id="like"><3</button>
+    <button class="editBtn" id="edit" *ngIf="currentUser.userId == this.post.userId">⛭</button>
   </div>
   <p id="nomore">This user ran out of posts :(<p>
     

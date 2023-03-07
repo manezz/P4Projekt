@@ -176,7 +176,7 @@ export class EditPostComponent {
   insertValues(){
     (<HTMLInputElement>document.getElementById("title")).value = this.post.title;
     (<HTMLInputElement>document.getElementById("content")).value = this.post.desc;
-    (<HTMLInputElement>document.getElementById("tags")).value = this.post.tags;
+    (<HTMLInputElement>document.getElementById("tags")).value = this.post.tags.tag;
   }
 
   edit(){
@@ -217,7 +217,7 @@ export class EditPostComponent {
   }
 
   resetPost():Post {
-    return{ postId: 0, title: '', desc: '', tags: '' }
+    return{ postId: 0, title: '', desc: '', tags: { tagId: 0, tag: ''} }
   }
 
   resetForm(){
