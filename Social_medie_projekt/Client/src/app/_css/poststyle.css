@@ -1,12 +1,8 @@
-h1{
-    color: white;
-}
-  
 #post{
     position: relative;
     width: auto;
     max-width: 35%;
-    border: 2px solid white;
+    border: 2px solid rgb(207, 207, 207);
     border-radius: 10px;
     border-left: none;
     border-right: none;
@@ -21,10 +17,53 @@ h1{
     box-shadow: 0px 0px 10px 10px rgb(80, 80, 100);
 }
 
+#user{
+    display: inline-block;
+    position: absolute;
+}
+
+#profilepic{
+    display: block;
+    border-radius: 30px;
+}
+
+#profilepic:hover{
+    box-shadow: 0px 0px 10px 10px rgb(100, 80, 80);
+}
+
+#userName{
+    display: block;
+    font-size: 15px;
+    margin-top: 12px;
+    margin-bottom: 0px;
+}
+
+
+
+#content{
+    display: inline-block;
+    margin-left: 25%;
+}
+
+#title{
+    color: white;
+}
+#description{
+    font-size: 14px;
+    color: rgb(20, 20, 20);
+}
+
+#tags{
+    color:rgb(155, 155, 155);
+    margin-top: 20px;
+    font-size: 12px;
+}
+
 #date{
     font-size: 12px;
-    margin-left: 10px;
 }
+
+/* --------------------- CREATE POST --------------------- */
 
 .postBtn{
     position: absolute ;
@@ -51,6 +90,7 @@ h1{
     cursor: pointer;
 }
 
+
 #like:hover{
     background-color: rgb(211, 211, 211);
     cursor: pointer;
@@ -61,6 +101,8 @@ h1{
     color: white;
 }
 
+
+/* --------------------- PROFILE SIDEBAR --------------------- */
 
 mat-sidenav-container{
     height: calc(205vh - 115vh);
@@ -78,31 +120,6 @@ mat-sidenav{
 }
 
 
-.profilepic
-{
-    border-radius: 30px;
-
-}
-
-#user{
-    font-size: 15px;
-    margin-left: 10px;
-}
-
-#title{
-    margin-left: 10px;
-    
-}
-
-#description{
-    margin-left: 10px;
-}
-#tags{
-    color:rgb(155, 155, 155);
-    margin-top: 20px;
-    margin-left: 10px;
-    font-size: 12px;
-}
 
 #nomore
 {
