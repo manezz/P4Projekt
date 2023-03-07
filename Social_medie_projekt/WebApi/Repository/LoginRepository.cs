@@ -15,7 +15,7 @@
     {
         private readonly DatabaseContext _context;
 
-        public LoginRepository(DatabaseContext context){ _context = context; }
+        public LoginRepository(DatabaseContext context) { _context = context; }
 
 
 
@@ -64,7 +64,7 @@
 
             if (login != null)
             {
-                login.Type = updatedLogin.Type;
+                login.Role = updatedLogin.Role;
                 login.Email = updatedLogin.Email;
                 login.Password = updatedLogin.Password;
 

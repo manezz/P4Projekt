@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230302111207_initial")]
+    [Migration("20230307123635_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -80,7 +80,7 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("LoginId");
@@ -93,14 +93,14 @@ namespace WebApi.Migrations
                             LoginId = 1,
                             Email = "Test1@mail.dk",
                             Password = "password",
-                            Type = 0
+                            Role = 0
                         },
                         new
                         {
                             LoginId = 2,
                             Email = "Test2@mail.dk",
                             Password = "password",
-                            Type = 1
+                            Role = 1
                         });
                 });
 
@@ -139,7 +139,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4262),
+                            Date = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6498),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -148,7 +148,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4265),
+                            Date = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6502),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -259,14 +259,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4244),
+                            Created = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6477),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4247),
+                            Created = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6481),
                             LoginId = 2,
                             UserName = "222test222"
                         });

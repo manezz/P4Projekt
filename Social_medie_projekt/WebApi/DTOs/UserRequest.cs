@@ -19,7 +19,7 @@
         public string Password { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(32, ErrorMessage = "Type can be either 0 for Admin or 1 for user")]
-        public Role Type { get; set; }
+        [StringLength(32, ErrorMessage = "Type can be either 0 for Admin or 1 for User")]
+        public Role Role { get; set; }
     }
 }

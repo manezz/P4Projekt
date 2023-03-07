@@ -19,7 +19,7 @@
 
         public string Email { get; set; } = string.Empty;
 
-        public Role Type { get; set; }
+        public Role Role { get; set; }
     }
 
     public class UserPostResponse

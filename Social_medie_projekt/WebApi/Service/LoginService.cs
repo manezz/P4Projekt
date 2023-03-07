@@ -26,7 +26,7 @@
             {
                 LoginId = login.LoginId,
                 Email = login.Email,
-                Type = login.Type,
+                Role = login.Role,
 
                 User = new LoginUserResponse
                 {
@@ -50,7 +50,7 @@
             return new Login
             {
                 Email = loginRequest.Email,
-                Type = loginRequest.Type,
+                Role = loginRequest.Role,
                 Password = loginRequest.Password,
                 User = new()
                 {
@@ -77,7 +77,7 @@
                     {
                         LoginId = user.LoginId,
                         Email = user.Email,
-                        Type = user.Type,
+                        Role = user.Role,
                         User = new()
                         {
                             UserId = user.User.UserId,

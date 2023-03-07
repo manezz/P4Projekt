@@ -54,7 +54,7 @@
 
 
 
-        [Authorize(Role.admin)]
+        [Authorize(Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllLoginAsync()
         {
@@ -77,7 +77,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{loginId}")]
         public async Task<IActionResult> FindLoginByIdAsync([FromRoute] int loginId)
@@ -86,7 +86,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
+                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
@@ -107,7 +107,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{loginId}")]
         public async Task<IActionResult> UpdateLoginByIdAsync([FromRoute] int loginId, [FromBody] LoginRequest updatedLogin)
@@ -116,7 +116,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
+                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
@@ -137,6 +137,7 @@
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{loginId}")]
         public async Task<IActionResult> DeleteLoginByIdAsync([FromRoute] int loginId)
@@ -145,7 +146,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Type != Role.admin)
+                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
