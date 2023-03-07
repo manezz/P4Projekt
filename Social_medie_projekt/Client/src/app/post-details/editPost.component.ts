@@ -9,6 +9,7 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   selector: 'app-editPost',
   template: `
   <div class="body">
+    <h1 id="editTxt">Edit your post here!</h1>
     <div class="post">
       <form [formGroup]="postForm" id="form" (ngSubmit)="edit()">
         
@@ -47,6 +48,10 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
     margin-top: 20px;
     align-items: center; 
     flex-direction: column;
+  }
+  #editTxt{
+    margin-top: 50px;
+    margin-bottom: 200px;
   }
   .post{
     width: 100%;

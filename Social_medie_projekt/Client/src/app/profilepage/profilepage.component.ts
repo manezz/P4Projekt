@@ -33,7 +33,7 @@ import { AuthService } from '../_services/auth.service';
       <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     </div>
     <button class="postBtn" id="like"><3</button>
-    <button class="editBtn" id="edit" *ngIf="currentUser.userId == this.post.userId">⛭</button>
+    <button class="editBtn" id="edit" *ngIf="this.currentUser.loginResponse.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
   </div>
   <p id="nomore">This user ran out of posts :(<p>
     
