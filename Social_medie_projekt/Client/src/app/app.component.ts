@@ -35,17 +35,17 @@ import { AuthService } from './_services/auth.service';
     display: grid;
     grid-template-rows: auto 1fr auto;
   }
+
   .header{
     width: 100%;
     padding: 10px 0px 10px 0px;
     background-color: gray;
   }
-  .content{
-    padding: 3px 5px;
-  }
+
   .footer{
     width: 100%;
     margin: 20px 0px 20px 0px;
+
     /* puts the footer in the middle */
     position: relative;
     left: 50%;
