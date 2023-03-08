@@ -12,7 +12,6 @@ import { Tag } from '../_models/tags';
   template: `    
   <app-createPostpage></app-createPostpage>
   
-  <!-- looper igennem alle post fra data(DataService) -->
   <div id="post" *ngFor="let post of posts" [routerLink]="['/post-details', post.postId]">
     <div id="user" (click)="postLink(this.post.user)"> 
       <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
@@ -21,8 +20,10 @@ import { Tag } from '../_models/tags';
     <div id="content">
       <h1 id="title">{{post.title}}</h1>
       <h3 id="description">{{post.desc}}</h3>
-      <p id="tags" *ngIf="post.tags">#{{post.tags.tag}}, </p>
-      <p id="tags" *ngFor="let tag of post.tags?.tag">#{{ tag }}, </p>
+
+      <!-- <p id="tags" *ngIf="post.tags">#{{ post.tags }},</p> -->
+      <p id="tags" *ngFor="let tag of post.tags">#{{ tag.name | json }}, </p>
+      
       <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     </div>
     <button class="postBtn" id="like"><3</button>
@@ -36,10 +37,7 @@ import { Tag } from '../_models/tags';
 export class IndexpageComponent {
   currentUser: any = {}
   posts: Post[] = [];
-
   tags: Tag[] = []
-
-
 
   constructor(
     private postService: PostService,
@@ -63,9 +61,4 @@ export class IndexpageComponent {
       this.router.navigate(['/profile/', user.userId])
     }
   }
-
-  editPost(){
-    console.log(this.currentUser.loginResponse.user.userId)
-  }
-
 }
