@@ -3,6 +3,7 @@ import { AuthService } from '../_services/auth.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
+import { Tag } from '../_models/tags';
 import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -181,7 +182,7 @@ export class EditPostComponent {
   insertValues(){
     (<HTMLInputElement>document.getElementById("title")).value = this.post.title;
     (<HTMLInputElement>document.getElementById("content")).value = this.post.desc;
-    // (<HTMLInputElement>document.getElementById("tags")).value = this.post.tags?.tag;
+    // (<HTMLInputElement>document.getElementById("tags")).value = this.post.tags?[].tag;
   }
 
   edit(){
@@ -190,7 +191,10 @@ export class EditPostComponent {
         postId: this.post.postId,
         title: this.postForm.value.Title, 
         desc: this.postForm.value.Content,
-        tags: this.postForm.value.Tags,
+        tags: [{
+          tagId: 0,
+          name: this.postForm.value.Tags,
+        }]
       }
       
       this.postService.editPost(this.post).subscribe()
@@ -226,7 +230,10 @@ export class EditPostComponent {
   }
 
   resetForm(){
-    return new FormGroup({ Title: new FormControl(''), Content: new FormControl(''), Tags: new FormControl('') })
+    return new FormGroup({ 
+      Title: new FormControl(''), 
+      Content: new FormControl(''), 
+      Tags: new FormControl('') })
   }
 
   titleMaxLenght(event: any) {

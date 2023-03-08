@@ -3,6 +3,7 @@ import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../_models/post';
+import { Tag } from '../_models/tags';
 import { PostService } from '../_services/post.service';
 import { AuthService } from '../_services/auth.service';
 import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms';
@@ -196,6 +197,8 @@ export class CreatePostPageComponent implements OnInit{
   currentUserId?: number
   post: Post = this.resetPost()
   posts: Post[] = []
+  tag: Tag
+  tags: Tag[] = []
   postForm: FormGroup = this.resetForm()
   titleCharLenght: number //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number //til at vise hvor mange tegn der kan være i post-content
@@ -215,12 +218,23 @@ export class CreatePostPageComponent implements OnInit{
       postId: 0, 
       title: this.postForm.value.Title, 
       desc: this.postForm.value.Content,
-      tags: this.postForm.value.Tags,
+    }
+
+
+    
+
+    // change so tags is seperated with  ','
+    this.tag = {
+      tagId: 0,
+      name: this.postForm.value.Tags
     }
 
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
         this.posts.push(x);
+
+        // this.tagService.createTags(this.post)
+
       },
       error: (err) => {
         console.warn(Object.values(err.error.errors).join(', '))
@@ -243,11 +257,7 @@ export class CreatePostPageComponent implements OnInit{
     return{ 
       postId: 0,
       title: '', 
-      desc: '', 
-      tags: [{
-        tagId: 0,
-        name: '',
-      }], 
+      desc: '',
       date: new Date, 
       likes: 0, 
       user: { 
@@ -264,6 +274,10 @@ export class CreatePostPageComponent implements OnInit{
       Content:  new FormControl(''),
       Tags:     new FormControl(''),
     })
+  }
+
+  resetTags(){
+
   }
 
 
