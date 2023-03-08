@@ -20,7 +20,7 @@ import { Tag } from '../_models/tags';
     <div id="content">
       <h1 id="title">{{post.title}}</h1>
       <h3 id="description">{{post.desc}}</h3>
-      <p id="tags" *ngFor="let tag of post.tags">#{{ tag.name | json }}, </p>
+      <p id="tags" *ngFor="let tag of post.tags" style="display: inline;">#{{ tag.name }}, &#160;</p>
       
       <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
     </div>
