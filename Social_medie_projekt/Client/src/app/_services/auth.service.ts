@@ -27,9 +27,9 @@ export class AuthService {
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem('currentUser');
-    if (user) {
-      return JSON.parse(user);
+    const login = window.sessionStorage.getItem('currentUser');
+    if (login) {
+      return JSON.parse(login);
     }
     return {};
   }

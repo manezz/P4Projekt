@@ -16,7 +16,8 @@
             int? loginId = jwtUtils.ValidateJwtToken(token);
             if (loginId != null)
             {
-                context.Items["User"] = await loginService.FindLoginByIdAsync(loginId.Value);
+                context.Items["Login"] = await loginService.FindLoginByIdAsync(loginId.Value);
+                //context.Items["User"] = await loginService.FindLoginByIdAsync(loginId.Value);
             }
 
             await _next(context);

@@ -21,6 +21,7 @@ const routes: Routes = [
     path: 'main',
     component: IndexpageComponent,
     canActivate: [AuthGuard],
+    data: { roles: [Role.User, Role.Admin] },
   },
   {
     path: 'profile',
