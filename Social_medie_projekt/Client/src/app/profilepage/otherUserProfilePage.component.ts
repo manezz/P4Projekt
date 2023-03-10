@@ -73,5 +73,4 @@ export class OtherUserProfilePageComponent implements OnInit{
       this.router.navigate(['/profile/', user.userId])
     }
   }
-
 }

@@ -233,7 +233,9 @@ export class CreatePostPageComponent implements OnInit{
       next: (x) => {
         this.posts.push(x);
 
-        // this.tagService.createTags(this.post)
+        // create tag/tags
+
+        // then create posttag
 
       },
       error: (err) => {
@@ -260,7 +262,7 @@ export class CreatePostPageComponent implements OnInit{
       desc: '',
       date: new Date, 
       likes: 0, 
-      user: { 
+      user: {
         userId: this.currentUserId, 
         userName: this.auth.CurrentUserValue.user?.userName, 
         created: this.auth.CurrentUserValue.user?.created 
