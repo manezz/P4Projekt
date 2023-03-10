@@ -22,6 +22,36 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
+                {
+                    b.Property<int>("FollowerUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FollowingUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FollowerUserId", "FollowingUserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Follow");
+
+                    b.HasData(
+                        new
+                        {
+                            FollowerUserId = 1,
+                            FollowingUserId = 2
+                        },
+                        new
+                        {
+                            FollowerUserId = 2,
+                            FollowingUserId = 1
+                        });
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
                 {
                     b.Property<int>("UserId")
@@ -98,6 +128,13 @@ namespace WebApi.Migrations
                             Email = "Test2@mail.dk",
                             Password = "password",
                             Type = 1
+                        },
+                        new
+                        {
+                            LoginId = 3,
+                            Email = "Test3@mail.dk",
+                            Password = "password",
+                            Type = 1
                         });
                 });
 
@@ -136,7 +173,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9280),
+                            Date = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8023),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -145,7 +182,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9283),
+                            Date = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8027),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -256,17 +293,31 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9262),
+                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7974),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 2, 9, 0, 32, 747, DateTimeKind.Local).AddTicks(9266),
+                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7978),
                             LoginId = 2,
                             UserName = "222test222"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7980),
+                            LoginId = 3,
+                            UserName = "user 3"
                         });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.User", null)
+                        .WithMany("Follow")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
@@ -336,6 +387,8 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
+                    b.Navigation("Follow");
+
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

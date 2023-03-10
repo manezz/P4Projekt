@@ -27,6 +27,8 @@ builder.Services.AddScoped<ITagRepository, TagRepository>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IFollowRepository, FollowRepository>();
+builder.Services.AddScoped<IFollowService, FollowService>();
 
 builder.Services.AddControllers();
 
@@ -86,6 +88,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Configure CORS policies
 app.UseCors("CorsPolicy");
 //app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 

@@ -14,7 +14,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GtAllUsersAsync()
+        public async Task<IActionResult> GetAllUsersAsync()
         {
             try
             {

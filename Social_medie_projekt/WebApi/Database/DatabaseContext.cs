@@ -8,6 +8,7 @@
         public DbSet<User> User { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
+        public DbSet<Follow> Follow{ get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
 
@@ -40,6 +41,13 @@
                     Email = "Test2@mail.dk",
                     Password = "password",
                     Type = (Role)1
+                },
+                new Login
+                {
+                    LoginId = 3,
+                    Email = "Test3@mail.dk",
+                    Password = "password",
+                    Type = (Role)1
                 });
 
             modelBuilder.Entity<User>().HasData(
@@ -55,6 +63,13 @@
                     UserId = 2,
                     LoginId = 2,
                     UserName = "222test222",
+                    Created = DateTime.Now
+                },
+                new User
+                {
+                    UserId = 3,
+                    LoginId = 3,
+                    UserName = "user 3",
                     Created = DateTime.Now
                 });
 
@@ -99,6 +114,19 @@
                     UserId = 2,
                     PostId = 2
                 });
+
+            modelBuilder.Entity<Follow>().HasData(
+                new Follow
+                {
+                    FollowerUserId = 1,
+                    FollowingUserId = 2
+                },
+                new Follow
+                {
+                    FollowerUserId = 2,
+                    FollowingUserId = 1
+                }
+                );
 
             modelBuilder.Entity<Tag>().HasData(
                 new Tag
