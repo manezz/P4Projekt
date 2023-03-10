@@ -1,0 +1,105 @@
+.body {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  flex-direction: column;
+}
+.post {
+  width: 100%;
+  max-width: 37%;
+}
+#form,
+.formControl,
+.buttonDiv {
+  background-color: lightgrey;
+  border-radius: 15px;
+  position: relative; /* important for titleCharLenght*/
+}
+#form {
+  padding: 20px 20px 0px 20px;
+  box-shadow: 0px 0px 10px 20px rgb(80, 80, 100);
+}
+input,
+textarea {
+  width: 400px;
+  height: 22px;
+  padding: 30px 15px 5px 15px;
+  border: none;
+  border-bottom: 1px solid darkgray;
+  font-size: 16px;
+  resize: none;
+  background-color: transparent;
+}
+input:focus,
+textarea:focus {
+  outline: none;
+  border-bottom: 1px solid gray;
+}
+
+#title {
+  width: 100%;
+  max-width: 85%;
+  overflow: hidden;
+  max-height: 200px;
+  font-size: 24px;
+}
+#titleCharLenght {
+  position: absolute;
+  background-color: transparent;
+  margin-top: 25px;
+  right: 25px;
+}
+#content {
+  width: 100%;
+  max-width: 85%;
+  overflow: hidden;
+  max-height: 200px;
+}
+#contentCharLenght {
+  position: absolute;
+  background-color: transparent;
+  margin-top: 25px;
+  right: 25px;
+  color: red;
+}
+#tags {
+  width: 100%;
+  max-width: 85%;
+  font-size: 12px;
+  color: rgb(100, 100, 100);
+}
+
+.buttonDiv {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+#editBtn {
+  width: 150px;
+  height: 35px;
+  font-size: 25px;
+}
+#editBtn,
+#deleteBtn {
+  border: none;
+  border-radius: 15px;
+}
+#deleteBtn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 20px;
+  right: 0px;
+  font-size: 15px;
+}
+button {
+  background-color: darkgray;
+}
+button:hover {
+  box-shadow: 0px 0px 10px 5px rgb(80, 80, 100);
+  cursor: pointer;
+}
+button:active {
+  background-color: rgb(66, 66, 66);
+}

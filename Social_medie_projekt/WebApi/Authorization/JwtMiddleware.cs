@@ -12,7 +12,10 @@
 
         public async Task Invoke(HttpContext context, ILoginService loginService, IJwtUtils jwtUtils)
         {
+            Console.WriteLine(context);
+
             string token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            //string token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             int? loginId = jwtUtils.ValidateJwtToken(token);
             if (loginId != null)
             {
