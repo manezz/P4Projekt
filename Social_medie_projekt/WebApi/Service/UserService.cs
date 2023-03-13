@@ -29,7 +29,7 @@
                 {
                     LoginId = user.Login.LoginId,
                     Email = user.Login.Email,
-                    Type = user.Login.Type
+                    Role = user.Login.Role
                 },
                 Posts = user.Posts.Select(x => new UserPostResponse
                 {
@@ -52,7 +52,7 @@
                 {
                     Email = userRequest.Login.Email,
                     Password = userRequest.Login.Password,
-                    Type = userRequest.Login.Type
+                    Role = userRequest.Login.Role
                 },
 
             };

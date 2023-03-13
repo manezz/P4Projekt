@@ -9,13 +9,13 @@ import { EmailValidator } from '@angular/forms';
 import { SignInResponse } from '../Req-Res/signInResponse';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject: BehaviorSubject<Login>;
   currentUser: Observable<Login>;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<Login>(
       JSON.parse(sessionStorage.getItem('currentUser') as string)
     );
@@ -27,31 +27,36 @@ export class AuthService {
   }
 
   public getUser(): any {
-    const user = window.sessionStorage.getItem('currentUser');
-    if (user) {
-      return JSON.parse(user);
+    const login = window.sessionStorage.getItem('currentUser');
+    if (login) {
+      return JSON.parse(login);
     }
     return {};
   }
 
-  login(email: string, password: string){
+  login(email: string, password: string) {
     let authenticateUrl = `${environment.apiUrl}Login/authenticate`;
-    return this.http.post<Login>(authenticateUrl, { "email": email, "password": password}).pipe(map(user => {
-      sessionStorage.setItem('currentUser', JSON.stringify(user));
-
-      this.currentUserSubject.next(user as Login);
-      return user;
-    }))
+    return this.http
+      .post<Login>(authenticateUrl, { email: email, password: password })
+      .pipe(
+        map((login) => {
+          sessionStorage.setItem('currentUser', JSON.stringify(login));
+          this.currentUserSubject.next(login);
+          return login;
+        })
+      );
   }
 
-  logout(){
+  logout() {
     sessionStorage.removeItem('currentUser');
-    this.currentUserSubject = new BehaviorSubject<Login>(JSON.parse(sessionStorage.getItem('currentUser') as string));
+    this.currentUserSubject = new BehaviorSubject<Login>(
+      JSON.parse(sessionStorage.getItem('currentUser') as string)
+    );
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
   register(login: Login): Observable<Login> {
     let registerUrl = `${environment.apiUrl}login/register/`;
-    return this.http.post<Login>(registerUrl, login)
+    return this.http.post<Login>(registerUrl, login);
   }
 }

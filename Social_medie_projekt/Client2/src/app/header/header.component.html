@@ -1,0 +1,25 @@
+<nav>
+  <div class="nav">
+    <img
+      id="logo"
+      class="linkLeft"
+      src="/assets/images/socialmachine.png"
+      routerLink="/main"
+    />
+    <a
+      class="linkRight"
+      routerLink="/"
+      routerLinkActive="active"
+      *ngIf="currentUser != null"
+      (click)="logOut()"
+      >Logout</a
+    >
+    <a
+      class="linkRight"
+      [routerLink]="['/profile', this.currentUser.user.userId]"
+      routerLinkActive="active"
+      *ngIf="currentUser != null"
+      >Profile</a
+    >
+  </div>
+</nav>

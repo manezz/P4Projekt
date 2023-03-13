@@ -1,0 +1,48 @@
+.body {
+  display: flex;
+  height: 700px;
+  margin-top: 20px;
+  align-items: center;
+  flex-direction: column;
+}
+.form {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 50px;
+}
+
+.formControl {
+  display: flex;
+  justify-content: center;
+  margin: 5px 5px 10px 0;
+  flex-direction: row;
+}
+label {
+  order: 0;
+  width: 100px;
+  margin-right: 5px;
+  text-align: right;
+}
+input {
+  order: 1;
+  width: 200px;
+  margin-left: 3px;
+  background-color: white;
+}
+
+.buttonDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+button:hover {
+  background-color: rgb(211, 211, 211);
+  cursor: pointer;
+}
+button:active {
+  background-color: rgb(66, 66, 66);
+}

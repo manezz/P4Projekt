@@ -2,7 +2,7 @@
 {
     public interface ILoginService
     {
-        Task<SignInResponse> AuthenticateUser(SignInRequest login);
+        Task<LoginResponse> AuthenticateUser(LoginRequest login);
         Task<LoginResponse> RegisterAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllLoginAsync();
         Task<LoginResponse> FindLoginByIdAsync(int loginId);
@@ -26,7 +26,7 @@
             {
                 LoginId = login.LoginId,
                 Email = login.Email,
-                Type = login.Type,
+                Role = login.Role,
 
                 User = new LoginUserResponse
                 {
@@ -50,7 +50,7 @@
             return new Login
             {
                 Email = loginRequest.Email,
-                Type = loginRequest.Type,
+                Role = loginRequest.Role,
                 Password = loginRequest.Password,
                 User = new()
                 {
@@ -60,32 +60,61 @@
         }
 
 
-        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
-        {
-            Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
+        //public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
+        //{
+        //    Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
 
-            if (user == null)
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException();
+        //    }
+
+        //    if (user.Password == login.Password)
+        //    {
+        //        SignInResponse response = new()
+        //        {
+        //            LoginResponse = new()
+        //            {
+        //                LoginId = user.LoginId,
+        //                Email = user.Email,
+        //                Role = user.Role,
+        //                User = new()
+        //                {
+        //                    UserId = user.User.UserId,
+        //                    UserName = user.User.UserName,
+        //                    Created = user.User.Created
+        //                }
+        //            },
+        //            Token = _jwtUtils.GenerateJwtToken(user)
+        //        };
+        //        return response;
+        //    }
+        //    return null;
+        //}
+
+        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        {
+            Login? foundLogin = await _loginRepository.FindLoginByEmailAsync(login.Email);
+
+            if (foundLogin == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (user.Password == login.Password)
+            if (foundLogin.Password == login.Password)
             {
-                SignInResponse response = new()
+                LoginResponse response = new()
                 {
-                    LoginResponse = new()
+                    LoginId = foundLogin.LoginId,
+                    Email = foundLogin.Email,
+                    Role = foundLogin.Role,
+                    User = new()
                     {
-                        LoginId = user.LoginId,
-                        Email = user.Email,
-                        Type = user.Type,
-                        User = new()
-                        {
-                            UserId = user.User.UserId,
-                            UserName = user.User.UserName,
-                            Created = user.User.Created
-                        }
+                        UserId = foundLogin.User.UserId,
+                        UserName = foundLogin.User.UserName,
+                        Created = foundLogin.User.Created,
                     },
-                    Token = _jwtUtils.GenerateJwtToken(user)
+                    Token = _jwtUtils.GenerateJwtToken(foundLogin)
                 };
                 return response;
             }

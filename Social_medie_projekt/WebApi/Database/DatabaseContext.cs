@@ -32,14 +32,14 @@
                     LoginId = 1,
                     Email = "Test1@mail.dk",
                     Password = "password",
-                    Type = 0
+                    Role = 0
                 },
                 new Login
                 {
                     LoginId = 2,
                     Email = "Test2@mail.dk",
                     Password = "password",
-                    Type = (Role)1
+                    Role = (Role)1
                 });
 
             modelBuilder.Entity<User>().HasData(

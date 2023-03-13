@@ -11,8 +11,8 @@
         public string Password { get; set; } = string.Empty;
 
         [Required]
-        [Range(0, 1, ErrorMessage = "Type must be 0 for user or 1 for admin")]
-        public Role Type { get; set; }
+        [Range(0, 1, ErrorMessage = "Type must be 0 for Admin or 1 for User")]
+        public Role Role { get; set; }
 
         public LoginUserRequest? User { get; set; }
     }

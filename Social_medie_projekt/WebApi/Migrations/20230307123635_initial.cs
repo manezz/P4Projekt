@@ -21,7 +21,7 @@ namespace WebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(32)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(32)", nullable: false),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Role = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -134,7 +134,7 @@ namespace WebApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Login",
-                columns: new[] { "LoginId", "Email", "Password", "Type" },
+                columns: new[] { "LoginId", "Email", "Password", "Role" },
                 values: new object[,]
                 {
                     { 1, "Test1@mail.dk", "password", 0 },
@@ -156,8 +156,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4244), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4247), 2, "222test222" }
+                    { 1, new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6477), 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6481), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -165,8 +165,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4262), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 2, 12, 12, 7, 463, DateTimeKind.Local).AddTicks(4265), "Woooooo!", 0, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6498), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6502), "Woooooo!", 0, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
