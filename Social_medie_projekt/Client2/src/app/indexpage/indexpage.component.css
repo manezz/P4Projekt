@@ -97,6 +97,14 @@ mat-sidenav {
   margin-left: 10px;
   font-size: 12px;
 }
+#postTags{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tag{
+  margin-left: 10px; margin-right: 5px; color: darkblue;
+}
 
 #nomore {
   text-align: center;

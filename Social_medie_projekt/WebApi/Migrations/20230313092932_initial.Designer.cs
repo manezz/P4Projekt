@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230307123635_initial")]
+    [Migration("20230313092932_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace WebApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -139,7 +139,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6498),
+                            Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(360),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -148,7 +148,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6502),
+                            Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(363),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -259,14 +259,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6477),
+                            Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(341),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 7, 13, 36, 35, 745, DateTimeKind.Local).AddTicks(6481),
+                            Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(345),
                             LoginId = 2,
                             UserName = "222test222"
                         });
