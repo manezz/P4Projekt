@@ -66,18 +66,18 @@ namespace WebApi.Migrations
                 name: "Follow",
                 columns: table => new
                 {
-                    FollowerUserId = table.Column<int>(type: "int", nullable: false),
-                    FollowingUserId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: true)
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FollowingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Follow", x => new { x.FollowerUserId, x.FollowingUserId });
+                    table.PrimaryKey("PK_Follow", x => new { x.UserId, x.FollowingId });
                     table.ForeignKey(
                         name: "FK_Follow_User_UserId",
                         column: x => x.UserId,
                         principalTable: "User",
-                        principalColumn: "UserId");
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -151,15 +151,6 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Follow",
-                columns: new[] { "FollowerUserId", "FollowingUserId", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 2, null },
-                    { 2, 1, null }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Login",
                 columns: new[] { "LoginId", "Email", "Password", "Type" },
                 values: new object[,]
@@ -184,9 +175,18 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7974), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7978), 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7980), 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9214), 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9217), 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9220), 3, "user 3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Follow",
+                columns: new[] { "FollowingId", "UserId" },
+                values: new object[,]
+                {
+                    { 2, 1 },
+                    { 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -194,8 +194,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Likes", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8023), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8027), "Woooooo!", 0, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9233), "tadnawdnada", 1, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9236), "Woooooo!", 0, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -219,11 +219,6 @@ namespace WebApi.Migrations
                     { 1, 3 },
                     { 2, 3 }
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Follow_UserId",
-                table: "Follow",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Like_PostId",

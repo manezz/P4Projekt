@@ -18,6 +18,8 @@
             _userRepository = userRepository;
         }
 
+
+
         private static User MapUserRequestToUser(UserRequest userRequest)
         {
             return new User
@@ -57,8 +59,8 @@
                 }).ToList(),
                 Follow = user.Follow.Select(x => new UserFollowResponse
                 {
-                    FollowerId = x.FollowerUserId,
-                    FollowingId = x.FollowerUserId,
+                    UserId = x.UserId,
+                    FollowingId = x.FollowingId,
                 }).ToList(),
             };
         }
@@ -66,28 +68,6 @@
 
 
 
-        public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
-        {
-            var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
-
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return MapUserToUserResponse(user);
-        }
-
-        public async Task<UserResponse> DeleteUserAsync(int id)
-        {
-            var user = await _userRepository.DeleteUserAsync(id);
-
-            if (user != null)
-            {
-                return MapUserToUserResponse(user);
-            }
-            return null;
-        }
 
         public async Task<UserResponse> FindUserAsync(int id)
         {
@@ -111,6 +91,36 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
+
+
+
+
+        // Not Used !!! (login/register is used instead)
+        public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
+        {
+            var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
+
+            if (user == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return MapUserToUserResponse(user);
+        }
+
+        // Not Used !!! (login/delete is used instead)
+        public async Task<UserResponse> DeleteUserAsync(int id)
+        {
+            var user = await _userRepository.DeleteUserAsync(id);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
+            return null;
+        }
+
+        // Maybe used ??? (login/update is used instead MAYBE)
         public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateUserAsync(id, MapUserRequestToUser(updatedUser));

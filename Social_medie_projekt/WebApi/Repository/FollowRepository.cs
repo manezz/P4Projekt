@@ -23,7 +23,7 @@
         // Creates a new follow relationship
         public async Task<Follow> Follow(Follow newFollow)
         {
-            if (await FindFollow(newFollow.FollowerUserId, newFollow.FollowingUserId) != null)
+            if (await FindFollow(newFollow.UserId, newFollow.FollowingId) != null)
             {
                 throw new Exception("User already followed");
             }
@@ -53,23 +53,26 @@
         // Finds a specific follow relationship
         public async Task<Follow> FindFollow(int followerId, int followingId)
         {
-            return await _context.Follow.Where(x => followerId == x.FollowerUserId).Where(y => followingId == y.FollowingUserId).FirstOrDefaultAsync();
+            return await _context.Follow.Where(x => followerId == x.UserId).Where(y => followingId == y.FollowingId).FirstOrDefaultAsync();
         }
 
 
 
 
 
-        // Find all users that follows the user
-        public async Task<List<Follow>> FindUsersFollowers(int followerId)
+        // Find all users that userId follows
+        public async Task<List<Follow>> FindUsersFollowing(int userId)
         {
-            return await _context.Follow.Where(x => followerId == x.FollowerUserId).ToListAsync();
+            return await _context.Follow.Where(x => userId == x.UserId).ToListAsync();
         }
 
-        // Find all users that a user follows
-        public async Task<List<Follow>> FindUsersFollowing(int followingId)
+
+
+        // Find all FollowingId who follows user
+        public async Task<List<Follow>> FindUsersFollowers(int followingId)
         {
-            return await _context.Follow.Where(x => followingId == x.FollowingUserId).ToListAsync();
+            return await _context.Follow.Where(x => followingId == x.FollowingId).ToListAsync();
         }
+
     }
 }

@@ -3,9 +3,9 @@
     public class FollowRequest
     {
         [Required]
-        public int FollowerUserId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
-        public int FollowingUserId { get; set; }
+        public int FollowingId { get; set; }
     }
 }

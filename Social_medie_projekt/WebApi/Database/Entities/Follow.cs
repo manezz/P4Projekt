@@ -1,13 +1,13 @@
 ﻿namespace WebApi.Database.Entities
 {
-    [PrimaryKey(nameof(FollowerUserId), nameof(FollowingUserId))]
+    [PrimaryKey(nameof(UserId), nameof(FollowingId))]
     public class Follow
     {
         [ForeignKey("User.UserId")]
-        public int FollowerUserId { get; set; } // The user who follows
+        public int UserId { get; set; }
 
         [ForeignKey("User.UserId")]
-        public int FollowingUserId { get; set; } // other users
+        public int FollowingId { get; set; }
 
     }
 }

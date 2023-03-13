@@ -118,13 +118,13 @@
             modelBuilder.Entity<Follow>().HasData(
                 new Follow
                 {
-                    FollowerUserId = 1,
-                    FollowingUserId = 2
+                    UserId = 1,
+                    FollowingId = 2
                 },
                 new Follow
                 {
-                    FollowerUserId = 2,
-                    FollowingUserId = 1
+                    UserId = 2,
+                    FollowingId = 1
                 }
                 );
 

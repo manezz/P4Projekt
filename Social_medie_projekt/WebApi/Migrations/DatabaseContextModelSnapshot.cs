@@ -24,31 +24,26 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
                 {
-                    b.Property<int>("FollowerUserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FollowingUserId")
+                    b.Property<int>("FollowingId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("FollowerUserId", "FollowingUserId");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "FollowingId");
 
                     b.ToTable("Follow");
 
                     b.HasData(
                         new
                         {
-                            FollowerUserId = 1,
-                            FollowingUserId = 2
+                            UserId = 1,
+                            FollowingId = 2
                         },
                         new
                         {
-                            FollowerUserId = 2,
-                            FollowingUserId = 1
+                            UserId = 2,
+                            FollowingId = 1
                         });
                 });
 
@@ -173,7 +168,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8023),
+                            Date = new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9233),
                             Desc = "tadnawdnada",
                             Likes = 1,
                             Title = "testestestest",
@@ -182,7 +177,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(8027),
+                            Date = new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9236),
                             Desc = "Woooooo!",
                             Likes = 0,
                             Title = "Test!",
@@ -293,21 +288,21 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7974),
+                            Created = new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9214),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7978),
+                            Created = new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9217),
                             LoginId = 2,
                             UserName = "222test222"
                         },
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 10, 13, 46, 35, 414, DateTimeKind.Local).AddTicks(7980),
+                            Created = new DateTime(2023, 3, 13, 9, 28, 44, 348, DateTimeKind.Local).AddTicks(9220),
                             LoginId = 3,
                             UserName = "user 3"
                         });
@@ -317,7 +312,9 @@ namespace WebApi.Migrations
                 {
                     b.HasOne("WebApi.Database.Entities.User", null)
                         .WithMany("Follow")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>

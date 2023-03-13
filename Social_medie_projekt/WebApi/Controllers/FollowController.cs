@@ -13,12 +13,12 @@
 
 
         [HttpGet]
-        [Route("{followerId}/{followingId}")]
-        public async Task<IActionResult> FindFollow([FromRoute] int followerId, [FromRoute] int followingId)
+        [Route("{userId}/{followingId}")]
+        public async Task<IActionResult> FindFollow([FromRoute] int userId, [FromRoute] int followingId)
         {
             try
             {
-                FollowResponse followResponse = await _followService.FindFollow(followerId, followingId);
+                FollowResponse followResponse = await _followService.FindFollow(userId, followingId);
 
                 if (followResponse == null)
                 {
@@ -34,12 +34,12 @@
         }
 
         [HttpGet]
-        [Route("followers/{followerId}")]
-        public async Task<IActionResult> FindUsersFollowing([FromRoute] int followerId)
+        [Route("find-followers/{userId}")]
+        public async Task<IActionResult> FindUsersFollowing([FromRoute] int userId)
         {
             try
             {
-                var followResponse = await _followService.FindUsersFollowing(followerId);
+                var followResponse = await _followService.FindUsersFollowing(userId);
 
                 if (followResponse == null)
                 {
@@ -79,6 +79,7 @@
 
 
         [HttpPost]
+        [Route("follow")]
         public async Task<IActionResult> Follow([FromBody] FollowRequest follow)
         {
             try
@@ -94,12 +95,12 @@
         }
 
         [HttpDelete]
-        [Route("{followerId}/{followingId}")]
-        public async Task<IActionResult> Unfollow([FromRoute] int followerId, [FromRoute] int followingId)
+        [Route("unfollow/{userId}/{followingId}")]
+        public async Task<IActionResult> Unfollow([FromRoute] int userId, [FromRoute] int followingId)
         {
             try
             {
-                var followResponse = await _followService.Unfollow(followerId, followingId);
+                var followResponse = await _followService.Unfollow(userId, followingId);
 
                 if (followResponse == null)
                 {
@@ -113,8 +114,5 @@
                 return Problem(ex.Message);
             }
         }
-
-
-
     }
 }

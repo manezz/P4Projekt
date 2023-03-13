@@ -24,7 +24,7 @@ namespace WebApi.Authorization
             if (login == null || (_roles.Any() && !_roles.Contains(login.Type)))
             {
                 //outcomment as workaround untill fixed
-                //context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }
     }

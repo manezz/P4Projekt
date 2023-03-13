@@ -2,10 +2,8 @@
 {
     public class FollowResponse
     {
-        // THE user
-        public int FollowerUserId { get; set; }
+        public int UserId { get; set; }
 
-        // other users
-        public int FollowingUserId { get; set; }
+        public int FollowingId { get; set; }
     }
 }

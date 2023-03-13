@@ -10,7 +10,7 @@
         public UserLoginResponse? Login { get; set; }
 
         public List<UserPostResponse> Posts { get; set; } = new();
-        public List<UserFollowResponse> Follow { get; set; }
+        public List<UserFollowResponse> Follow { get; set; } = new();
     }
 
     public class UserLoginResponse
@@ -38,7 +38,7 @@
 
     public class UserFollowResponse
     {
-        public int FollowerId{ get; set; }
+        public int UserId{ get; set; }
         public int FollowingId { get; set; }
     }
 
