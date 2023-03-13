@@ -23,7 +23,10 @@ export class JwtInterceptor implements HttpInterceptor {
 
     if (IsLoggedIn && isApiUrl) {
       request = request.clone({
-        setHeaders: { Authorizaton: `Bearer ${currentUser.token}` },
+        headers: request.headers.set(
+          'Authorization',
+          'Bearer ' + currentUser.token
+        ),
       });
     }
 
