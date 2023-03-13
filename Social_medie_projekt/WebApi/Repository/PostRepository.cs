@@ -10,8 +10,8 @@
         Task<Post> CreatePostAsync(Post newPost);
         Task<Post> DeletePostAsync(int id);
         Task<Post> UpdatePostAsync(int id, Post updatePost);
-        
-        
+
+
         // POST UPDATE LIKES
         Task<Post> UpdatePostLikesAsync(int id, int like);
 
@@ -42,9 +42,11 @@
 
         public async Task<List<Post>> GetAllAsync()
         {
-            return await _context.Post.Include(c => c.User)
-                 .OrderByDescending(d => d.Date)
-                 .ToListAsync();
+            return await _context.Post
+                .Include(c => c.User)
+                .Include(x => x.PostLikes)
+                .OrderByDescending(d => d.Date)
+                .ToListAsync();
         }
 
         public async Task<Post?> GetPostByPostIdAsync(int postId)
@@ -79,13 +81,13 @@
             }
 
             return post;
-        }       
+        }
 
         public async Task<Post> DeletePostAsync(int id)
         {
             var post = await GetPostByPostIdAsync(id);
 
-            if(post != null)
+            if (post != null)
             {
                 _context.Remove(post);
                 await _context.SaveChangesAsync();
@@ -222,8 +224,8 @@
             //    .ToListAsync();
             var postag2 = from posttag in _context.PostTag
                           where posttag.PostId == postsTag.PostId
-                         where posttag.TagId != postsTag.TagId
-                         select posttag;
+                          where posttag.TagId != postsTag.TagId
+                          select posttag;
 
             //var postag = await GetTagsByPostIdAsync(postsTag.PostId);
             var postag = await _context.PostTag

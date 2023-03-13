@@ -39,6 +39,7 @@
                         Title = x.Title,
                         Desc = x.Desc,
                         Likes = x.Likes,
+                        Likes = x.Likes,
                         Date = x.Date
                     }).ToList()
                 }

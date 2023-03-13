@@ -50,7 +50,10 @@
                 Title = post.Title,
                 Desc = post.Desc,
                 Date = post.Date,
-                Likes = post.Likes,
+                PostLikes = new PostPostLikesResponse
+                {
+                    Likes = post.PostLikes.Likes
+                },
                 User = new PostUserResponse
                 {
                     UserId = post.User.UserId,
@@ -68,7 +71,10 @@
                 Title = post.Title,
                 Desc = post.Desc,
                 Date = post.Date,
-                Likes = post.Likes,
+                PostLikes = new PostPostLikesResponse
+                {
+                    Likes = post.PostLikes.Likes
+                },
                 User = new PostUserResponse
                 {
                     UserId = post.User.UserId,
@@ -121,7 +127,7 @@
                 Desc = postUpdateRequest.Desc,
             };
         }
-              
+
 
 
 
@@ -160,7 +166,7 @@
             };
         }
 
-    
+
 
 
         public async Task<List<PostResponse>> GetAllPostsAsync()
@@ -172,7 +178,7 @@
                 throw new ArgumentNullException();
             }
 
-            return posts.Select(post => MapPostToPostResponse(post,_tagRepository.GetTagsByPostIdAsync(post.PostId).Result)).ToList();
+            return posts.Select(post => MapPostToPostResponse(post, _tagRepository.GetTagsByPostIdAsync(post.PostId).Result)).ToList();
         }
 
         public async Task<PostResponse?> GetPostByPostIdAsync(int postId)
@@ -184,8 +190,8 @@
                 return MapPostToPostResponse(post, await _tagRepository.GetTagsByPostIdAsync(postId));
             }
 
-                return null;
-        }        
+            return null;
+        }
 
         public async Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId)
         {
@@ -277,7 +283,7 @@
             }
             return MapPostToPostResponse(post);
         }
-        
+
 
 
 
