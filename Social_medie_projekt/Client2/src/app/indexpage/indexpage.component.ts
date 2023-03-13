@@ -18,9 +18,10 @@ export class IndexpageComponent {
   posts: Post[] = [];
 
   tags: Tag[] = [];
-  tag: Tag = { tagId: 0, tag: '' };
 
-  constructor(private postService: PostService, private auth: AuthService) {}
+  constructor(private postService: PostService, private auth: AuthService) {
+    this.tags = [];
+  }
 
   ngOnInit(): void {
     this.postService.getAll().subscribe((p) => (this.posts = p));

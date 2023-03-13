@@ -87,7 +87,10 @@ export class EditPostComponent {
   }
 
   resetPost(): Post {
-    return { postId: 0, title: '', desc: '', tags: '' };
+    return { postId: 0, title: '', desc: '', tags: [{
+      tagId: 0,
+      name: '',
+    }], };
   }
 
   resetForm() {

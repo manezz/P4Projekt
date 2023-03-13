@@ -77,7 +77,10 @@ export class CreatePostPageComponent implements OnInit {
       postId: 0,
       title: '',
       desc: '',
-      tags: '',
+      tags: [{
+        tagId: 0,
+        name: '',
+      }],
       date: new Date(),
       likes: 0,
       user: {
