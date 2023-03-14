@@ -42,7 +42,6 @@
                     },
                     Date = post.Date
                 }).ToList()
-
             };
         }
 
@@ -57,7 +56,6 @@
                     Password = userRequest.Login.Password,
                     Role = userRequest.Login.Role
                 },
-
             };
         }
 

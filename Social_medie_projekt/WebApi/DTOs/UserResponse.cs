@@ -10,7 +10,7 @@
 
         public UserLoginResponse Login { get; set; }
 
-        public List<UserPostResponse> Posts { get; set; } = new();
+        public List<UserPostResponse> Posts { get; set; }
     }
 
     public class UserLoginResponse
@@ -34,7 +34,7 @@
 
         public DateTime Date { get; set; }
 
-        public UserPostPostLikesResponse PostLikes { get; set; } = new();
+        public UserPostPostLikesResponse PostLikes { get; set; }
     }
 
     public class UserPostPostLikesResponse

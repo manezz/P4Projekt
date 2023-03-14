@@ -47,7 +47,8 @@
         {
             return await _context.User
                 .Include(l => l.Login)
-                .Include(P => P.Posts.OrderByDescending(Posts => Posts.Date))
+                .Include(p => p.Posts.OrderByDescending(posts => posts.Date))
+                .ThenInclude(x => x.PostLikes)
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
 
@@ -55,7 +56,8 @@
         {
             return await _context.User
                 .Include(l => l.Login)
-                .Include(P => P.Posts)
+                .Include(p => p.Posts)
+                .ThenInclude(x => x.PostLikes)
                 .ToListAsync();
         }
 

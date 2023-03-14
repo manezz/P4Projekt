@@ -21,7 +21,6 @@ export class PostDetailsComponent {
     title: '',
     desc: '',
     tags: '',
-    likes: 0,
     date: new Date(),
     user: {
       userId: 0,

@@ -33,13 +33,16 @@
                     UserId = login.User.UserId,
                     UserName = login.User.UserName,
                     Created = login.User.Created,
-                    Posts = login.User.Posts.Select(x => new UserPostLoginResponse
+                    Posts = login.User.Posts.Select(post => new UserPostLoginResponse
                     {
-                        PostId = x.PostId,
-                        Title = x.Title,
-                        Desc = x.Desc,
-
-                        Date = x.Date
+                        PostId = post.PostId,
+                        Title = post.Title,
+                        Desc = post.Desc,
+                        Date = post.Date,
+                        PostLikes = new UserPostLoginPostLikesResponse
+                        {
+                            Likes = post.PostLikes.Likes
+                        }
                     }).ToList()
                 }
             };

@@ -32,24 +32,27 @@
         public async Task<List<Login>> GetAllLoginAsync()
         {
             return await _context.Login
-                .Include(l => l.User)
-                .Include(p => p.User.Posts.OrderByDescending(Posts => Posts.Date))
+                .Include(login => login.User)
+                .Include(posts => posts.User.Posts.OrderByDescending(Post => Post.Date))
+                .ThenInclude(post => post.PostLikes)
                 .ToListAsync();
         }
 
         public async Task<Login?> FindLoginByIdAsync(int loginId)
         {
             return await _context.Login
-                .Include(l => l.User)
-                .Include(p => p.User.Posts)
-                .FirstOrDefaultAsync(x => x.LoginId == loginId);
+                .Include(login => login.User)
+                .Include(posts => posts.User.Posts)
+                .ThenInclude(post => post.PostLikes)
+                .FirstOrDefaultAsync(login => login.LoginId == loginId);
         }
 
         public async Task<Login?> FindLoginByEmailAsync(string email)
         {
             return await _context.Login
-                .Include(L => L.User)
-                .Include(P => P.User.Posts.OrderByDescending(Posts => Posts.Date))
+                .Include(login => login.User)
+                .Include(posts => posts.User.Posts.OrderByDescending(post => post.Date))
+                .ThenInclude(post => post.PostLikes)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 

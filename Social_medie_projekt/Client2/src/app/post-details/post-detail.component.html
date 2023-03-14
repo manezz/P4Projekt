@@ -2,7 +2,7 @@
   <button
     class="editBtn"
     id=""
-    *ngIf="post.user?.userId == this.currentUser.loginResponse.user.userId"
+    *ngIf="post.user?.userId == this.currentUser.user.userId"
     [routerLink]="['/editPost', post.postId]"
   >
     ⚙
