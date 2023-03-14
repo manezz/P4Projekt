@@ -91,19 +91,16 @@ mat-sidenav {
 #description {
   margin-left: 10px;
 }
-#tags {
-  color: rgb(155, 155, 155);
-  margin-top: 20px;
-  margin-left: 10px;
-  font-size: 12px;
-}
-#postTags{
+
+#postTags {
   display: flex;
   flex-wrap: wrap;
 }
 
-#tag{
-  margin-left: 10px; margin-right: 5px; color: darkblue;
+#tag {
+  margin-left: 10px;
+  margin-right: 5px;
+  color: darkblue;
 }
 
 #nomore {

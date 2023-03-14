@@ -36,9 +36,6 @@ export class EditPostComponent {
         .GetPostByPostId(params['postId'])
         .subscribe((x) => (this.post = x));
     });
-
-    console.log(this.post);
-
     this.insertValues();
   }
 
@@ -87,10 +84,17 @@ export class EditPostComponent {
   }
 
   resetPost(): Post {
-    return { postId: 0, title: '', desc: '', tags: [{
-      tagId: 0,
-      name: '',
-    }], };
+    return {
+      postId: 0,
+      title: '',
+      desc: '',
+      tags: [
+        {
+          tagId: 0,
+          name: '',
+        },
+      ],
+    };
   }
 
   resetForm() {
