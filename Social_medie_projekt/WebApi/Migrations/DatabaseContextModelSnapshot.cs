@@ -116,9 +116,6 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -136,20 +133,51 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
+<<<<<<< HEAD
+                            Date = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(516),
+=======
                             Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(360),
+>>>>>>> origin/dev
                             Desc = "tadnawdnada",
-                            Likes = 1,
                             Title = "testestestest",
                             UserId = 1
                         },
                         new
                         {
                             PostId = 2,
+<<<<<<< HEAD
+                            Date = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(520),
+=======
                             Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(363),
+>>>>>>> origin/dev
                             Desc = "Woooooo!",
-                            Likes = 0,
                             Title = "Test!",
                             UserId = 2
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.PostLikes", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("PostLikes");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Likes = 2
+                        },
+                        new
+                        {
+                            PostId = 2,
+                            Likes = 2
                         });
                 });
 
@@ -256,14 +284,22 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
+<<<<<<< HEAD
+                            Created = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(369),
+=======
                             Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(341),
+>>>>>>> origin/dev
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
+<<<<<<< HEAD
+                            Created = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(495),
+=======
                             Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(345),
+>>>>>>> origin/dev
                             LoginId = 2,
                             UserName = "222test222"
                         });
@@ -299,6 +335,17 @@ namespace WebApi.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebApi.Database.Entities.PostLikes", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Post", "Post")
+                        .WithOne("PostLikes")
+                        .HasForeignKey("WebApi.Database.Entities.PostLikes", "PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.Post", "Post")
@@ -332,6 +379,11 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Post", b =>
+                {
+                    b.Navigation("PostLikes");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>

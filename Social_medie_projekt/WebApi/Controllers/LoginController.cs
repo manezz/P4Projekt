@@ -50,10 +50,6 @@
             }
         }
 
-
-
-
-
         [Authorize(Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllLoginAsync()

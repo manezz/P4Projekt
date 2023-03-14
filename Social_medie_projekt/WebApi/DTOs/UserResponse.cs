@@ -8,9 +8,9 @@
 
         public DateTime Created { get; set; }
 
-        public UserLoginResponse? Login { get; set; }
+        public UserLoginResponse Login { get; set; }
 
-        public List<UserPostResponse> Posts { get; set; } = new();
+        public List<UserPostResponse> Posts { get; set; }
     }
 
     public class UserLoginResponse
@@ -32,10 +32,13 @@
 
         public string Tags { get; set; } = string.Empty;
 
-        public int? Likes { get; set; }
-
         public DateTime Date { get; set; }
+
+        public UserPostPostLikesResponse PostLikes { get; set; }
     }
 
-
+    public class UserPostPostLikesResponse
+    {
+        public int Likes { get; set; }
+    }
 }

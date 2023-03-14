@@ -82,7 +82,6 @@ export class CreatePostPageComponent implements OnInit {
         name: '',
       }],
       date: new Date(),
-      likes: 0,
       user: {
         userId: this.currentUserId,
         userName: this.auth.CurrentUserValue.user?.userName,

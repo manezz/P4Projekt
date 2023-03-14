@@ -24,7 +24,9 @@ export class PostDetailsComponent {
       tagId: 0,
       name: '',
     }],
-    likes: 0,
+    postLikes: {
+      likes: 0
+    },
     date: new Date(),
     user: {
       userId: 0,

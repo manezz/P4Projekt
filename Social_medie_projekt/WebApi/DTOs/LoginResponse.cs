@@ -21,7 +21,7 @@
 
         public DateTime Created { get; set; }
 
-        public List<UserPostLoginResponse>? Posts { get; set; } = new();
+        public List<UserPostLoginResponse> Posts { get; set; } = new();
     }
 
     public class UserPostLoginResponse
@@ -34,11 +34,14 @@
 
         public string Desc { get; set; } = string.Empty;
 
-        //public string Tags { get; set; } = string.Empty;
-
-        public int? Likes { get; set; }
-
         public DateTime Date { get; set; }
+
+        public UserPostLoginPostLikesResponse PostLikes { get; set; } = new();
+    }
+
+    public class UserPostLoginPostLikesResponse
+    {
+        public int Likes { get; set; }
     }
 }
 

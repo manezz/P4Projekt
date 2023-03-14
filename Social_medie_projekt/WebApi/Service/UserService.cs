@@ -31,15 +31,17 @@
                     Email = user.Login.Email,
                     Role = user.Login.Role
                 },
-                Posts = user.Posts.Select(x => new UserPostResponse
+                Posts = user.Posts.Select(post => new UserPostResponse
                 {
-                    PostId = x.PostId,
-                    Title = x.Title,
-                    Desc = x.Desc,
-                    Likes = x.Likes,
-                    Date = x.Date
+                    PostId = post.PostId,
+                    Title = post.Title,
+                    Desc = post.Desc,
+                    PostLikes = new UserPostPostLikesResponse
+                    {
+                        Likes = post.PostLikes.Likes
+                    },
+                    Date = post.Date
                 }).ToList()
-
             };
         }
 
@@ -54,7 +56,6 @@
                     Password = userRequest.Login.Password,
                     Role = userRequest.Login.Role
                 },
-
             };
         }
 
