@@ -173,13 +173,8 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230314075333_initial.cs
-                    { 1, new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(369), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(495), 2, "222test222" }
-========
-                    { 1, new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(341), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(345), 2, "222test222" }
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230313092932_initial.cs
+                    { 1, new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6502), 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6506), 2, "222test222" }
                 });
 
             migrationBuilder.InsertData(
@@ -187,13 +182,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Title", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230314075333_initial.cs
-                    { 1, new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(516), "tadnawdnada", "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(520), "Woooooo!", "Test!", 2 }
-========
-                    { 1, new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(360), "tadnawdnada", 1, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(363), "Woooooo!", 0, "Test!", 2 }
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230313092932_initial.cs
+                    { 1, new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6519), "tadnawdnada", "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6523), "Woooooo!", "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(

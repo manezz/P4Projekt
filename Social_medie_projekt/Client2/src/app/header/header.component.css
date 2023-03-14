@@ -1,28 +1,46 @@
-.nav {
+.topBar {
+  display: flex;
+  padding: 8px;
+  background-color: gray;
+  height: 80px;
+}
+
+.topBar div {
   background-color: gray;
 }
+
 #logo {
-  display: inline-block;
+  /* display: inline-block; */
+  height: 40px;
   width: 40px;
-  margin-right: 10px;
   background-color: transparent;
+  align-self: center;
+  margin-left: 10px;
 }
+
 #logo:hover {
   cursor: pointer;
 }
+
+a {
+  align-self: center;
+  margin-left: 10px;
+}
+
 a:link,
 a:visited {
-  display: inline-block;
   border-radius: 5px;
   padding: 5px 5px 5px 5px;
   color: #eee;
   text-decoration: none;
 }
+
 .linkLeft {
-  margin: 0px 5px 0px 5px;
-  float: left;
+  display: flex;
 }
+
 .linkRight {
-  margin: 0px 5px 0px 5px;
-  float: right;
+  display: flex;
+  margin-left: auto;
+  margin-right: 5%;
 }
