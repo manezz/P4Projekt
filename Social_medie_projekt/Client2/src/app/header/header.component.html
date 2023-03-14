@@ -1,25 +1,26 @@
 <nav>
-  <div class="nav">
-    <img
-      id="logo"
-      class="linkLeft"
-      src="/assets/images/socialmachine.png"
-      routerLink="/main"
-    />
-    <a
-      class="linkRight"
-      routerLink="/"
-      routerLinkActive="active"
-      *ngIf="currentUser != null"
-      (click)="logOut()"
-      >Logout</a
-    >
-    <a
-      class="linkRight"
-      [routerLink]="['/profile', this.currentUser.user.userId]"
-      routerLinkActive="active"
-      *ngIf="currentUser != null"
-      >Profile</a
-    >
+  <div class="topBar">
+    <div class="linkLeft">
+      <img
+        id="logo"
+        src="/assets/images/socialmachine.png"
+        routerLink="/main"
+      />
+    </div>
+    <div class="linkRight">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        (click)="logOut()"
+        >Logout</a
+      >
+      <a
+        [routerLink]="['/profile', this.currentUser.user.userId]"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        >Profile</a
+      >
+    </div>
   </div>
 </nav>
