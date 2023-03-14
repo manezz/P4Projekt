@@ -10,17 +10,6 @@
         Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
 
-
-
-        //// Tag
-        //Task<List<TagResponse>> GetAllTagsAsync();
-        //Task<TagResponse?> GetTagById(int Id);
-        //Task<List<TagResponse>> GetTagsByPostIdAsync(int postId);
-        //Task<TagResponse> CreateTagAsync(TagRequest newTag);
-        //Task<TagResponse> UpdateTagAsync(TagRequest newTag);
-
-
-
         // PostTag
         Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId);
         Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
@@ -98,7 +87,10 @@
                 Title = post.Title,
                 Desc = post.Desc,
                 Date = post.Date,
-                Likes = post.Likes,
+                PostLikes = new PostPostLikesResponse
+                {
+                    Likes = post.PostLikes.Likes
+                },
                 User = new PostUserResponse
                 {
                     UserId = post.User.UserId,
@@ -127,13 +119,6 @@
                 Desc = postUpdateRequest.Desc,
             };
         }
-
-
-
-
-
-
-
 
         // ------------- POSTTAG RES/REQ --------------------
 
@@ -165,9 +150,6 @@
                 TagId = tagId,
             };
         }
-
-
-
 
         public async Task<List<PostResponse>> GetAllPostsAsync()
         {
@@ -283,9 +265,6 @@
             }
             return MapPostToPostResponse(post);
         }
-
-
-
 
         // -------------------------    POST-TAG
 

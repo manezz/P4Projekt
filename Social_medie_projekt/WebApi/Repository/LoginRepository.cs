@@ -17,22 +17,17 @@
 
         public LoginRepository(DatabaseContext context) { _context = context; }
 
-
-
         public async Task<Login> RegisterAsync(Login newUser)
         {
             if (_context.User.Any(u => u.Login.Email.ToLower() == newUser.Email.ToLower()))
             {
-                throw new Exception(String.Format("User already exists", newUser.Email));
+                throw new Exception(string.Format("User already exists", newUser.Email));
             }
 
             _context.Login.Add(newUser);
             await _context.SaveChangesAsync();
             return newUser;
         }
-
-
-
 
         public async Task<List<Login>> GetAllLoginAsync()
         {
