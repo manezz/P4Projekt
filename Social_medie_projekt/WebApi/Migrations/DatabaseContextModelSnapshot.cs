@@ -133,7 +133,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
+<<<<<<< HEAD
                             Date = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(516),
+=======
+                            Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(360),
+>>>>>>> origin/dev
                             Desc = "tadnawdnada",
                             Title = "testestestest",
                             UserId = 1
@@ -141,7 +145,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
+<<<<<<< HEAD
                             Date = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(520),
+=======
+                            Date = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(363),
+>>>>>>> origin/dev
                             Desc = "Woooooo!",
                             Title = "Test!",
                             UserId = 2
@@ -276,14 +284,22 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
+<<<<<<< HEAD
                             Created = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(369),
+=======
+                            Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(341),
+>>>>>>> origin/dev
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
+<<<<<<< HEAD
                             Created = new DateTime(2023, 3, 14, 8, 53, 33, 217, DateTimeKind.Local).AddTicks(495),
+=======
+                            Created = new DateTime(2023, 3, 13, 10, 29, 32, 474, DateTimeKind.Local).AddTicks(345),
+>>>>>>> origin/dev
                             LoginId = 2,
                             UserName = "222test222"
                         });
