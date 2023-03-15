@@ -61,7 +61,7 @@
                 {
                     UserId = x.UserId,
                     FollowingId = x.FollowingId,
-                }).ToList(),
+                }).ToList()
             };
         }
 

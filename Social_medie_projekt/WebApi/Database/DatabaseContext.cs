@@ -73,6 +73,19 @@
                     Created = DateTime.Now
                 });
 
+            modelBuilder.Entity<Follow>().HasData(
+                new Follow
+                {
+                    UserId = 1,
+                    FollowingId = 2
+                },
+                new Follow
+                {
+                    UserId = 2,
+                    FollowingId = 1
+                }
+                );
+
             modelBuilder.Entity<Post>().HasData(
                 new Post
                 {
@@ -92,41 +105,6 @@
                     Date = DateTime.Now,
                     UserId = 2,
                 });
-
-            modelBuilder.Entity<Like>().HasData(
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 2
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 2
-                });
-
-            modelBuilder.Entity<Follow>().HasData(
-                new Follow
-                {
-                    UserId = 1,
-                    FollowingId = 2
-                },
-                new Follow
-                {
-                    UserId = 2,
-                    FollowingId = 1
-                }
-                );
 
             modelBuilder.Entity<Tag>().HasData(
                 new Tag
@@ -165,6 +143,28 @@
                 {
                     PostId = 2,
                     TagId = 3,
+                });
+
+            modelBuilder.Entity<Like>().HasData(
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 1
+                },
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 2
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 1
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 2
                 });
         }
     }

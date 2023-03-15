@@ -38,9 +38,7 @@
 
     public class UserFollowResponse
     {
-        public int UserId{ get; set; }
+        public int UserId { get; set; }
         public int FollowingId { get; set; }
     }
-
-
 }

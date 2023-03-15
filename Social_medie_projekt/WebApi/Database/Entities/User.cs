@@ -18,7 +18,7 @@
 
         public List<Post>? Posts { get; set; } = new();
 
-        public List<Follow>? Follow { get; set; }
+        public List<Follow>? Follow { get; set; } = new();
 
     }
 }
