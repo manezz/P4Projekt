@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 import { Tag } from '../_models/tags';
 
 @Component({
   selector: 'app-post-details',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
   template: `
   <div id="post">
     <div id="user" (click)="postLink(this.post.user)"> 

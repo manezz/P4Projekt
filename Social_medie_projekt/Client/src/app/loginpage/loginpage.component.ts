@@ -17,8 +17,6 @@ import Talk from 'talkjs';
 
 @Component({
   selector: 'app-loginpage',
-  standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   template: `
     <div class="body">
       <img src="/assets/images/socialmachine.png" width="600" />

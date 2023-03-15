@@ -22,8 +22,6 @@ import { SuccessPopup } from './createPagePopup';
 
 @Component({
   selector: 'app-createUserpage',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   template: `
     <div class="body">
       <button type="button" id="back" routerLink="">back</button>
