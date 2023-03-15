@@ -2,8 +2,8 @@
 {
     public interface ILikeService
     {
-        Task<LikeResponse?> FindLike(int userId, int postId);
-        Task<List<LikeResponse>?> GetAllLikesFromUser(int userId);
+        Task<LikeResponse?> FindLikeAsync(int userId, int postId);
+        Task<List<LikeResponse>?> GetAllLikesFromUserAsync(int userId);
         Task<LikeResponse> CreateLikeAsync(LikeRequest newLike);
         Task<LikeResponse?> DeleteLikeAsync(int userId, int postId);
     }
@@ -44,9 +44,9 @@
             };
         }
 
-        public async Task<LikeResponse?> FindLike(int userId, int postId)
+        public async Task<LikeResponse?> FindLikeAsync(int userId, int postId)
         {
-            var like = await _likeRepository.FindLike(userId, postId);
+            var like = await _likeRepository.FindLikeAsync(userId, postId);
 
             if (like == null)
             {
@@ -55,9 +55,9 @@
             return MapLikeToLikeResponse(like);
         }
 
-        public async Task<List<LikeResponse>?> GetAllLikesFromUser(int userId)
+        public async Task<List<LikeResponse>?> GetAllLikesFromUserAsync(int userId)
         {
-            List<Like>? likes = await _likeRepository.GetAllLikesFromUser(userId);
+            List<Like>? likes = await _likeRepository.GetAllLikesFromUserAsync(userId);
 
             if (likes == null)
             {

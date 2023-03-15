@@ -23,6 +23,15 @@ export class IndexpageComponent {
     this.tags = [];
   }
 
+  liked = (value: any): string => {
+    let className = '';
+
+    if (value !== null) {
+      className = 'liked';
+    }
+    return className;
+  };
+
   ngOnInit(): void {
     this.postService.getAll().subscribe((p) => (this.posts = p));
   }

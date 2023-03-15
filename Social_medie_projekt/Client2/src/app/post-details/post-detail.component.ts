@@ -20,12 +20,14 @@ export class PostDetailsComponent {
     userId: 0,
     title: '',
     desc: '',
-    tags: [{
-      tagId: 0,
-      name: '',
-    }],
+    tags: [
+      {
+        tagId: 0,
+        name: '',
+      },
+    ],
     postLikes: {
-      likes: 0
+      likes: 0,
     },
     date: new Date(),
     user: {

@@ -10,6 +10,8 @@
 
         public DateTime Date { get; set; }
 
+        public int? LikeUserId { get; set; }
+
         public PostPostLikesResponse PostLikes { get; set; }
 
         public PostUserResponse User { get; set; }

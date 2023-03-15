@@ -3,9 +3,9 @@
     public interface IPostService
     {
         // Post
-        Task<List<PostResponse>> GetAllPostsAsync();
-        Task<PostResponse?> GetPostByPostIdAsync(int postId);
-        Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId);
+        Task<List<PostResponse>> GetAllPostsAsync(int likeUserId);
+        Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId);
+        Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId, int likeUserId);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
@@ -22,11 +22,13 @@
         private readonly IPostRepository _postRepository;
         private readonly ITagRepository _tagRepository;
         private readonly ITagService _tagService;
-        public PostService(IPostRepository postRepository, ITagRepository tagRepository, ITagService tagService)
+        private readonly ILikeRepository _likeRepository;
+        public PostService(IPostRepository postRepository, ITagRepository tagRepository, ITagService tagService, ILikeRepository likeRepository)
         {
             _postRepository = postRepository;
             _tagRepository = tagRepository;
             _tagService = tagService;
+            _likeRepository = likeRepository;
         }
 
 
@@ -49,6 +51,33 @@
                     UserName = post.User.UserName,
                 },
                 Tags = tags
+            };
+        }
+
+        private static PostResponse MapPostToPostResponse(Post post, List<Tag> tags, Like like)
+        {
+            return new PostResponse
+            {
+                PostId = post.PostId,
+                Title = post.Title,
+                Desc = post.Desc,
+                Date = post.Date,
+                LikeUserId = like?.UserId,
+                PostLikes = new PostPostLikesResponse
+                {
+                    Likes = post.PostLikes.Likes
+                },
+                User = new PostUserResponse
+                {
+                    UserId = post.User.UserId,
+                    UserName = post.User.UserName,
+                },
+                Tags = tags.Select(x => new TagResponse
+                {
+                    TagId = x.TagId,
+                    Name = x.Name,
+                })
+                .ToList()
             };
         }
 
@@ -107,7 +136,7 @@
                 UserId = postRequest.UserId,
                 Title = postRequest.Title,
                 Desc = postRequest.Desc,
-                //Tags = List<postRequest>.Tags,
+                PostLikes = new PostLikes { }
             };
         }
 
@@ -151,7 +180,7 @@
             };
         }
 
-        public async Task<List<PostResponse>> GetAllPostsAsync()
+        public async Task<List<PostResponse>> GetAllPostsAsync(int likeUserId)
         {
             List<Post> posts = await _postRepository.GetAllAsync();
 
@@ -160,22 +189,26 @@
                 throw new ArgumentNullException();
             }
 
-            return posts.Select(post => MapPostToPostResponse(post, _tagRepository.GetTagsByPostIdAsync(post.PostId).Result)).ToList();
+            return posts.Select(post =>
+            MapPostToPostResponse(post,
+            _tagRepository.GetTagsByPostIdAsync(post.PostId).Result,
+            _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result)).ToList();
         }
 
-        public async Task<PostResponse?> GetPostByPostIdAsync(int postId)
+        public async Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId)
         {
             var post = await _postRepository.GetPostByPostIdAsync(postId);
 
             if (post != null)
             {
-                return MapPostToPostResponse(post, await _tagRepository.GetTagsByPostIdAsync(postId));
+                return MapPostToPostResponse(post, await _tagRepository.GetTagsByPostIdAsync(postId),
+                    _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result);
             }
 
             return null;
         }
 
-        public async Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId)
+        public async Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId, int likeUserId)
         {
             List<Post?> post = await _postRepository.GetAllPostsByUserIdAsync(userId);
 
@@ -184,7 +217,10 @@
                 throw new ArgumentNullException();
             }
 
-            return post.Select(post => MapPostToPostResponse(post, _tagRepository.GetTagsByPostIdAsync(post.PostId).Result)).ToList();
+            return post.Select(post =>
+            MapPostToPostResponse(post,
+            _tagRepository.GetTagsByPostIdAsync(post.PostId).Result,
+            _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result)).ToList();
         }
 
         public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
@@ -200,7 +236,6 @@
             _ = tags.Select(tagResponse => CreatePostTagAsync(post.PostId, tagResponse.TagId).Result).ToList();
 
             return MapPostToPostResponse(post, tags);
-
         }
 
         public async Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
