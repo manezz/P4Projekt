@@ -107,3 +107,7 @@ mat-sidenav {
   text-align: center;
   font-size: 20px;
 }
+
+.liked {
+  background-color: hotpink;
+}

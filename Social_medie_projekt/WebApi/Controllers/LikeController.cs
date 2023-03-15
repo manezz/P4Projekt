@@ -14,11 +14,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{postId}/{userId}")]
-        public async Task<IActionResult> FindLike([FromRoute] int userId, [FromRoute] int postId)
+        public async Task<IActionResult> FindLikeAsync([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
-                LikeResponse likeResponse = await _likeService.FindLike(userId, postId);
+                LikeResponse? likeResponse = await _likeService.FindLikeAsync(userId, postId);
 
                 if (likeResponse == null)
                 {
@@ -36,11 +36,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetAllLikesFromUser([FromRoute] int userId)
+        public async Task<IActionResult> GetAllLikesFromUserAsync([FromRoute] int userId)
         {
             try
             {
-                var likeResponse = await _likeService.GetAllLikesFromUser(userId);
+                var likeResponse = await _likeService.GetAllLikesFromUserAsync(userId);
 
                 if (likeResponse == null)
                 {
@@ -57,7 +57,7 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> LikePost([FromBody] LikeRequest like)
+        public async Task<IActionResult> LikePostAsync([FromBody] LikeRequest like)
         {
             try
             {
@@ -74,7 +74,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{userId}/{postId}")]
-        public async Task<IActionResult> UnlikePost([FromRoute] int userId, [FromRoute] int postId)
+        public async Task<IActionResult> UnlikePostAsync([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
