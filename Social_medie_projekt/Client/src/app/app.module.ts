@@ -17,7 +17,8 @@ import { OtherUserProfilePageComponent } from './profilepage/otherUserProfilePag
 import { HeaderLoggedInComponent } from './header-footer/headerLoggedIn.component';
 import { HeaderLoggedOutComponent } from './header-footer/headerLoggedOut.component';
 import { FooterComponent } from './header-footer/footer.component';
-import { ChatComponent } from './indexpage/chat.component';
+import { PostDetailsComponent } from './post-details/post-details.component';
+import { EditPostComponent } from './post-details/editPost.component';
 
 //for Mat popups
 import { MatInputModule } from '@angular/material/input';
