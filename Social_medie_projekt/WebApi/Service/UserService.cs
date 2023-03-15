@@ -25,12 +25,11 @@
             return new User
             {
                 UserName = userRequest.UserName,
-                Created = userRequest.Created,
                 Login = new()
                 {
                     Email = userRequest.Login.Email,
                     Password = userRequest.Login.Password,
-                    Type = userRequest.Login.Type
+                    Role = userRequest.Login.Role
                 },
 
             };
@@ -49,7 +48,7 @@
                     Email = user.Login.Email,
                     Role = user.Login.Role
                 },
-                Posts = user.Posts.Select(post => new UserPostResponse
+                Posts = user.Posts.Select(x => new UserPostResponse
                 {
                     PostId = x.PostId,
                     Title = x.Title,

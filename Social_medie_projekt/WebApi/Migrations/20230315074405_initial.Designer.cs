@@ -12,11 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-    [Migration("20230315074405_initial")]
-========
     [Migration("20230314111131_initial")]
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
     partial class initial
     {
         /// <inheritdoc />
@@ -129,18 +125,7 @@ namespace WebApi.Migrations
                             LoginId = 2,
                             Email = "Test2@mail.dk",
                             Password = "password",
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-                            Type = 1
-                        },
-                        new
-                        {
-                            LoginId = 3,
-                            Email = "Test3@mail.dk",
-                            Password = "password",
-                            Type = 1
-========
                             Role = 1
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
                         });
                 });
 
@@ -176,11 +161,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-                            Date = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6373),
-========
                             Date = new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6519),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
                             Desc = "tadnawdnada",
                             Title = "testestestest",
                             UserId = 1
@@ -188,11 +169,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-                            Date = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6376),
-========
                             Date = new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6523),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
                             Desc = "Woooooo!",
                             Title = "Test!",
                             UserId = 2
@@ -327,22 +304,14 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-                            Created = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6342),
-========
                             Created = new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6502),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230315074405_initial.Designer.cs
-                            Created = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6345),
-========
                             Created = new DateTime(2023, 3, 14, 12, 11, 31, 172, DateTimeKind.Local).AddTicks(6506),
->>>>>>>> dev:Social_medie_projekt/WebApi/Migrations/20230314111131_initial.Designer.cs
                             LoginId = 2,
                             UserName = "222test222"
                         },

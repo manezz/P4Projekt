@@ -20,5 +20,5 @@
 
         public List<Follow>? Follow { get; set; } = new();
 
-    }
+  }
 }
