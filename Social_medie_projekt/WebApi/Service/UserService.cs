@@ -47,14 +47,17 @@
                 {
                     LoginId = user.Login.LoginId,
                     Email = user.Login.Email,
-                    Type = user.Login.Type
+                    Role = user.Login.Role
                 },
-                Posts = user.Posts.Select(x => new UserPostResponse
+                Posts = user.Posts.Select(post => new UserPostResponse
                 {
                     PostId = x.PostId,
                     Title = x.Title,
                     Desc = x.Desc,
-                    Likes = x.Likes,
+                    PostLikes = new UserPostPostLikesResponse
+                    {
+                        Likes = x.PostLikes.Likes
+                    },
                     Date = x.Date
                 }).ToList(),
                 Follow = user.Follow.Select(x => new UserFollowResponse

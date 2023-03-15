@@ -1,6 +1,6 @@
-import { Likes } from "./likes";
-import { Tag } from "./tags";
-import { User } from "./user"
+import { Likes } from './likes';
+import { Tag } from './tags';
+import { User } from './user';
 
 export interface Post {
     userId?: number;

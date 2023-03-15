@@ -8,6 +8,7 @@
         public DbSet<User> User { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
+        public DbSet<PostLikes> PostLikes { get; set; }
         public DbSet<Follow> Follow{ get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
@@ -33,7 +34,7 @@
                     LoginId = 1,
                     Email = "Test1@mail.dk",
                     Password = "password",
-                    Type = 0
+                    Role = 0
                 },
                 new Login
                 {
@@ -92,7 +93,6 @@
                     PostId = 1,
                     Title = "testestestest",
                     Desc = "tadnawdnada",
-                    Likes = 1,
                     Date = DateTime.Now,
                     UserId = 1,
                 },
@@ -101,9 +101,20 @@
                     PostId = 2,
                     Title = "Test!",
                     Desc = "Woooooo!",
-                    Likes = 0,
                     Date = DateTime.Now,
                     UserId = 2,
+                });
+
+            modelBuilder.Entity<PostLikes>().HasData(
+                new PostLikes
+                {
+                    PostId = 1,
+                    Likes = 2
+                },
+                new PostLikes
+                {
+                    PostId = 2,
+                    Likes = 2
                 });
 
             modelBuilder.Entity<Tag>().HasData(
@@ -143,28 +154,6 @@
                 {
                     PostId = 2,
                     TagId = 3,
-                });
-
-            modelBuilder.Entity<Like>().HasData(
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 2
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 2
                 });
         }
     }

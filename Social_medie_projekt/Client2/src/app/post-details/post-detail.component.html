@@ -1,0 +1,27 @@
+<div id="post">
+  <button
+    class="editBtn"
+    id=""
+    *ngIf="post.user?.userId == this.currentUser.user.userId"
+    [routerLink]="['/editPost', post.postId]"
+  >
+    ⚙
+  </button>
+  <img
+    class="profilepic"
+    src="./assets/images/placeholder.png"
+    width="50"
+    height="50"
+  />
+  <h5 id="username">{{ post.user?.userName }}</h5>
+  <h1 id="title">{{ post.title }}</h1>
+  <h3 id="description">{{ post.desc }}</h3>
+  <!-- <p id="tags" *ngFor="let tag of tags">#{{tag.tag}}, </p> -->
+  <div id="postTags" *ngIf="post.tags">
+    <p id="tag" *ngFor="let tag of post.tags">
+      {{ tag.name }}
+    </p>
+  </div>
+  <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
+  <button class="postBtn" id="like"><3</button>
+</div>

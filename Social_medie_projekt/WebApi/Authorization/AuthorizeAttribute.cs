@@ -19,11 +19,12 @@ namespace WebApi.Authorization
                 return;
             }
 
-            // login returns "null" through client - should return a userlogin when authorized
+
+            //login returns "null" - should return a userlogin when authorized
             LoginResponse login = (LoginResponse)context.HttpContext.Items["Login"];
-            if (login == null || (_roles.Any() && !_roles.Contains(login.Type)))
+            if (login == null || (_roles.Any() && !_roles.Contains(login.Role)))
             {
-                //outcomment as workaround untill fixed
+                //outcommented as workaround untill fixed
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
         }

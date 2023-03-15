@@ -3,7 +3,7 @@
     [PrimaryKey(nameof(PostId), nameof(TagId))]
     public class PostTag
     {
-        [ForeignKey("Posts.PostId")]
+        [ForeignKey("Post.PostId")]
         public int PostId { get; set; }
 
         [ForeignKey("Tag.TagId")]

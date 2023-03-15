@@ -2,13 +2,10 @@
 {
     public class LikeRequest
     {
-        //[Required]
-        //public int KeyId { get; set; }
-
-        //[Required]
+        [Required]
         public int UserId { get; set; }
 
-        //[Required]
+        [Required]
         public int PostId { get; set; }
     }
 }

@@ -154,7 +154,6 @@ import { FormGroup, FormsModule, FormControl, Validators } from '@angular/forms'
   `]
 })
 export class EditPostComponent {
-
   currentUser: any = {};
   postForm: FormGroup = this.resetForm()
   post: Post = this.resetPost()

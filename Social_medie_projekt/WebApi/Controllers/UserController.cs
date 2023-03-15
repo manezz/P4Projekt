@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace WebApi.Controllers
+﻿namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -13,6 +11,7 @@ namespace WebApi.Controllers
             _userService = userService;
         }
 
+        [Authorize(Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllUsersAsync()
         {
@@ -32,6 +31,7 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{userId}")]
         public async Task<IActionResult> FindUserById([FromRoute] int userId)
@@ -40,25 +40,26 @@ namespace WebApi.Controllers
             {
                 LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
 
-                if(currentUser != null && userId != currentUser.User.UserId && currentUser.Type != Role.admin)
+                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
                 {
-                    return Unauthorized(new { message = "Unauthorized"});
+                    return Unauthorized(new { message = "Unauthorized" });
                 }
 
                 var userResponse = await _userService.FindUserAsync(userId);
 
-                if(userResponse == null)
+                if (userResponse == null)
                 {
                     return NotFound();
                 }
                 return Ok(userResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateUserAsync([FromBody] UserRequest newUser)
         {
@@ -68,28 +69,29 @@ namespace WebApi.Controllers
 
                 return Ok(userResponse);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{userid}")]
-        public async Task<IActionResult> EditUser([FromRoute]int userId, [FromBody] UserRequest updatedUser)
+        public async Task<IActionResult> EditUser([FromRoute] int userId, [FromBody] UserRequest updatedUser)
         {
             try
             {
                 LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
 
-                if(currentUser != null && userId != currentUser.User.UserId && currentUser.Type != Role.admin)
+                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
                 {
-                    return Unauthorized(new {message = "Unauthrized"});
+                    return Unauthorized(new { message = "Unauthrized" });
                 }
 
                 var userResponse = await _userService.UpdateUserAsync(userId, updatedUser);
 
-                if(userResponse == null)
+                if (userResponse == null)
                 {
                     return NotFound();
                 }
@@ -102,15 +104,16 @@ namespace WebApi.Controllers
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{userId}")]
-        public async Task<IActionResult> DeleteUserById([FromRoute]int userId)
+        public async Task<IActionResult> DeleteUserById([FromRoute] int userId)
         {
             try
             {
                 LoginResponse currentUser = (LoginResponse)HttpContext.Items["User"];
 
-                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Type != Role.admin)
+                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
@@ -130,6 +133,6 @@ namespace WebApi.Controllers
                 throw;
             }
         }
-        
+
     }
 }

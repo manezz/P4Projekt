@@ -14,7 +14,7 @@
             _likeService = likeService;
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllPostsAsync()
         {
@@ -35,7 +35,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{postId}")]
         public async Task<IActionResult> GetPostByPostId([FromRoute] int postId)
@@ -56,7 +56,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetAllPostsByUserId([FromRoute] int userId)
@@ -80,7 +80,7 @@
 
 
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpPost]
         public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
@@ -97,7 +97,7 @@
 
         }
 
-        [Authorize(Role.user)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{postId}")]
         public async Task<IActionResult> UpdatePost([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
@@ -119,7 +119,7 @@
             }
         }
 
-        [Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{postId}")]
         public async Task<IActionResult> DeletePost([FromRoute] int postId)
@@ -128,7 +128,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
 
-                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Type != Role.admin)
+                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }

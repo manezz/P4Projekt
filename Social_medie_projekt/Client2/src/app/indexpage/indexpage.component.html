@@ -1,0 +1,27 @@
+<app-create-postpage></app-create-postpage>
+
+<!-- looper igennem alle post fra data(DataService) -->
+<div
+  id="post"
+  *ngFor="let post of posts"
+  [routerLink]="['/post-details', post.postId]"
+>
+  <h5 id="username">
+    <img
+      class="profilepic"
+      src="./assets/images/placeholder.png"
+      width="50"
+      height="50"
+    />
+    {{ post.user?.userName }}
+  </h5>
+  <h1 id="title">{{ post.title }}</h1>
+  <h3 id="description">{{ post.desc }}</h3>
+  <div id="postTags" *ngIf="post.tags">
+    <p id="tag" *ngFor="let tag of post.tags">
+      {{ tag.name }}
+    </p>
+  </div>
+  <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
+  <button class="postBtn" id="like"><3</button>
+</div>

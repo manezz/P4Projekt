@@ -19,8 +19,6 @@
             _postRepository = postRepository;
         }
 
-
-
         private Like MapLikeRequestToLike(LikeRequest likedRequest)
         {
             return new Like

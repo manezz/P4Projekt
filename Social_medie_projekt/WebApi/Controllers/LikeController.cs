@@ -11,7 +11,7 @@
             _likeService = likeService;
         }
 
-
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{postId}/{userId}")]
         public async Task<IActionResult> FindLike([FromRoute] int userId, [FromRoute] int postId)
@@ -33,6 +33,7 @@
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
         public async Task<IActionResult> GetAllLikesFromUser([FromRoute] int userId)
@@ -54,8 +55,8 @@
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        //[Route("like")]
         public async Task<IActionResult> LikePost([FromBody] LikeRequest like)
         {
             try
@@ -70,6 +71,7 @@
             }
         }
 
+        [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{userId}/{postId}")]
         public async Task<IActionResult> UnlikePost([FromRoute] int userId, [FromRoute] int postId)
@@ -90,8 +92,5 @@
                 return Problem(ex.Message);
             }
         }
-
-
-
     }
 }

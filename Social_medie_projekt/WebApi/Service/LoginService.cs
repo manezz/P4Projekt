@@ -2,7 +2,7 @@
 {
     public interface ILoginService
     {
-        Task<SignInResponse> AuthenticateUser(SignInRequest login);
+        Task<LoginResponse> AuthenticateUser(LoginRequest login);
         Task<LoginResponse> RegisterAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllLoginAsync();
         Task<LoginResponse> FindLoginByIdAsync(int loginId);
@@ -26,20 +26,23 @@
             {
                 LoginId = login.LoginId,
                 Email = login.Email,
-                Type = login.Type,
+                Role = login.Role,
 
                 User = new LoginUserResponse
                 {
                     UserId = login.User.UserId,
                     UserName = login.User.UserName,
                     Created = login.User.Created,
-                    Posts = login.User.Posts.Select(x => new UserPostLoginResponse
+                    Posts = login.User.Posts.Select(post => new UserPostLoginResponse
                     {
-                        PostId = x.PostId,
-                        Title = x.Title,
-                        Desc = x.Desc,
-                        Likes = x.Likes,
-                        Date = x.Date
+                        PostId = post.PostId,
+                        Title = post.Title,
+                        Desc = post.Desc,
+                        Date = post.Date,
+                        PostLikes = new UserPostLoginPostLikesResponse
+                        {
+                            Likes = post.PostLikes.Likes
+                        }
                     }).ToList()
                 }
             };
@@ -50,7 +53,7 @@
             return new Login
             {
                 Email = loginRequest.Email,
-                Type = loginRequest.Type,
+                Role = loginRequest.Role,
                 Password = loginRequest.Password,
                 User = new()
                 {
@@ -59,33 +62,29 @@
             };
         }
 
-
-        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
+        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
         {
-            Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
+            Login? foundLogin = await _loginRepository.FindLoginByEmailAsync(login.Email);
 
-            if (user == null)
+            if (foundLogin == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (user.Password == login.Password)
+            if (foundLogin.Password == login.Password)
             {
-                SignInResponse response = new()
+                LoginResponse response = new()
                 {
-                    LoginResponse = new()
+                    LoginId = foundLogin.LoginId,
+                    Email = foundLogin.Email,
+                    Role = foundLogin.Role,
+                    User = new()
                     {
-                        LoginId = user.LoginId,
-                        Email = user.Email,
-                        Type = user.Type,
-                        User = new()
-                        {
-                            UserId = user.User.UserId,
-                            UserName = user.User.UserName,
-                            Created = user.User.Created
-                        }
+                        UserId = foundLogin.User.UserId,
+                        UserName = foundLogin.User.UserName,
+                        Created = foundLogin.User.Created,
                     },
-                    Token = _jwtUtils.GenerateJwtToken(user)
+                    Token = _jwtUtils.GenerateJwtToken(foundLogin)
                 };
                 return response;
             }
@@ -103,9 +102,6 @@
 
             return MapLoginToLoginResponse(user);
         }
-
-
-
 
         public async Task<List<LoginResponse>> GetAllLoginAsync()
         {

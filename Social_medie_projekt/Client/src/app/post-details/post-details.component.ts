@@ -7,6 +7,8 @@ import { Tag } from '../_models/tags';
 
 @Component({
   selector: 'app-post-details',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   template: `
   <div id="post">
     <div id="user" (click)="postLink(this.post.user)"> 

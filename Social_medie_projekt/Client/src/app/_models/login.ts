@@ -1,13 +1,13 @@
-import { User } from "./user";
-import { Role } from "./role";
+import { User } from './user';
+import { Role } from './role';
 
 export interface Login {
-    loginId: number;
-    email: string;
-    password: string;
-    type?: Role;
-    token?: string;
-    user?: User;
+  loginId: number;
+  email: string;
+  password: string;
+  role?: Role;
+  user?: User;
+  token?: string;
 }
 
-export { Role }
+// export { Role };

@@ -10,9 +10,7 @@
             _tagService = tagService;
         }
 
-
-
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         public async Task<IActionResult> GetAllTagsAsync()
         {
@@ -32,7 +30,7 @@
             }
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{tagId}")]
         public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
@@ -53,7 +51,7 @@
             }
         }
 
-        //[Authorize(Role.user, Role.admin)]
+        [Authorize(Role.User, Role.Admin)]
         [HttpPost]
         public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
         {

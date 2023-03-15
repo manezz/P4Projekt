@@ -5,9 +5,10 @@
         public int UserId { get; set; }
 
         public string UserName { get; set; } = string.Empty;
+
         public DateTime Created { get; set; }
 
-        public UserLoginResponse? Login { get; set; }
+        public UserLoginResponse Login { get; set; }
 
         public List<UserPostResponse> Posts { get; set; } = new();
         public List<UserFollowResponse> Follow { get; set; } = new();
@@ -19,7 +20,7 @@
 
         public string Email { get; set; } = string.Empty;
 
-        public Role Type { get; set; }
+        public Role Role { get; set; }
     }
 
     public class UserPostResponse
@@ -31,11 +32,15 @@
         public string Desc { get; set; } = string.Empty;
         //public string Tags { get; set; } = string.Empty;
 
-        public int? Likes { get; set; }
-
         public DateTime Date { get; set; }
+
+        public UserPostPostLikesResponse PostLikes { get; set; }
     }
 
+    public class UserPostPostLikesResponse
+    {
+        public int Likes { get; set; }
+    }
     public class UserFollowResponse
     {
         public int UserId { get; set; }

@@ -12,9 +12,7 @@
 
         public async Task Invoke(HttpContext context, ILoginService loginService, IJwtUtils jwtUtils)
         {
-                //token = null through client side (error starts here)
-                    // "Authorization" for Swagger can be found in Program.cs under builder.Services.AddSwaggerGen ->  c.AddSecurityDefinition
-            string token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+            string? token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             int? loginId = jwtUtils.ValidateJwtToken(token);
             if (loginId != null)
             {
