@@ -1,10 +1,9 @@
-<app-create-postpage></app-create-postpage>
+<app-create-postpage/>
 
 <!-- looper igennem alle post fra data(DataService) -->
 <div
   id="post"
   *ngFor="let post of posts"
-  [routerLink]="['/post-details', post.postId]"
 >
   <h5 id="username">
     <img
@@ -15,7 +14,7 @@
     />
     {{ post.user?.userName }}
   </h5>
-  <h1 id="title">{{ post.title }}</h1>
+  <h1 id="title" [routerLink]="['/post-details', post.postId]">{{ post.title }}</h1>
   <h3 id="description">{{ post.desc }}</h3>
   <div id="postTags" *ngIf="post.tags">
     <p id="tag" *ngFor="let tag of post.tags">
@@ -23,5 +22,5 @@
     </p>
   </div>
   <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
-  <button class="postBtn {{ liked(post.likeUserId) }}" id="like"><3</button>
+  <app-like [likeUserId]="post.likeUserId"/>
 </div>
