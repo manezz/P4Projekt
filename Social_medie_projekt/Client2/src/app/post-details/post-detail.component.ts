@@ -4,11 +4,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 import { CommonModule } from '@angular/common';
+import { LikeComponent } from '../components/like.component';
 
 @Component({
   selector: 'app-post-details',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LikeComponent],
   templateUrl: 'post-detail.component.html',
   styleUrls: ['post-detail.component.css'],
 })
@@ -20,6 +21,7 @@ export class PostDetailsComponent {
     userId: 0,
     title: '',
     desc: '',
+    likeUserId: 0,
     tags: [
       {
         tagId: 0,

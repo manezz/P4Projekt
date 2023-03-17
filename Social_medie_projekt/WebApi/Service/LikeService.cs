@@ -87,6 +87,11 @@
             // Deletes like
             var like = await _likeRepository.DeleteLikeAsync(userId, postId);
 
+            if (like == null)
+            {
+                throw new ArgumentNullException("like is null");
+            }
+
             // Updates post to one less like
             var post = await _postRepository.UpdatePostLikesAsync(like.PostId, -1);
 

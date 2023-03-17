@@ -13,7 +13,7 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
-        [Route("{postId}/{userId}")]
+        [Route("{userId}/{postId}")]
         public async Task<IActionResult> FindLikeAsync([FromRoute] int userId, [FromRoute] int postId)
         {
             try
