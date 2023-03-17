@@ -9,7 +9,7 @@ import { LikeService } from '../_services/like.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <button (click)="likePost()" class="postBtn {{ liked() }}" id="like">
+    <button (click)="likeDislikePost()" class="postBtn {{ liked() }}" id="like">
       <3
     </button>
   `,
@@ -24,7 +24,6 @@ import { LikeService } from '../_services/like.service';
       }
       /* skal konstant være ændret hvis en post er liked */
       #like:focus {
-        background-color: rgb(209, 43, 43);
         color: white;
       }
       .postBtn {
@@ -53,6 +52,14 @@ export class LikeComponent {
 
   constructor(private auth: AuthService, private likeService: LikeService) {}
 
+  likeDislikePost = (): any => {
+    if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
+      this.dislikePost();
+    } else {
+      this.likePost();
+    }
+  };
+
   likePost = (): any => {
     this.like = {
       userId: this.auth.CurrentUserValue.user?.userId!,
@@ -64,6 +71,18 @@ export class LikeComponent {
         console.warn(Object.values(err.error.errors).join(', '));
       },
     });
+    this.likeUserId = this.auth.CurrentUserValue.user?.userId;
+  };
+
+  dislikePost = (): any => {
+    this.likeService
+      .deleteLike(this.auth.CurrentUserValue.user?.userId!, this.postPostId)
+      .subscribe({
+        error: (err) => {
+          console.warn(Object.values(err.error.errors).join(', '));
+        },
+      });
+    this.likeUserId = null;
   };
 
   liked = (): string => {
