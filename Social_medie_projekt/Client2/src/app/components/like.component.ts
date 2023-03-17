@@ -1,12 +1,17 @@
-import { InputModalityDetector } from '@angular/cdk/a11y';
+import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { Like } from '../_models/like';
 import { AuthService } from '../_services/auth.service';
+import { LikeService } from '../_services/like.service';
 
 @Component({
   selector: 'app-like',
   standalone: true,
+  imports: [CommonModule],
   template: `
-    <button (click)="like()" class="postBtn {{ liked() }}" id="like"><3</button>
+    <button (click)="likePost()" class="postBtn {{ liked() }}" id="like">
+      <3
+    </button>
   `,
   styles: [
     `
@@ -36,18 +41,35 @@ export class LikeComponent {
   @Input()
   likeUserId: any;
 
+  @Input()
+  postPostId: any;
+
   currentUser: any;
 
-  constructor(private auth: AuthService) {}
+  like: Like = {
+    userId: 0,
+    postId: 0,
+  };
 
-  like = (): any => {
-    console.log('test');
+  constructor(private auth: AuthService, private likeService: LikeService) {}
+
+  likePost = (): any => {
+    this.like = {
+      userId: this.auth.CurrentUserValue.user?.userId!,
+      postId: this.postPostId,
+    };
+
+    this.likeService.postLike(this.like).subscribe({
+      error: (err) => {
+        console.warn(Object.values(err.error.errors).join(', '));
+      },
+    });
   };
 
   liked = (): string => {
     let className = '';
 
-    if (this.likeUserId === this.auth.CurrentUserValue.loginId) {
+    if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
       className = 'liked';
     }
     return className;

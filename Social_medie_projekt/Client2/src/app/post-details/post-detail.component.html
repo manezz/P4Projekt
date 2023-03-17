@@ -23,5 +23,5 @@
     </p>
   </div>
   <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
-  <app-like [likeUserId]="post.likeUserId"/>
+  <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
 </div>
