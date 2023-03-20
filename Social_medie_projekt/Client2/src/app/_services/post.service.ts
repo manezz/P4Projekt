@@ -30,7 +30,7 @@ export class PostService {
 
   // Opretter et post
   createPost(post: Post) {
-    return this.http.post<Post>(this.apiUrl, post);
+    return this.http.post<Post>(`${this.apiUrl}`, post);
   }
 
   //delete post
