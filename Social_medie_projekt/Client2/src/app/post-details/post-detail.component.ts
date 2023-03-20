@@ -46,12 +46,8 @@ export class PostDetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    this.route.params.subscribe((params) => {
-      this.postService
-        .GetPostByPostId(params['postId'])
-        .subscribe((x) => (this.post = x));
-    });
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    this.route.params.subscribe(params => { this.postService.GetPostByPostId(params['postId']).subscribe(x => this.post = x) })
   }
 
   postLink(user: any) {

@@ -31,10 +31,8 @@ export class ProfilepageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-    this.postService
-      .GetPostByUserId(this.currentUser.user.userId)
-      .subscribe((x) => (this.posts = x));
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    this.postService.GetPostByUserId(this.currentUser.user.userId).subscribe(x => this.posts = x)
   }
 
   postLink(user: any) {
