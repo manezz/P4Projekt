@@ -1,10 +1,5 @@
 <mat-sidenav mode="side" opened>
-  <img
-    class="profilepic"
-    src="./assets/images/placeholder.png"
-    width="100"
-    height="100"
-  />
+  <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100"/>
   <p>{{ this.currentUser.user.userName }}</p>
   ___________
   <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
@@ -14,24 +9,23 @@
 
 <app-create-postpage></app-create-postpage>
 
-<div
-  id="post"
-  *ngFor="let post of posts"
-  [routerLink]="['/post-details', post.postId]"
->
-  <h5 id="username">
-    <img
-      class="profilepic"
-      src="./assets/images/placeholder.png"
-      width="50"
-      height="50"
-    />
-    {{ this.currentUser.user.userName }}
-  </h5>
-  <h1 id="title">{{ post.title }}</h1>
-  <h3 id="description">{{ post.desc }}</h3>
-  <p id="date">Date posted: {{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
-  <button class="postBtn" id="like"><3</button>
+<div id="post" *ngFor="let post of posts" >
+  <div id="user" (click)="postLink(post.user)"> 
+    <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <h5 id="userName">{{post.user?.userName}}</h5>
+  </div>
+
+  <div id="content">
+    <h1 id="title" [routerLink]="['/post-details', post.postId]">{{post.title}}</h1>
+    <h3 id="description" [routerLink]="['/post-details', post.postId]">{{post.desc}}</h3>
+    <div id="postTags" *ngIf="post.tags">
+      <p id="tag" *ngFor="let tag of post.tags">
+        #{{ tag.name }}, 
+      </p>
+    </div>
+    <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
+  </div>
+  
+  <!-- <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/> -->
+  <!-- <button class="editBtn" id="edit" *ngIf="this.currentUser.loginResponse.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button> -->
 </div>
-<p id="nomore">This user ran out of posts :(</p>
-<p></p>
