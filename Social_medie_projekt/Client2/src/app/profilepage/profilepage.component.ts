@@ -6,6 +6,7 @@ import { PostService } from '../_services/post.service';
 import { AuthService } from '../_services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
+import { LikeComponent } from '../components/like.component';
 
 @Component({
   selector: 'app-profilepage',
@@ -15,6 +16,7 @@ import { CreatePostPageComponent } from '../create-postpage/create-postpage.comp
     RouterLink,
     MatSidenavModule,
     CreatePostPageComponent,
+    LikeComponent
   ],
   templateUrl: 'profilepage.component.html',
   styleUrls: ['profilepage.component.css'],
