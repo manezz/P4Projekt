@@ -77,10 +77,12 @@ export class CreatePostPageComponent implements OnInit {
       postId: 0,
       title: '',
       desc: '',
-      tags: [{
-        tagId: 0,
-        name: '',
-      }],
+      tags: [
+        {
+          tagId: 0,
+          name: '',
+        },
+      ],
       date: new Date(),
       user: {
         userId: this.currentUserId,

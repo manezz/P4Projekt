@@ -17,35 +17,10 @@ namespace WebApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("ProductVersion", "7.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FollowingId")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "FollowingId");
-
-                    b.ToTable("Follow");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            FollowingId = 2
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            FollowingId = 1
-                        });
-                });
 
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
                 {
@@ -102,7 +77,7 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<int>("Type")
+                    b.Property<int>("Role")
                         .HasColumnType("int");
 
                     b.HasKey("LoginId");
@@ -115,21 +90,14 @@ namespace WebApi.Migrations
                             LoginId = 1,
                             Email = "Test1@mail.dk",
                             Password = "password",
-                            Type = 0
+                            Role = 0
                         },
                         new
                         {
                             LoginId = 2,
                             Email = "Test2@mail.dk",
                             Password = "password",
-                            Type = 1
-                        },
-                        new
-                        {
-                            LoginId = 3,
-                            Email = "Test3@mail.dk",
-                            Password = "password",
-                            Type = 1
+                            Role = 1
                         });
                 });
 
@@ -148,9 +116,6 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<int>("Likes")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -168,20 +133,43 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6373),
+                            Date = new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6229),
                             Desc = "tadnawdnada",
-                            Likes = 1,
                             Title = "testestestest",
                             UserId = 1
                         },
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6376),
+                            Date = new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6233),
                             Desc = "Woooooo!",
-                            Likes = 0,
                             Title = "Test!",
                             UserId = 2
+                        });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.PostLikes", b =>
+                {
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostId");
+
+                    b.ToTable("PostLikes");
+
+                    b.HasData(
+                        new
+                        {
+                            PostId = 1,
+                            Likes = 2
+                        },
+                        new
+                        {
+                            PostId = 2,
+                            Likes = 2
                         });
                 });
 
@@ -288,35 +276,17 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6342),
+                            Created = new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6212),
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6345),
+                            Created = new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6215),
                             LoginId = 2,
                             UserName = "222test222"
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            Created = new DateTime(2023, 3, 15, 8, 44, 5, 726, DateTimeKind.Local).AddTicks(6348),
-                            LoginId = 3,
-                            UserName = "user 3"
                         });
-                });
-
-            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
-                {
-                    b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany("Follow")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Like", b =>
@@ -347,6 +317,17 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.PostLikes", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.Post", "Post")
+                        .WithOne("PostLikes")
+                        .HasForeignKey("WebApi.Database.Entities.PostLikes", "PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
@@ -384,10 +365,13 @@ namespace WebApi.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("WebApi.Database.Entities.Post", b =>
+                {
+                    b.Navigation("PostLikes");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
-                    b.Navigation("Follow");
-
                     b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618

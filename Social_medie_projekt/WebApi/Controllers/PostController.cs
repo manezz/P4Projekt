@@ -20,12 +20,13 @@
         {
             try
             {
-                List<PostResponse> posts = await _postService.GetAllPostsAsync();
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+
+                List<PostResponse> posts = await _postService.GetAllPostsAsync(currentUser.User.UserId);
 
                 if (posts.Count == 0)
                 {
                     return NoContent();
-
                 }
                 return Ok(posts);
             }
@@ -38,11 +39,13 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{postId}")]
-        public async Task<IActionResult> GetPostByPostId([FromRoute] int postId)
+        public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
         {
             try
             {
-                var postResponse = await _postService.GetPostByPostIdAsync(postId);
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+
+                var postResponse = await _postService.GetPostByPostIdAsync(postId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -59,11 +62,13 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetAllPostsByUserId([FromRoute] int userId)
+        public async Task<IActionResult> GetAllPostsByUserIdAsync([FromRoute] int userId)
         {
             try
             {
-                var postResponse = await _postService.GetAllPostsByUserIdAsync(userId);
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+
+                var postResponse = await _postService.GetAllPostsByUserIdAsync(userId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -77,12 +82,9 @@
             }
         }
 
-
-
-
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
+        public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
         {
             try
             {
@@ -100,7 +102,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{postId}")]
-        public async Task<IActionResult> UpdatePost([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
+        public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
         {
             try
             {
@@ -122,11 +124,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{postId}")]
-        public async Task<IActionResult> DeletePost([FromRoute] int postId)
+        public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
         {
             try
             {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
                 if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
                 {

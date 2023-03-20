@@ -80,7 +80,7 @@
         {
             try
             {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
@@ -110,7 +110,7 @@
         {
             try
             {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
@@ -140,7 +140,7 @@
         {
             try
             {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["User"];
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
                 if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
