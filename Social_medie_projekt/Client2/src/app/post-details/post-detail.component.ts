@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 import { CommonModule } from '@angular/common';
@@ -40,6 +40,7 @@ export class PostDetailsComponent {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private authService: AuthService,
     private postService: PostService
   ) {}
@@ -51,5 +52,16 @@ export class PostDetailsComponent {
         .GetPostByPostId(params['postId'])
         .subscribe((x) => (this.post = x));
     });
+  }
+
+  postLink(user: any) {
+    if(user.userId == this.currentUser.loginId){
+      // linker til brugerens egen profilside
+      this.router.navigateByUrl('/profile')
+    }
+    else{
+      // linker til en andens bruger profilside
+      this.router.navigate(['/profile/', user.userId])
+    }
   }
 }
