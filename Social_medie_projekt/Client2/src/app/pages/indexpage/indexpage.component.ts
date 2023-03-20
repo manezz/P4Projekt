@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { PostService } from '../_services/post.service';
-import { Post } from '../_models/post';
-import { Tag } from '../_models/tag';
+import { PostService } from '../../_services/post.service';
+import { Post } from '../../_models/post';
+import { Tag } from '../../_models/tag';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
-import { LikeComponent } from '../components/like.component';
+import { LikeComponent } from '../like/like.component';
 
 @Component({
   selector: 'app-indexpage',

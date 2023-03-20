@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component';
+import { Component, Input, OnInit } from '@angular/core';
+import { AppComponent } from '../../app.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule, SlicePipe } from '@angular/common';
-import { Post } from '../_models/post';
-import { PostService } from '../_services/post.service';
-import { AuthService } from '../_services/auth.service';
+import { Post } from '../../_models/post';
+import { PostService } from '../../_services/post.service';
+import { AuthService } from '../../_services/auth.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { Tag } from '../_models/tag';
+import { Tag } from '../../_models/tag';
 import { TaggedTemplateExpr } from '@angular/compiler';
 import { take } from 'rxjs';
 
@@ -19,19 +19,16 @@ import { take } from 'rxjs';
   styleUrls: ['create-postpage.component.css'],
 })
 export class CreatePostPageComponent implements OnInit {
-  constructor(
-    private auth: AuthService,
-    private postService: PostService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private AppComponent: AppComponent
-  ) {}
+  constructor(private auth: AuthService, private postService: PostService) {}
+
+  @Input()
+  posts: any;
 
   error: string | undefined;
   currentUser?: any = {};
   currentUserId?: number;
   post: Post = this.resetPost();
-  posts: Post[] = [];
+  //posts: Post[] = [];
   postForm: FormGroup = this.resetForm();
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-content
@@ -53,8 +50,6 @@ export class CreatePostPageComponent implements OnInit {
       this.splitTags.push({ name: e });
     });
 
-    console.log(this.splitTags);
-
     this.post = {
       userId: this.currentUserId,
       postId: 0,
@@ -63,11 +58,10 @@ export class CreatePostPageComponent implements OnInit {
       tags: this.splitTags,
     };
 
-    console.log(this.post);
-
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
-        this.posts.push(x);
+        this.posts.unshift(x);
+        this.postForm = this.resetForm();
       },
       error: (err) => {
         console.warn(Object.values(err.error.errors).join(', '));

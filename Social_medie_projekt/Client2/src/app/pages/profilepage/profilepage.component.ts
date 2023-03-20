@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Post } from '../_models/post';
-import { PostService } from '../_services/post.service';
-import { AuthService } from '../_services/auth.service';
+import { Post } from '../../_models/post';
+import { PostService } from '../../_services/post.service';
+import { AuthService } from '../../_services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 

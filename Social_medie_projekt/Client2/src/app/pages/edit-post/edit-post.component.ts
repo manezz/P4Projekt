@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PostService } from '../_services/post.service';
-import { Post } from '../_models/post';
+import { PostService } from '../../_services/post.service';
+import { Post } from '../../_models/post';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';

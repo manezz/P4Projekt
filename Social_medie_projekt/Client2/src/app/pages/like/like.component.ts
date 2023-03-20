@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Like } from '../_models/like';
-import { AuthService } from '../_services/auth.service';
-import { LikeService } from '../_services/like.service';
+import { Like } from '../../_models/like';
+import { AuthService } from '../../_services/auth.service';
+import { LikeService } from '../../_services/like.service';
 
 @Component({
   selector: 'app-like',
