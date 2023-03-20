@@ -1,6 +1,14 @@
-<app-create-postpage/>
+<mat-sidenav mode="side" opened >
+  <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100">
+  <p>{{this.user.userName}}</p>
+  ___________
+  <!-- Skal være links der ændrer hvilke posts der vises (mellem alle brugerens posts / alle de post brugeren har liket) -->
+  <p> likes </p>
+  <p> chat </p>
+</mat-sidenav>
 
-<!-- looper igennem alle post fra data(DataService) -->
+
+
 <div id="post" *ngFor="let post of posts" >
   <div id="user" (click)="postLink(post.user)"> 
     <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
@@ -18,6 +26,6 @@
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
   </div>
   
-  <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
-  <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
+  <!-- <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/> -->
+  <!-- <button class="editBtn" id="edit" *ngIf="this.currentUser.loginResponse.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button> -->
 </div>

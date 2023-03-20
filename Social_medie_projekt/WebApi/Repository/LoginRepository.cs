@@ -50,8 +50,8 @@
         public async Task<Login?> FindLoginByEmailAsync(string email)
         {
             return await _context.Login
-                .Include(login => login.User)
-                .Include(posts => posts.User.Posts.OrderByDescending(post => post.Date))
+                .Include(L => L.User)
+                .Include(P => P.User.Posts.OrderByDescending(post => post.Date))
                 .ThenInclude(post => post.PostLikes)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }

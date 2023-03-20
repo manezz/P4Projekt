@@ -1,37 +1,76 @@
-h1 {
-  color: white;
-}
-
-#post {
+#post{
   position: relative;
   width: auto;
   max-width: 35%;
-  border: 2px solid white;
+  border: 2px solid rgb(207, 207, 207);
   border-radius: 10px;
   border-left: none;
   border-right: none;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 50px; 
   margin-bottom: 60px;
   padding: 25px;
 }
 
-#post:hover {
+#post:hover{
+  cursor: pointer;
   box-shadow: 0px 0px 10px 10px rgb(80, 80, 100);
+}
+
+#user{
+  display: inline-block;
+  position: absolute;
+}
+
+#profilepic{
+  display: block;
+  border-radius: 30px;
+}
+
+#profilepic:hover{
+  box-shadow: 0px 0px 10px 10px rgb(100, 80, 80);
+}
+
+#userName{
+  display: block;
+  font-size: 15px;
+  margin-top: 12px;
+  margin-bottom: 0px;
+}
+
+
+
+#content{
+  display: inline-block;
+  margin-left: 25%;
+}
+
+#title{
+  color: white;
+}
+
+#description{
+  font-size: 14px;
+  color: rgb(20, 20, 20);
+}
+
+#postTags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#tag{
+  color:rgb(155, 155, 155);
+  margin-top: 20px;
+  margin-right: 5px;
+  font-size: 12px;
 }
 
 #date {
   font-size: 12px;
-  margin-left: 10px;
 }
 
-.postBtn {
-  position: absolute;
-  right: 20px;
-  bottom: 20px;
-  border: 1px solid black;
-  border-radius: 10px;
-}
+
 
 .editBtn {
   position: absolute;
@@ -48,61 +87,4 @@ h1 {
 .editBtn:active {
   background-color: rgb(39, 39, 39);
   cursor: pointer;
-}
-
-#like:hover {
-  background-color: rgb(211, 211, 211);
-  cursor: pointer;
-}
-/* skal konstant være ændret hvis en post er liked */
-#like:focus {
-  background-color: rgb(209, 43, 43);
-  color: white;
-}
-
-mat-sidenav-container {
-  height: calc(205vh - 115vh);
-}
-
-mat-sidenav {
-  width: 270px;
-  background-color: rgb(97, 97, 97);
-  text-align: center;
-  padding: 15px;
-  position: fixed;
-  border-left: none;
-  height: calc(260vh);
-}
-
-.profilepic {
-  border-radius: 30px;
-}
-
-#username {
-  font-size: 15px;
-  margin-left: 10px;
-}
-
-#title {
-  margin-left: 10px;
-}
-
-#description {
-  margin-left: 10px;
-}
-
-#postTags {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-#tag {
-  margin-left: 10px;
-  margin-right: 5px;
-  color: darkblue;
-}
-
-#nomore {
-  text-align: center;
-  font-size: 20px;
 }

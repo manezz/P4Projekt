@@ -3,8 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  // standalone: false,
-  // imports: [CommonModule],
   template: `
   <p> THE social media</p>
   <p> Copyright</p>

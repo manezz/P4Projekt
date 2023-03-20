@@ -14,11 +14,11 @@
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> Authenticate([FromBody] LoginRequest login)
+        public async Task<IActionResult> Authenticate([FromBody] SignInRequest login)
         {
             try
             {
-                LoginResponse? response = await _loginService.AuthenticateUser(login);
+                SignInResponse? response = await _loginService.AuthenticateUser(login);
 
                 if (response == null)
                 {

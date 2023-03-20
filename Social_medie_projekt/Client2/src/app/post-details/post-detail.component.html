@@ -1,27 +1,20 @@
 <div id="post">
-  <button
-    class="editBtn"
-    id=""
-    *ngIf="post.user?.userId == this.currentUser.user.userId"
-    [routerLink]="['/editPost', post.postId]"
-  >
-    ⚙
-  </button>
-  <img
-    class="profilepic"
-    src="./assets/images/placeholder.png"
-    width="50"
-    height="50"
-  />
-  <h5 id="username">{{ post.user?.userName }}</h5>
-  <h1 id="title">{{ post.title }}</h1>
-  <h3 id="description">{{ post.desc }}</h3>
-  <!-- <p id="tags" *ngFor="let tag of tags">#{{tag.tag}}, </p> -->
-  <div id="postTags" *ngIf="post.tags">
-    <p id="tag" *ngFor="let tag of post.tags">
-      {{ tag.name }}
-    </p>
+  <div id="user" (click)="postLink(post.user)"> 
+    <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <h5 id="userName">{{post.user?.userName}}</h5>
   </div>
-  <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
+
+  <div id="content">
+    <h1 id="title">{{post.title}}</h1>
+    <h3 id="description">{{post.desc}}</h3>
+    <div id="postTags" *ngIf="post.tags">
+      <p id="tag" *ngFor="let tag of post.tags">
+        #{{ tag.name }}, 
+      </p>
+    </div>
+    <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
+  </div>
+  
   <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
+  <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
 </div>

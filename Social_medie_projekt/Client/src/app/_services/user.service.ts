@@ -10,7 +10,7 @@ import { Login } from '../_models/login';
   providedIn: 'root'
 })
 export class UserService {
-    private readonly apiUrl = environment.apiUrl + 'User';
+    private readonly apiUrl = environment.apiUrl + 'user';
 
     constructor(private http: HttpClient) { }
 
@@ -18,7 +18,7 @@ export class UserService {
         return this.http.get<User[]>(this.apiUrl)
     }
 
-    getAllSelf(userId: number): Observable<User> {
+    getUser(userId: number): Observable<User> {
         return this.http.get<User>(`${this.apiUrl}/${userId}`)
     }
     

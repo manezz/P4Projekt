@@ -9,6 +9,7 @@
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<PostLikes> PostLikes { get; set; }
+        public DbSet<Follow> Follow{ get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
 
@@ -41,6 +42,13 @@
                     Email = "Test2@mail.dk",
                     Password = "password",
                     Role = (Role)1
+                },
+                new Login
+                {
+                    LoginId = 3,
+                    Email = "Test3@mail.dk",
+                    Password = "password",
+                    Role = (Role)1
                 });
 
             modelBuilder.Entity<User>().HasData(
@@ -57,7 +65,27 @@
                     LoginId = 2,
                     UserName = "222test222",
                     Created = DateTime.Now
+                },
+                new User
+                {
+                    UserId = 3,
+                    LoginId = 3,
+                    UserName = "user 3",
+                    Created = DateTime.Now
                 });
+
+            modelBuilder.Entity<Follow>().HasData(
+                new Follow
+                {
+                    UserId = 1,
+                    FollowingId = 2
+                },
+                new Follow
+                {
+                    UserId = 2,
+                    FollowingId = 1
+                }
+                );
 
             modelBuilder.Entity<Post>().HasData(
                 new Post
@@ -75,28 +103,6 @@
                     Desc = "Woooooo!",
                     Date = DateTime.Now,
                     UserId = 2,
-                });
-
-            modelBuilder.Entity<Like>().HasData(
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 1,
-                    PostId = 2
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 1
-                },
-                new Like
-                {
-                    UserId = 2,
-                    PostId = 2
                 });
 
             modelBuilder.Entity<PostLikes>().HasData(

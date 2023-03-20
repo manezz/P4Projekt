@@ -10,7 +10,8 @@
 
         public UserLoginResponse Login { get; set; }
 
-        public List<UserPostResponse> Posts { get; set; }
+        public List<UserPostResponse> Posts { get; set; } = new();
+        public List<UserFollowResponse> Follow { get; set; } = new();
     }
 
     public class UserLoginResponse
@@ -29,8 +30,7 @@
         public string Title { get; set; } = string.Empty;
 
         public string Desc { get; set; } = string.Empty;
-
-        public string Tags { get; set; } = string.Empty;
+        //public string Tags { get; set; } = string.Empty;
 
         public DateTime Date { get; set; }
 
@@ -40,5 +40,10 @@
     public class UserPostPostLikesResponse
     {
         public int Likes { get; set; }
+    }
+    public class UserFollowResponse
+    {
+        public int UserId { get; set; }
+        public int FollowingId { get; set; }
     }
 }

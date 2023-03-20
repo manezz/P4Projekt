@@ -63,6 +63,24 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Follow",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FollowingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Follow", x => new { x.UserId, x.FollowingId });
+                    table.ForeignKey(
+                        name: "FK_Follow_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Post",
                 columns: table => new
                 {
@@ -155,7 +173,8 @@ namespace WebApi.Migrations
                 values: new object[,]
                 {
                     { 1, "Test1@mail.dk", "password", 0 },
-                    { 2, "Test2@mail.dk", "password", 1 }
+                    { 2, "Test2@mail.dk", "password", 1 },
+                    { 3, "Test3@mail.dk", "password", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -173,8 +192,18 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6212), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6215), 2, "222test222" }
+                    { 1, new DateTime(2023, 3, 20, 7, 35, 56, 998, DateTimeKind.Local).AddTicks(7541), 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 20, 7, 35, 56, 998, DateTimeKind.Local).AddTicks(7544), 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 20, 7, 35, 56, 998, DateTimeKind.Local).AddTicks(7547), 3, "user 3" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Follow",
+                columns: new[] { "FollowingId", "UserId" },
+                values: new object[,]
+                {
+                    { 2, 1 },
+                    { 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -182,19 +211,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6229), "tadnawdnada", "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 15, 10, 34, 43, 257, DateTimeKind.Local).AddTicks(6233), "Woooooo!", "Test!", 2 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Like",
-                columns: new[] { "PostId", "UserId" },
-                values: new object[,]
-                {
-                    { 1, 1 },
-                    { 2, 1 },
-                    { 1, 2 },
-                    { 2, 2 }
+                    { 1, new DateTime(2023, 3, 20, 7, 35, 56, 998, DateTimeKind.Local).AddTicks(7569), "tadnawdnada", "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 20, 7, 35, 56, 998, DateTimeKind.Local).AddTicks(7572), "Woooooo!", "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -253,6 +271,9 @@ namespace WebApi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Follow");
+
             migrationBuilder.DropTable(
                 name: "Like");
 
