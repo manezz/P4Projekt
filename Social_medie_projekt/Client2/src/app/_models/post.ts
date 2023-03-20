@@ -1,5 +1,5 @@
 import { PostLikes } from './postLikes';
-import { Tag } from './tags';
+import { Tag } from './tag';
 import { User } from './user';
 
 export interface Post {

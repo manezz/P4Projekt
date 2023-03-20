@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, SlicePipe } from '@angular/common';
 import { Post } from '../_models/post';
 import { PostService } from '../_services/post.service';
 import { AuthService } from '../_services/auth.service';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { Tag } from '../_models/tag';
+import { TaggedTemplateExpr } from '@angular/compiler';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-create-postpage',
@@ -32,6 +35,7 @@ export class CreatePostPageComponent implements OnInit {
   postForm: FormGroup = this.resetForm();
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-content
+  splitTags: Tag[] = [];
 
   ngOnInit(): void {
     this.resetForm();
@@ -45,13 +49,21 @@ export class CreatePostPageComponent implements OnInit {
   }
 
   create() {
+    this.postForm.value.Tags.split(',').forEach((e: string) => {
+      this.splitTags.push({ name: e });
+    });
+
+    console.log(this.splitTags);
+
     this.post = {
       userId: this.currentUserId,
       postId: 0,
       title: this.postForm.value.Title,
       desc: this.postForm.value.Content,
-      tags: this.postForm.value.Tags,
+      tags: this.splitTags,
     };
+
+    console.log(this.post);
 
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
