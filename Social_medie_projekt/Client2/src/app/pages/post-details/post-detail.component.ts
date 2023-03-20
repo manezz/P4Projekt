@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { PostService } from '../../_services/post.service';
 import { Post } from '../../_models/post';
 import { CommonModule } from '@angular/common';
 import { LikeComponent } from '../like/like.component';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-post-details',
@@ -13,7 +14,7 @@ import { LikeComponent } from '../like/like.component';
   templateUrl: 'post-detail.component.html',
   styleUrls: ['post-detail.component.css'],
 })
-export class PostDetailsComponent {
+export class PostDetailsComponent implements OnInit {
   currentUser: any = {};
 
   post: Post = {

@@ -28,7 +28,6 @@ export class CreatePostPageComponent implements OnInit {
   currentUser?: any = {};
   currentUserId?: number;
   post: Post = this.resetPost();
-  //posts: Post[] = [];
   postForm: FormGroup = this.resetForm();
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-content

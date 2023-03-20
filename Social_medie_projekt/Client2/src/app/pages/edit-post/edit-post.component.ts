@@ -6,6 +6,7 @@ import { Post } from '../../_models/post';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
+import { find } from 'rxjs';
 
 @Component({
   selector: 'app-editPost',
@@ -14,13 +15,14 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: 'edit-post.component.html',
   styleUrls: ['edit-post.component.css'],
 })
-export class EditPostComponent {
+export class EditPostComponent implements OnInit {
   currentUser: any = {};
   postForm: FormGroup = this.resetForm();
   post: Post = this.resetPost();
   posts: Post[] = [];
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-content
+  tagNames: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -29,25 +31,33 @@ export class EditPostComponent {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.route.params.subscribe((params) => {
-      this.postService
-        .GetPostByPostId(params['postId'])
-        .subscribe((x) => (this.post = x));
+      this.postService.GetPostByPostId(params['postId']).subscribe((x) => {
+        (this.post = x), this.insertValues();
+      });
     });
-    this.insertValues();
   }
 
-  insertValues() {
+  // this.postForm.value.Tags.split(',').forEach((e: string) => {
+  //   this.splitTags.push({ name: e });
+  // });
+
+  insertValues(): void {
+    this.post.tags?.forEach((e: any) => {
+      this.tagNames.push(e.name);
+    });
+
     (<HTMLInputElement>document.getElementById('title')).value =
       this.post.title;
     (<HTMLInputElement>document.getElementById('content')).value =
       this.post.desc;
-    // (<HTMLInputElement>document.getElementById('tags')).value = this.post.tags;
+    (<HTMLInputElement>document.getElementById('tags')).value =
+      this.tagNames.toString();
   }
 
-  edit() {
+  edit(): void {
     if (!this.postForm.pristine) {
       this.post = {
         postId: this.post.postId,
@@ -67,7 +77,7 @@ export class EditPostComponent {
     }
   }
 
-  delete(postId: number) {
+  delete(postId: number): void {
     if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(postId).subscribe({
         next: (x) => {
@@ -97,7 +107,7 @@ export class EditPostComponent {
     };
   }
 
-  resetForm() {
+  resetForm(): FormGroup {
     return new FormGroup({
       Title: new FormControl(''),
       Content: new FormControl(''),
