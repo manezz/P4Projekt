@@ -19,13 +19,11 @@
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
     <div id="postTags" *ngIf="post.tags">
-      <p id="tag" *ngFor="let tag of post.tags">
-        #{{ tag.name }}, 
-      </p>
+      <p id="tag" *ngFor="let tag of post.tags">#{{ tag.name }},</p>
     </div>
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
   </div>
   
-  <!-- <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/> -->
-  <!-- <button class="editBtn" id="edit" *ngIf="this.currentUser.loginResponse.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button> -->
+  <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
+  <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
 </div>

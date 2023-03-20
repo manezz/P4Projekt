@@ -11,9 +11,7 @@
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
     <div id="postTags" *ngIf="post.tags">
-      <p id="tag" *ngFor="let tag of post.tags">
-        #{{ tag.name }}, 
-      </p>
+      <p id="tag" *ngFor="let tag of post.tags">#{{ tag.name }},</p>
     </div>
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
   </div>

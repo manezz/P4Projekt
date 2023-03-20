@@ -67,10 +67,11 @@ export class CreatePostPageComponent implements OnInit {
 
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
-        this.posts.push(x);
+        this.posts.push(x)
+        this.cancel()
       },
       error: (err) => {
-        console.warn(Object.values(err.error.errors).join(', '));
+        console.warn(Object.values(err.error.errors).join(', '))
       },
     });
   }

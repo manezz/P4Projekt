@@ -9,14 +9,12 @@ import { LikeService } from '../_services/like.service';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <button (click)="likeDislikePost()" class="postBtn {{ liked() }}" id="like">
-      <3
-    </button>
+    <button (click)="likeDislikePost()" class="postBtn {{ liked() }}" id="like"> ❤ </button>
   `,
   styles: [
     `
       .liked {
-        background-color: hotpink;
+        background-color: rgb(255, 50, 50);;
       }
       #like:hover {
         background-color: rgb(211, 211, 211);
