@@ -3,10 +3,10 @@ import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { PostService } from '../../_services/post.service';
 import { Post } from '../../_models/post';
+import { Tag } from 'src/app/_models/tag';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { find } from 'rxjs';
 
 @Component({
   selector: 'app-editPost',
@@ -22,7 +22,6 @@ export class EditPostComponent implements OnInit {
   posts: Post[] = [];
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
   contentCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-content
-  tagNames: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -40,22 +39,29 @@ export class EditPostComponent implements OnInit {
     });
   }
 
-  // this.postForm.value.Tags.split(',').forEach((e: string) => {
-  //   this.splitTags.push({ name: e });
-  // });
+  tagNames = (): string => {
+    let val: string[] = [];
+    this.post.tags?.forEach((e: Tag) => {
+      val.push(e.name);
+    });
+    return val.toString();
+  };
 
   insertValues(): void {
-    this.post.tags?.forEach((e: any) => {
-      this.tagNames.push(e.name);
+    this.postForm.setValue({
+      Title: this.post.title,
+      Content: this.post.desc,
+      Tags: this.tagNames(),
     });
-
-    (<HTMLInputElement>document.getElementById('title')).value =
-      this.post.title;
-    (<HTMLInputElement>document.getElementById('content')).value =
-      this.post.desc;
-    (<HTMLInputElement>document.getElementById('tags')).value =
-      this.tagNames.toString();
   }
+
+  newTags = (): Tag[] => {
+    let splitTags: Tag[] = [];
+    this.postForm.value.Tags.split(',').forEach((e: any) => {
+      splitTags.push({ name: e });
+    });
+    return splitTags;
+  };
 
   edit(): void {
     if (!this.postForm.pristine) {
@@ -63,7 +69,7 @@ export class EditPostComponent implements OnInit {
         postId: this.post.postId,
         title: this.postForm.value.Title,
         desc: this.postForm.value.Content,
-        tags: this.postForm.value.Tags,
+        tags: this.newTags(),
       };
 
       this.postService.editPost(this.post).subscribe();

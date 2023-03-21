@@ -254,7 +254,7 @@
             var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
             var tags = updatePost.Tags.Select(tag => _tagService.UpdateTagAsync(tag).Result).ToList();
 
-            if (post != null)
+            if (post == null)
             {
                 throw new ArgumentNullException();
             }
