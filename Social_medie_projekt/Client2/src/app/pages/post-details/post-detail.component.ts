@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute, RouterLink, Router } from '@angular/router';
-import { PostService } from '../_services/post.service';
-import { Post } from '../_models/post';
+import { PostService } from '../../_services/post.service';
+import { Post } from '../../_models/post';
 import { CommonModule } from '@angular/common';
 import { LikeComponent } from '../like/like.component';
-import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-post-details',
@@ -47,18 +46,21 @@ export class PostDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe(x => this.currentUser = x)
-    this.route.params.subscribe(params => { this.postService.GetPostByPostId(params['postId']).subscribe(x => this.post = x) })
+    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.route.params.subscribe((params) => {
+      this.postService
+        .GetPostByPostId(params['postId'])
+        .subscribe((x) => (this.post = x));
+    });
   }
 
   postLink(user: any) {
-    if(user.userId == this.currentUser.loginId){
+    if (user.userId == this.currentUser.loginId) {
       // linker til brugerens egen profilside
-      this.router.navigateByUrl('/profile')
-    }
-    else{
+      this.router.navigateByUrl('/profile');
+    } else {
       // linker til en andens bruger profilside
-      this.router.navigate(['/profile/', user.userId])
+      this.router.navigate(['/profile/', user.userId]);
     }
   }
 }

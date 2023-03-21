@@ -45,7 +45,9 @@ export class LoginpageComponent {
       .login(this.userForm.value.Email, this.userForm.value.Password)
       .subscribe({
         next: () => {
-          this.router.navigate(this.route.snapshot.queryParams['returnUrl'] || '/main')
+          let returnUrl =
+            this.route.snapshot.queryParams['returnUrl'] || '/main';
+          this.router.navigate([returnUrl]);
 
           // opretter en talkservice til chat når user logger ind
           // this.talkService.createCurrentSession();
@@ -57,8 +59,8 @@ export class LoginpageComponent {
           document.getElementById('Password')!.style.borderColor = 'red';
 
           if (err.error.status == 400) {
-            console.log('Indtast brugernavn og kodeord')
-            console.log(err.message)
+            console.log('Indtast brugernavn og kodeord');
+            console.log(err.message);
           }
           if (err.error.status == 401) {
             console.log('Forkert brugernavn eller kodeord');
