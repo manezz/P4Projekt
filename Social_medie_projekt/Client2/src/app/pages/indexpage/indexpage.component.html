@@ -1,26 +1,23 @@
 <app-create-postpage [posts]="posts"/>
 
 <!-- looper igennem alle post fra data(DataService) -->
-<div
-  id="post"
-  *ngFor="let post of posts"
->
-  <h5 id="username">
-    <img
-      class="profilepic"
-      src="./assets/images/placeholder.png"
-      width="50"
-      height="50"
-    />
-    {{ post.user?.userName }}
-  </h5>
-  <h1 id="title" [routerLink]="['/post-details', post.postId]">{{ post.title }}</h1>
-  <h3 id="description">{{ post.desc }}</h3>
-  <div id="postTags" *ngIf="post.tags">
-    <p id="tag" *ngFor="let tag of post.tags">
-      {{ tag.name }}
-    </p>
+<div id="post" *ngFor="let post of posts" >
+  <div id="user" (click)="postLink(post.user)"> 
+    <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <h5 id="userName">{{post.user?.userName}}</h5>
   </div>
-  <p id="date">{{ post.date | date : "MMM d yyyy, HH:mm a" }}</p>
+
+  <div id="content" [routerLink]="['/post-details', post.postId]">
+    <h1 id="title">{{post.title}}</h1>
+    <h3 id="description">{{post.desc}}</h3>
+    <div id="postTags" *ngIf="post.tags">
+      <p id="tag" *ngFor="let tag of post.tags">
+        #{{ tag.name }}, 
+      </p>
+    </div>
+    <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
+  </div>
+  
   <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
+  <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
 </div>

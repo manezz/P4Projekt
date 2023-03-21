@@ -1,13 +1,13 @@
-<mat-sidenav mode="side" opened>
-  <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100"/>
-  <p>{{ this.currentUser.user.userName }}</p>
+<mat-sidenav mode="side" opened >
+  <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100">
+  <p>{{this.user.userName}}</p>
   ___________
-  <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
-  <p>likes</p>
-  <p>chat</p>
+  <!-- Skal være links der ændrer hvilke posts der vises (mellem alle brugerens posts / alle de post brugeren har liket) -->
+  <p> likes </p>
+  <p> chat </p>
 </mat-sidenav>
 
-<app-create-postpage></app-create-postpage>
+
 
 <div id="post" *ngFor="let post of posts" >
   <div id="user" (click)="postLink(post.user)"> 

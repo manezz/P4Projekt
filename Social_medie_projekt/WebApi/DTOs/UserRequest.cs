@@ -8,6 +8,7 @@
 
         public UserLogin? Login { get; set; }
     }
+
     public class UserLogin
     {
         [Required]

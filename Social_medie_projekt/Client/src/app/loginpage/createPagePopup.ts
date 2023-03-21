@@ -5,8 +5,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-createpage-popup',
-  standalone: true,
-  imports: [CommonModule, RouterLink],
   template: `
     <div class="dialog-container">
       <h1 mat-dialog-title>Success!</h1>

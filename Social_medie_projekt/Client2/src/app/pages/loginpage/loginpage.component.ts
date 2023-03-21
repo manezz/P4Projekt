@@ -27,7 +27,6 @@ export class LoginpageComponent {
     private route: ActivatedRoute // private AppComponent: AppComponent
   ) {}
 
-  message = '';
   userForm: FormGroup = this.resetForm();
   userlogin: Login = { loginId: 0, email: '', password: '' };
 
@@ -46,15 +45,10 @@ export class LoginpageComponent {
       .login(this.userForm.value.Email, this.userForm.value.Password)
       .subscribe({
         next: () => {
-          let returnUrl =
-            this.route.snapshot.queryParams['returnUrl'] || '/main';
-          this.router.navigate([returnUrl]);
+          this.router.navigate(this.route.snapshot.queryParams['returnUrl'] || '/main')
 
           // opretter en talkservice til chat når user logger ind
           // this.talkService.createCurrentSession();
-
-          // ændrer headeren
-          // this.AppComponent.validateHeader();
         },
 
         error: (err) => {
@@ -63,23 +57,19 @@ export class LoginpageComponent {
           document.getElementById('Password')!.style.borderColor = 'red';
 
           if (err.error.status == 400) {
-            this.message = 'Indtast brugernavn og kodeord';
-            console.log(this.message);
-            console.log(err.message);
+            console.log('Indtast brugernavn og kodeord')
+            console.log(err.message)
           }
           if (err.error.status == 401) {
-            this.message = 'Forkert brugernavn eller kodeord';
-            console.log(this.message);
+            console.log('Forkert brugernavn eller kodeord');
           }
           if (err.error.status == 500) {
-            this.message = 'Fejl ved forbindelse til server';
             document.getElementById('Email')!.style.borderColor = 'yellow';
             document.getElementById('Password')!.style.borderColor = 'yellow';
-            console.log(this.message);
+            console.log('Fejl ved forbindelse til server');
             console.log(err);
           } else {
-            this.message = err.message;
-            console.log(this.message);
+            console.log(err.message);
             console.log(err);
           }
         },

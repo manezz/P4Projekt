@@ -3,12 +3,12 @@ import { Tag } from './tags';
 import { User } from './user';
 
 export interface Post {
-  userId?: number;
-  postId: number;
-  title: string;
-  desc: string;
-  tags?: string;
-  likes?: number;
-  date?: Date;
-  user?: User;
+    userId?: number;
+    postId: number;
+    title: string;
+    desc: string;
+    likes?: number;
+    tags?: Tag[];
+    date?: Date;
+    user?: User;
 }

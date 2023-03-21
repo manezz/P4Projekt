@@ -32,15 +32,15 @@
         {
             return new LikeResponse
             {
-                User = new LikeUserResponse
-                {
+    
+                User = new LikeUserResponse{
                     UserId = like.UserId
                 },
 
-                Post = new LikePostResponse
-                {
+                Post = new LikePostResponse{
                     PostId = like.PostId
                 },
+
             };
         }
 
@@ -71,15 +71,14 @@
             // Updates post to one more like
             var post = await _postRepository.UpdatePostLikesAsync(newLike.PostId, 1);
 
-            if (post == null)
-            {
+            if (post == null){
                 throw new ArgumentNullException("Post doesn't exist");
             }
 
 
             var like = await _likeRepository.CreateLikeAsync(MapLikeRequestToLike(newLike));
             return MapLikeToLikeResponse(like);
-
+            
         }
 
         public async Task<LikeResponse?> DeleteLikeAsync(int userId, int postId)
@@ -100,7 +99,7 @@
                 throw new ArgumentNullException("Post doesn't exist");
             }
 
-            return MapLikeToLikeResponse(like);
+            return MapLikeToLikeResponse(like); 
         }
     }
 }

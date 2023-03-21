@@ -3,10 +3,10 @@
     public interface IUserService
     {
         Task<List<UserResponse>> GetAllUsers();
-        Task<UserResponse?> FindUserAsync(int id);
+        Task<UserResponse> FindUserAsync(int id);
         Task<UserResponse> CreateUserAsync(UserRequest newUser);
-        Task<UserResponse?> UpdateUserAsync(int id, UserRequest updatedUser);
-        Task<UserResponse?> DeleteUserAsync(int id);
+        Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser);
+        Task<UserResponse> DeleteUserAsync(int id);
     }
 
     public class UserService : IUserService
@@ -16,6 +16,23 @@
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+
+
+        private static User MapUserRequestToUser(UserRequest userRequest)
+        {
+            return new User
+            {
+                UserName = userRequest.UserName,
+                Login = new()
+                {
+                    Email = userRequest.Login.Email,
+                    Password = userRequest.Login.Password,
+                    Role = userRequest.Login.Role
+                },
+
+            };
         }
 
         private static UserResponse MapUserToUserResponse(User user)
@@ -31,58 +48,30 @@
                     Email = user.Login.Email,
                     Role = user.Login.Role
                 },
-                Posts = user.Posts.Select(post => new UserPostResponse
+                Posts = user.Posts.Select(x => new UserPostResponse
                 {
-                    PostId = post.PostId,
-                    Title = post.Title,
-                    Desc = post.Desc,
+                    PostId = x.PostId,
+                    Title = x.Title,
+                    Desc = x.Desc,
                     PostLikes = new UserPostPostLikesResponse
                     {
-                        Likes = post.PostLikes.Likes
+                        Likes = x.PostLikes.Likes
                     },
-                    Date = post.Date
+                    Date = x.Date
+                }).ToList(),
+                Follow = user.Follow.Select(x => new UserFollowResponse
+                {
+                    UserId = x.UserId,
+                    FollowingId = x.FollowingId,
                 }).ToList()
             };
         }
 
-        private static User MapUserRequestToUser(UserRequest userRequest)
-        {
-            return new User
-            {
-                UserName = userRequest.UserName,
-                Login = new()
-                {
-                    Email = userRequest.Login.Email,
-                    Password = userRequest.Login.Password,
-                    Role = userRequest.Login.Role
-                },
-            };
-        }
 
-        public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
-        {
-            var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
 
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
 
-            return MapUserToUserResponse(user);
-        }
 
-        public async Task<UserResponse?> DeleteUserAsync(int id)
-        {
-            var user = await _userRepository.DeleteUserAsync(id);
-
-            if (user != null)
-            {
-                return MapUserToUserResponse(user);
-            }
-            return null;
-        }
-
-        public async Task<UserResponse?> FindUserAsync(int id)
+        public async Task<UserResponse> FindUserAsync(int id)
         {
             var user = await _userRepository.FindUserByIdAsync(id);
 
@@ -104,7 +93,37 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        public async Task<UserResponse?> UpdateUserAsync(int id, UserRequest updatedUser)
+
+
+
+
+        // Not Used !!! (login/register is used instead)
+        public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
+        {
+            var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
+
+            if (user == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return MapUserToUserResponse(user);
+        }
+
+        // Not Used !!! (login/delete is used instead)
+        public async Task<UserResponse> DeleteUserAsync(int id)
+        {
+            var user = await _userRepository.DeleteUserAsync(id);
+
+            if (user != null)
+            {
+                return MapUserToUserResponse(user);
+            }
+            return null;
+        }
+
+        // Maybe used ??? (login/update is used instead MAYBE)
+        public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateUserAsync(id, MapUserRequestToUser(updatedUser));
 

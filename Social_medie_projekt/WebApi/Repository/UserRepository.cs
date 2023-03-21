@@ -49,6 +49,7 @@
                 .Include(l => l.Login)
                 .Include(p => p.Posts.OrderByDescending(posts => posts.Date))
                 .ThenInclude(x => x.PostLikes)
+                .Include(F => F.Follow)
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
 
@@ -58,6 +59,7 @@
                 .Include(l => l.Login)
                 .Include(p => p.Posts)
                 .ThenInclude(x => x.PostLikes)
+                .Include(F => F.Follow)
                 .ToListAsync();
         }
 
@@ -67,8 +69,8 @@
 
             if (user != null)
             {
-                _context.Remove(user);
-                await _context.SaveChangesAsync();
+                //_context.Remove(user);
+                //await _context.SaveChangesAsync();
             }
             return user;
 

@@ -8,11 +8,12 @@
     public class JwtUtils : IJwtUtils
     {
         private readonly AppSettings _appSettings;
-
         public JwtUtils(IOptions<AppSettings> appSettings)
         {
             _appSettings = appSettings.Value;
         }
+
+
 
         public string GenerateJwtToken(Login login)
         {

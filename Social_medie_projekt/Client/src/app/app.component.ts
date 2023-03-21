@@ -7,42 +7,49 @@ import { AuthService } from './_services/auth.service';
 @Component({
   selector: 'app-root',
   template: `
-  <div class="container">
+  <div class="body">
+
     <div class="header">
       <app-headerLoggedIn *ngIf="loggedIn"></app-headerLoggedIn>
       <app-headerLoggedOut *ngIf="!loggedIn"></app-headerLoggedOut>
     </div>
+
     <div class="content">
       <router-outlet></router-outlet>
     </div>
+
     <div class="chat">
       <app-chat *ngIf="chatOpen"></app-chat>
     </div>
+
     <div class="footer">
       <app-footer></app-footer>
     </div>
+
   </div>
   `,
   styles: [`
+  .body{
+    margin: 0;
+    min-height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
   .header{
     width: 100%;
-    position: fixed;
-    top: 0px;
-    left: 0px;
     padding: 10px 0px 10px 0px;
     background-color: gray;
-    z-index: 1;
   }
-  .content{
-    position: relative;
-    margin-top: 40px;
-    margin-bottom: 200px;
-    padding: 3px 5px;
-  }
+
   .footer{
+    width: 100%;
+    margin: 20px 0px 20px 0px;
+
+    /* puts the footer in the middle */
     position: relative;
-    bottom: 0;
-    padding: 3px 5px;
+    left: 50%;
+    transform: translateX(-50%);
   }
   `]
 })

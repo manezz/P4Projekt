@@ -2,7 +2,7 @@
 {
     public interface ILoginService
     {
-        Task<LoginResponse> AuthenticateUser(LoginRequest login);
+        Task<SignInResponse> AuthenticateUser(SignInRequest login);
         Task<LoginResponse> RegisterAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllLoginAsync();
         Task<LoginResponse> FindLoginByIdAsync(int loginId);
@@ -62,29 +62,29 @@
             };
         }
 
-        public async Task<LoginResponse> AuthenticateUser(LoginRequest login)
+        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
         {
-            Login? foundLogin = await _loginRepository.FindLoginByEmailAsync(login.Email);
+            Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
 
-            if (foundLogin == null)
+            if (user == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (foundLogin.Password == login.Password)
+            if (user.Password == login.Password)
             {
-                LoginResponse response = new()
+                SignInResponse response = new()
                 {
-                    LoginId = foundLogin.LoginId,
-                    Email = foundLogin.Email,
-                    Role = foundLogin.Role,
+                    LoginId = user.LoginId,
+                    Email = user.Email,
+                    Role = user.Role,
                     User = new()
                     {
-                        UserId = foundLogin.User.UserId,
-                        UserName = foundLogin.User.UserName,
-                        Created = foundLogin.User.Created,
+                        UserId = user.User.UserId,
+                        UserName = user.User.UserName,
+                        Created = user.User.Created,
                     },
-                    Token = _jwtUtils.GenerateJwtToken(foundLogin)
+                    Token = _jwtUtils.GenerateJwtToken(user)
                 };
                 return response;
             }

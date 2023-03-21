@@ -23,10 +23,6 @@
 a {
   align-self: center;
   margin-left: 10px;
-}
-
-a:link,
-a:visited {
   border-radius: 5px;
   padding: 5px 5px 5px 5px;
   color: #eee;
@@ -40,5 +36,4 @@ a:visited {
 .linkRight {
   display: flex;
   margin-left: auto;
-  margin-right: 5%;
 }
