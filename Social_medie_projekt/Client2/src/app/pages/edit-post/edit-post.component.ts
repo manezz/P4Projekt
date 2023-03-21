@@ -39,13 +39,13 @@ export class EditPostComponent implements OnInit {
     });
   }
 
-  tagNames = (): string => {
+  tagNames(): string {
     let val: string[] = [];
     this.post.tags?.forEach((e: Tag) => {
       val.push(e.name);
     });
     return val.toString();
-  };
+  }
 
   insertValues(): void {
     this.postForm.setValue({
@@ -55,13 +55,13 @@ export class EditPostComponent implements OnInit {
     });
   }
 
-  newTags = (): Tag[] => {
+  newTags(): Tag[] {
     let splitTags: Tag[] = [];
     this.postForm.value.Tags.split(',').forEach((e: any) => {
       splitTags.push({ name: e });
     });
     return splitTags;
-  };
+  }
 
   edit(): void {
     if (!this.postForm.pristine) {
