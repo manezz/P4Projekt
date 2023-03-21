@@ -1,7 +1,6 @@
 import { Component, inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './_helpers/auth.guard';
-import { Role } from './_models/role';
 
 import { IndexpageComponent } from './pages/indexpage/indexpage.component';
 import { PostDetailsComponent } from './pages/post-details/post-detail.component';

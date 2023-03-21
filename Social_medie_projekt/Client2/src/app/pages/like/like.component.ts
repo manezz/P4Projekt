@@ -52,15 +52,15 @@ export class LikeComponent {
 
   constructor(private auth: AuthService, private likeService: LikeService) {}
 
-  likeDislikePost = (): any => {
+  likeDislikePost(): void {
     if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
       this.dislikePost();
     } else {
       this.likePost();
     }
-  };
+  }
 
-  likePost = (): any => {
+  likePost(): void {
     this.like = {
       userId: this.auth.CurrentUserValue.user?.userId!,
       postId: this.postPostId,
@@ -72,9 +72,9 @@ export class LikeComponent {
       },
     });
     this.likeUserId = this.auth.CurrentUserValue.user?.userId;
-  };
+  }
 
-  dislikePost = (): any => {
+  dislikePost(): void {
     this.likeService
       .deleteLike(this.auth.CurrentUserValue.user?.userId!, this.postPostId)
       .subscribe({
@@ -83,14 +83,14 @@ export class LikeComponent {
         },
       });
     this.likeUserId = null;
-  };
+  }
 
-  liked = (): string => {
+  liked(): string {
     let className = '';
 
     if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
       className = 'liked';
     }
     return className;
-  };
+  }
 }
