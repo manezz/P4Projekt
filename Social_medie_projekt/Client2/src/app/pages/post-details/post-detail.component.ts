@@ -4,7 +4,8 @@ import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { PostService } from '../_services/post.service';
 import { Post } from '../_models/post';
 import { CommonModule } from '@angular/common';
-import { LikeComponent } from '../components/like.component';
+import { LikeComponent } from '../like/like.component';
+import { delay } from 'rxjs';
 
 @Component({
   selector: 'app-post-details',
@@ -13,7 +14,7 @@ import { LikeComponent } from '../components/like.component';
   templateUrl: 'post-detail.component.html',
   styleUrls: ['post-detail.component.css'],
 })
-export class PostDetailsComponent {
+export class PostDetailsComponent implements OnInit {
   currentUser: any = {};
 
   post: Post = {

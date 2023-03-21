@@ -7,9 +7,9 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Login } from '../_models/login';
-import { Role } from '../_models/role';
-import { AuthService } from '../_services/auth.service';
+import { Login } from '../../_models/login';
+import { Role } from '../../_models/role';
+import { AuthService } from '../../_services/auth.service';
 // import { AppComponent } from '../app.component';
 import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 

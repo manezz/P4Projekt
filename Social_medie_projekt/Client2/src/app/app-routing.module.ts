@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './_helpers/auth.guard';
 import { Role } from './_models/role';
 
-import { IndexpageComponent } from './indexpage/indexpage.component';
-import { PostDetailsComponent } from './post-details/post-detail.component';
-import { LoginpageComponent } from './loginpage/loginpage.component';
-import { CreatePostPageComponent } from './create-postpage/create-postpage.component';
-import { EditPostComponent } from './edit-post/edit-post.component';
-import { ProfilepageComponent } from './profilepage/profilepage.component';
+import { IndexpageComponent } from './pages/indexpage/indexpage.component';
+import { PostDetailsComponent } from './pages/post-details/post-detail.component';
+import { LoginpageComponent } from './pages/loginpage/loginpage.component';
+import { CreatePostPageComponent } from './pages/create-postpage/create-postpage.component';
+import { EditPostComponent } from './pages/edit-post/edit-post.component';
+import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { OtherUserProfilePageComponent } from './profilepage-otheruser/profilepage.component';
 
 //canActivate: [() => inject(myGuard).canActivate()]
