@@ -9,9 +9,7 @@ import { LoginpageComponent } from './pages/loginpage/loginpage.component';
 import { CreatePostPageComponent } from './pages/create-postpage/create-postpage.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
-import { OtherUserProfilePageComponent } from './profilepage-otheruser/profilepage.component';
-
-//canActivate: [() => inject(myGuard).canActivate()]
+import { OtherUserProfilePageComponent } from './pages/profilepage-otheruser/profilepage.component';
 
 const routes: Routes = [
   {
@@ -23,7 +21,6 @@ const routes: Routes = [
     path: 'main',
     component: IndexpageComponent,
     canActivate: [AuthGuard],
-    //canActivate: [() => inject(AuthGuard).canActivate],
   },
   {
     path: 'post-details/:postId',
