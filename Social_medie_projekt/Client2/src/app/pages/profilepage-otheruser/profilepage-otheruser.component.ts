@@ -7,13 +7,14 @@ import { PostService } from '../../_services/post.service';
 import { AuthService } from '../../_services/auth.service';
 import { UserService } from '../../_services/user.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-profilepage2',
   standalone: true,
-  imports: [CommonModule, RouterLink, MatSidenavModule],
-  templateUrl: 'profilepage.component.html',
-  styleUrls: ['profilepage.component.css'],
+  imports: [CommonModule, RouterLink, MatSidenavModule, PostComponent],
+  templateUrl: 'profilepage-otheruser.component.html',
+  styleUrls: ['profilepage-otheruser.component.css'],
 })
 export class OtherUserProfilePageComponent implements OnInit {
   posts: Post[] = [];
@@ -23,7 +24,6 @@ export class OtherUserProfilePageComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private postService: PostService,
     private userService: UserService
   ) {}
@@ -39,15 +39,5 @@ export class OtherUserProfilePageComponent implements OnInit {
         .GetPostByUserId(params['userId'])
         .subscribe((x) => (this.posts = x));
     });
-  }
-
-  postLink(user: any) {
-    if (user.userId == this.currentUser.loginResponse.user.userId) {
-      // linker til brugerens egen profilside
-      this.router.navigateByUrl('/profile');
-    } else {
-      // linker til en andens bruger profilside
-      this.router.navigate(['/profile/', user.userId]);
-    }
   }
 }
