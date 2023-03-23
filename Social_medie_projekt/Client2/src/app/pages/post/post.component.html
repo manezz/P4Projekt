@@ -16,6 +16,6 @@
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
   </div>
   
-  <app-like [likeUserId]="post.likeUserId" [postPostId]="post.postId"/>
+  <app-like [post]="post"/>
   <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
 </div>

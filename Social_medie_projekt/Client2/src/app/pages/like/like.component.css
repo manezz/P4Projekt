@@ -1,0 +1,27 @@
+.likeDiv {
+  display: flex;
+  align-items: center;
+}
+.likeLabel {
+  margin-left: auto;
+  font-size: 18px;
+}
+.liked {
+  background-color: hotpink;
+}
+#like {
+  /* position: absolute; */
+  margin-left: 6px;
+  right: 20px;
+  bottom: 20px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+#like:hover {
+  background-color: rgb(211, 211, 211);
+  cursor: pointer;
+}
+/* skal konstant være ændret hvis en post er liked */
+#like:focus {
+  color: white;
+}
