@@ -6,6 +6,7 @@ import { IndexpageComponent } from './pages/indexpage/indexpage.component';
 import { PostDetailsComponent } from './pages/post-details/post-detail.component';
 import { LoginpageComponent } from './pages/loginpage/loginpage.component';
 import { CreatePostPageComponent } from './pages/create-postpage/create-postpage.component';
+import { CreateUserPageComponent } from './pages/create-userpage/create-userpage.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
 import { OtherUserProfilePageComponent } from './pages/profilepage-otheruser/profilepage-otheruser.component';
@@ -15,7 +16,12 @@ const routes: Routes = [
     path: '',
     component: LoginpageComponent,
   },
-  { path: 'createpost', component: CreatePostPageComponent },
+  {
+    path: 'createuser',
+    component: CreateUserPageComponent,
+  },
+  { path: 'createpost', 
+    component: CreatePostPageComponent },
   {
     path: 'main',
     component: IndexpageComponent,
