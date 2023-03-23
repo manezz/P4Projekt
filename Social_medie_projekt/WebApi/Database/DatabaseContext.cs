@@ -9,12 +9,26 @@
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<PostLikes> PostLikes { get; set; }
-        public DbSet<Follow> Follow{ get; set; }
+        public DbSet<Follow> Follow { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Login>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<PostLikes>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<PostTag>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Like>().HasQueryFilter(x => !x.IsDeleted);
+
             modelBuilder.Entity<Tag>(e =>
             {
                 e.HasIndex(t => t.Name).IsUnique();

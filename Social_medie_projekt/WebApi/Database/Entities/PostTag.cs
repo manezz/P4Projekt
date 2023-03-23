@@ -9,6 +9,9 @@
         [ForeignKey("Tag.TagId")]
         public int TagId { get; set; }
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public Post? Post { get; set; }
 
         public Tag? Tag { get; set; }

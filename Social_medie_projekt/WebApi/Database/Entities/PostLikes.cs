@@ -9,6 +9,9 @@
         [Column(TypeName = "int")]
         public int Likes { get; set; } = 0;
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public Post? Post { get; set; }
     }
 }

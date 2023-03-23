@@ -14,6 +14,9 @@
         [Column(TypeName = "int")]
         public Role Role { get; set; }
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public User? User { get; set; }
     }
 }

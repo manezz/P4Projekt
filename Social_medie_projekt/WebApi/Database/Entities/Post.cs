@@ -17,6 +17,9 @@
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public PostLikes? PostLikes { get; set; }
 
         public User? User { get; set; }

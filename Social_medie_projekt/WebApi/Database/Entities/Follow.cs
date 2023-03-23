@@ -9,6 +9,9 @@
         [ForeignKey("User.UserId")]
         public int FollowingId { get; set; }
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public User? User { get; set; }
 
     }

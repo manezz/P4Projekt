@@ -21,7 +21,8 @@ namespace WebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Email = table.Column<string>(type: "nvarchar(32)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(32)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false)
+                    Role = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,7 +50,8 @@ namespace WebApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(32)", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime", nullable: false),
-                    LoginId = table.Column<int>(type: "int", nullable: false)
+                    LoginId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +69,8 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    FollowingId = table.Column<int>(type: "int", nullable: false)
+                    FollowingId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +92,8 @@ namespace WebApi.Migrations
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Desc = table.Column<string>(type: "nvarchar(1000)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -107,7 +111,8 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false)
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -130,7 +135,8 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    Likes = table.Column<int>(type: "int", nullable: false)
+                    Likes = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -148,7 +154,8 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,12 +176,12 @@ namespace WebApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "Login",
-                columns: new[] { "LoginId", "Email", "Password", "Role" },
+                columns: new[] { "LoginId", "Email", "IsDeleted", "Password", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Test1@mail.dk", "password", 0 },
-                    { 2, "Test2@mail.dk", "password", 1 },
-                    { 3, "Test3@mail.dk", "password", 1 }
+                    { 1, "Test1@mail.dk", false, "password", 0 },
+                    { 2, "Test2@mail.dk", false, "password", 1 },
+                    { 3, "Test3@mail.dk", false, "password", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -189,50 +196,50 @@ namespace WebApi.Migrations
 
             migrationBuilder.InsertData(
                 table: "User",
-                columns: new[] { "UserId", "Created", "LoginId", "UserName" },
+                columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 21, 10, 44, 54, 995, DateTimeKind.Local).AddTicks(6740), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 21, 10, 44, 54, 995, DateTimeKind.Local).AddTicks(6744), 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 21, 10, 44, 54, 995, DateTimeKind.Local).AddTicks(6747), 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5820), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5824), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5828), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Follow",
-                columns: new[] { "FollowingId", "UserId" },
+                columns: new[] { "FollowingId", "UserId", "IsDeleted" },
                 values: new object[,]
                 {
-                    { 2, 1 },
-                    { 1, 2 }
+                    { 2, 1, false },
+                    { 1, 2, false }
                 });
 
             migrationBuilder.InsertData(
                 table: "Post",
-                columns: new[] { "PostId", "Date", "Desc", "Title", "UserId" },
+                columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 21, 10, 44, 54, 995, DateTimeKind.Local).AddTicks(6773), "tadnawdnada", "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 21, 10, 44, 54, 995, DateTimeKind.Local).AddTicks(6776), "Woooooo!", "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5854), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5857), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "PostLikes",
-                columns: new[] { "PostId", "Likes" },
+                columns: new[] { "PostId", "IsDeleted", "Likes" },
                 values: new object[,]
                 {
-                    { 1, 2 },
-                    { 2, 2 }
+                    { 1, false, 2 },
+                    { 2, false, 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "PostTag",
-                columns: new[] { "PostId", "TagId" },
+                columns: new[] { "PostId", "TagId", "IsDeleted" },
                 values: new object[,]
                 {
-                    { 1, 1 },
-                    { 1, 2 },
-                    { 1, 3 },
-                    { 2, 3 }
+                    { 1, 1, false },
+                    { 1, 2, false },
+                    { 1, 3, false },
+                    { 2, 3, false }
                 });
 
             migrationBuilder.CreateIndex(
