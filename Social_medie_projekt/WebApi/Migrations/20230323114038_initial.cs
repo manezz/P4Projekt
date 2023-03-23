@@ -199,9 +199,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5820), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5824), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5828), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3639), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3642), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3645), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -218,8 +218,19 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5854), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5857), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3703), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3707), "Woooooo!", false, "Test!", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Like",
+                columns: new[] { "PostId", "UserId", "IsDeleted" },
+                values: new object[,]
+                {
+                    { 1, 1, false },
+                    { 2, 1, false },
+                    { 1, 2, false },
+                    { 2, 2, false }
                 });
 
             migrationBuilder.InsertData(

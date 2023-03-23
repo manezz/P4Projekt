@@ -131,6 +131,28 @@
                     Likes = 2
                 });
 
+            modelBuilder.Entity<Like>().HasData(
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 1,
+                },
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 2,
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 1,
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 2,
+                });
+
             modelBuilder.Entity<Tag>().HasData(
                 new Tag
                 {

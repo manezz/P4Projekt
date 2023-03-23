@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230323100616_initial")]
+    [Migration("20230323114038_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -73,6 +73,32 @@ namespace WebApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Like");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            PostId = 1,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            PostId = 2,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 1,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 2,
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
@@ -163,7 +189,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5854),
+                            Date = new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3703),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -172,7 +198,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5857),
+                            Date = new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3707),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -323,7 +349,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5820),
+                            Created = new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3639),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -331,7 +357,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5824),
+                            Created = new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3642),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -339,7 +365,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 23, 11, 6, 16, 245, DateTimeKind.Local).AddTicks(5828),
+                            Created = new DateTime(2023, 3, 23, 12, 40, 38, 166, DateTimeKind.Local).AddTicks(3645),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
