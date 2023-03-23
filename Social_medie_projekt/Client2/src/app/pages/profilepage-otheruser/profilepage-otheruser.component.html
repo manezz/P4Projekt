@@ -10,5 +10,7 @@
   <!-- Skal være links der ændrer hvilke posts der vises (mellem alle brugerens posts / alle de post brugeren har liket) -->
   <p>likes</p>
   <p>chat</p>
+  <button (click)="getFollow()" id="follow">follow</button>
+  <!-- <button (click)="unFollow()" id="follow">unfollow</button> -->
 </mat-sidenav>
 <app-post [posts]="posts"/>
