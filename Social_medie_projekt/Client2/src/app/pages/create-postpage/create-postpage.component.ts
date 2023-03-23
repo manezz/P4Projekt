@@ -65,7 +65,7 @@ export class CreatePostPageComponent implements OnInit {
       error: (err) => {
         console.warn(Object.values(err.error.errors).join(', '))
       },
-    });
+    })
   }
 
   cancel() {

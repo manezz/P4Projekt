@@ -20,7 +20,6 @@ import { LikeService } from '../../_services/like.service';
         background-color: rgb(211, 211, 211);
         cursor: pointer;
       }
-      /* skal konstant være ændret hvis en post er liked */
       #like:focus {
         color: white;
       }
