@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { Like } from '../_models/like';
-import { AuthService } from '../_services/auth.service';
-import { LikeService } from '../_services/like.service';
+import { Like } from '../../_models/like';
+import { AuthService } from '../../_services/auth.service';
+import { LikeService } from '../../_services/like.service';
 
 @Component({
   selector: 'app-like',
@@ -50,15 +50,15 @@ export class LikeComponent {
 
   constructor(private auth: AuthService, private likeService: LikeService) {}
 
-  likeDislikePost = (): any => {
+  likeDislikePost(): void {
     if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
       this.dislikePost();
     } else {
       this.likePost();
     }
-  };
+  }
 
-  likePost = (): any => {
+  likePost(): void {
     this.like = {
       userId: this.auth.CurrentUserValue.user?.userId!,
       postId: this.postPostId,
@@ -70,9 +70,9 @@ export class LikeComponent {
       },
     });
     this.likeUserId = this.auth.CurrentUserValue.user?.userId;
-  };
+  }
 
-  dislikePost = (): any => {
+  dislikePost(): void {
     this.likeService
       .deleteLike(this.auth.CurrentUserValue.user?.userId!, this.postPostId)
       .subscribe({
@@ -81,14 +81,14 @@ export class LikeComponent {
         },
       });
     this.likeUserId = null;
-  };
+  }
 
-  liked = (): string => {
+  liked(): string {
     let className = '';
 
     if (this.likeUserId === this.auth.CurrentUserValue.user?.userId) {
       className = 'liked';
     }
     return className;
-  };
+  }
 }

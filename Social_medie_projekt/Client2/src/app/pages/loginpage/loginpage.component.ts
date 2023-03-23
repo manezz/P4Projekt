@@ -51,8 +51,8 @@ export class LoginpageComponent {
           document.getElementById('Password')!.style.borderColor = 'red'
 
           if (err.error.status == 400) {
-            console.log('Indtast brugernavn og kodeord')
-            console.log(err.message)
+            console.log('Indtast brugernavn og kodeord');
+            console.log(err.message);
           }
           if (err.error.status == 401) {
             console.log('Forkert brugernavn eller kodeord')

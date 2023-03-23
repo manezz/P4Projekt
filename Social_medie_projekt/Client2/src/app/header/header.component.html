@@ -8,8 +8,19 @@
       />
     </div>
     <div class="linkRight">
-      <a [routerLink]="['/profile', this.currentUser.user.userId]" routerLinkActive="active" *ngIf="currentUser != null" >Profile</a>
-      <a routerLink="/" routerLinkActive="active" *ngIf="currentUser != null" (click)="logOut()" >Logout</a>
+      <a
+        [routerLink]="['/profile']"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        >Profile</a
+      >
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        (click)="logOut()"
+        >Logout</a
+      >
     </div>
   </div>
 </nav>

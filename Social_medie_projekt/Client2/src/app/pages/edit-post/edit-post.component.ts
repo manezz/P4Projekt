@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../_services/auth.service';
+import { AuthService } from '../../_services/auth.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { PostService } from '../_services/post.service';
-import { Post } from '../_models/post';
+import { PostService } from '../../_services/post.service';
+import { Post } from '../../_models/post';
+import { Tag } from 'src/app/_models/tag';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -14,7 +15,7 @@ import { MatInputModule } from '@angular/material/input';
   templateUrl: 'edit-post.component.html',
   styleUrls: ['edit-post.component.css'],
 })
-export class EditPostComponent {
+export class EditPostComponent implements OnInit {
   currentUser: any = {};
   postForm: FormGroup = this.resetForm();
   post: Post = this.resetPost();
@@ -29,31 +30,46 @@ export class EditPostComponent {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.authService.currentUser.subscribe((x) => (this.currentUser = x));
     this.route.params.subscribe((params) => {
-      this.postService
-        .GetPostByPostId(params['postId'])
-        .subscribe((x) => (this.post = x));
+      this.postService.GetPostByPostId(params['postId']).subscribe((x) => {
+        (this.post = x), this.insertValues();
+      });
     });
-    this.insertValues();
   }
 
-  insertValues() {
-    (<HTMLInputElement>document.getElementById('title')).value =
-      this.post.title;
-    (<HTMLInputElement>document.getElementById('content')).value =
-      this.post.desc;
-    // (<HTMLInputElement>document.getElementById('tags')).value = this.post.tags;
+  tagNames(): string {
+    let val: string[] = [];
+    this.post.tags?.forEach((e: Tag) => {
+      val.push(e.name);
+    });
+    return val.toString();
   }
 
-  edit() {
+  insertValues(): void {
+    this.postForm.setValue({
+      Title: this.post.title,
+      Content: this.post.desc,
+      Tags: this.tagNames(),
+    });
+  }
+
+  newTags(): Tag[] {
+    let splitTags: Tag[] = [];
+    this.postForm.value.Tags.split(',').forEach((e: any) => {
+      splitTags.push({ name: e });
+    });
+    return splitTags;
+  }
+
+  edit(): void {
     if (!this.postForm.pristine) {
       this.post = {
         postId: this.post.postId,
         title: this.postForm.value.Title,
         desc: this.postForm.value.Content,
-        tags: this.postForm.value.Tags,
+        tags: this.newTags(),
       };
 
       this.postService.editPost(this.post).subscribe();
@@ -67,7 +83,7 @@ export class EditPostComponent {
     }
   }
 
-  delete(postId: number) {
+  delete(postId: number): void {
     if (confirm('Are you sure you want to delete this post?')) {
       this.postService.deletePost(postId).subscribe({
         next: (x) => {
@@ -97,7 +113,7 @@ export class EditPostComponent {
     };
   }
 
-  resetForm() {
+  resetForm(): FormGroup {
     return new FormGroup({
       Title: new FormControl(''),
       Content: new FormControl(''),
