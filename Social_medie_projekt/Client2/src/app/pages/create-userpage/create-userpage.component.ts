@@ -6,13 +6,15 @@ import { Login } from '../../_models/login';
 import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../_services/auth.service';
 import { FormGroup, FormsModule, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+// import { MatDialog } from '@angular/material/dialog';
 // import { SuccessPopup } from './createPagePopup';
 
 @Component({
   selector: 'app-createUserpage',
+  standalone: true,
   templateUrl: "create-userpage.component.html",
   styleUrls: ["create-userpage.component.css"],
+  imports: [CommonModule, ReactiveFormsModule],
   
 })
 export class CreateUserPageComponent implements OnInit {
@@ -21,8 +23,7 @@ export class CreateUserPageComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private AppComponent: AppComponent,
-    public dialog: MatDialog
+    private AppComponent: AppComponent
   ) {}
 
   errors = '';
@@ -70,14 +71,6 @@ export class CreateUserPageComponent implements OnInit {
       next: (x) => {
         this.logins.push(x);
 
-        // opens popup window
-        // this.dialog.open(SuccessPopup, {
-        //   width: '750px',
-        //   height: '400px',
-        //   panelClass: 'dialog-container',
-        //   position: { left: '30%', top: '-600px' },
-        // });
-
         // user gets logged in right away
         this.auth
           .login(this.userForm.value.Email, this.userForm.value.Password)
@@ -109,14 +102,4 @@ export class CreateUserPageComponent implements OnInit {
     document.getElementById('Email')!.style.borderColor = 'black';
     document.getElementById('Password')!.style.borderColor = 'black';
   }
-
-  // popup() {
-  //   // opens popup window
-  //   this.dialog.open(SuccessPopup, {
-  //     width: '750px',
-  //     height: '400px',
-  //     panelClass: 'dialog-container',
-  //     position: { left: '30%', top: '-600px' },
-  //   });
-  // }
 }

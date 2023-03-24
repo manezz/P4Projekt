@@ -2,6 +2,7 @@
     <button type="button" id="back" routerLink="">back</button>
     <img src="/assets/images/socialmachine.png" width="400px" />
     <p>Create your user!</p>
+
     <form [formGroup]="userForm" class="form" (ngSubmit)="create()">
       <div class="formControl">
         <label>Username</label>
@@ -16,8 +17,8 @@
         <input type="password" id="Password" formControlName="Password" />
       </div>
       <div class="buttonDiv">
-        <button [disabled]="!userForm.valid" type="submit" id="createBtn">Create</button>
-        <button type="button" (click)="cancel()" id="createBtn">Cancel</button>
+        <button type="submit" [disabled]="!userForm.valid" id="createBtn">Create</button>
+        <button type="button" (click)="cancel()" id="cancel">Cancel</button>
       </div>
     </form>
   </div>

@@ -11,3 +11,18 @@ mat-sidenav {
   border-left: none;
   height: calc(260vh);
 }
+
+button{
+  display: block;
+  text-align: center;
+  border: none;
+  margin: 8px auto 8px auto;
+}
+
+button:hover{
+  border: 1px solid white;
+  border-left: none;
+  border-right: none;
+  border-radius: 10%;
+  cursor: pointer;
+}
