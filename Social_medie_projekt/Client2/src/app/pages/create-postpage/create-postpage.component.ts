@@ -63,9 +63,9 @@ export class CreatePostPageComponent implements OnInit {
         this.postForm = this.resetForm();
       },
       error: (err) => {
-        console.warn(Object.values(err.error.errors).join(', '));
+        console.warn(Object.values(err.error.errors).join(', '))
       },
-    });
+    })
   }
 
   cancel() {
