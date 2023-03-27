@@ -13,6 +13,44 @@
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
 
+        public override int SaveChanges()
+        {
+            HandleDelete();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            HandleDelete();
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void HandleDelete()
+        {
+            foreach (var entity in ChangeTracker.Entries()
+                .Where(x => x.State == EntityState.Deleted))
+            {
+                entity.State = EntityState.Modified;
+                entity.CurrentValues["IsDeleted"] = true;
+            }
+
+            //var entities = ChangeTracker.Entries<ISoftDeleteble>()
+            //    .Where(x => x.State == EntityState.Deleted);
+
+            //foreach (var entity in entities)
+            //{
+            //    entity.State = EntityState.Modified;
+            //    entity.CurrentValues["IsDeleted"] = true;
+
+            //    //if (entity.Entity is User)
+            //    //{
+            //    //    entity.State = EntityState.Modified;
+            //    //    var e = entity.Entity as User;
+            //    //    e.IsDeleted = true;
+            //    //}
+            //}
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
