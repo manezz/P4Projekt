@@ -22,9 +22,8 @@ import { PostComponent } from '../post/post.component';
   styleUrls: ['profilepage.component.css'],
 })
 export class ProfilepageComponent implements OnInit {
-  currentUser: any = {};
-  posts: Post[] = [];
-  clicked: any;
+  currentUser: any = {}
+  posts: Post[] = []
 
   constructor(
     private postService: PostService,
@@ -32,9 +31,9 @@ export class ProfilepageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe((x) => (this.currentUser = x));
+    this.authService.currentUser.subscribe(x => this.currentUser = x)
     this.postService
       .GetPostByUserId(this.currentUser.user.userId)
-      .subscribe((x) => (this.posts = x));
+      .subscribe(x => this.posts = x)
   }
 }

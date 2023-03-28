@@ -8,7 +8,8 @@
   <p>{{ this.user.userName }}</p>
   ___________
   <!-- Skal være links der ændrer hvilke posts der vises (mellem alle brugerens posts / alle de post brugeren har liket) -->
-  <p>likes</p>
-  <p>chat</p>
+  <button (click)="getFollow()" id="followBtn"></button>
+  <button>likes</button>
+  <button>chat</button>
 </mat-sidenav>
 <app-post [posts]="posts"/>
