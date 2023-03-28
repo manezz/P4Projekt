@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    public class Post
+    public class Post : ISoftDelete
     {
         [Key]
         public int PostId { get; set; }

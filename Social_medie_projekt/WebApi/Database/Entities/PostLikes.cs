@@ -1,7 +1,7 @@
 ﻿namespace WebApi.Database.Entities
 {
     [PrimaryKey(nameof(PostId))]
-    public class PostLikes
+    public class PostLikes : ISoftDelete
     {
         [ForeignKey("Post.PostId")]
         public int PostId { get; set; }

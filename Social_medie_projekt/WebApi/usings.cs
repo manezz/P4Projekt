@@ -11,6 +11,7 @@ global using System.Text;
 global using WebApi.Authorization;
 global using WebApi.Database;
 global using WebApi.Database.Entities;
+global using WebApi.Database.Entities.Interfaces;
 global using WebApi.DTOs;
 global using WebApi.Helpers;
 global using WebApi.Repository;

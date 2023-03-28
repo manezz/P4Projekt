@@ -1,7 +1,7 @@
 ﻿namespace WebApi.Database.Entities
 {
     [PrimaryKey(nameof(UserId), nameof(PostId))]
-    public class Like
+    public class Like : ISoftDelete
     {
         [ForeignKey("User.UserId")]
         public int UserId { get; set; }

@@ -27,28 +27,12 @@
 
         private void HandleDelete()
         {
-            foreach (var entity in ChangeTracker.Entries()
+            foreach (var entity in ChangeTracker.Entries<ISoftDelete>()
                 .Where(x => x.State == EntityState.Deleted))
             {
                 entity.State = EntityState.Modified;
                 entity.CurrentValues["IsDeleted"] = true;
             }
-
-            //var entities = ChangeTracker.Entries<ISoftDeleteble>()
-            //    .Where(x => x.State == EntityState.Deleted);
-
-            //foreach (var entity in entities)
-            //{
-            //    entity.State = EntityState.Modified;
-            //    entity.CurrentValues["IsDeleted"] = true;
-
-            //    //if (entity.Entity is User)
-            //    //{
-            //    //    entity.State = EntityState.Modified;
-            //    //    var e = entity.Entity as User;
-            //    //    e.IsDeleted = true;
-            //    //}
-            //}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

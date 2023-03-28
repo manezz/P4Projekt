@@ -1,7 +1,7 @@
 ﻿namespace WebApi.Database.Entities
 {
     [PrimaryKey(nameof(UserId), nameof(FollowingId))]
-    public class Follow
+    public class Follow : ISoftDelete
     {
         [ForeignKey("User.UserId")]
         public int UserId { get; set; }

@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    public class Login
+    public class Login : ISoftDelete
     {
         [Key]
         public int LoginId { get; set; }
