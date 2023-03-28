@@ -106,6 +106,24 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserImage",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserImage", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserImage_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Like",
                 columns: table => new
                 {
@@ -195,9 +213,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(438), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(442), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(445), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(520), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(524), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(528), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -214,8 +232,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(467), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(470), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(550), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(553), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -296,6 +314,9 @@ namespace WebApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "PostTag");
+
+            migrationBuilder.DropTable(
+                name: "UserImage");
 
             migrationBuilder.DropTable(
                 name: "Post");

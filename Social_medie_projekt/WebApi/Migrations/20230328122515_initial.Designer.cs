@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230328104044_initial")]
+    [Migration("20230328122515_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -177,7 +177,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(467),
+                            Date = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(550),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -186,7 +186,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(470),
+                            Date = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(553),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -325,7 +325,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(438),
+                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(520),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -333,7 +333,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(442),
+                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(524),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -341,11 +341,24 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(445),
+                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(528),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
                         });
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.UserImage", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("Image")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserImage");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
@@ -430,6 +443,17 @@ namespace WebApi.Migrations
                     b.Navigation("Login");
                 });
 
+            modelBuilder.Entity("WebApi.Database.Entities.UserImage", b =>
+                {
+                    b.HasOne("WebApi.Database.Entities.User", "User")
+                        .WithOne("Image")
+                        .HasForeignKey("WebApi.Database.Entities.UserImage", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
                     b.Navigation("User");
@@ -443,6 +467,8 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
                     b.Navigation("Follow");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Posts");
                 });
