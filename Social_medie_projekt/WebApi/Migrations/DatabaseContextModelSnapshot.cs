@@ -62,6 +62,28 @@ namespace WebApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Like");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            PostId = 1
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            PostId = 2
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            PostId = 2
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
@@ -75,6 +97,9 @@ namespace WebApi.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(32)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -92,6 +117,7 @@ namespace WebApi.Migrations
                         {
                             LoginId = 1,
                             Email = "Test1@mail.dk",
+                            IsDeleted = false,
                             Password = "password",
                             Role = 0
                         },
@@ -99,6 +125,7 @@ namespace WebApi.Migrations
                         {
                             LoginId = 2,
                             Email = "Test2@mail.dk",
+                            IsDeleted = false,
                             Password = "password",
                             Role = 1
                         },
@@ -106,6 +133,7 @@ namespace WebApi.Migrations
                         {
                             LoginId = 3,
                             Email = "Test3@mail.dk",
+                            IsDeleted = false,
                             Password = "password",
                             Role = 1
                         });
@@ -126,6 +154,9 @@ namespace WebApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -143,16 +174,18 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9075),
+                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(467),
                             Desc = "tadnawdnada",
+                            IsDeleted = false,
                             Title = "testestestest",
                             UserId = 1
                         },
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9078),
+                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(470),
                             Desc = "Woooooo!",
+                            IsDeleted = false,
                             Title = "Test!",
                             UserId = 2
                         });
@@ -268,6 +301,9 @@ namespace WebApi.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LoginId")
                         .HasColumnType("int");
 
@@ -286,21 +322,24 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9045),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(438),
+                            IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9049),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(442),
+                            IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
                         },
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9051),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(445),
+                            IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
                         });

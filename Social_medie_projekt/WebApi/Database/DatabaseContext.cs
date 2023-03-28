@@ -9,12 +9,48 @@
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<PostLikes> PostLikes { get; set; }
-        public DbSet<Follow> Follow{ get; set; }
+        public DbSet<Follow> Follow { get; set; }
         public DbSet<Tag> Tag { get; set; }
         public DbSet<PostTag> PostTag { get; set; }
 
+        public override int SaveChanges()
+        {
+            HandleDelete();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            HandleDelete();
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        private void HandleDelete()
+        {
+            foreach (var entity in ChangeTracker.Entries<ISoftDelete>()
+                .Where(x => x.State == EntityState.Deleted))
+            {
+                entity.State = EntityState.Modified;
+                entity.CurrentValues["IsDeleted"] = true;
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Login>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<PostLikes>().HasQueryFilter(x => !x.Post.IsDeleted);
+
+            modelBuilder.Entity<Like>().HasQueryFilter(x => !x.Post.IsDeleted);
+
+            modelBuilder.Entity<PostTag>().HasQueryFilter(x => !x.Post.IsDeleted);
+
+            modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.User.IsDeleted);
+
             modelBuilder.Entity<Tag>(e =>
             {
                 e.HasIndex(t => t.Name).IsUnique();
@@ -115,6 +151,28 @@
                 {
                     PostId = 2,
                     Likes = 2
+                });
+
+            modelBuilder.Entity<Like>().HasData(
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 1,
+                },
+                new Like
+                {
+                    UserId = 1,
+                    PostId = 2,
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 1,
+                },
+                new Like
+                {
+                    UserId = 2,
+                    PostId = 2,
                 });
 
             modelBuilder.Entity<Tag>().HasData(

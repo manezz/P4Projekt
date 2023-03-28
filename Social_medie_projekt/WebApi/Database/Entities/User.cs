@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    public class User
+    public class User : ISoftDelete
     {
         [Key]
         public int UserId { get; set; }
@@ -14,11 +14,13 @@
         [ForeignKey("Login.LoginId")]
         public int LoginId { get; set; }
 
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
+
         public Login? Login { get; set; }
 
         public List<Post>? Posts { get; set; } = new();
 
         public List<Follow>? Follow { get; set; } = new();
-
-  }
+    }
 }

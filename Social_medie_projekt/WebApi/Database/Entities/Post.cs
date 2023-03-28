@@ -1,6 +1,6 @@
 ﻿namespace WebApi.Database.Entities
 {
-    public class Post
+    public class Post : ISoftDelete
     {
         [Key]
         public int PostId { get; set; }
@@ -16,6 +16,9 @@
 
         [Column(TypeName = "datetime")]
         public DateTime Date { get; set; } = DateTime.Now;
+
+        [Column(TypeName = "bit")]
+        public bool IsDeleted { get; set; }
 
         public PostLikes? PostLikes { get; set; }
 
