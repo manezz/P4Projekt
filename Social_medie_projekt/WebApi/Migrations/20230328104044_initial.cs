@@ -195,15 +195,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230328085655_initial.cs
-                    { 1, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5825), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5829), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5832), false, 3, "user 3" }
-========
-                    { 1, new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9045), 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9049), 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9051), 3, "user 3" }
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230323072614_initial.cs
+                    { 1, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(438), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(442), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(445), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -220,9 +214,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-<<<<<<<< HEAD:Social_medie_projekt/WebApi/Migrations/20230328085655_initial.cs
-                    { 1, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5855), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5859), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(467), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(470), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -234,10 +227,6 @@ namespace WebApi.Migrations
                     { 2, 1 },
                     { 1, 2 },
                     { 2, 2 }
-========
-                    { 1, new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9075), "tadnawdnada", "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9078), "Woooooo!", "Test!", 2 }
->>>>>>>> origin/dev:Social_medie_projekt/WebApi/Migrations/20230323072614_initial.cs
                 });
 
             migrationBuilder.InsertData(

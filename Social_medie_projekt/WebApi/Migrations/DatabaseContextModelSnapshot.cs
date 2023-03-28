@@ -174,11 +174,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-<<<<<<< HEAD
-                            Date = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5855),
-=======
-                            Date = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9075),
->>>>>>> origin/dev
+                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(467),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -187,11 +183,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-<<<<<<< HEAD
-                            Date = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5859),
-=======
-                            Date = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9078),
->>>>>>> origin/dev
+                            Date = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(470),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -330,36 +322,24 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-<<<<<<< HEAD
-                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5825),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(438),
                             IsDeleted = false,
-=======
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9045),
->>>>>>> origin/dev
                             LoginId = 1,
                             UserName = "tester 1"
                         },
                         new
                         {
                             UserId = 2,
-<<<<<<< HEAD
-                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5829),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(442),
                             IsDeleted = false,
-=======
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9049),
->>>>>>> origin/dev
                             LoginId = 2,
                             UserName = "222test222"
                         },
                         new
                         {
                             UserId = 3,
-<<<<<<< HEAD
-                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5832),
+                            Created = new DateTime(2023, 3, 28, 12, 40, 44, 532, DateTimeKind.Local).AddTicks(445),
                             IsDeleted = false,
-=======
-                            Created = new DateTime(2023, 3, 23, 8, 26, 14, 482, DateTimeKind.Local).AddTicks(9051),
->>>>>>> origin/dev
                             LoginId = 3,
                             UserName = "user 3"
                         });
