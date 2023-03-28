@@ -69,8 +69,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    FollowingId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    FollowingId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,8 +110,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    PostId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    PostId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,8 +133,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    Likes = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Likes = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,8 +151,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     PostId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    TagId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,18 +195,18 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3334), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3338), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3341), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5825), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5829), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5832), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Follow",
-                columns: new[] { "FollowingId", "UserId", "IsDeleted" },
+                columns: new[] { "FollowingId", "UserId" },
                 values: new object[,]
                 {
-                    { 2, 1, false },
-                    { 1, 2, false }
+                    { 2, 1 },
+                    { 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -218,39 +214,39 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3401), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3404), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5855), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5859), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Like",
-                columns: new[] { "PostId", "UserId", "IsDeleted" },
+                columns: new[] { "PostId", "UserId" },
                 values: new object[,]
                 {
-                    { 1, 1, false },
-                    { 2, 1, false },
-                    { 1, 2, false },
-                    { 2, 2, false }
+                    { 1, 1 },
+                    { 2, 1 },
+                    { 1, 2 },
+                    { 2, 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "PostLikes",
-                columns: new[] { "PostId", "IsDeleted", "Likes" },
+                columns: new[] { "PostId", "Likes" },
                 values: new object[,]
                 {
-                    { 1, false, 2 },
-                    { 2, false, 2 }
+                    { 1, 2 },
+                    { 2, 2 }
                 });
 
             migrationBuilder.InsertData(
                 table: "PostTag",
-                columns: new[] { "PostId", "TagId", "IsDeleted" },
+                columns: new[] { "PostId", "TagId" },
                 values: new object[,]
                 {
-                    { 1, 1, false },
-                    { 1, 2, false },
-                    { 1, 3, false },
-                    { 2, 3, false }
+                    { 1, 1 },
+                    { 1, 2 },
+                    { 1, 3 },
+                    { 2, 3 }
                 });
 
             migrationBuilder.CreateIndex(

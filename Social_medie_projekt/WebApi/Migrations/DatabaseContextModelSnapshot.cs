@@ -30,9 +30,6 @@ namespace WebApi.Migrations
                     b.Property<int>("FollowingId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("UserId", "FollowingId");
 
                     b.ToTable("Follow");
@@ -41,14 +38,12 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            FollowingId = 2,
-                            IsDeleted = false
+                            FollowingId = 2
                         },
                         new
                         {
                             UserId = 2,
-                            FollowingId = 1,
-                            IsDeleted = false
+                            FollowingId = 1
                         });
                 });
 
@@ -59,9 +54,6 @@ namespace WebApi.Migrations
 
                     b.Property<int>("PostId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.HasKey("UserId", "PostId");
 
@@ -75,26 +67,22 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            PostId = 1,
-                            IsDeleted = false
+                            PostId = 1
                         },
                         new
                         {
                             UserId = 1,
-                            PostId = 2,
-                            IsDeleted = false
+                            PostId = 2
                         },
                         new
                         {
                             UserId = 2,
-                            PostId = 1,
-                            IsDeleted = false
+                            PostId = 1
                         },
                         new
                         {
                             UserId = 2,
-                            PostId = 2,
-                            IsDeleted = false
+                            PostId = 2
                         });
                 });
 
@@ -186,7 +174,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3401),
+                            Date = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5855),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -195,7 +183,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3404),
+                            Date = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5859),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -208,9 +196,6 @@ namespace WebApi.Migrations
                     b.Property<int>("PostId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
@@ -222,13 +207,11 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            IsDeleted = false,
                             Likes = 2
                         },
                         new
                         {
                             PostId = 2,
-                            IsDeleted = false,
                             Likes = 2
                         });
                 });
@@ -241,9 +224,6 @@ namespace WebApi.Migrations
                     b.Property<int>("TagId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.HasKey("PostId", "TagId");
 
                     b.HasIndex("TagId");
@@ -254,26 +234,22 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            TagId = 1,
-                            IsDeleted = false
+                            TagId = 1
                         },
                         new
                         {
                             PostId = 1,
-                            TagId = 2,
-                            IsDeleted = false
+                            TagId = 2
                         },
                         new
                         {
                             PostId = 1,
-                            TagId = 3,
-                            IsDeleted = false
+                            TagId = 3
                         },
                         new
                         {
                             PostId = 2,
-                            TagId = 3,
-                            IsDeleted = false
+                            TagId = 3
                         });
                 });
 
@@ -346,7 +322,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3334),
+                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5825),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -354,7 +330,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3338),
+                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5829),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -362,7 +338,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 28, 9, 42, 57, 24, DateTimeKind.Local).AddTicks(3341),
+                            Created = new DateTime(2023, 3, 28, 10, 56, 55, 762, DateTimeKind.Local).AddTicks(5832),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"

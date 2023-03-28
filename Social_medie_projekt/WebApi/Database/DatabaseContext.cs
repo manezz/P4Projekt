@@ -37,19 +37,19 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
-
             modelBuilder.Entity<Login>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
 
             modelBuilder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
 
-            modelBuilder.Entity<PostLikes>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<PostLikes>().HasQueryFilter(x => !x.Post.IsDeleted);
 
-            modelBuilder.Entity<PostTag>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<Like>().HasQueryFilter(x => !x.Post.IsDeleted);
 
-            modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<PostTag>().HasQueryFilter(x => !x.Post.IsDeleted);
 
-            modelBuilder.Entity<Like>().HasQueryFilter(x => !x.IsDeleted);
+            modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.User.IsDeleted);
 
             modelBuilder.Entity<Tag>(e =>
             {
