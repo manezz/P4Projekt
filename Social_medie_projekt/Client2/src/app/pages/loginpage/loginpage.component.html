@@ -1,0 +1,19 @@
+<div class="body">
+  <img src="/assets/images/socialmachine.png" width="600" />
+
+  <form [formGroup]="userForm" class="form" (ngSubmit)="login()">
+    <div class="formControl">
+      <label>Email</label>
+      <input type="text" id="Email" formControlName="Email" />
+    </div>
+    <div class="formControl">
+      <label>Password</label>
+      <input type="password" id="Password" formControlName="Password" />
+    </div>
+    
+    <div class="buttonDiv">
+      <button type="submit">Login</button>
+      <button class="right" routerLink="/createuser">Create new user</button>
+    </div>
+  </form>
+</div>

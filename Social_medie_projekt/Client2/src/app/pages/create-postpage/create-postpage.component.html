@@ -1,0 +1,46 @@
+<div class="body">
+  <div class="post">
+    <form [formGroup]="postForm" id="form">
+      <div class="formControl">
+        <textarea
+          type="text"
+          id="title"
+          formControlName="Title"
+          maxlength="100"
+          (keyup)="titleMaxLenght($event)"
+          placeholder="Title"
+        ></textarea>
+        <span id="titleCharLenght">{{ titleCharLenght }}</span>
+      </div>
+
+      <div class="formControl">
+        <textarea
+          id="content"
+          formControlName="Content"
+          maxlength="1000"
+          (keyup)="contentMaxLenght($event)"
+          placeholder="Write about anything ..."
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMaxRows="20"
+        >
+        </textarea>
+        <span id="contentCharLenght">{{ contentCharLenght }}</span>
+      </div>
+
+      <div class="formControl">
+        <input type="text" id="tags" formControlName="Tags" placeholder="#Tags,"/>
+      </div>
+
+      <div class="buttonDiv">
+        <button id="createBtn" (click)="create()">Create!</button>
+      </div>
+
+      <div class="buttonDiv">
+        <button id="expandBtn" (click)="expandDiv()">+</button>
+        <button id="cancelBtn" (click)="cancel()">🗑</button>
+        <button id="collapseBtn" (click)="collapseDiv()">▲</button>
+      </div>
+    </form>
+  </div>
+</div>

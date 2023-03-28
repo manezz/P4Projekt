@@ -1,0 +1,10 @@
+<mat-sidenav mode="side" opened>
+  <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100"/>
+  <p>{{ this.currentUser.user.userName }}</p>
+  ___________
+  <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
+  <button>likes</button>
+  <button>chat</button>
+</mat-sidenav>
+<app-create-postpage [posts]="posts"/>
+<app-post [posts]="posts"/>

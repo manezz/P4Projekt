@@ -1,0 +1,26 @@
+<nav>
+  <div class="topBar">
+    <div class="linkLeft">
+      <img
+        id="logo"
+        src="/assets/images/socialmachine.png"
+        routerLink="/main"
+      />
+    </div>
+    <div class="linkRight">
+      <a
+        [routerLink]="['/profile']"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        >Profile</a
+      >
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        *ngIf="currentUser != null"
+        (click)="logOut()"
+        >Logout</a
+      >
+    </div>
+  </div>
+</nav>
