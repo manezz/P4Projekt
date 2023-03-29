@@ -7,6 +7,8 @@
         public string UserName { get; set; } = string.Empty;
 
         public UserLogin? Login { get; set; }
+
+        public UserImage? Image { get; set; }
     }
 
     public class UserLogin
@@ -22,5 +24,11 @@
         [Required]
         [StringLength(32, ErrorMessage = "Type can be either 0 for Admin or 1 for User")]
         public Role Role { get; set; }
+    }
+
+    public class UserImage
+    {
+        [Required]
+        public byte[]? Image { get; set; }
     }
 }

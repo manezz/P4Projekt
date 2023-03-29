@@ -10,7 +10,10 @@
 
         public UserLoginResponse Login { get; set; }
 
+        public UserImageResponse? Image { get; set; }
+
         public List<UserPostResponse> Posts { get; set; } = new();
+
         public List<UserFollowResponse> Follow { get; set; } = new();
     }
 
@@ -23,6 +26,11 @@
         public Role Role { get; set; }
     }
 
+    public class UserImageResponse
+    {
+        public byte[]? Image { get; set; }
+    }
+
     public class UserPostResponse
     {
         public int PostId { get; set; }
@@ -30,7 +38,6 @@
         public string Title { get; set; } = string.Empty;
 
         public string Desc { get; set; } = string.Empty;
-        //public string Tags { get; set; } = string.Empty;
 
         public DateTime Date { get; set; }
 
@@ -41,9 +48,11 @@
     {
         public int Likes { get; set; }
     }
+
     public class UserFollowResponse
     {
         public int UserId { get; set; }
+
         public int FollowingId { get; set; }
     }
 }

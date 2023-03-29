@@ -18,8 +18,6 @@
             _followRepository = followRepository;
         }
 
-
-
         private static Follow MapFollowRequestToFollow(FollowRequest followRequest)
         {
             return new Follow
@@ -39,15 +37,11 @@
             };
         }
 
-
-
-
-
         // Creates a new follow relationship
         public async Task<FollowResponse> Follow(FollowRequest newFollow)
         {
             var follow = await _followRepository.Follow(MapFollowRequestToFollow(newFollow));
-            
+
             if (follow == null)
             {
                 throw new ArgumentNullException();
@@ -82,11 +76,6 @@
             return MapFollowToFollowResponse(follow);
         }
 
-
-
-
-
-
         // Find all who follows a user
         public async Task<List<FollowResponse>> FindUsersFollowers(int followingId)
         {
@@ -112,7 +101,5 @@
 
             return follow.Select(follow => MapFollowToFollowResponse(follow)).ToList();
         }
-
-
     }
 }

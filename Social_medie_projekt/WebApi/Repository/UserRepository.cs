@@ -69,8 +69,10 @@
 
             if (user != null)
             {
-                //_context.Remove(user);
-                //await _context.SaveChangesAsync();
+                user.UserName = updatedUser.UserName;
+                user.Image = updatedUser.Image;
+
+                await _context.SaveChangesAsync();
             }
             return user;
 

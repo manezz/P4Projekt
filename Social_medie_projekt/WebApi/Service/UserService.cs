@@ -18,8 +18,6 @@
             _userRepository = userRepository;
         }
 
-
-
         private static User MapUserRequestToUser(UserRequest userRequest)
         {
             return new User
@@ -31,7 +29,6 @@
                     Password = userRequest.Login.Password,
                     Role = userRequest.Login.Role
                 },
-
             };
         }
 
@@ -47,6 +44,10 @@
                     LoginId = user.Login.LoginId,
                     Email = user.Login.Email,
                     Role = user.Login.Role
+                },
+                Image = new UserImageResponse
+                {
+                    Image = user.Image.Image,
                 },
                 Posts = user.Posts.Select(x => new UserPostResponse
                 {
@@ -66,10 +67,6 @@
                 }).ToList()
             };
         }
-
-
-
-
 
         public async Task<UserResponse> FindUserAsync(int id)
         {
@@ -92,10 +89,6 @@
             }
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
-
-
-
-
 
         // Not Used !!! (login/register is used instead)
         public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
@@ -122,17 +115,16 @@
             return null;
         }
 
-        // Maybe used ??? (login/update is used instead MAYBE)
         public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateUserAsync(id, MapUserRequestToUser(updatedUser));
 
-
-            if (user != null)
+            if (user == null)
             {
-                return MapUserToUserResponse(user);
+                throw new ArgumentNullException();
             }
-            return null;
+
+            return MapUserToUserResponse(user);
         }
     }
 }
