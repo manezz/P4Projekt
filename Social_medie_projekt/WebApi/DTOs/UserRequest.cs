@@ -8,7 +8,7 @@
 
         public UserLogin? Login { get; set; }
 
-        public UserImage? Image { get; set; }
+        public UserUserImage? UserImage { get; set; }
     }
 
     public class UserLogin
@@ -26,7 +26,7 @@
         public Role Role { get; set; }
     }
 
-    public class UserImage
+    public class UserUserImage
     {
         [Required]
         public byte[]? Image { get; set; }

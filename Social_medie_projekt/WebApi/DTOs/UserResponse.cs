@@ -10,7 +10,7 @@
 
         public UserLoginResponse Login { get; set; }
 
-        public UserImageResponse? Image { get; set; }
+        public UserUserImageResponse? UserImage { get; set; }
 
         public List<UserPostResponse> Posts { get; set; } = new();
 
@@ -26,7 +26,7 @@
         public Role Role { get; set; }
     }
 
-    public class UserImageResponse
+    public class UserUserImageResponse
     {
         public byte[]? Image { get; set; }
     }

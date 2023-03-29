@@ -70,7 +70,7 @@
             if (user != null)
             {
                 user.UserName = updatedUser.UserName;
-                user.Image = updatedUser.Image;
+                user.UserImage.Image = updatedUser.UserImage.Image;
 
                 await _context.SaveChangesAsync();
             }

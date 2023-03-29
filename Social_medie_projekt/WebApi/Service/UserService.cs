@@ -45,9 +45,9 @@
                     Email = user.Login.Email,
                     Role = user.Login.Role
                 },
-                Image = new UserImageResponse
+                UserImage = new UserUserImageResponse
                 {
-                    Image = user.Image.Image,
+                    Image = user.UserImage.Image,
                 },
                 Posts = user.Posts.Select(x => new UserPostResponse
                 {

@@ -19,7 +19,7 @@
 
         public Login? Login { get; set; }
 
-        public UserImage? Image { get; set; }
+        public UserImage? UserImage { get; set; }
 
         public List<Post>? Posts { get; set; } = new();
 
