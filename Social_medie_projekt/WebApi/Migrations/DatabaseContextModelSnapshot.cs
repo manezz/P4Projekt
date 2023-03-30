@@ -174,7 +174,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(550),
+                            Date = new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3960),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -183,7 +183,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(553),
+                            Date = new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3963),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -322,7 +322,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(520),
+                            Created = new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3919),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -330,7 +330,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(524),
+                            Created = new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3923),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -338,7 +338,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(528),
+                            Created = new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3926),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
@@ -351,11 +351,24 @@ namespace WebApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte[]>("Image")
+                        .IsRequired()
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("UserId");
 
                     b.ToTable("UserImage");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            Image = new byte[0]
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            Image = new byte[0]
+                        });
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
@@ -443,7 +456,7 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.UserImage", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithOne("Image")
+                        .WithOne("UserImage")
                         .HasForeignKey("WebApi.Database.Entities.UserImage", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -465,9 +478,9 @@ namespace WebApi.Migrations
                 {
                     b.Navigation("Follow");
 
-                    b.Navigation("Image");
-
                     b.Navigation("Posts");
+
+                    b.Navigation("UserImage");
                 });
 #pragma warning restore 612, 618
         }

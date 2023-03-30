@@ -110,7 +110,7 @@ namespace WebApi.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -213,9 +213,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(520), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(524), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(528), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3919), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3923), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3926), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,8 +232,17 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(550), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 28, 14, 25, 15, 480, DateTimeKind.Local).AddTicks(553), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3960), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3963), "Woooooo!", false, "Test!", 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "UserImage",
+                columns: new[] { "UserId", "Image" },
+                values: new object[,]
+                {
+                    { 1, new byte[0] },
+                    { 2, new byte[0] }
                 });
 
             migrationBuilder.InsertData(

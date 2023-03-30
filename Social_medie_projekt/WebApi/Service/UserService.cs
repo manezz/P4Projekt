@@ -4,9 +4,9 @@
     {
         Task<List<UserResponse>> GetAllUsers();
         Task<UserResponse> FindUserAsync(int id);
-        Task<UserResponse> CreateUserAsync(UserRequest newUser);
+        //Task<UserResponse> CreateUserAsync(UserRequest newUser);
         Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser);
-        Task<UserResponse> DeleteUserAsync(int id);
+        //Task<UserResponse> DeleteUserAsync(int id);
     }
 
     public class UserService : IUserService
@@ -18,17 +18,29 @@
             _userRepository = userRepository;
         }
 
+        //private static User MapUserRequestToUser(UserRequest userRequest)
+        //{
+        //    return new User
+        //    {
+        //        UserName = userRequest.UserName,
+        //        Login = new()
+        //        {
+        //            Email = userRequest.Login.Email,
+        //            Password = userRequest.Login.Password,
+        //            Role = userRequest.Login.Role
+        //        },
+        //    };
+        //}
+
         private static User MapUserRequestToUser(UserRequest userRequest)
         {
             return new User
             {
                 UserName = userRequest.UserName,
-                Login = new()
+                UserImage = new UserImage
                 {
-                    Email = userRequest.Login.Email,
-                    Password = userRequest.Login.Password,
-                    Role = userRequest.Login.Role
-                },
+                    Image = Convert.FromBase64String(userRequest.UserImage.Image)
+                }
             };
         }
 
@@ -47,7 +59,7 @@
                 },
                 UserImage = new UserUserImageResponse
                 {
-                    Image = user.UserImage.Image,
+                    Image = Convert.ToBase64String(user.UserImage.Image),
                 },
                 Posts = user.Posts.Select(x => new UserPostResponse
                 {
@@ -91,29 +103,29 @@
         }
 
         // Not Used !!! (login/register is used instead)
-        public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
-        {
-            var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
+        //public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
+        //{
+        //    var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
 
-            if (user == null)
-            {
-                throw new ArgumentNullException();
-            }
+        //    if (user == null)
+        //    {
+        //        throw new ArgumentNullException();
+        //    }
 
-            return MapUserToUserResponse(user);
-        }
+        //    return MapUserToUserResponse(user);
+        //  }
 
         // Not Used !!! (login/delete is used instead)
-        public async Task<UserResponse> DeleteUserAsync(int id)
-        {
-            var user = await _userRepository.DeleteUserAsync(id);
+        //public async Task<UserResponse> DeleteUserAsync(int id)
+        //{
+        //    var user = await _userRepository.DeleteUserAsync(id);
 
-            if (user != null)
-            {
-                return MapUserToUserResponse(user);
-            }
-            return null;
-        }
+        //    if (user != null)
+        //    {
+        //        return MapUserToUserResponse(user);
+        //    }
+        //    return null;
+        //}
 
         public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
         {

@@ -57,7 +57,8 @@
                 Password = loginRequest.Password,
                 User = new()
                 {
-                    UserName = loginRequest.User.UserName
+                    UserName = loginRequest.User.UserName,
+                    UserImage = new()
                 }
             };
         }

@@ -50,6 +50,7 @@
                 .Include(p => p.Posts.OrderByDescending(posts => posts.Date))
                 .ThenInclude(x => x.PostLikes)
                 .Include(F => F.Follow)
+                .Include(x => x.UserImage)
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
 
@@ -75,7 +76,6 @@
                 await _context.SaveChangesAsync();
             }
             return user;
-
         }
     }
 }

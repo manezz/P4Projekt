@@ -7,7 +7,7 @@
         public int UserId { get; set; }
 
         [Column(TypeName = "varbinary(max)")]
-        public byte[]? Image { get; set; }
+        public byte[] Image { get; set; } = Array.Empty<byte>();
 
         public User? User { get; set; }
     }

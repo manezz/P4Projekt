@@ -113,6 +113,16 @@
                     Created = DateTime.Now
                 });
 
+            modelBuilder.Entity<UserImage>().HasData(
+                new UserImage
+                {
+                    UserId = 1,
+                },
+                new UserImage
+                {
+                    UserId = 2,
+                });
+
             modelBuilder.Entity<Follow>().HasData(
                 new Follow
                 {
@@ -123,8 +133,7 @@
                 {
                     UserId = 2,
                     FollowingId = 1
-                }
-                );
+                });
 
             modelBuilder.Entity<Post>().HasData(
                 new Post

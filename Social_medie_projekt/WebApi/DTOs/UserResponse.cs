@@ -28,7 +28,7 @@
 
     public class UserUserImageResponse
     {
-        public byte[]? Image { get; set; }
+        public string? Image { get; set; }
     }
 
     public class UserPostResponse

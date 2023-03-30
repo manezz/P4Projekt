@@ -91,7 +91,7 @@
             return post;
         }
 
-        // For updating each post that has/needs a like from likeService
+        // For adding removing a like from the PostLikes count
         public async Task<Post> UpdatePostLikesAsync(int id, int like)
         {
             var post = await GetPostByPostIdAsync(id);

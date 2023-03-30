@@ -59,21 +59,21 @@
             }
         }
 
-        [AllowAnonymous]
-        [HttpPost]
-        public async Task<IActionResult> CreateUserAsync([FromBody] UserRequest newUser)
-        {
-            try
-            {
-                UserResponse userResponse = await _userService.CreateUserAsync(newUser);
+        //[AllowAnonymous]
+        //[HttpPost]
+        //public async Task<IActionResult> CreateUserAsync([FromBody] UserRequest newUser)
+        //{
+        //    try
+        //    {
+        //        UserResponse userResponse = await _userService.CreateUserAsync(newUser);
 
-                return Ok(userResponse);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-            }
-        }
+        //        return Ok(userResponse);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Problem(ex.Message);
+        //    }
+        //}
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
@@ -104,35 +104,35 @@
             }
         }
 
-        [Authorize(Role.User, Role.Admin)]
-        [HttpDelete]
-        [Route("{userId}")]
-        public async Task<IActionResult> DeleteUserById([FromRoute] int userId)
-        {
-            try
-            {
-                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+        //[Authorize(Role.User, Role.Admin)]
+        //[HttpDelete]
+        //[Route("{userId}")]
+        //public async Task<IActionResult> DeleteUserById([FromRoute] int userId)
+        //{
+        //    try
+        //    {
+        //        LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
-                {
-                    return Unauthorized(new { message = "Unauthorized" });
-                }
+        //        if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
+        //        {
+        //            return Unauthorized(new { message = "Unauthorized" });
+        //        }
 
-                var user = await _userService.DeleteUserAsync(userId);
+        //        var user = await _userService.DeleteUserAsync(userId);
 
-                if (user == null)
-                {
-                    return NotFound();
-                }
+        //        if (user == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return Problem(ex.Message);
-                throw;
-            }
-        }
+        //        return Ok(user);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Problem(ex.Message);
+        //        throw;
+        //    }
+        //}
 
     }
 }
