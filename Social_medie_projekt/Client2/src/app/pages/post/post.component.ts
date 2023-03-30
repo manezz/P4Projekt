@@ -29,7 +29,7 @@ export class PostComponent {
   }
 
   postLink(user: any) {
-    if (user.userId === this.authService.CurrentUserValue.user?.userId) {
+    if (user.userId === this.currentUser.user.userId) {
       // linker til brugerens egen profilside
       this.router.navigateByUrl('/profile');
     } else {
