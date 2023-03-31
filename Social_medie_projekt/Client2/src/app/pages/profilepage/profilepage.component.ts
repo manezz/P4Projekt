@@ -7,7 +7,6 @@ import { AuthService } from '../../_services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 import { PostComponent } from '../post/post.component';
-import { ImageUploadComponent } from '../image-upload/image-upload.component';
 
 @Component({
   selector: 'app-profilepage',
@@ -18,7 +17,6 @@ import { ImageUploadComponent } from '../image-upload/image-upload.component';
     MatSidenavModule,
     CreatePostPageComponent,
     PostComponent,
-    ImageUploadComponent,
   ],
   templateUrl: 'profilepage.component.html',
   styleUrls: ['profilepage.component.css'],

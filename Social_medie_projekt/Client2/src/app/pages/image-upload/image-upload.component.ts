@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { UserService } from 'src/app/_services/user.service';
 
 @Component({
   selector: 'app-image-upload',
@@ -9,7 +10,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: 'image-upload.component.html',
 })
 export class ImageUploadComponent {
-  constructor() {}
+  constructor(private router: Router, private userService: UserService) {}
 
   uploadImage(fileInput: any) {
     const reader = new FileReader();
