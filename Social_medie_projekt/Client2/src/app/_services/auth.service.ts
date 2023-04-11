@@ -6,6 +6,7 @@ import { Role } from '../_models/role';
 import { User } from '../_models/user';
 import { Login } from '../_models/login';
 import { EmailValidator } from '@angular/forms';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<Login>;
   currentUser: Observable<Login>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private userService: UserService) {
     this.currentUserSubject = new BehaviorSubject<Login>(
       JSON.parse(sessionStorage.getItem('currentUser') as string)
     );
@@ -26,7 +27,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    let authenticateUrl = `${environment.apiUrl}Login/authenticate`;
+    const authenticateUrl = `${environment.apiUrl}Login/authenticate`;
     return this.http
       .post<Login>(authenticateUrl, { email: email, password: password })
       .pipe(
@@ -38,6 +39,16 @@ export class AuthService {
       );
   }
 
+  refresh() {
+    let newCurrentUser = this.CurrentUserValue;
+    this.userService.getUser(this.CurrentUserValue.user!.userId!).pipe(
+      map((user) => {
+        newCurrentUser.user = user;
+        sessionStorage.setItem('currentUser', JSON.stringify(newCurrentUser));
+      })
+    );
+  }
+
   logout() {
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject = new BehaviorSubject<Login>(
@@ -47,7 +58,7 @@ export class AuthService {
   }
 
   register(login: Login): Observable<Login> {
-    let registerUrl = `${environment.apiUrl}login/register/`;
+    const registerUrl = `${environment.apiUrl}login/register/`;
     return this.http.post<Login>(registerUrl, login);
   }
 }
