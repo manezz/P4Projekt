@@ -12,14 +12,32 @@ mat-sidenav {
   height: calc(260vh);
 }
 
-button{
+@media (max-width: 1200px) {
+  mat-sidenav {
+    width: 200px;
+  }
+}
+
+@media (max-width: 1000px) {
+  mat-sidenav {
+    width: 150px;
+  }
+}
+
+@media (max-width: 800px) {
+  mat-sidenav {
+    width: 100px;
+  }
+}
+
+button {
   display: block;
   text-align: center;
   border: none;
   margin: 8px auto 8px auto;
 }
 
-button:hover{
+button:hover {
   border: 1px solid white;
   border-left: none;
   border-right: none;
