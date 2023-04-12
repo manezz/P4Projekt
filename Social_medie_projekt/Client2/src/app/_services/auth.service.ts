@@ -15,6 +15,9 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<Login>;
   currentUser: Observable<Login>;
 
+  // test
+  cur: any[] = [];
+
   constructor(private http: HttpClient, private userService: UserService) {
     this.currentUserSubject = new BehaviorSubject<Login>(
       JSON.parse(sessionStorage.getItem('currentUser') as string)
@@ -41,12 +44,12 @@ export class AuthService {
 
   refresh() {
     let newCurrentUser = this.CurrentUserValue;
-    this.userService.getUser(this.CurrentUserValue.user!.userId!).pipe(
-      map((user) => {
-        newCurrentUser.user = user;
-        sessionStorage.setItem('currentUser', JSON.stringify(newCurrentUser));
-      })
-    );
+
+    this.userService
+      .getUser(this.CurrentUserValue.user!.userId!)
+      .subscribe((x) => (newCurrentUser.user = x));
+
+    sessionStorage.setItem('currentUser', JSON.stringify(newCurrentUser));
   }
 
   logout() {

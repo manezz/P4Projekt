@@ -4,11 +4,12 @@ import { RouterModule, Router } from '@angular/router';
 import { UserService } from 'src/app/_services/user.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { User } from 'src/app/_models/user';
+import { ImageComponent } from '../image/image.component';
 
 @Component({
   selector: 'app-image-upload',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ImageComponent],
   templateUrl: 'image-upload.component.html',
 })
 export class ImageUploadComponent implements OnInit {
@@ -34,13 +35,13 @@ export class ImageUploadComponent implements OnInit {
     );
   }
 
-  edit(): void {
+  edit() {
     this.userService
       .updateUser(this.editUser.userId!, this.editUser)
-      .subscribe();
+      .subscribe((x) => (this.currentUser.user = x));
   }
 
-  uploadImage(fileInput: any): void {
+  uploadImage(fileInput: any) {
     const reader = new FileReader();
 
     reader.onload = (e: any) => {

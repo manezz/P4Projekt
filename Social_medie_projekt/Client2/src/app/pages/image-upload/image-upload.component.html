@@ -1,1 +1,4 @@
-<input type="file" (change)="uploadImage($event)" />
+<div>
+  <app-image imageValue={{currentUser.user.userImage.image}}/>
+  <input type="file" (change)="uploadImage($event)" />
+</div>
