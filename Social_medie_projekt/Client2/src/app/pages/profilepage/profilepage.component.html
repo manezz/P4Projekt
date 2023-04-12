@@ -1,13 +1,3 @@
-<mat-sidenav mode="side" opened>
-  <!-- <img class="profilepic" src="./assets/images/placeholder.png" width="100" height="100"/> -->
-
-  <img class="profilepic" src="data:image/png;base64, {{ currentUser.user.userImage.image }}" width="100" height="100"/>
-
-  <p>{{ this.currentUser.user.userName }}</p>
-  ___________
-  <!-- Skal være links der ændrer hvilke posts der vises (mellem alle ens posts / alle de post brugeren har liket) -->
-  <button>likes</button>
-  <button>chat</button>
-</mat-sidenav>
+<ng-template [ngIf]="screenWidth > 600"><app-profilepage-sidenav/></ng-template>
 <app-create-postpage [posts]="posts"/>
 <app-post [posts]="posts"/>

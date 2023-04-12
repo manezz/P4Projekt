@@ -35,13 +35,13 @@ export class ImageUploadComponent implements OnInit {
     );
   }
 
-  edit() {
+  edit(): void {
     this.userService
       .updateUser(this.editUser.userId!, this.editUser)
       .subscribe((x) => (this.currentUser.user = x));
   }
 
-  uploadImage(fileInput: any) {
+  uploadImage(fileInput: any): void {
     const reader = new FileReader();
 
     reader.onload = (e: any) => {

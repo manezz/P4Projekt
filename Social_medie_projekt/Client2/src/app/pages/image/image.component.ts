@@ -10,13 +10,8 @@ import { AuthService } from '../../_services/auth.service';
   templateUrl: 'image.component.html',
 })
 export class ImageComponent {
-  // currentUser: any = {};
   @Input()
   imageValue: any;
 
-  // constructor(private authService: AuthService) {}
-
-  // ngOnInit(): void {
-  //   this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-  // }
+  constructor() {}
 }
