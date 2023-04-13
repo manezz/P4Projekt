@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../_models/post';
@@ -7,8 +7,8 @@ import { AuthService } from '../../_services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 import { PostComponent } from '../post/post.component';
-import { ApplicationStateService } from 'src/app/_services/application-state.service';
 import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-sidenav.component';
+import { ScreenSizeComponent } from '../screen-size/screen-size.component';
 
 @Component({
   selector: 'app-profilepage',
@@ -20,6 +20,7 @@ import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-
     CreatePostPageComponent,
     PostComponent,
     ProfilepageSidenavComponent,
+    ScreenSizeComponent,
   ],
   templateUrl: 'profilepage.component.html',
 })
@@ -30,8 +31,7 @@ export class ProfilepageComponent implements OnInit {
 
   constructor(
     private postService: PostService,
-    private authService: AuthService,
-    private applicationStateService: ApplicationStateService
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -39,8 +39,10 @@ export class ProfilepageComponent implements OnInit {
     this.postService
       .GetPostByUserId(this.currentUser.user.userId)
       .subscribe((x) => (this.posts = x));
+  }
 
-    this.screenWidth = this.applicationStateService.getScreenWidth();
-    console.log(this.applicationStateService.getScreenWidth());
+  screenWidthChangedHandler(childScreenWidth: number) {
+    this.screenWidth = childScreenWidth;
+    console.log(childScreenWidth);
   }
 }
