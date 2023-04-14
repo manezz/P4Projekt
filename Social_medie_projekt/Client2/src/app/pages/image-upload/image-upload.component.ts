@@ -57,9 +57,6 @@ export class ImageUploadComponent implements OnInit {
         const imgBase64 = (): string => {
           const result: string[] = e.target.result.split(',');
 
-          // test
-          console.log(result.length);
-
           if (result.length === 1) {
             return result[0];
           } else if (result.length === 2) {
@@ -73,6 +70,7 @@ export class ImageUploadComponent implements OnInit {
 
         this.edit();
 
+        // refreshes the localstorage user
         this.authService.refresh();
       };
     };

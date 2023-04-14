@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ImageComponent } from '../pages/image/image.component';
+import { ImageComponent } from '../image/image.component';
 import { ProfilepageNavComponent } from '../profilepage-nav/profilepage-nav.component';
 
 @Component({

@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ImageComponent } from '../image/image.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { ProfilepageNavComponent } from 'src/app/profilepage-nav/profilepage-nav.component';
+import { ProfilepageNavComponent } from 'src/app/pages/profilepage-nav/profilepage-nav.component';
 
 @Component({
   selector: 'app-profilepage-sidenav',
