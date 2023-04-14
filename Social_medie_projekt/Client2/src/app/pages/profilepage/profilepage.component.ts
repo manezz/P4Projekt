@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 import { PostComponent } from '../post/post.component';
 import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-sidenav.component';
+import { ProfilepageCenternavComponent } from 'src/app/profilepage-centernav/profilepage-centernav.component';
 
 @Component({
   selector: 'app-profilepage',
@@ -19,6 +20,7 @@ import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-
     CreatePostPageComponent,
     PostComponent,
     ProfilepageSidenavComponent,
+    ProfilepageCenternavComponent,
   ],
   templateUrl: 'profilepage.component.html',
 })

@@ -1,3 +1,4 @@
-<ng-template [ngIf]="screenWidth > 600"><app-profilepage-sidenav/></ng-template>
+<div *ngIf="screenWidth > 600; else elseBlock"><app-profilepage-sidenav/></div>
+<ng-template #elseBlock><app-profilepage-centernav/></ng-template>
 <app-create-postpage [posts]="posts"/>
 <app-post [posts]="posts"/>

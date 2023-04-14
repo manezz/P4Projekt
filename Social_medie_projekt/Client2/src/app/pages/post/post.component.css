@@ -25,14 +25,11 @@
 
 #user {
   display: flex;
-  /* align-items: center; */
-  /* display: inline-block; */
-  /* position: absolute; */
+  margin-bottom: 12px;
 }
 
 #profilepic {
   display: flex;
-  /* display: block; */
   border-radius: 30px;
 }
 
@@ -45,20 +42,15 @@
   font-size: 15px;
   margin-left: 10px;
   margin-bottom: 0;
-  /* margin-top: 12px; */
-  /* margin-bottom: 0px; */
 }
 
 #content {
   display: flex;
   flex-direction: column;
-  /* display: inline-block; */
-  /* margin-left: 25%; */
 }
 
 #title {
   color: white;
-  margin-top: 12px;
 }
 
 #description {
@@ -87,10 +79,6 @@
   margin-right: 0;
   width: 30px;
   height: 30px;
-
-  /* position: absolute; */
-  /* right: 20px; */
-  /* top: 20px; */
   border: 0;
   border-radius: 10px;
   font-size: 18px;
