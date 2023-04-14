@@ -1,6 +1,3 @@
 <ng-template [ngIf]="screenWidth > 600"><app-profilepage-sidenav/></ng-template>
-
-<app-screen-size (screenWidthChanged)="screenWidthChangedHandler($event)" />
-
 <app-create-postpage [posts]="posts"/>
 <app-post [posts]="posts"/>

@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../_models/post';
 import { PostService } from '../../_services/post.service';
@@ -8,7 +8,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 import { PostComponent } from '../post/post.component';
 import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-sidenav.component';
-import { ScreenSizeComponent } from '../screen-size/screen-size.component';
 
 @Component({
   selector: 'app-profilepage',
@@ -20,7 +19,6 @@ import { ScreenSizeComponent } from '../screen-size/screen-size.component';
     CreatePostPageComponent,
     PostComponent,
     ProfilepageSidenavComponent,
-    ScreenSizeComponent,
   ],
   templateUrl: 'profilepage.component.html',
 })
@@ -39,10 +37,12 @@ export class ProfilepageComponent implements OnInit {
     this.postService
       .GetPostByUserId(this.currentUser.user.userId)
       .subscribe((x) => (this.posts = x));
+
+    this.screenWidth = window.innerWidth;
   }
 
-  screenWidthChangedHandler(childScreenWidth: number) {
-    this.screenWidth = childScreenWidth;
-    console.log(childScreenWidth);
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.screenWidth = window.innerWidth;
   }
 }
