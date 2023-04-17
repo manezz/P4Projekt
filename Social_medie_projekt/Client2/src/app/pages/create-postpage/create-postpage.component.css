@@ -1,26 +1,53 @@
-.body {
-  display: flex;
-  margin-top: 20px;
-  align-items: center;
-  flex-direction: column;
-}
 .post {
-  width: 100%;
-  max-width: 37%;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 60px;
+  padding: 25px;
 }
+
+@media (max-width: 600px) {
+  .post {
+    width: 85%;
+  }
+}
+
 #form,
 .formControl,
 .buttonDiv {
+  display: flex;
   background-color: lightgrey;
   border-radius: 15px;
-  position: relative; /* important for titleCharLenght*/
 }
+
 #form {
-  padding: 20px 20px 0px 20px;
+  width: 100%;
+  flex-direction: column;
+  align-self: center;
+  padding: 20px;
   background-color: transparent;
   border-top: 3px solid lightgray;
   border-bottom: 3px solid lightgray;
 }
+
+.formControl {
+  flex-direction: row;
+}
+
+.buttonDiv {
+  flex-direction: column;
+  background-color: transparent;
+  align-items: center;
+}
+
+.smallButtonDiv {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 input,
 textarea {
   width: 400px;
@@ -32,6 +59,7 @@ textarea {
   resize: none;
   background-color: transparent;
 }
+
 input:focus,
 textarea:focus {
   outline: none;
@@ -39,52 +67,44 @@ textarea:focus {
 }
 
 #title {
-  width: 100%;
-  max-width: 85%;
+  width: 85%;
   overflow: hidden;
   max-height: 200px;
-  display: none;
-}
-#titleCharLenght {
-  position: absolute;
-  background-color: transparent;
-  margin-top: 25px;
-  right: 25px;
-  display: none;
-}
-#content {
-  width: 100%;
-  max-width: 85%;
-  overflow: hidden;
-  max-height: 200px;
-  display: none;
-}
-#contentCharLenght {
-  position: absolute;
-  background-color: transparent;
-  margin-top: 25px;
-  right: 25px;
-  color: red;
-  display: none;
-}
-#tags {
-  width: 100%;
-  max-width: 85%;
   display: none;
 }
 
-.buttonDiv {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+#titleCharLenght {
+  align-self: center;
+  background-color: transparent;
+  display: none;
 }
+
+#content {
+  width: 85%;
+  overflow: hidden;
+  max-height: 200px;
+  display: none;
+}
+
+#contentCharLenght {
+  align-self: center;
+  background-color: transparent;
+  color: red;
+  display: none;
+}
+
+#tags {
+  width: 85%;
+  display: none;
+}
+
 #createBtn {
   width: 150px;
   height: 35px;
   font-size: 25px;
   display: none;
 }
+
 #createBtn,
 #expandBtn,
 #collapseBtn,
@@ -92,37 +112,40 @@ textarea:focus {
   border: none;
   border-radius: 15px;
 }
+
 #collapseBtn {
   width: 25px;
   height: 25px;
-  position: absolute;
   bottom: 20px;
   right: 5px;
   display: none;
 }
+
 #cancelBtn {
   width: 25px;
   height: 25px;
-  position: absolute;
   bottom: 20px;
   right: 35px;
   font-size: 15px;
   display: none;
 }
+
 #expandBtn {
   width: 150px;
   height: 35px;
-  position: absolute;
   bottom: 15px;
   font-size: 25px;
 }
+
 button {
   background-color: darkgray;
 }
+
 button:hover {
   box-shadow: 0px 0px 10px 5px rgb(80, 80, 100);
   cursor: pointer;
 }
+
 button:active {
   background-color: rgb(66, 66, 66);
 }
