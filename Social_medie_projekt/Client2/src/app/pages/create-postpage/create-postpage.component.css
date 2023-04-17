@@ -71,6 +71,7 @@ textarea:focus {
   overflow: hidden;
   max-height: 200px;
   display: none;
+  font-size: 22px;
 }
 
 #titleCharLenght {
@@ -96,6 +97,7 @@ textarea:focus {
 #tags {
   width: 85%;
   display: none;
+  font-size: 17px;
 }
 
 #createBtn {

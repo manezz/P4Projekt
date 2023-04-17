@@ -39,7 +39,7 @@
 
 #userName {
   align-self: center;
-  font-size: 15px;
+  font-size: 16px;
   margin-left: 10px;
   margin-bottom: 0;
 }
@@ -51,10 +51,11 @@
 
 #title {
   color: white;
+  font-size: 24px;
 }
 
 #description {
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(20, 20, 20);
 }
 
@@ -64,14 +65,14 @@
 }
 
 #tag {
-  color: rgb(155, 155, 155);
+  color: darkblue;
   margin-top: 20px;
   margin-right: 5px;
-  font-size: 12px;
+  font-size: 17px;
 }
 
 #date {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .editBtn {
