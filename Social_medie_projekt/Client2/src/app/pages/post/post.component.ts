@@ -30,10 +30,10 @@ export class PostComponent {
 
   postLink(user: any) {
     if (user.userId === this.currentUser.user.userId) {
-      // linker til brugerens egen profilside
+      // links to the users profilepage
       this.router.navigateByUrl('/profile');
     } else {
-      // linker til en andens bruger profilside
+      // links to a other users profilepage
       this.router.navigate(['/profile/', user.userId]);
     }
   }

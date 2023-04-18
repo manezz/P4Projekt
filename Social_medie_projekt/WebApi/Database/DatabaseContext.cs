@@ -121,6 +121,10 @@
                 new UserImage
                 {
                     UserId = 2,
+                },
+                new UserImage
+                {
+                    UserId = 3,
                 });
 
             modelBuilder.Entity<Follow>().HasData(

@@ -61,6 +61,7 @@
                 .Include(p => p.Posts)
                 .ThenInclude(x => x.PostLikes)
                 .Include(F => F.Follow)
+                .Include(x => x.UserImage)
                 .ToListAsync();
         }
 

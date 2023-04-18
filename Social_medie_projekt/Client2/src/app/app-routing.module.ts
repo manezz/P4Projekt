@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'profile/:userId',
-    component: OtherUserProfilePageComponent,
+    component: ProfilepageComponent,
     canActivate: [AuthGuard],
   },
   {

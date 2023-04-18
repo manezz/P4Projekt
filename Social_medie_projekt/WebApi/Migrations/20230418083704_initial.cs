@@ -213,9 +213,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3919), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3923), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3926), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 4, 18, 10, 37, 4, 54, DateTimeKind.Local).AddTicks(2164), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 4, 18, 10, 37, 4, 54, DateTimeKind.Local).AddTicks(2169), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 4, 18, 10, 37, 4, 54, DateTimeKind.Local).AddTicks(2172), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,8 +232,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3960), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 3, 30, 10, 54, 44, 704, DateTimeKind.Local).AddTicks(3963), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 4, 18, 10, 37, 4, 54, DateTimeKind.Local).AddTicks(2207), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 4, 18, 10, 37, 4, 54, DateTimeKind.Local).AddTicks(2211), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -242,7 +242,8 @@ namespace WebApi.Migrations
                 values: new object[,]
                 {
                     { 1, new byte[0] },
-                    { 2, new byte[0] }
+                    { 2, new byte[0] },
+                    { 3, new byte[0] }
                 });
 
             migrationBuilder.InsertData(
