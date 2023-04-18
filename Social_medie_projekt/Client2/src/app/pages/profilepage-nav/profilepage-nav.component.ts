@@ -6,9 +6,6 @@ import { AuthService } from 'src/app/_services/auth.service';
 import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/_models/user';
 
-interface Iimage {
-  image: string;
-}
 @Component({
   selector: 'app-profilepage-nav',
   standalone: true,
@@ -17,10 +14,12 @@ interface Iimage {
   styleUrls: ['profilepage-nav.component.css'],
 })
 export class ProfilepageNavComponent implements OnInit {
-  // isCurrentUser: boolean = false;
-  // profileUser: User = {};
-  image: string = '';
-  userName: string = '';
+  profileUser: User = {
+    userName: '',
+    userImage: {
+      image: '',
+    },
+  };
 
   constructor(
     private authService: AuthService,
@@ -33,16 +32,14 @@ export class ProfilepageNavComponent implements OnInit {
     if (this.router.url === '/profile')
       this.authService.currentUser.subscribe({
         next: (x) => {
-          this.image = x.user!.userImage!.image!;
-          this.userName = x.user!.userName!;
+          this.profileUser = x.user!;
         },
       });
     else
       this.route.params.subscribe((params) => {
         this.userService.getUser(params['userId']).subscribe({
           next: (x) => {
-            this.image = x.userImage!.image!;
-            this.userName = x.userName!;
+            this.profileUser = x;
           },
         });
       });
