@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ImageComponent } from '../image/image.component';
@@ -14,6 +14,7 @@ import { User } from 'src/app/_models/user';
   styleUrls: ['profilepage-nav.component.css'],
 })
 export class ProfilepageNavComponent implements OnInit {
+  @Input()
   profileUser: User = {
     userName: '',
     userImage: {
@@ -29,19 +30,19 @@ export class ProfilepageNavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (this.router.url === '/profile')
-      this.authService.currentUser.subscribe({
-        next: (x) => {
-          this.profileUser = x.user!;
-        },
-      });
-    else
-      this.route.params.subscribe((params) => {
-        this.userService.getUser(params['userId']).subscribe({
-          next: (x) => {
-            this.profileUser = x;
-          },
-        });
-      });
+    // if (this.router.url === '/profile')
+    //   this.authService.currentUser.subscribe({
+    //     next: (x) => {
+    //       this.profileUser = x.user!;
+    //     },
+    //   });
+    // else
+    //   this.route.params.subscribe((params) => {
+    //     this.userService.getUser(params['userId']).subscribe({
+    //       next: (x) => {
+    //         this.profileUser = x;
+    //       },
+    //     });
+    //   });
   }
 }

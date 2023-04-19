@@ -10,6 +10,7 @@ import { PostComponent } from '../post/post.component';
 import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-sidenav.component';
 import { ProfilepageCenternavComponent } from 'src/app/pages/profilepage-centernav/profilepage-centernav.component';
 import { UserService } from 'src/app/_services/user.service';
+import { User } from 'src/app/_models/user';
 
 @Component({
   selector: 'app-profilepage',
@@ -26,7 +27,12 @@ import { UserService } from 'src/app/_services/user.service';
   templateUrl: 'profilepage.component.html',
 })
 export class ProfilepageComponent implements OnInit {
-  currentUser: any = {};
+  profileUser: User = {
+    userName: '',
+    userImage: {
+      image: '',
+    },
+  };
   posts: Post[] = [];
   screenWidth: number = 0;
 
@@ -40,14 +46,30 @@ export class ProfilepageComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.router.url === '/profile') {
-      this.authService.currentUser.subscribe((x) => (this.currentUser = x));
-      this.postService
-        .GetPostByUserId(this.currentUser.user.userId)
-        .subscribe((x) => (this.posts = x));
+      this.authService.currentUser.subscribe({
+        next: (x) => {
+          this.profileUser = x.user!;
+          this.getPosts();
+        },
+      });
     } else {
+      this.route.params.subscribe((params) => {
+        this.userService.getUser(params['userId']).subscribe({
+          next: (x) => {
+            this.profileUser = x;
+            this.getPosts();
+          },
+        });
+      });
     }
 
     this.screenWidth = window.innerWidth;
+  }
+
+  getPosts(): void {
+    this.postService
+      .GetPostByUserId(this.profileUser.userId!)
+      .subscribe((x) => (this.posts = x));
   }
 
   @HostListener('window:resize', ['$event'])
