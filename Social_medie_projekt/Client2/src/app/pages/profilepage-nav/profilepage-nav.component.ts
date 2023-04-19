@@ -13,7 +13,7 @@ import { User } from 'src/app/_models/user';
   templateUrl: 'profilepage-nav.component.html',
   styleUrls: ['profilepage-nav.component.css'],
 })
-export class ProfilepageNavComponent implements OnInit {
+export class ProfilepageNavComponent {
   @Input()
   profileUser: User = {
     userName: '',
@@ -28,21 +28,4 @@ export class ProfilepageNavComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService
   ) {}
-
-  ngOnInit(): void {
-    // if (this.router.url === '/profile')
-    //   this.authService.currentUser.subscribe({
-    //     next: (x) => {
-    //       this.profileUser = x.user!;
-    //     },
-    //   });
-    // else
-    //   this.route.params.subscribe((params) => {
-    //     this.userService.getUser(params['userId']).subscribe({
-    //       next: (x) => {
-    //         this.profileUser = x;
-    //       },
-    //     });
-    //   });
-  }
 }
