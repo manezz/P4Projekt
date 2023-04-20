@@ -2,7 +2,7 @@
 <p>{{profileUser.userName}}</p>
 ___________
 <div>
-  <app-follow-button/>
+  <span *ngIf="currentUser !== undefined"><app-follow-button [profileUser]="profileUser" [currentUser]="currentUser"/></span>
   <button>likes</button>
   <button>chat</button>
 </div>

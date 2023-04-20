@@ -1,3 +1,4 @@
+import { Follow } from './follow';
 import { Login } from './login';
 import { Post } from './post';
 import { UserImage } from './userImage';
@@ -9,4 +10,5 @@ export interface User {
   login?: Login;
   posts?: Post[];
   userImage?: UserImage;
+  follow?: Follow;
 }

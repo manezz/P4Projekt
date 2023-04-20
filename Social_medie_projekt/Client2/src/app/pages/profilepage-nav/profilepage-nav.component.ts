@@ -16,6 +16,9 @@ import { FollowButtonComponent } from '../follow-button/follow-button.component'
 })
 export class ProfilepageNavComponent {
   @Input()
+  currentUser: any;
+
+  @Input()
   profileUser: User = {
     userName: '',
     userImage: {

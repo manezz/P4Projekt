@@ -21,6 +21,9 @@ import { User } from 'src/app/_models/user';
 })
 export class ProfilepageSidenavComponent {
   @Input()
+  currentUser: any;
+
+  @Input()
   profileUser: User = {
     userName: '',
     userImage: {

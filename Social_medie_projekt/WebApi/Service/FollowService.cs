@@ -4,7 +4,7 @@
     {
         Task<FollowResponse> Follow(FollowRequest newFollow);
         Task<FollowResponse> Unfollow(int userId, int followingId);
-        Task<FollowResponse> FindFollow(int userId, int followingId);
+        Task<FollowResponse?> FindFollow(int userId, int followingId);
         Task<List<FollowResponse>> FindUsersFollowing(int followingId);
         Task<List<FollowResponse>> FindUsersFollowers(int followerId);
     }
@@ -24,7 +24,6 @@
             {
                 UserId = followRequest.UserId,
                 FollowingId = followRequest.FollowingId
-
             };
         }
 
@@ -64,13 +63,13 @@
         }
 
         // Finds a specific follow relationship
-        public async Task<FollowResponse> FindFollow(int userId, int followingId)
+        public async Task<FollowResponse?> FindFollow(int userId, int followingId)
         {
             var follow = await _followRepository.FindFollow(userId, followingId);
 
             if (follow == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
 
             return MapFollowToFollowResponse(follow);

@@ -1,4 +1,4 @@
-<div *ngIf="screenWidth > 600; else elseBlock"><app-profilepage-sidenav [profileUser]="profileUser"/></div>
-<ng-template #elseBlock><app-profilepage-centernav [profileUser]="profileUser"/></ng-template>
+<div *ngIf="screenWidth > 600; else elseBlock"><app-profilepage-sidenav [profileUser]="profileUser" [currentUser]="currentUser"/></div>
+<ng-template #elseBlock><app-profilepage-centernav [profileUser]="profileUser" /></ng-template>
 <app-create-postpage [posts]="posts"/>
 <app-post [posts]="posts"/>

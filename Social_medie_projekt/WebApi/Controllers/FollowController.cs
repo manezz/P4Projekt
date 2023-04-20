@@ -18,7 +18,7 @@
         {
             try
             {
-                FollowResponse followResponse = await _followService.FindFollow(userId, followingId);
+                FollowResponse? followResponse = await _followService.FindFollow(userId, followingId);
 
                 if (followResponse == null)
                 {
