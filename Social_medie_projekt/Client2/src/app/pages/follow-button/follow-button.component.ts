@@ -54,6 +54,12 @@ export class FollowButtonComponent {
       });
   }
 
+  followed(): any {
+    if (this.currentUser.user.follow.us) {
+      return;
+    }
+  }
+
   followUnfollowUser(): any {
     this.followService
       .getFollow(this.currentUser.user.userId, this.profileUser.userId)

@@ -8,6 +8,8 @@
 
         public DateTime Created { get; set; }
 
+        public int? followUserId { get; set; }
+
         public UserLoginResponse Login { get; set; }
 
         public UserUserImageResponse UserImage { get; set; }

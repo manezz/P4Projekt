@@ -2,35 +2,21 @@
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetAllUsers();
-        Task<UserResponse> FindUserAsync(int id);
-        //Task<UserResponse> CreateUserAsync(UserRequest newUser);
-        Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser);
-        //Task<UserResponse> DeleteUserAsync(int id);
+        Task<List<UserResponse>> GetAllUsersAsync();
+        Task<UserResponse> FindUserAsync(int userId, int followUserId);
+        Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser);
     }
 
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IFollowRepository _followRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IFollowRepository followRepository)
         {
             _userRepository = userRepository;
+            _followRepository = followRepository;
         }
-
-        //private static User MapUserRequestToUser(UserRequest userRequest)
-        //{
-        //    return new User
-        //    {
-        //        UserName = userRequest.UserName,
-        //        Login = new()
-        //        {
-        //            Email = userRequest.Login.Email,
-        //            Password = userRequest.Login.Password,
-        //            Role = userRequest.Login.Role
-        //        },
-        //    };
-        //}
 
         private static User MapUserRequestToUser(UserRequest userRequest)
         {
@@ -80,18 +66,55 @@
             };
         }
 
-        public async Task<UserResponse> FindUserAsync(int id)
+        private static UserResponse MapUserToUserResponse(User user, Follow follow)
         {
-            var user = await _userRepository.FindUserByIdAsync(id);
+            return new UserResponse
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+                Created = user.Created,
+                followUserId = follow?.FollowingId,
+                Login = new UserLoginResponse
+                {
+                    LoginId = user.Login.LoginId,
+                    Email = user.Login.Email,
+                    Role = user.Login.Role
+                },
+                UserImage = new UserUserImageResponse
+                {
+                    Image = Convert.ToBase64String(user.UserImage.Image),
+                },
+                Posts = user.Posts.Select(x => new UserPostResponse
+                {
+                    PostId = x.PostId,
+                    Title = x.Title,
+                    Desc = x.Desc,
+                    PostLikes = new UserPostPostLikesResponse
+                    {
+                        Likes = x.PostLikes.Likes
+                    },
+                    Date = x.Date
+                }).ToList(),
+                Follow = user.Follow.Select(x => new UserFollowResponse
+                {
+                    UserId = x.UserId,
+                    FollowingId = x.FollowingId,
+                }).ToList()
+            };
+        }
+
+        public async Task<UserResponse> FindUserAsync(int userId, int followUserId)
+        {
+            var user = await _userRepository.FindUserByIdAsync(userId);
 
             if (user != null)
             {
-                return MapUserToUserResponse(user);
+                return MapUserToUserResponse(user, _followRepository.FindFollow(userId, followUserId).Result);
             }
             return null;
         }
 
-        public async Task<List<UserResponse>> GetAllUsers()
+        public async Task<List<UserResponse>> GetAllUsersAsync()
         {
             List<User> user = await _userRepository.GetAllUsersAsync();
 
@@ -102,34 +125,9 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        // Not Used !!! (login/register is used instead)
-        //public async Task<UserResponse> CreateUserAsync(UserRequest newUser)
-        //{
-        //    var user = await _userRepository.CreateUserAsync(MapUserRequestToUser(newUser));
-
-        //    if (user == null)
-        //    {
-        //        throw new ArgumentNullException();
-        //    }
-
-        //    return MapUserToUserResponse(user);
-        //  }
-
-        // Not Used !!! (login/delete is used instead)
-        //public async Task<UserResponse> DeleteUserAsync(int id)
-        //{
-        //    var user = await _userRepository.DeleteUserAsync(id);
-
-        //    if (user != null)
-        //    {
-        //        return MapUserToUserResponse(user);
-        //    }
-        //    return null;
-        //}
-
-        public async Task<UserResponse> UpdateUserAsync(int id, UserRequest updatedUser)
+        public async Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser)
         {
-            var user = await _userRepository.UpdateUserAsync(id, MapUserRequestToUser(updatedUser));
+            var user = await _userRepository.UpdateUserAsync(userId, MapUserRequestToUser(updatedUser));
 
             if (user == null)
             {

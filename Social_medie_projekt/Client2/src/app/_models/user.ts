@@ -10,5 +10,5 @@ export interface User {
   login?: Login;
   posts?: Post[];
   userImage?: UserImage;
-  follow?: Follow;
+  follow?: Follow[];
 }
