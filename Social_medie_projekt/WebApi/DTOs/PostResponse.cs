@@ -28,6 +28,12 @@
     {
         public int UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
+        public PostUserUserImageResponse UserImage { get; set; }
+    }
+
+    public class PostUserUserImageResponse
+    {
+        public string Image { get; set; }
     }
 }
 

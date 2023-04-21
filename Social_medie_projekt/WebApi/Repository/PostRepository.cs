@@ -34,6 +34,7 @@
         {
             return await _context.Post
                 .Include(c => c.User)
+                .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
                 .OrderByDescending(d => d.Date)
                 .ToListAsync();
@@ -43,6 +44,7 @@
         {
             return await _context.Post
                 .Include(c => c.User)
+                .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
                 .FirstOrDefaultAsync(x => postId == x.PostId);
         }
@@ -51,6 +53,7 @@
         {
             return await _context.Post
                 .Include(c => c.User)
+                .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
                 .Where(x => userId == x.UserId)
                 .ToListAsync();

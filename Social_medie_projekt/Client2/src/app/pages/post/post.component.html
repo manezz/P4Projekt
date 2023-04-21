@@ -2,7 +2,7 @@
 <div id="post" *ngFor="let post of posts" >
   <div id="user" (click)="postLink(post.user)"> 
     <!-- <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50"> -->
-    <app-image [imageValue]="post.user.userImage.image" [imageClass]="imageClass"/>
+    <app-image [imageValue]="post.user!.userImage!.image" [imageClass]="imageClass"/>
     <h5 id="userName">{{post.user?.userName}}</h5>
     <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
   </div>
