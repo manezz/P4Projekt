@@ -7,6 +7,7 @@ export interface User {
   userId?: number;
   userName?: string;
   created?: Date;
+  followUserId?: number;
   login?: Login;
   posts?: Post[];
   userImage?: UserImage;

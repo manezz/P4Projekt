@@ -33,73 +33,45 @@ export class FollowButtonComponent {
     followingId: 0,
   };
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private userService: UserService,
-    private followService: FollowService
-  ) {}
+  constructor(private followService: FollowService) {}
 
-  getFollow(): void {
-    this.followService
-      .getFollow(this.currentUser.user.userId, this.profileUser.userId)
-      .subscribe({
-        next: (x) => {
-          console.log(x);
-        },
-        error: (err: HttpErrorResponse) => {
-          console.log(err.message);
-        },
-      });
-  }
-
-  followed(): any {
-    if (this.currentUser.user.follow.us) {
-      return;
+  followed(): string {
+    if (this.currentUser.user.userId === this.profileUser.followUserId) {
+      return 'UnFollow';
+    } else {
+      return 'Follow';
     }
   }
 
   followUnfollowUser(): any {
-    this.followService
-      .getFollow(this.currentUser.user.userId, this.profileUser.userId)
-      .subscribe({
-        next: (x) => {
-          this.unFollow(); // if follow exists - unfollow
-          document.getElementById('followBtn')!.innerHTML = 'follow'; // after unfollowed - show "follow"
-        },
-        error: (x) => {
-          this.Follow(); // if follow doesn't exist - follow
-          document.getElementById('followBtn')!.innerHTML = 'unfollow'; // after followed - show "unfollow"
-        },
-      });
+    if (this.currentUser.user.userId === this.profileUser.followUserId) {
+      this.unFollowUser();
+    } else {
+      this.followUser();
+    }
   }
 
-  Follow() {
+  followUser(): void {
     this.follow = {
-      userId: this.currentUser.user.userId,
-      followingId: this.profileUser.userId!,
+      userId: this.profileUser.userId!,
+      followingId: this.currentUser.user.userId,
     };
     this.followService.follow(this.follow).subscribe({
-      next: (x) => {
-        console.log('user followed');
-      },
       error: (err) => {
-        console.warn('user already followed');
+        console.warn(Object.values(err.error.errors).join(', '));
       },
     });
+    this.profileUser.followUserId = this.currentUser.user.userId;
   }
 
-  unFollow() {
+  unFollowUser(): void {
     this.followService
-      .unFollow(this.currentUser.user.userId, this.profileUser.userId!)
+      .unFollow(this.profileUser.userId!, this.currentUser.user.userId)
       .subscribe({
-        next: (x) => {
-          console.log('user successfully unfollowed');
-        },
         error: (err) => {
-          console.warn('user not followed');
+          console.warn(Object.values(err.error.errors).join(', '));
         },
       });
+    this.profileUser.followUserId = null!;
   }
 }
