@@ -5,11 +5,12 @@ import { AuthService } from '../../_services/auth.service';
 import { Post } from '../../_models/post';
 import { Tag } from '../../_models/tag';
 import { LikeComponent } from '../like/like.component';
+import { ImageComponent } from '../image/image.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, RouterModule, LikeComponent],
+  imports: [CommonModule, RouterModule, LikeComponent, ImageComponent],
   templateUrl: 'post.component.html',
   styleUrls: ['post.component.css'],
 })
@@ -19,6 +20,7 @@ export class PostComponent {
 
   currentUser: any = {};
   tags: Tag[] = [];
+  imageClass: string = 'imageClass';
 
   constructor(private authService: AuthService, private router: Router) {
     this.tags = [];
