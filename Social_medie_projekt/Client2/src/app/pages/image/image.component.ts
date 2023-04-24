@@ -11,10 +11,16 @@ import { CommonModule } from '@angular/common';
 })
 export class ImageComponent {
   @Input()
-  imageValue: any;
+  imageValue: string = '/assets/images/placeholder.png';
 
   @Input()
-  imageClass: any;
+  imageClass: string = '';
 
-  constructor() {}
+  getImageValue(): string {
+    if (this.imageValue === '') {
+      return '/assets/images/placeholder.png';
+    } else {
+      return 'data:image/png;base64, ' + this.imageValue;
+    }
+  }
 }
