@@ -9,8 +9,6 @@
         public Role Role { get; set; }
 
         public LoginUserResponse User { get; set; } = new();
-
-        public string? Token { get; set; }
     }
 
     public class LoginUserResponse
@@ -20,6 +18,8 @@
         public string UserName { get; set; } = string.Empty;
 
         public DateTime Created { get; set; }
+
+        public LoginUserUserImageResponse UserImage { get; set; } = new();
 
         public List<UserPostLoginResponse> Posts { get; set; } = new();
     }
@@ -42,6 +42,11 @@
     public class UserPostLoginPostLikesResponse
     {
         public int Likes { get; set; }
+    }
+
+    public class LoginUserUserImageResponse
+    {
+        public string? Image { get; set; }
     }
 }
 

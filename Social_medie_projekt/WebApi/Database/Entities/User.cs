@@ -19,6 +19,8 @@
 
         public Login? Login { get; set; }
 
+        public UserImage? UserImage { get; set; }
+
         public List<Post>? Posts { get; set; } = new();
 
         public List<Follow>? Follow { get; set; } = new();

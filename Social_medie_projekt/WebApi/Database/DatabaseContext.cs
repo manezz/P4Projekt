@@ -6,6 +6,7 @@
 
         public DbSet<Login> Login { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<UserImage> UserImage { get; set; }
         public DbSet<Post> Post { get; set; }
         public DbSet<Like> Like { get; set; }
         public DbSet<PostLikes> PostLikes { get; set; }
@@ -40,6 +41,8 @@
             modelBuilder.Entity<Login>().HasQueryFilter(x => !x.IsDeleted);
 
             modelBuilder.Entity<User>().HasQueryFilter(x => !x.IsDeleted);
+
+            modelBuilder.Entity<UserImage>().HasQueryFilter(x => !x.User.IsDeleted);
 
             modelBuilder.Entity<Post>().HasQueryFilter(x => !x.IsDeleted);
 
@@ -110,6 +113,20 @@
                     Created = DateTime.Now
                 });
 
+            modelBuilder.Entity<UserImage>().HasData(
+                new UserImage
+                {
+                    UserId = 1,
+                },
+                new UserImage
+                {
+                    UserId = 2,
+                },
+                new UserImage
+                {
+                    UserId = 3,
+                });
+
             modelBuilder.Entity<Follow>().HasData(
                 new Follow
                 {
@@ -120,8 +137,7 @@
                 {
                     UserId = 2,
                     FollowingId = 1
-                }
-                );
+                });
 
             modelBuilder.Entity<Post>().HasData(
                 new Post

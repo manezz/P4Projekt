@@ -35,6 +35,7 @@
                 .Include(login => login.User)
                 .Include(posts => posts.User.Posts.OrderByDescending(Post => Post.Date))
                 .ThenInclude(post => post.PostLikes)
+                .Include(x => x.User.UserImage)
                 .ToListAsync();
         }
 
@@ -44,6 +45,7 @@
                 .Include(login => login.User)
                 .Include(posts => posts.User.Posts)
                 .ThenInclude(post => post.PostLikes)
+                .Include(x => x.User.UserImage)
                 .FirstOrDefaultAsync(login => login.LoginId == loginId);
         }
 
@@ -53,6 +55,7 @@
                 .Include(L => L.User)
                 .Include(P => P.User.Posts.OrderByDescending(post => post.Date))
                 .ThenInclude(post => post.PostLikes)
+                .Include(x => x.User.UserImage)
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 

@@ -1,19 +1,17 @@
 <!-- looper igennem alle post fra data(DataService) -->
 <div id="post" *ngFor="let post of posts" >
   <div id="user" (click)="postLink(post.user)"> 
-    <img id="profilepic"src="./assets/images/placeholder.png" width="50" height="50">
+    <app-image imageValue={{post.user!.userImage!.image}} imageClass={{imageClass}}/>
     <h5 id="userName">{{post.user?.userName}}</h5>
+    <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
   </div>
-
   <div id="content" [routerLink]="['/post-details', post.postId]">
     <h1 id="title">{{post.title}}</h1>
     <h3 id="description">{{post.desc}}</h3>
     <div id="postTags" *ngIf="post.tags">
-      <p id="tag" *ngFor="let tag of post.tags">#{{ tag.name }},</p>
+      <p id="tag" *ngFor="let tag of post.tags">#{{ tag.name }}</p>
     </div>
     <p id="date">{{post.date | date:'MMM d yyyy, HH:mm a'}}</p> 
   </div>
-  
   <app-like [post]="post"/>
-  <button class="editBtn" *ngIf="this.currentUser.user.userId == this.post.user?.userId" [routerLink]="['/editPost', post.postId]">⛭</button>
 </div>

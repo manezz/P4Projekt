@@ -20,7 +20,6 @@ import { take } from 'rxjs';
 })
 export class CreatePostPageComponent implements OnInit {
   constructor(private auth: AuthService, private postService: PostService) {}
-
   @Input()
   posts: any;
 
@@ -63,9 +62,9 @@ export class CreatePostPageComponent implements OnInit {
         this.postForm = this.resetForm();
       },
       error: (err) => {
-        console.warn(Object.values(err.error.errors).join(', '))
+        console.warn(Object.values(err.error.errors).join(', '));
       },
-    })
+    });
   }
 
   cancel() {
@@ -77,7 +76,6 @@ export class CreatePostPageComponent implements OnInit {
   }
 
   resetPost(): Post {
-    // return{ userId: this.currentUserId, postId: 0, title: '', desc: '' }
     return {
       postId: 0,
       title: '',
@@ -114,9 +112,10 @@ export class CreatePostPageComponent implements OnInit {
 
   contentMaxLenght(event: any) {
     this.contentCharLenght = 1000 - event.target.textLength;
-    if (this.contentCharLenght <= 100)
+    if (this.contentCharLenght <= 100) {
       document.getElementById('contentCharLenght')!.style.display = 'inline';
-    else document.getElementById('contentCharLenght')!.style.display = 'none';
+      document.getElementById('contentCharLenght')!.style.color = 'red';
+    } else document.getElementById('contentCharLenght')!.style.display = 'none';
   }
 
   expandDiv() {
@@ -126,12 +125,16 @@ export class CreatePostPageComponent implements OnInit {
     document.getElementById('titleCharLenght')!.style.display = 'inline';
     document.getElementById('content')!.style.display = 'inline';
     document.getElementById('contentCharLenght')!.style.display = 'inline';
+    document.getElementById('contentCharLenght')!.style.color = 'black';
     document.getElementById('tags')!.style.display = 'inline';
 
     document.getElementById('createBtn')!.style.display = 'inline';
     document.getElementById('collapseBtn')!.style.display = 'inline';
     document.getElementById('cancelBtn')!.style.display = 'inline';
     document.getElementById('expandBtn')!.style.display = 'none';
+
+    document.getElementById('createBtn')!.parentElement!.style.margin =
+      '15px 0 15px 0';
   }
 
   collapseDiv() {
@@ -149,5 +152,8 @@ export class CreatePostPageComponent implements OnInit {
     document.getElementById('collapseBtn')!.style.display = 'none';
     document.getElementById('cancelBtn')!.style.display = 'none';
     document.getElementById('expandBtn')!.style.display = 'inline';
+
+    document.getElementById('createBtn')!.parentElement!.style.margin =
+      '0 0 0 0';
   }
 }

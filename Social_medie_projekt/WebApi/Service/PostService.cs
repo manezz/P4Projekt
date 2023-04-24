@@ -71,6 +71,10 @@
                 {
                     UserId = post.User.UserId,
                     UserName = post.User.UserName,
+                    UserImage = new PostUserUserImageResponse
+                    {
+                        Image = Convert.ToBase64String(post.User.UserImage.Image)
+                    }
                 },
                 Tags = tags.Select(x => new TagResponse
                 {

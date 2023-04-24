@@ -1,0 +1,8 @@
+<app-image imageValue={{profileUser.userImage!.image}} imageClass={{imageClass}} />
+<p>{{profileUser.userName}}</p>
+___________
+<div>
+  <span *ngIf="currentUser !== undefined"><app-follow-button [profileUser]="profileUser" [currentUser]="currentUser"/></span>
+  <button>likes</button>
+  <button>chat</button>
+</div>

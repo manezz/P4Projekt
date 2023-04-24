@@ -9,7 +9,7 @@ import { CreatePostPageComponent } from './pages/create-postpage/create-postpage
 import { CreateUserPageComponent } from './pages/create-userpage/create-userpage.component';
 import { EditPostComponent } from './pages/edit-post/edit-post.component';
 import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
-import { OtherUserProfilePageComponent } from './pages/profilepage-otheruser/profilepage-otheruser.component';
+import { UpdateUserPageComponent } from './pages/update-userpage/update-userpage.component';
 
 const routes: Routes = [
   {
@@ -20,8 +20,7 @@ const routes: Routes = [
     path: 'createuser',
     component: CreateUserPageComponent,
   },
-  { path: 'createpost', 
-    component: CreatePostPageComponent },
+  { path: 'createpost', component: CreatePostPageComponent },
   {
     path: 'main',
     component: IndexpageComponent,
@@ -44,7 +43,12 @@ const routes: Routes = [
   },
   {
     path: 'profile/:userId',
-    component: OtherUserProfilePageComponent,
+    component: ProfilepageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile-update',
+    component: UpdateUserPageComponent,
     canActivate: [AuthGuard],
   },
 ];
