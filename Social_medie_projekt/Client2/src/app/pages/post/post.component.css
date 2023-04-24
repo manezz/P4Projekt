@@ -1,7 +1,7 @@
 #post {
-  position: relative;
-  width: auto;
-  max-width: 35%;
+  display: flex;
+  flex-direction: column;
+  width: 40%;
   border: 2px solid rgb(207, 207, 207);
   border-radius: 10px;
   border-left: none;
@@ -12,43 +12,41 @@
   padding: 25px;
 }
 
+@media (max-width: 600px) {
+  #post {
+    width: 85%;
+  }
+}
+
 #post:hover {
   cursor: pointer;
   box-shadow: 0px 0px 10px 10px rgb(80, 80, 100);
 }
 
 #user {
-  display: inline-block;
-  position: absolute;
-}
-
-#profilepic {
-  display: block;
-  border-radius: 30px;
-}
-
-#profilepic:hover {
-  box-shadow: 0px 0px 10px 10px rgb(100, 80, 80);
+  display: flex;
+  margin-bottom: 12px;
 }
 
 #userName {
-  display: block;
-  font-size: 15px;
-  margin-top: 12px;
-  margin-bottom: 0px;
+  align-self: center;
+  font-size: 16px;
+  margin-left: 10px;
+  margin-bottom: 0;
 }
 
 #content {
-  display: inline-block;
-  margin-left: 25%;
+  display: flex;
+  flex-direction: column;
 }
 
 #title {
   color: white;
+  font-size: 24px;
 }
 
 #description {
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(20, 20, 20);
 }
 
@@ -58,20 +56,21 @@
 }
 
 #tag {
-  color: rgb(155, 155, 155);
+  color: darkblue;
   margin-top: 20px;
   margin-right: 5px;
-  font-size: 12px;
+  font-size: 17px;
 }
 
 #date {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .editBtn {
-  position: absolute;
-  right: 20px;
-  top: 20px;
+  margin-left: auto;
+  margin-right: 0;
+  width: 30px;
+  height: 30px;
   border: 0;
   border-radius: 10px;
   font-size: 18px;

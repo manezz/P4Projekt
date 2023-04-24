@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Component, OnInit, HostListener } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../_models/post';
 import { PostService } from '../../_services/post.service';
@@ -7,6 +7,12 @@ import { AuthService } from '../../_services/auth.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { CreatePostPageComponent } from '../create-postpage/create-postpage.component';
 import { PostComponent } from '../post/post.component';
+import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-sidenav.component';
+import { ProfilepageCenternavComponent } from 'src/app/pages/profilepage-centernav/profilepage-centernav.component';
+import { UserService } from 'src/app/_services/user.service';
+import { User } from 'src/app/_models/user';
+import { FollowService } from 'src/app/_services/follow.service';
+import { Follow } from 'src/app/_models/follow';
 
 @Component({
   selector: 'app-profilepage',
@@ -17,23 +23,69 @@ import { PostComponent } from '../post/post.component';
     MatSidenavModule,
     CreatePostPageComponent,
     PostComponent,
+    ProfilepageSidenavComponent,
+    ProfilepageCenternavComponent,
   ],
   templateUrl: 'profilepage.component.html',
-  styleUrls: ['profilepage.component.css'],
 })
 export class ProfilepageComponent implements OnInit {
-  currentUser: any = {}
-  posts: Post[] = []
+  isCurrentUser: boolean = false;
+  currentUser: any;
+  profileUser: User = {
+    userName: '',
+    userImage: {
+      image: '',
+    },
+  };
+  follow: Follow = {
+    userId: 0,
+    followingId: 0,
+  };
+  posts: Post[] = [];
+  screenWidth: number = 0;
 
   constructor(
     private postService: PostService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private followService: FollowService
   ) {}
 
   ngOnInit(): void {
-    this.authService.currentUser.subscribe(x => this.currentUser = x)
+    if (this.router.url === '/profile') {
+      this.authService.currentUser.subscribe({
+        next: (x) => {
+          this.profileUser = x.user!;
+          this.isCurrentUser = true;
+          this.getPosts();
+        },
+      });
+    } else {
+      this.route.params.subscribe((params) => {
+        this.userService.getUser(params['userId']).subscribe({
+          next: (x) => {
+            this.profileUser = x;
+            this.authService.currentUser.subscribe(
+              (x) => (this.currentUser = x)
+            );
+            this.getPosts();
+          },
+        });
+      });
+    }
+    this.screenWidth = window.innerWidth;
+  }
+
+  getPosts(): void {
     this.postService
-      .GetPostByUserId(this.currentUser.user.userId)
-      .subscribe(x => this.posts = x)
+      .GetPostByUserId(this.profileUser.userId!)
+      .subscribe((x) => (this.posts = x));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.screenWidth = window.innerWidth;
   }
 }

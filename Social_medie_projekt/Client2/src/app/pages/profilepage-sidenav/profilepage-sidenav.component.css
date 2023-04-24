@@ -12,17 +12,20 @@ mat-sidenav {
   height: calc(260vh);
 }
 
-button{
-  display: block;
-  text-align: center;
-  border: none;
-  margin: 8px auto 8px auto;
+@media (max-width: 1200px) {
+  mat-sidenav {
+    width: 200px;
+  }
 }
 
-button:hover{
-  border: 1px solid white;
-  border-left: none;
-  border-right: none;
-  border-radius: 10%;
-  cursor: pointer;
+@media (max-width: 1000px) {
+  mat-sidenav {
+    width: 150px;
+  }
+}
+
+@media (max-width: 800px) {
+  mat-sidenav {
+    width: 100px;
+  }
 }

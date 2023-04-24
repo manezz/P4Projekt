@@ -21,19 +21,11 @@
 
         public DateTime Created { get; set; }
 
-        public List<UserPostSignInResponse>? Posts { get; set; }
+        public SignInUserUserImageResponse UserImage { get; set; } = new();
     }
 
-    public class UserPostSignInResponse
+    public class SignInUserUserImageResponse
     {
-        public int PostId { get; set; }
-
-        public string Title { get; set; } = string.Empty;
-
-        public string Desc { get; set; } = string.Empty;
-
-        public int? Likes { get; set; }
-
-        public DateTime Date { get; set; }
+        public string? Image { get; set; }
     }
 }

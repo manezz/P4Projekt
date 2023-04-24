@@ -2,7 +2,7 @@
 {
     public interface ILoginService
     {
-        Task<SignInResponse> AuthenticateUser(SignInRequest login);
+        Task<SignInResponse> AuthenticateUser(SignInRequest sign);
         Task<LoginResponse> RegisterAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllLoginAsync();
         Task<LoginResponse> FindLoginByIdAsync(int loginId);
@@ -22,17 +22,21 @@
 
         private static LoginResponse MapLoginToLoginResponse(Login login)
         {
+
             return new LoginResponse
             {
                 LoginId = login.LoginId,
                 Email = login.Email,
                 Role = login.Role,
-
                 User = new LoginUserResponse
                 {
                     UserId = login.User.UserId,
                     UserName = login.User.UserName,
                     Created = login.User.Created,
+                    UserImage = new LoginUserUserImageResponse
+                    {
+                        Image = Convert.ToBase64String(login.User.UserImage.Image)
+                    },
                     Posts = login.User.Posts.Select(post => new UserPostLoginResponse
                     {
                         PostId = post.PostId,
@@ -57,34 +61,39 @@
                 Password = loginRequest.Password,
                 User = new()
                 {
-                    UserName = loginRequest.User.UserName
+                    UserName = loginRequest.User.UserName,
+                    UserImage = new()
                 }
             };
         }
 
-        public async Task<SignInResponse> AuthenticateUser(SignInRequest login)
+        public async Task<SignInResponse> AuthenticateUser(SignInRequest signIn)
         {
-            Login? user = await _loginRepository.FindLoginByEmailAsync(login.Email);
+            Login? login = await _loginRepository.FindLoginByEmailAsync(signIn.Email);
 
-            if (user == null)
+            if (login == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (user.Password == login.Password)
+            if (login.Password == signIn.Password)
             {
                 SignInResponse response = new()
                 {
-                    LoginId = user.LoginId,
-                    Email = user.Email,
-                    Role = user.Role,
+                    LoginId = login.LoginId,
+                    Email = login.Email,
+                    Role = login.Role,
                     User = new()
                     {
-                        UserId = user.User.UserId,
-                        UserName = user.User.UserName,
-                        Created = user.User.Created,
+                        UserId = login.User.UserId,
+                        UserName = login.User.UserName,
+                        Created = login.User.Created,
+                        UserImage = new()
+                        {
+                            Image = Convert.ToBase64String(login.User.UserImage.Image)
+                        }
                     },
-                    Token = _jwtUtils.GenerateJwtToken(user)
+                    Token = _jwtUtils.GenerateJwtToken(login)
                 };
                 return response;
             }

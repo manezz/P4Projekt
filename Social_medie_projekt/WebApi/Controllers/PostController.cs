@@ -4,14 +4,11 @@
     [ApiController]
     public class PostController : ControllerBase
     {
-
         private readonly IPostService _postService;
-        private readonly ILikeService _likeService;
 
-        public PostController(IPostService postService, ILikeService likeService)
+        public PostController(IPostService postService)
         {
             _postService = postService;
-            _likeService = likeService;
         }
 
         [Authorize(Role.User, Role.Admin)]

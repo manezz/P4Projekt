@@ -5,11 +5,12 @@ import { AuthService } from '../../_services/auth.service';
 import { Post } from '../../_models/post';
 import { Tag } from '../../_models/tag';
 import { LikeComponent } from '../like/like.component';
+import { ImageComponent } from '../image/image.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [CommonModule, RouterModule, LikeComponent],
+  imports: [CommonModule, RouterModule, LikeComponent, ImageComponent],
   templateUrl: 'post.component.html',
   styleUrls: ['post.component.css'],
 })
@@ -19,6 +20,7 @@ export class PostComponent {
 
   currentUser: any = {};
   tags: Tag[] = [];
+  imageClass: string = 'postUserImage';
 
   constructor(private authService: AuthService, private router: Router) {
     this.tags = [];
@@ -29,11 +31,11 @@ export class PostComponent {
   }
 
   postLink(user: any) {
-    if (user.userId === this.authService.CurrentUserValue.user?.userId) {
-      // linker til brugerens egen profilside
+    if (user.userId === this.currentUser.user.userId) {
+      // links to the users profilepage
       this.router.navigateByUrl('/profile');
     } else {
-      // linker til en andens bruger profilside
+      // links to a other users profilepage
       this.router.navigate(['/profile/', user.userId]);
     }
   }
