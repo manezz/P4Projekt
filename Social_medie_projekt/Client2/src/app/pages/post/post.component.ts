@@ -20,7 +20,7 @@ export class PostComponent {
 
   currentUser: any = {};
   tags: Tag[] = [];
-  imageClass: string = 'imageClass';
+  imageClass: string = 'postUserImage';
 
   constructor(private authService: AuthService, private router: Router) {
     this.tags = [];
