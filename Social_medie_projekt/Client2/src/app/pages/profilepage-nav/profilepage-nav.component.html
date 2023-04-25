@@ -2,7 +2,8 @@
 <p>{{profileUser.userName}}</p>
 ___________
 <div>
-  <span *ngIf="currentUser !== undefined"><app-follow-button [profileUser]="profileUser" [currentUser]="currentUser"/></span>
+  <span *ngIf="currentUser === undefined; else elseBlock"><button [routerLink]="['/profile-update']">Settings</button></span>
+  <ng-template #elseBlock><app-follow-button [profileUser]="profileUser" [currentUser]="currentUser"/></ng-template>
   <button>likes</button>
   <button>chat</button>
 </div>
