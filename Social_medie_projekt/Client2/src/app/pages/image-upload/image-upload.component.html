@@ -1,4 +1,5 @@
 <div>
-  <app-image imageValue={{currentUser.user.userImage.image}}/>
-  <input type="file" (change)="uploadImage($event)" />
+  <app-image imageValue={{currentUser.user.userImage.image}} imageClass={{imageClass}}/>
+  <label for="files" class="btn">Select Image</label>
+  <input id="files" type="file" (change)="uploadImage($event)" />
 </div>

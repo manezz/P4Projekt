@@ -11,6 +11,7 @@ import { ImageComponent } from '../image/image.component';
   standalone: true,
   imports: [CommonModule, RouterModule, ImageComponent],
   templateUrl: 'image-upload.component.html',
+  styleUrls: ['image-upload.component.css'],
 })
 export class ImageUploadComponent implements OnInit {
   currentUser: any = {};
@@ -22,6 +23,7 @@ export class ImageUploadComponent implements OnInit {
       image: '',
     },
   };
+  imageClass: string = 'profileUpdateUserImage';
 
   constructor(
     private router: Router,
@@ -56,14 +58,7 @@ export class ImageUploadComponent implements OnInit {
 
         const imgBase64 = (): string => {
           const result: string[] = e.target.result.split(',');
-
-          if (result.length === 1) {
-            return result[0];
-          } else if (result.length === 2) {
-            return result[1];
-          } else {
-            throw console.error('Problem with Image');
-          }
+          return result[1];
         };
 
         this.editUser.userImage!.image = imgBase64();

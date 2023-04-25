@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Post } from '../../_models/post';
@@ -11,8 +11,8 @@ import { ProfilepageSidenavComponent } from '../profilepage-sidenav/profilepage-
 import { ProfilepageCenternavComponent } from 'src/app/pages/profilepage-centernav/profilepage-centernav.component';
 import { UserService } from 'src/app/_services/user.service';
 import { User } from 'src/app/_models/user';
-import { FollowService } from 'src/app/_services/follow.service';
 import { Follow } from 'src/app/_models/follow';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profilepage',
@@ -28,7 +28,7 @@ import { Follow } from 'src/app/_models/follow';
   ],
   templateUrl: 'profilepage.component.html',
 })
-export class ProfilepageComponent implements OnInit {
+export class ProfilepageComponent implements OnInit, OnDestroy {
   isCurrentUser: boolean = false;
   currentUser: any;
   profileUser: User = {
@@ -44,13 +44,14 @@ export class ProfilepageComponent implements OnInit {
   posts: Post[] = [];
   screenWidth: number = 0;
 
+  private subscription = Subscription.EMPTY;
+
   constructor(
     private postService: PostService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private userService: UserService,
-    private followService: FollowService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -78,8 +79,12 @@ export class ProfilepageComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getPosts(): void {
-    this.postService
+    this.subscription = this.postService
       .GetPostByUserId(this.profileUser.userId!)
       .subscribe((x) => (this.posts = x));
   }
