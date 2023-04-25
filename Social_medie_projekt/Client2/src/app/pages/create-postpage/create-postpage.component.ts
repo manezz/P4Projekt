@@ -9,7 +9,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Tag } from '../../_models/tag';
 import { TaggedTemplateExpr } from '@angular/compiler';
-import { take } from 'rxjs';
+import { EMPTY, take } from 'rxjs';
 
 @Component({
   selector: 'app-create-postpage',
@@ -24,8 +24,8 @@ export class CreatePostPageComponent implements OnInit {
   posts: any;
 
   error: string | undefined;
-  currentUser?: any = {};
-  currentUserId?: number;
+  currentUser: any;
+  currentUserId: number = 0;
   post: Post = this.resetPost();
   postForm: FormGroup = this.resetForm();
   titleCharLenght: number | undefined; //til at vise hvor mange tegn der kan være i post-title
@@ -36,10 +36,8 @@ export class CreatePostPageComponent implements OnInit {
     this.resetForm();
     this.resetPost();
     this.titleCharLenght = 100;
-    this.auth.currentUser.subscribe((x) => {
-      this.currentUser = x;
-    });
-    this.currentUserId = this.auth.CurrentUserValue.user?.userId;
+    this.auth.currentUser.subscribe((x) => (this.currentUser = x));
+    this.currentUserId = this.auth.CurrentUserValue!.user!.userId!;
     this.collapseDiv();
   }
 
@@ -49,7 +47,7 @@ export class CreatePostPageComponent implements OnInit {
     });
 
     this.post = {
-      userId: this.currentUserId,
+      userId: this.currentUser.user.userId,
       postId: 0,
       title: this.postForm.value.Title,
       desc: this.postForm.value.Content,
@@ -58,6 +56,7 @@ export class CreatePostPageComponent implements OnInit {
 
     this.postService.createPost(this.post).subscribe({
       next: (x) => {
+        x.user!.userImage = this.currentUser.user.userImage;
         this.posts.unshift(x);
         this.postForm = this.resetForm();
       },
