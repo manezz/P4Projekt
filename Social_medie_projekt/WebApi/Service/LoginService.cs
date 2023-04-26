@@ -69,7 +69,7 @@
 
         public async Task<SignInResponse> AuthenticateUser(SignInRequest signIn)
         {
-            Login? login = await _loginRepository.FindLoginByEmailAsync(signIn.Email);
+            Login? login = await _loginRepository.GetByEmailAsync(signIn.Email);
 
             if (login == null)
             {
@@ -102,7 +102,7 @@
 
         public async Task<LoginResponse> RegisterAsync(LoginRequest newUser)
         {
-            var user = await _loginRepository.RegisterAsync(MapLoginRequestToLogin(newUser));
+            var user = await _loginRepository.CreateAsync(MapLoginRequestToLogin(newUser));
 
             if (user == null)
             {
@@ -114,7 +114,7 @@
 
         public async Task<List<LoginResponse>> GetAllLoginAsync()
         {
-            List<Login> logins = await _loginRepository.GetAllLoginAsync();
+            List<Login> logins = await _loginRepository.GetAllAsync();
 
             if (logins == null)
             {
@@ -126,7 +126,7 @@
 
         public async Task<LoginResponse> FindLoginByIdAsync(int loginId)
         {
-            var login = await _loginRepository.FindLoginByIdAsync(loginId);
+            var login = await _loginRepository.GetByIdAsync(loginId);
 
             if (login != null)
             {
@@ -138,7 +138,7 @@
 
         public async Task<LoginResponse?> UpdateLoginAsync(int loginId, LoginRequest updatedLogin)
         {
-            var login = await _loginRepository.UpdateLoginById(loginId, MapLoginRequestToLogin(updatedLogin));
+            var login = await _loginRepository.UpdateByIdAsync(loginId, MapLoginRequestToLogin(updatedLogin));
 
             if (login != null)
             {
@@ -150,7 +150,7 @@
 
         public async Task<LoginResponse?> DeleteLoginAsync(int loginId)
         {
-            var login = await _loginRepository.DeleteLoginByIdAsync(loginId);
+            var login = await _loginRepository.DeleteByIdAsync(loginId);
 
             if (login != null)
             {
