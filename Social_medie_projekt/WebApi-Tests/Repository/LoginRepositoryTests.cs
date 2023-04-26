@@ -113,5 +113,32 @@
             var ex = await Assert.ThrowsAsync<ArgumentException>(action);
             Assert.Contains("An item with the same key has already been added", ex.Message);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnLogin_WhenLoginExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int loginId = 1;
+
+            _context.Login.Add(new()
+            {
+                LoginId = 1,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0
+            });
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _loginRepository.GetByIdAsync(loginId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Login>(result);
+            Assert.Equal(loginId, result?.LoginId);
+        }
     }
 }
