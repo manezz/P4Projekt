@@ -1,5 +1,7 @@
 ﻿global using Microsoft.EntityFrameworkCore;
+global using System;
 global using System.Collections.Generic;
+global using System.Threading.Tasks;
 global using WebApi.Database;
 global using WebApi.Database.Entities;
 global using WebApi.Helpers;
