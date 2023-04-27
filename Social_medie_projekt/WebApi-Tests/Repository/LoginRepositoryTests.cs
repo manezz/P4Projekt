@@ -155,6 +155,46 @@
         }
 
         [Fact]
+        public async void GetByEmailAsync_ShouldReturnLogin_WhenLoginExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            string email = "Test1@mail.dk";
+
+            _context.Login.Add(new()
+            {
+                LoginId = 1,
+                Email = email,
+                Password = "password",
+                Role = 0
+            });
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _loginRepository.GetByEmailAsync(email);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Login>(result);
+            Assert.Equal(email, result.Email);
+        }
+
+        [Fact]
+        public async void GeByEmailAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            // Act
+            var result = await _loginRepository.GetByEmailAsync("Test1@mail.dk");
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
         public async void UpdateByIdAsync_ShouldChangeValuesOnLogins_WhenLoginsExists()
         {
             // Arange
