@@ -1,54 +1,75 @@
-import { Component, inject, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './_helpers/auth.guard';
-
-import { IndexpageComponent } from './pages/indexpage/indexpage.component';
-import { PostDetailsComponent } from './pages/post-details/post-detail.component';
-import { LoginpageComponent } from './pages/loginpage/loginpage.component';
-import { CreatePostPageComponent } from './pages/create-postpage/create-postpage.component';
-import { CreateUserPageComponent } from './pages/create-userpage/create-userpage.component';
-import { EditPostComponent } from './pages/edit-post/edit-post.component';
-import { ProfilepageComponent } from './pages/profilepage/profilepage.component';
-import { UpdateUserPageComponent } from './pages/update-userpage/update-userpage.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginpageComponent,
+    loadComponent: () =>
+      import('./pages/loginpage/loginpage.component').then(
+        (x) => x.LoginpageComponent
+      ),
   },
   {
     path: 'createuser',
-    component: CreateUserPageComponent,
+    loadComponent: () =>
+      import('./pages/create-userpage/create-userpage.component').then(
+        (x) => x.CreateUserPageComponent
+      ),
   },
-  { path: 'createpost', component: CreatePostPageComponent },
+  {
+    path: 'createpost',
+    loadComponent: () =>
+      import('./pages/create-postpage/create-postpage.component').then(
+        (x) => x.CreatePostPageComponent
+      ),
+  },
   {
     path: 'main',
-    component: IndexpageComponent,
+    loadComponent: () =>
+      import('./pages/indexpage/indexpage.component').then(
+        (x) => x.IndexpageComponent
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'post-details/:postId',
-    component: PostDetailsComponent,
+    loadComponent: () =>
+      import('./pages/post-details/post-detail.component').then(
+        (x) => x.PostDetailsComponent
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'editPost/:postId',
-    component: EditPostComponent,
+    loadComponent: () =>
+      import('./pages/edit-post/edit-post.component').then(
+        (x) => x.EditPostComponent
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'profile',
-    component: ProfilepageComponent,
+    loadComponent: () =>
+      import('./pages/profilepage/profilepage.component').then(
+        (x) => x.ProfilepageComponent
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'profile/:userId',
-    component: ProfilepageComponent,
+    loadComponent: () =>
+      import('./pages/profilepage/profilepage.component').then(
+        (x) => x.ProfilepageComponent
+      ),
     canActivate: [AuthGuard],
   },
   {
     path: 'profile-update',
-    component: UpdateUserPageComponent,
+    loadComponent: () =>
+      import('./pages/update-userpage/update-userpage.component').then(
+        (x) => x.UpdateUserPageComponent
+      ),
     canActivate: [AuthGuard],
   },
 ];
