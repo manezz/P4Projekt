@@ -213,9 +213,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 4, 27, 12, 29, 7, 18, DateTimeKind.Local).AddTicks(6464), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 4, 27, 12, 29, 7, 18, DateTimeKind.Local).AddTicks(6467), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 4, 27, 12, 29, 7, 18, DateTimeKind.Local).AddTicks(6471), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 4, 27, 14, 44, 12, 637, DateTimeKind.Local).AddTicks(2705), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 4, 27, 14, 44, 12, 637, DateTimeKind.Local).AddTicks(2709), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 4, 27, 14, 44, 12, 637, DateTimeKind.Local).AddTicks(2712), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,8 +232,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 4, 27, 12, 29, 7, 18, DateTimeKind.Local).AddTicks(6506), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 4, 27, 12, 29, 7, 18, DateTimeKind.Local).AddTicks(6509), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 4, 27, 14, 44, 12, 637, DateTimeKind.Local).AddTicks(2746), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 4, 27, 14, 44, 12, 637, DateTimeKind.Local).AddTicks(2750), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(

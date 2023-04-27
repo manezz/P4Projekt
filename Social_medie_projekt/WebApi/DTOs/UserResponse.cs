@@ -8,11 +8,11 @@
 
         public DateTime Created { get; set; }
 
-        public int? followUserId { get; set; }
+        public int? FollowUserId { get; set; }
 
-        public UserLoginResponse Login { get; set; }
+        public UserLoginResponse Login { get; set; } = null!;
 
-        public UserUserImageResponse UserImage { get; set; }
+        public UserUserImageResponse UserImage { get; set; } = null!;
 
         public List<UserPostResponse> Posts { get; set; } = new();
 
@@ -30,7 +30,7 @@
 
     public class UserUserImageResponse
     {
-        public string Image { get; set; }
+        public string Image { get; set; } = null!;
     }
 
     public class UserPostResponse
@@ -43,7 +43,7 @@
 
         public DateTime Date { get; set; }
 
-        public UserPostPostLikesResponse PostLikes { get; set; }
+        public UserPostPostLikesResponse PostLikes { get; set; } = null!;
     }
 
     public class UserPostPostLikesResponse

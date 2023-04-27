@@ -73,7 +73,7 @@
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Created = user.Created,
-                followUserId = follow?.FollowingId,
+                FollowUserId = follow?.FollowingId,
                 Login = new UserLoginResponse
                 {
                     LoginId = user.Login.LoginId,

@@ -9,6 +9,6 @@
         [ForeignKey("User.UserId")]
         public int FollowingId { get; set; }
 
-        public User? User { get; set; }
+        public User User { get; set; } = null!;
     }
 }
