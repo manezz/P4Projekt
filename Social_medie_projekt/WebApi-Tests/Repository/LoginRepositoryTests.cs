@@ -140,5 +140,120 @@
             Assert.IsType<Login>(result);
             Assert.Equal(loginId, result?.LoginId);
         }
+
+        [Fact]
+        public async void GeByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            // Act
+            var result = await _loginRepository.GetByIdAsync(1);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldChangeValuesOnLogins_WhenLoginsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int loginId = 1;
+
+            Login newLogin = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0
+            };
+            _context.Login.Add(newLogin);
+            await _context.SaveChangesAsync();
+
+            Login updateLogin = new()
+            {
+                LoginId = loginId,
+                Email = "TestTest1@mail.dk",
+                Password = "password1",
+                Role = (Role)1
+            };
+
+            // Act
+            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Login>(result);
+            Assert.Equal(loginId, result?.LoginId);
+            Assert.Equal(updateLogin.Email, result?.Email);
+            Assert.Equal(updateLogin.Password, result?.Password);
+            Assert.Equal(updateLogin.Role, result?.Role);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int loginId = 1;
+
+            Login updateLogin = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0
+            };
+
+            // Act
+            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnDeletedLogin_WhenLoginIsDeleted()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int loginId = 1;
+
+            Login newLogin = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0
+            };
+            _context.Login.Add(newLogin);
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _loginRepository.DeleteByIdAsync(loginId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Login>(result);
+            Assert.Equal(loginId, result?.LoginId);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            // Act
+            var result = await _loginRepository.DeleteByIdAsync(1);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
