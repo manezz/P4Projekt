@@ -221,7 +221,7 @@
             };
 
             // Act
-            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
+            var result = await _loginRepository.UpdateAsync(loginId, updateLogin);
 
             // Assert
             Assert.NotNull(result);
@@ -249,7 +249,7 @@
             };
 
             // Act
-            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
+            var result = await _loginRepository.UpdateAsync(loginId, updateLogin);
 
             // Assert
             Assert.Null(result);
@@ -275,7 +275,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _loginRepository.DeleteByIdAsync(loginId);
+            var result = await _loginRepository.DeleteAsync(loginId);
 
             // Assert
             Assert.NotNull(result);
@@ -290,7 +290,7 @@
             await _context.Database.EnsureDeletedAsync();
 
             // Act
-            var result = await _loginRepository.DeleteByIdAsync(1);
+            var result = await _loginRepository.DeleteAsync(1);
 
             // Assert
             Assert.Null(result);
