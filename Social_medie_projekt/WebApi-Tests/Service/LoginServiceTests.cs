@@ -53,5 +53,145 @@
             Assert.IsType<List<LoginResponse>>(result);
             Assert.Equal(2, result?.Count);
         }
+
+        [Fact]
+        public async void GetAllAsync_ShouldReturnEmptyListOfLoginResponses_WhenNoLoginsExists()
+        {
+            // Arrange
+            List<Login> logins = new();
+
+            _loginRepositoryMock
+            .Setup(x => x.GetAllAsync())
+                .ReturnsAsync(logins);
+
+            // Act
+            var result = await _loginService.GetAllAsync();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<LoginResponse>>(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async void GetAllAsync_ShouldThrowNullExeption_WhenRepositioryReturnsNull()
+        {
+            // Arrange
+            List<Login> logins = new();
+
+            _loginRepositoryMock
+                .Setup(x => x.GetAllAsync())
+                .ReturnsAsync(() => throw new ArgumentNullException());
+
+            // Act
+            async Task action() => await _loginService.GetAllAsync();
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Contains("Value cannot be null", ex.Message);
+        }
+
+        [Fact]
+        public async void CreateAsync_ShouldReturnLoginResponse_WhenCreateIsSuccess()
+        {
+            // Arrange
+            LoginRequest newLogin = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+            int loginId = 1;
+
+            Login login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.CreateAsync(It.IsAny<Login>()))
+                .ReturnsAsync(login);
+
+            // Act
+            var result = await _loginService.CreateAsync(newLogin);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<LoginResponse>(result);
+            Assert.Equal(login.LoginId, result.LoginId);
+            Assert.Equal(login.Email, result.Email);
+            Assert.Equal(login.Role, result.Role);
+        }
+
+        [Fact]
+        public async void CreateAsync_ShouldThrowNullExeption_WhenRepositioryReturnsNull()
+        {
+            // Arrange
+            LoginRequest newLogin = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.CreateAsync(It.IsAny<Login>()))
+                .ReturnsAsync(() => null!);
+
+            // Act
+            async Task action() => await _loginService.CreateAsync(newLogin);
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Contains("Value cannot be null", ex.Message);
+        }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnLoginResponse_WhenLoginExists()
+        {
+            // Arrange
+            int loginId = 1;
+
+            Login login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(login);
+
+            // Act
+            var result = await _loginService.GetByIdAsync(loginId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<LoginResponse>(result);
+            Assert.Equal(login.LoginId, result?.LoginId);
+            Assert.Equal(login.Email, result?.Email);
+            Assert.Equal(login.Role, result?.Role);
+        }
     }
 }
