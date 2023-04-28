@@ -14,11 +14,11 @@
         [AllowAnonymous]
         [HttpPost]
         [Route("authenticate")]
-        public async Task<IActionResult> GetByEmailAsync([FromBody] SignInRequest login)
+        public async Task<IActionResult> AuthenticateAsync([FromBody] SignInRequest login)
         {
             try
             {
-                SignInResponse? response = await _loginService.GetByEmailAsync(login);
+                SignInResponse? response = await _loginService.AuthenticateAsync(login);
 
                 if (response == null)
                 {

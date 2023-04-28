@@ -2,7 +2,7 @@
 {
     public interface ILoginService
     {
-        Task<SignInResponse> GetByEmailAsync(SignInRequest sign);
+        Task<SignInResponse> AuthenticateAsync(SignInRequest sign);
         Task<LoginResponse> CreateAsync(LoginRequest newUser);
         Task<List<LoginResponse>> GetAllAsync();
         Task<LoginResponse> GetByIdAsync(int loginId);
@@ -67,37 +67,35 @@
             };
         }
 
-        public async Task<SignInResponse> GetByEmailAsync(SignInRequest signIn)
+        public async Task<SignInResponse> AuthenticateAsync(SignInRequest signIn)
         {
-            Login? login = await _loginRepository.GetByEmailAsync(signIn.Email);
+            Login login = await _loginRepository.GetByEmailAsync(signIn.Email);
 
-            if (login == null)
+            if (login != null)
             {
-                throw new ArgumentNullException();
-            }
-
-            if (login.Password == signIn.Password)
-            {
-                SignInResponse response = new()
+                if (login.Password == signIn.Password)
                 {
-                    LoginId = login.LoginId,
-                    Email = login.Email,
-                    Role = login.Role,
-                    User = new()
+                    SignInResponse response = new()
                     {
-                        UserId = login.User.UserId,
-                        UserName = login.User.UserName,
-                        Created = login.User.Created,
-                        UserImage = new()
+                        LoginId = login.LoginId,
+                        Email = login.Email,
+                        Role = login.Role,
+                        User = new()
                         {
-                            Image = Convert.ToBase64String(login.User.UserImage.Image)
-                        }
-                    },
-                    Token = _jwtUtils.GenerateJwtToken(login)
-                };
-                return response;
+                            UserId = login.User.UserId,
+                            UserName = login.User.UserName,
+                            Created = login.User.Created,
+                            UserImage = new()
+                            {
+                                Image = Convert.ToBase64String(login.User.UserImage.Image)
+                            }
+                        },
+                        Token = _jwtUtils.GenerateJwtToken(login)
+                    };
+                    return response;
+                }
             }
-            return null;
+            return null!;
         }
 
         public async Task<LoginResponse> CreateAsync(LoginRequest newUser)

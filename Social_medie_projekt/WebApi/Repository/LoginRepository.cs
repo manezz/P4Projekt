@@ -6,7 +6,7 @@
         Task<Login> CreateAsync(Login newUser);
         Task<List<Login>?> GetAllAsync();
         Task<Login?> GetByIdAsync(int loginId);
-        Task<Login?> GetByEmailAsync(string email);
+        Task<Login> GetByEmailAsync(string email);
         Task<Login?> UpdateByIdAsync(int loginId, Login updatedLogin);
         Task<Login?> DeleteByIdAsync(int loginId);
     }
@@ -49,7 +49,7 @@
                 .FirstOrDefaultAsync(login => login.LoginId == loginId);
         }
 
-        public async Task<Login?> GetByEmailAsync(string email)
+        public async Task<Login> GetByEmailAsync(string email)
         {
             return await _context.Login
                 .Include(L => L.User)

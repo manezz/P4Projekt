@@ -212,6 +212,64 @@
         }
 
         [Fact]
+        public async void AuthenticateAsync_ShouldReturnSignInResponse_WhenLoginExists()
+        {
+            // Arrange
+            SignInRequest signInRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+            };
+
+            Login login = new()
+            {
+                LoginId = 1,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.GetByEmailAsync(It.IsAny<string>()))
+                .ReturnsAsync(login);
+
+            // Act
+            var result = await _loginService.AuthenticateAsync(signInRequest);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<SignInResponse>(result);
+            Assert.Equal(login.LoginId, result?.LoginId);
+            Assert.Equal(login.Email, result?.Email);
+            Assert.Equal(login.Role, result?.Role);
+        }
+
+        [Fact]
+        public async void AuthenticateAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        {
+            // Arrange
+            SignInRequest signInRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.GetByEmailAsync(It.IsAny<string>()))
+                    .ReturnsAsync(() => null!);
+
+            // Act
+            var result = await _loginService.AuthenticateAsync(signInRequest);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
         public async void UpdateByIdAsync_ShouldReturnLoginResponse_WhenUpdateIsSuccess()
         {
             // Arrange
