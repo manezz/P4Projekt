@@ -217,11 +217,10 @@
                 LoginId = loginId,
                 Email = "TestTest1@mail.dk",
                 Password = "password1",
-                Role = (Role)1
             };
 
             // Act
-            var result = await _loginRepository.UpdateAsync(loginId, updateLogin);
+            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
 
             // Assert
             Assert.NotNull(result);
@@ -229,7 +228,6 @@
             Assert.Equal(loginId, result?.LoginId);
             Assert.Equal(updateLogin.Email, result?.Email);
             Assert.Equal(updateLogin.Password, result?.Password);
-            Assert.Equal(updateLogin.Role, result?.Role);
         }
 
         [Fact]
@@ -249,7 +247,7 @@
             };
 
             // Act
-            var result = await _loginRepository.UpdateAsync(loginId, updateLogin);
+            var result = await _loginRepository.UpdateByIdAsync(loginId, updateLogin);
 
             // Assert
             Assert.Null(result);
@@ -275,7 +273,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _loginRepository.DeleteAsync(loginId);
+            var result = await _loginRepository.DeleteByIdAsync(loginId);
 
             // Assert
             Assert.NotNull(result);
@@ -290,7 +288,7 @@
             await _context.Database.EnsureDeletedAsync();
 
             // Act
-            var result = await _loginRepository.DeleteAsync(1);
+            var result = await _loginRepository.DeleteByIdAsync(1);
 
             // Assert
             Assert.Null(result);

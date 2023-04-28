@@ -4,10 +4,10 @@
     {
         Task<SignInResponse> GetByEmailAsync(SignInRequest sign);
         Task<LoginResponse> CreateAsync(LoginRequest newUser);
-        Task<List<LoginResponse>?> GetAllAsync();
+        Task<List<LoginResponse>> GetAllAsync();
         Task<LoginResponse> GetByIdAsync(int loginId);
-        Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin);
-        Task<LoginResponse?> DeleteAsync(int loginId);
+        Task<LoginResponse?> UpdateByIdAsync(int loginId, LoginRequest updatedLogin);
+        Task<LoginResponse?> DeleteByIdAsync(int loginId);
     }
     public class LoginService : ILoginService
     {
@@ -112,7 +112,7 @@
             return MapLoginToLoginResponse(user);
         }
 
-        public async Task<List<LoginResponse>?> GetAllAsync()
+        public async Task<List<LoginResponse>> GetAllAsync()
         {
             List<Login>? logins = await _loginRepository.GetAllAsync();
 
@@ -121,7 +121,7 @@
                 return logins.Select(login => MapLoginToLoginResponse(login)).ToList();
             }
 
-            return null;
+            return null!;
         }
 
         public async Task<LoginResponse> GetByIdAsync(int loginId)
@@ -133,12 +133,12 @@
                 return MapLoginToLoginResponse(login);
             }
 
-            return null;
+            return null!;
         }
 
-        public async Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin)
+        public async Task<LoginResponse?> UpdateByIdAsync(int loginId, LoginRequest updatedLogin)
         {
-            var login = await _loginRepository.UpdateAsync(loginId, MapLoginRequestToLogin(updatedLogin));
+            var login = await _loginRepository.UpdateByIdAsync(loginId, MapLoginRequestToLogin(updatedLogin));
 
             if (login != null)
             {
@@ -148,9 +148,9 @@
             return null;
         }
 
-        public async Task<LoginResponse?> DeleteAsync(int loginId)
+        public async Task<LoginResponse?> DeleteByIdAsync(int loginId)
         {
-            var login = await _loginRepository.DeleteAsync(loginId);
+            var login = await _loginRepository.DeleteByIdAsync(loginId);
 
             if (login != null)
             {

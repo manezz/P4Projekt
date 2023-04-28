@@ -7,8 +7,8 @@
         Task<List<Login>?> GetAllAsync();
         Task<Login?> GetByIdAsync(int loginId);
         Task<Login?> GetByEmailAsync(string email);
-        Task<Login?> UpdateAsync(int loginId, Login updatedLogin);
-        Task<Login?> DeleteAsync(int loginId);
+        Task<Login?> UpdateByIdAsync(int loginId, Login updatedLogin);
+        Task<Login?> DeleteByIdAsync(int loginId);
     }
 
     public class LoginRepository : ILoginRepository
@@ -59,13 +59,12 @@
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public async Task<Login?> UpdateAsync(int loginId, Login updatedLogin)
+        public async Task<Login?> UpdateByIdAsync(int loginId, Login updatedLogin)
         {
             var login = await GetByIdAsync(loginId);
 
             if (login != null)
             {
-                login.Role = updatedLogin.Role;
                 login.Email = updatedLogin.Email;
                 login.Password = updatedLogin.Password;
 
@@ -74,7 +73,7 @@
             return login;
         }
 
-        public async Task<Login?> DeleteAsync(int loginId)
+        public async Task<Login?> DeleteByIdAsync(int loginId)
         {
             var login = await GetByIdAsync(loginId);
 

@@ -193,5 +193,63 @@
             Assert.Equal(login.Email, result?.Email);
             Assert.Equal(login.Role, result?.Role);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        {
+            // Arrange
+            int loginId = 1;
+
+            _loginRepositoryMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                    .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _loginService.GetByIdAsync(loginId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnLoginResponse_WhenUpdateIsSuccess()
+        {
+            // Arrange
+            LoginRequest loginRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+            int loginId = 1;
+
+            Login login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<Login>()))
+                .ReturnsAsync(login);
+
+            // Act
+            var result = await _loginService.UpdateByIdAsync(loginId, loginRequest);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<LoginResponse>(result);
+            Assert.Equal(loginId, result?.LoginId);
+            Assert.Equal(loginRequest.Email, result?.Email);
+        }
     }
 }
