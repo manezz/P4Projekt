@@ -251,5 +251,79 @@
             Assert.Equal(loginId, result?.LoginId);
             Assert.Equal(loginRequest.Email, result?.Email);
         }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        {
+            // Arrange
+            LoginRequest loginRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+            int loginId = 1;
+
+            _loginRepositoryMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<Login>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _loginService.UpdateByIdAsync(loginId, loginRequest);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnLoginResponse_WhenDeleteIsSuccess()
+        {
+            // Arrange
+            int loginId = 1;
+
+            Login login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Password = "password",
+                Role = 0,
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _loginRepositoryMock
+                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(login);
+
+            // Act
+            var result = await _loginService.DeleteByIdAsync(loginId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<LoginResponse>(result);
+            Assert.Equal(login.LoginId, result?.LoginId);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        {
+            // Arrange
+            int loginId = 1;
+
+            _loginRepositoryMock
+                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _loginService.DeleteByIdAsync(loginId);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
