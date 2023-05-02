@@ -13,7 +13,7 @@
         public async Task Invoke(HttpContext context, ILoginService loginService, IJwtUtils jwtUtils)
         {
             string? token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
-            int? loginId = jwtUtils.ValidateJwtToken(token);
+            int? loginId = jwtUtils.ValidateJwtToken(token!);
             if (loginId != null)
             {
                 context.Items["Login"] = await loginService.GetByIdAsync(loginId.Value);
