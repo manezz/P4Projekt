@@ -165,5 +165,108 @@ namespace WebApi_Tests.Controller
             // Asset
             Assert.Equal(200, result.StatusCode);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        {
+            // Arrange
+            int loginId = 1;
+
+            LoginResponse login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = login;
+
+            _loginServiceMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => null!);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int loginId = 1;
+
+            LoginResponse login = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = login;
+
+            _loginServiceMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void AuthenticateAsync_ShouldReturnStatusCode200_WhenLoginExists()
+        {
+            // Arrange
+            int signInId = 1;
+
+            SignInRequest newSignInRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+            };
+
+            SignInResponse signIn = new()
+            {
+                LoginId = signInId,
+                Email = "Test1@mail.dk",
+                Role = 0,
+            };
+
+            _loginServiceMock
+                .Setup(x => x.AuthenticateAsync(It.IsAny<SignInRequest>()))
+                .ReturnsAsync(signIn);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.AuthenticateAsync(newSignInRequest);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void AuthenticateAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        {
+            // Arrange
+            SignInRequest newSignInRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+            };
+
+            _loginServiceMock
+                .Setup(x => x.AuthenticateAsync(It.IsAny<SignInRequest>()))
+                .ReturnsAsync(() => null!);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.AuthenticateAsync(newSignInRequest);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
     }
 }

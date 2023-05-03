@@ -22,7 +22,7 @@
 
                 if (response == null)
                 {
-                    return Unauthorized();
+                    return NotFound();
                 }
 
                 return Ok(response);
