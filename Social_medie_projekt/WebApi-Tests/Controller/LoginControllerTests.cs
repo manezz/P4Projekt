@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace WebApi_Tests.Controller
 {
@@ -7,10 +8,17 @@ namespace WebApi_Tests.Controller
     {
         private readonly LoginController _loginController;
         private readonly Mock<ILoginService> _loginServiceMock = new();
+        private readonly HttpContext httpContext = new DefaultHttpContext();
 
         public LoginControllerTests()
         {
-            _loginController = new(_loginServiceMock.Object);
+            _loginController = new(_loginServiceMock.Object)
+            {
+                ControllerContext = new ControllerContext()
+                {
+                    HttpContext = httpContext
+                }
+            };
         }
 
         [Fact]
@@ -145,16 +153,7 @@ namespace WebApi_Tests.Controller
                 Role = 0
             };
 
-            var httpContext = new DefaultHttpContext();
-            httpContext.Request.Headers["X-Custom-Header"] = "88-test-tcb";
-            var mockedRepository = new Mock<ILoginService>();
-            var controller = new LoginController(mockedRepository.Object)
-            {
-                ControllerContext = new ControllerContext()
-                {
-                    HttpContext = httpContext,
-                }
-            };
+            httpContext.Items["Login"] = login;
 
             _loginServiceMock
                 .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
