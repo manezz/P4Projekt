@@ -268,5 +268,102 @@ namespace WebApi_Tests.Controller
             // Asset
             Assert.Equal(404, result.StatusCode);
         }
+
+        [Fact]
+        public async void AuthenticateAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            SignInRequest newSignInRequest = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password",
+            };
+
+            _loginServiceMock
+                .Setup(x => x.AuthenticateAsync(It.IsAny<SignInRequest>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.AuthenticateAsync(newSignInRequest);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode200_WhenLoginIsUpdated()
+        {
+            // Arrange
+            LoginRequest updateLogin = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password"
+            };
+
+            int loginId = 1;
+
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "LennyUser",
+                Role = 0
+            };
+
+            _loginServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .ReturnsAsync(loginResponse);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        {
+            // Arrange
+            LoginRequest updateLogin = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password"
+            };
+
+            int loginId = 1;
+
+            _loginServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            LoginRequest updateLogin = new()
+            {
+                Email = "Test1@mail.dk",
+                Password = "password"
+            };
+
+            int loginId = 1;
+
+            _loginServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
     }
 }
