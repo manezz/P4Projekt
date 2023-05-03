@@ -305,7 +305,7 @@ namespace WebApi_Tests.Controller
             LoginResponse loginResponse = new()
             {
                 LoginId = loginId,
-                Email = "LennyUser",
+                Email = "Test2@mail.dk",
                 Role = 0
             };
 
@@ -364,6 +364,30 @@ namespace WebApi_Tests.Controller
 
             // Asset
             Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnStatusCode200_WhenLoginIsDeleted()
+        {
+            // Arrange
+            int loginId = 1;
+
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            _loginServiceMock
+                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(loginResponse);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
         }
     }
 }
