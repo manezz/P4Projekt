@@ -2,11 +2,11 @@
 {
     public interface IUserRepository
     {
-        Task<List<User>> GetAllUsersAsync();
-        Task<User?> FindUserByIdAsync(int id);
-        Task<User> CreateUserAsync(User newUser);
-        Task<User?> UpdateUserAsync(int id, User updatedUser);
-        Task<User?> DeleteUserAsync(int id);
+        Task<List<User>> GetAllAsync();
+        Task<User?> GetByIdAsync(int id);
+        Task<User> CreateAsync(User newUser);
+        Task<User?> UpdateByIdAsync(int id, User updatedUser);
+        Task<User?> DeleteByIdAsync(int id);
     }
 
     public class UserRepository : IUserRepository
@@ -18,22 +18,24 @@
             _context = context;
         }
 
-        public async Task<User> CreateUserAsync(User newUser)
+        public async Task<User> CreateAsync(User newUser)
         {
-            if (_context.User.Any(u => u.Login.Email == newUser.Login.Email))
-            {
-                throw new Exception(String.Format("The email {0} is not available", newUser.Login.Email));
-            }
+            //if (_context.User.Any(u => u.Login.Email == newUser.Login.Email))
+            //{
+            //    throw new Exception(String.Format("The email {0} is not available", newUser.Login.Email));
+            //}
 
             _context.User.Add(newUser);
             await _context.SaveChangesAsync();
-            newUser = await FindUserByIdAsync(newUser.UserId);
-            return newUser;
+
+            var user = await GetByIdAsync(newUser.UserId);
+
+            return user!;
         }
 
-        public async Task<User?> DeleteUserAsync(int id)
+        public async Task<User?> DeleteByIdAsync(int id)
         {
-            var user = await FindUserByIdAsync(id);
+            var user = await GetByIdAsync(id);
 
             if (user != null)
             {
@@ -43,7 +45,7 @@
             return user;
         }
 
-        public async Task<User?> FindUserByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(int id)
         {
             return await _context.User
                 .Include(l => l.Login)
@@ -54,7 +56,7 @@
                 .FirstOrDefaultAsync(x => x.UserId == id);
         }
 
-        public async Task<List<User>> GetAllUsersAsync()
+        public async Task<List<User>> GetAllAsync()
         {
             return await _context.User
                 .Include(l => l.Login)
@@ -65,9 +67,9 @@
                 .ToListAsync();
         }
 
-        public async Task<User?> UpdateUserAsync(int id, User updatedUser)
+        public async Task<User?> UpdateByIdAsync(int id, User updatedUser)
         {
-            var user = await FindUserByIdAsync(id);
+            var user = await GetByIdAsync(id);
 
             if (user != null)
             {

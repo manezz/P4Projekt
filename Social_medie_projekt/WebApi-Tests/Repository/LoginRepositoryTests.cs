@@ -75,7 +75,6 @@
 
             Login login = new()
             {
-                LoginId = 1,
                 Email = "Test1@mail.dk",
                 Password = "password",
                 Role = 0
@@ -98,7 +97,6 @@
 
             Login login = new()
             {
-                LoginId = 1,
                 Email = "Test1@mail.dk",
                 Password = "password",
                 Role = 0

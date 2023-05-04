@@ -105,7 +105,7 @@
 
         public async Task<UserResponse> FindUserAsync(int userId, int followUserId)
         {
-            var user = await _userRepository.FindUserByIdAsync(userId);
+            var user = await _userRepository.GetByIdAsync(userId);
 
             if (user != null)
             {
@@ -116,7 +116,7 @@
 
         public async Task<List<UserResponse>> GetAllUsersAsync()
         {
-            List<User> user = await _userRepository.GetAllUsersAsync();
+            List<User> user = await _userRepository.GetAllAsync();
 
             if (user == null)
             {
@@ -127,7 +127,7 @@
 
         public async Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser)
         {
-            var user = await _userRepository.UpdateUserAsync(userId, MapUserRequestToUser(updatedUser));
+            var user = await _userRepository.UpdateByIdAsync(userId, MapUserRequestToUser(updatedUser));
 
             if (user == null)
             {
