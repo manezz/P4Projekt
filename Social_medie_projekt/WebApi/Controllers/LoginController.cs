@@ -112,7 +112,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
+                if (currentUser == null || loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
@@ -142,7 +142,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
+                if (currentUser == null || loginId != currentUser.LoginId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }

@@ -305,9 +305,11 @@ namespace WebApi_Tests.Controller
             LoginResponse loginResponse = new()
             {
                 LoginId = loginId,
-                Email = "Test2@mail.dk",
+                Email = "Test1@mail.dk",
                 Role = 0
             };
+
+            httpContext.Items["Login"] = loginResponse;
 
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
@@ -332,6 +334,15 @@ namespace WebApi_Tests.Controller
 
             int loginId = 1;
 
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = loginResponse;
+
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(() => null);
@@ -354,6 +365,15 @@ namespace WebApi_Tests.Controller
             };
 
             int loginId = 1;
+
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = loginResponse;
 
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
@@ -379,6 +399,8 @@ namespace WebApi_Tests.Controller
                 Role = 0
             };
 
+            httpContext.Items["Login"] = loginResponse;
+
             _loginServiceMock
                 .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(loginResponse);
@@ -388,6 +410,58 @@ namespace WebApi_Tests.Controller
 
             // Asset
             Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        {
+            // Arrange
+            int loginId = 1;
+
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = loginResponse;
+
+            _loginServiceMock
+                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int loginId = 1;
+
+            LoginResponse loginResponse = new()
+            {
+                LoginId = loginId,
+                Email = "Test1@mail.dk",
+                Role = 0
+            };
+
+            httpContext.Items["Login"] = loginResponse;
+
+            _loginServiceMock
+                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            // Act
+            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
         }
     }
 }
