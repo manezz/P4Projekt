@@ -13,11 +13,11 @@
 
         [Authorize(Role.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAllUsersAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                List<UserResponse> users = await _userService.GetAllUsersAsync();
+                List<UserResponse> users = await _userService.GetAllAsync();
 
                 if (users.Count == 0)
                 {
@@ -34,13 +34,13 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{userId}")]
-        public async Task<IActionResult> FindUserById([FromRoute] int userId)
+        public async Task<IActionResult> GetByIdAsync([FromRoute] int userId)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var userResponse = await _userService.FindUserAsync(userId, currentUser.User.UserId);
+                var userResponse = await _userService.GetByIdAsync(userId, currentUser.User.UserId);
 
                 if (userResponse == null)
                 {
@@ -57,7 +57,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{userid}")]
-        public async Task<IActionResult> EditUser([FromRoute] int userId, [FromBody] UserRequest updatedUser)
+        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromBody] UserRequest updatedUser)
         {
             try
             {
@@ -68,7 +68,7 @@
                     return Unauthorized(new { message = "Unauthrized" });
                 }
 
-                var userResponse = await _userService.UpdateUserAsync(userId, updatedUser);
+                var userResponse = await _userService.UpdateByIdAsync(userId, updatedUser);
 
                 if (userResponse == null)
                 {

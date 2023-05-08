@@ -2,9 +2,9 @@
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetAllUsersAsync();
-        Task<UserResponse> FindUserAsync(int userId, int followUserId);
-        Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser);
+        Task<List<UserResponse>> GetAllAsync();
+        Task<UserResponse?> GetByIdAsync(int userId, int followUserId);
+        Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updatedUser);
     }
 
     public class UserService : IUserService
@@ -103,7 +103,7 @@
             };
         }
 
-        public async Task<UserResponse> FindUserAsync(int userId, int followUserId)
+        public async Task<UserResponse?> GetByIdAsync(int userId, int followUserId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
 
@@ -114,7 +114,7 @@
             return null;
         }
 
-        public async Task<List<UserResponse>> GetAllUsersAsync()
+        public async Task<List<UserResponse>> GetAllAsync()
         {
             List<User> user = await _userRepository.GetAllAsync();
 
@@ -125,7 +125,7 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        public async Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser)
+        public async Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateByIdAsync(userId, MapUserRequestToUser(updatedUser));
 
