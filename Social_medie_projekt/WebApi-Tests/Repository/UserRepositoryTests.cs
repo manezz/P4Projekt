@@ -29,13 +29,15 @@
                     UserId = 1,
                     LoginId = 1,
                     UserName = "tester 1",
+                    Login = new()
                 });
             _context.User.Add(
                 new User
                 {
                     UserId = 2,
                     LoginId = 2,
-                    UserName = "222test222",
+                    UserName = "tester 2",
+                    Login = new()
                 });
             await _context.SaveChangesAsync();
 
@@ -231,6 +233,7 @@
                 UserId = userId,
                 LoginId = 1,
                 UserName = "tester 1",
+                Login = new()
             };
             _context.User.Add(newUser);
 
