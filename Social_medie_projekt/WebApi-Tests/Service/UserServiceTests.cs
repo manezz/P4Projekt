@@ -85,5 +85,34 @@
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(action);
             Assert.Contains("Value cannot be null", ex.Message);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnUserResponse_WhenUserExists()
+        {
+            // Arrange
+            int userId = 1;
+            int followUserId = 1;
+
+            User user = new()
+            {
+                UserId = userId,
+                UserName = "Tester 1",
+                UserImage = new(),
+                Login = new()
+            };
+
+            _userRepositoryMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .ReturnsAsync(user);
+
+            // Act
+            var result = await _userService.GetByIdAsync(userId, followUserId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<UserResponse>(result);
+            Assert.Equal(user.UserId, result.UserId);
+            Assert.Equal(user.UserName, result?.UserName);
+        }
     }
 }
