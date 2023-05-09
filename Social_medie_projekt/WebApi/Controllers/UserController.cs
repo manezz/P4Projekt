@@ -21,7 +21,7 @@
 
                 if (users.Count == 0)
                 {
-                    return NotFound();
+                    return NoContent();
                 }
                 return Ok(users);
             }

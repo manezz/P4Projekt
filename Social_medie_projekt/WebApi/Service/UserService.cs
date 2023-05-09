@@ -4,7 +4,7 @@
     {
         Task<List<UserResponse>> GetAllAsync();
         Task<UserResponse?> GetByIdAsync(int userId, int followUserId);
-        Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updatedUser);
+        Task<UserResponse?> UpdateByIdAsync(int userId, UserRequest updatedUser);
     }
 
     public class UserService : IUserService
@@ -125,16 +125,15 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        public async Task<UserResponse> UpdateByIdAsync(int userId, UserRequest updatedUser)
+        public async Task<UserResponse?> UpdateByIdAsync(int userId, UserRequest updatedUser)
         {
             var user = await _userRepository.UpdateByIdAsync(userId, MapUserRequestToUser(updatedUser));
 
-            if (user == null)
+            if (user != null)
             {
-                throw new ArgumentNullException();
+                return MapUserToUserResponse(user);
             }
-
-            return MapUserToUserResponse(user);
+            return null;
         }
     }
 }
