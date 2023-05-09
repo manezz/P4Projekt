@@ -149,11 +149,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = login;
-
             _loginServiceMock
                 .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(login);
+
+            httpContext.Items["Login"] = login;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
@@ -175,11 +175,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = login;
-
             _loginServiceMock
                 .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null!);
+
+            httpContext.Items["Login"] = login;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
@@ -201,11 +201,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = login;
-
             _loginServiceMock
                 .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = login;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
@@ -305,11 +305,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(loginResponse);
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
@@ -337,11 +337,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
@@ -369,11 +369,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
@@ -395,11 +395,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(loginResponse);
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
@@ -421,11 +421,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
@@ -447,11 +447,11 @@
                 Role = 0
             };
 
-            httpContext.Items["Login"] = loginResponse;
-
             _loginServiceMock
                 .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = loginResponse;
 
             // Act
             var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);

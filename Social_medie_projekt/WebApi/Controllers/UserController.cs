@@ -40,6 +40,11 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
+                if (currentUser == null || userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
+                {
+                    return Unauthorized(new { message = "Unauthrized" });
+                }
+
                 var userResponse = await _userService.GetByIdAsync(userId, currentUser.User.UserId);
 
                 if (userResponse == null)
@@ -63,7 +68,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
+                if (currentUser == null || userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthrized" });
                 }

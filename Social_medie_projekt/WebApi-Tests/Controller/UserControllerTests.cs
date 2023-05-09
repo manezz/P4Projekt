@@ -85,5 +85,126 @@
             // Asset
             Assert.Equal(500, result.StatusCode);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnStatusCode200_WhenUserExists()
+        {
+            // Arrange
+            int userId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+            UserResponse user = new()
+            {
+                UserId = userId,
+                UserName = "Tester 1",
+                FollowUserId = 1,
+                Login = new(),
+                UserImage = new()
+            };
+
+            _userServiceMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(user);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(1);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
+        {
+            // Arrange
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _userServiceMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(1);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int userId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _userServiceMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(userId);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
+        {
+            // Arrange
+            int userId = 1;
+
+            UserRequest user = new()
+            {
+                UserName = "Tester 1",
+                UserImage = new()
+            };
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _userServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, new UserRequest());
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
     }
 }
