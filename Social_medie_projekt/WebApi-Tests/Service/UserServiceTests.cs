@@ -114,5 +114,60 @@
             Assert.Equal(user.UserId, result.UserId);
             Assert.Equal(user.UserName, result?.UserName);
         }
+
+        [Fact]
+        public async void GetByIdAsync_ShouldReturnNull_WhenUserDoesNotExists()
+        {
+            // Arrange
+            int userId = 1;
+            int followUserId = 1;
+
+            _userRepositoryMock
+                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                    .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _userService.GetByIdAsync(userId, followUserId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnUserResponse_WhenUpdateIsSuccess()
+        {
+            // Arrange
+            UserRequest userRequest = new()
+            {
+                UserName = "Tester 1",
+                UserImage = new()
+                {
+                    Image = ""
+                }
+            };
+            int userId = 1;
+
+            User user = new()
+            {
+                UserId = userId,
+                UserName = "Tester 1",
+                UserImage = new(),
+                Login = new()
+            };
+
+            _userRepositoryMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<User>()))
+                .ReturnsAsync(user);
+
+            // Act
+            var result = await _userService.UpdateByIdAsync(userId, userRequest);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<UserResponse>(result);
+            Assert.Equal(userId, result?.UserId);
+            Assert.Equal(userRequest.UserName, result?.UserName);
+            Assert.Equal(userRequest.UserImage.Image, result?.UserImage.Image);
+        }
     }
 }
