@@ -7,7 +7,7 @@
         Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId);
         Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId, int likeUserId);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
-        Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
+        Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
 
         // PostTag
@@ -242,13 +242,13 @@
             return MapPostToPostResponse(post, tags);
         }
 
-        public async Task<PostResponse> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
+        public async Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost)
         {
             var oldtags = await _tagRepository.GetTagsByPostIdAsync(postId);
 
             if (oldtags == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
 
             var updateTags = updatePost.Tags
@@ -260,7 +260,7 @@
 
             if (post == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
 
             var tagCreate = updateTags
@@ -289,7 +289,7 @@
 
             if (currentTags == null)
             {
-                throw new ArgumentNullException();
+                return null;
             }
 
             return MapPostToPostResponse(post, currentTags);

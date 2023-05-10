@@ -193,7 +193,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldChangeValuesOnLogins_WhenLoginsExists()
+        public async void UpdateByIdAsync_ShouldChangeValuesOnLogin_WhenLoginExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();

@@ -69,7 +69,7 @@
         public async Task<LikeResponse> CreateLikeAsync(LikeRequest newLike)
         {
             // Updates post to one more like
-            var post = await _postRepository.UpdatePostLikesAsync(newLike.PostId, 1);
+            var post = await _postRepository.UpdatePostLikesByIdAsync(newLike.PostId, 1);
 
             if (post == null){
                 throw new ArgumentNullException("Post doesn't exist");
@@ -92,7 +92,7 @@
             }
 
             // Updates post to one less like
-            var post = await _postRepository.UpdatePostLikesAsync(like.PostId, -1);
+            var post = await _postRepository.UpdatePostLikesByIdAsync(like.PostId, -1);
 
             if (post == null)
             {

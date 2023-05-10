@@ -8,11 +8,11 @@
         Task<Post?> GetByIdAsync(int PostId);
         Task<List<Post>> GetAllByUserIdAsync(int UserId);
         Task<Post> CreateAsync(Post newPost);
-        Task<Post> DeleteByIdAsync(int id);
-        Task<Post> UpdateByIdAsync(int id, Post updatePost);
+        Task<Post?> DeleteByIdAsync(int id);
+        Task<Post?> UpdateByIdAsync(int id, Post updatePost);
 
         // POST UPDATE LIKES
-        Task<Post> UpdatePostLikesAsync(int id, int like);
+        Task<Post?> UpdatePostLikesByIdAsync(int id, int like);
 
         // POSTTAGS
         Task<List<PostTag>> GetPostTagsByPostId(int postId);
@@ -66,7 +66,7 @@
             return newPost;
         }
 
-        public async Task<Post> UpdateByIdAsync(int id, Post updatePost)
+        public async Task<Post?> UpdateByIdAsync(int id, Post updatePost)
         {
             var post = await GetByIdAsync(id);
 
@@ -82,7 +82,7 @@
             return post;
         }
 
-        public async Task<Post> DeleteByIdAsync(int id)
+        public async Task<Post?> DeleteByIdAsync(int id)
         {
             var post = await GetByIdAsync(id);
 
@@ -95,7 +95,7 @@
         }
 
         // For adding removing a like from the PostLikes count
-        public async Task<Post> UpdatePostLikesAsync(int id, int like)
+        public async Task<Post?> UpdatePostLikesByIdAsync(int id, int like)
         {
             var post = await GetByIdAsync(id);
 

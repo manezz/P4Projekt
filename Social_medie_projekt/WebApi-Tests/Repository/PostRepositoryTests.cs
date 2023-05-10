@@ -186,5 +186,156 @@
             Assert.IsType<List<Post>>(result);
             Assert.Equal(2, result.Count);
         }
+
+        [Fact]
+        public async void GetAllByUserIdAsync_ShouldReturnEmptyListOfPosts_WhenNoPostsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int userId = 1;
+
+            // Act
+            var result = await _postRepository.GetAllByUserIdAsync(userId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Post>>(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldChangeValuesOnPosts_WhenPostsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int postId = 1;
+
+            Post newPost = new()
+            {
+                PostId = postId,
+                Title = "Title 1",
+                Desc = "Desc 1",
+                PostLikes = new(),
+                User = new()
+            };
+            _context.Post.Add(newPost);
+            await _context.SaveChangesAsync();
+
+            Post updatePost = new()
+            {
+                PostId = postId,
+                Title = "New Title 1",
+                Desc = "New Desc 1",
+            };
+
+            // Act
+            var result = await _postRepository.UpdateByIdAsync(postId, updatePost);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Post>(result);
+            Assert.Equal(postId, result?.PostId);
+            Assert.Equal(updatePost.Title, result?.Title);
+            Assert.Equal(updatePost.Desc, result?.Desc);
+        }
+
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int postId = 1;
+
+            Post updatePost = new()
+            {
+                PostId = postId,
+                Title = "New Title 1",
+                Desc = "New Desc 1",
+            };
+
+            // Act
+            var result = await _postRepository.UpdateByIdAsync(postId, updatePost);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnDeletedPost_WhenPostIsDeleted()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int postId = 1;
+
+            Post post = new()
+            {
+                PostId = postId,
+                PostLikes = new(),
+                User = new()
+            };
+            _context.Post.Add(post);
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _postRepository.DeleteByIdAsync(postId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Post>(result);
+            Assert.Equal(postId, result?.PostId);
+        }
+
+        [Fact]
+        public async void DeleteByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int postId = 1;
+
+            // Act
+            var result = await _postRepository.DeleteByIdAsync(postId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void UpdatePostLikesByIdAsync_ShouldChangeValuesOnPost_WhenPostExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int postId = 1;
+            int oldLikes = 2;
+            int like = 1;
+
+            Post post = new()
+            {
+                PostId = postId,
+                PostLikes = new()
+                {
+                    Likes = oldLikes
+                },
+                User = new()
+            };
+            _context.Post.Add(post);
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _postRepository.UpdatePostLikesByIdAsync(postId, like);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Post>(result);
+            Assert.Equal(postId, result?.PostId);
+            Assert.Equal(oldLikes + like, result?.PostLikes.Likes);
+        }
     }
 }
