@@ -18,7 +18,12 @@
         private readonly ILikeRepository _likeRepository;
         private readonly IPostTagService _postTagService;
 
-        public PostService(IPostRepository postRepository, ITagRepository tagRepository, ITagService tagService, ILikeRepository likeRepository, IPostTagService postTagService)
+        public PostService(
+            IPostRepository postRepository,
+            ITagRepository tagRepository,
+            ITagService tagService,
+            ILikeRepository likeRepository,
+            IPostTagService postTagService)
         {
             _postRepository = postRepository;
             _tagRepository = tagRepository;

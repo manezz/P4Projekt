@@ -4,11 +4,13 @@
     {
         private readonly LoginService _loginService;
         private readonly Mock<ILoginRepository> _loginRepositoryMock = new();
-        private readonly Mock<IJwtUtils> _jwtUtils = new();
+        private readonly Mock<IJwtUtils> _jwtUtilsMock = new();
 
         public LoginServiceTests()
         {
-            _loginService = new(_loginRepositoryMock.Object, _jwtUtils.Object);
+            _loginService = new(
+                _loginRepositoryMock.Object,
+                _jwtUtilsMock.Object);
         }
 
         [Fact]
