@@ -174,6 +174,46 @@
         }
 
         [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode200_WhenUserIsUpdated()
+        {
+            // Arrange
+            int userId = 1;
+
+            UserRequest updateUser = new()
+            {
+                UserName = "Tester 1",
+                UserImage = new()
+            };
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+            UserResponse userResponse = new()
+            {
+                UserId = userId,
+                UserName = "Tester 1",
+                FollowUserId = 1,
+                Login = new(),
+                UserImage = new()
+            };
+
+            _userServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .ReturnsAsync(userResponse);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, updateUser);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
         public async void UpdateByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
         {
             // Arrange
@@ -206,5 +246,36 @@
             Assert.Equal(404, result.StatusCode);
         }
 
+        [Fact]
+        public async void UpdateByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int userId = 1;
+
+            UserRequest updateUser = new()
+            {
+                UserName = "Tester 1",
+                UserImage = new()
+            };
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _userServiceMock
+                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, updateUser);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
     }
 }
