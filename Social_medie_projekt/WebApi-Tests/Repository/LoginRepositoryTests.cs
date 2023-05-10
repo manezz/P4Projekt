@@ -122,7 +122,7 @@
 
             _context.Login.Add(new()
             {
-                LoginId = 1,
+                LoginId = loginId,
                 Email = "Test1@mail.dk",
                 Password = "password",
                 Role = 0

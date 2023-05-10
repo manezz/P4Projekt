@@ -201,7 +201,7 @@
 
         public async Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId)
         {
-            var post = await _postRepository.GetPostByPostIdAsync(postId);
+            var post = await _postRepository.GetByIdAsync(postId);
 
             if (post != null)
             {
@@ -214,7 +214,7 @@
 
         public async Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId, int likeUserId)
         {
-            List<Post?> post = await _postRepository.GetAllPostsByUserIdAsync(userId);
+            List<Post?> post = await _postRepository.GetAllByUserIdAsync(userId);
 
             if (post == null)
             {
@@ -229,7 +229,7 @@
 
         public async Task<PostResponse> CreatePostAsync(PostRequest newPost)
         {
-            var post = await _postRepository.CreatePostAsync(MapPostRequestToPost(newPost));
+            var post = await _postRepository.CreateAsync(MapPostRequestToPost(newPost));
             if (post == null)
             {
                 throw new ArgumentNullException();
@@ -255,7 +255,7 @@
                 .Select(x => TagService.MapTagRequestToTag(x))
                 .ToList();
 
-            var post = await _postRepository.UpdatePostAsync(postId, MapPostUpdateRequestToPost(updatePost));
+            var post = await _postRepository.UpdateByIdAsync(postId, MapPostUpdateRequestToPost(updatePost));
             var tags = updatePost.Tags.Select(tag => _tagService.UpdateTagAsync(tag).Result).ToList();
 
             if (post == null)
@@ -297,7 +297,7 @@
 
         public async Task<PostResponse?> DeletePostAsync(int postId)
         {
-            var post = await _postRepository.DeletePostAsync(postId);
+            var post = await _postRepository.DeleteByIdAsync(postId);
             if (post == null)
             {
                 return null;

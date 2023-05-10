@@ -5,11 +5,11 @@
 
         // POST
         Task<List<Post>> GetAllAsync();
-        Task<Post?> GetPostByPostIdAsync(int PostId);
-        Task<List<Post>> GetAllPostsByUserIdAsync(int UserId);
-        Task<Post> CreatePostAsync(Post newPost);
-        Task<Post> DeletePostAsync(int id);
-        Task<Post> UpdatePostAsync(int id, Post updatePost);
+        Task<Post?> GetByIdAsync(int PostId);
+        Task<List<Post>> GetAllByUserIdAsync(int UserId);
+        Task<Post> CreateAsync(Post newPost);
+        Task<Post> DeleteByIdAsync(int id);
+        Task<Post> UpdateByIdAsync(int id, Post updatePost);
 
         // POST UPDATE LIKES
         Task<Post> UpdatePostLikesAsync(int id, int like);
@@ -40,7 +40,7 @@
                 .ToListAsync();
         }
 
-        public async Task<Post?> GetPostByPostIdAsync(int postId)
+        public async Task<Post?> GetByIdAsync(int postId)
         {
             return await _context.Post
                 .Include(c => c.User)
@@ -49,7 +49,7 @@
                 .FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
-        public async Task<List<Post>> GetAllPostsByUserIdAsync(int userId)
+        public async Task<List<Post>> GetAllByUserIdAsync(int userId)
         {
             return await _context.Post
                 .Include(c => c.User)
@@ -59,16 +59,16 @@
                 .ToListAsync();
         }
 
-        public async Task<Post> CreatePostAsync(Post newPost)
+        public async Task<Post> CreateAsync(Post newPost)
         {
             _context.Post.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
         }
 
-        public async Task<Post> UpdatePostAsync(int id, Post updatePost)
+        public async Task<Post> UpdateByIdAsync(int id, Post updatePost)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await GetByIdAsync(id);
 
             if (post != null)
             {
@@ -82,9 +82,9 @@
             return post;
         }
 
-        public async Task<Post> DeletePostAsync(int id)
+        public async Task<Post> DeleteByIdAsync(int id)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await GetByIdAsync(id);
 
             if (post != null)
             {
@@ -97,7 +97,7 @@
         // For adding removing a like from the PostLikes count
         public async Task<Post> UpdatePostLikesAsync(int id, int like)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await GetByIdAsync(id);
 
             if (post != null)
             {
