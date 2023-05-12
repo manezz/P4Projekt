@@ -42,7 +42,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var postResponse = await _postService.GetPostByPostIdAsync(postId, currentUser.User.UserId);
+                var postResponse = await _postService.GetByIdAsync(postId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -65,7 +65,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var postResponse = await _postService.GetAllPostsByUserIdAsync(userId, currentUser.User.UserId);
+                var postResponse = await _postService.GetAllByUserIdAsync(userId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -85,7 +85,7 @@
         {
             try
             {
-                var postResponse = await _postService.CreatePostAsync(newPost);
+                var postResponse = await _postService.CreateAsync(newPost);
 
                 return Ok(postResponse);
             }
@@ -103,7 +103,7 @@
         {
             try
             {
-                var postResponse = await _postService.UpdatePostAsync(postId, updatedPost);
+                var postResponse = await _postService.UpdateByIdAsync(postId, updatedPost);
 
                 if (postResponse == null)
                 {
@@ -132,7 +132,7 @@
                     return Unauthorized(new { message = "Unauthorized" });
                 }
 
-                var postResponse = await _postService.DeletePostAsync(postId);
+                var postResponse = await _postService.DeleteByIdAsync(postId);
 
                 if (postResponse == null)
                 {

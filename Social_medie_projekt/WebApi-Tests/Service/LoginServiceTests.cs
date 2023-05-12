@@ -79,9 +79,11 @@
         public async void GetAllAsync_ShouldThrowNullExeption_WhenRepositoryReturnsNull()
         {
             // Arrange
+            List<Login> logins = null!;
+
             _loginRepositoryMock
                 .Setup(x => x.GetAllAsync())
-                .ReturnsAsync(() => throw new ArgumentNullException());
+                .ReturnsAsync(logins);
 
             // Act
             async Task action() => await _loginService.GetAllAsync();

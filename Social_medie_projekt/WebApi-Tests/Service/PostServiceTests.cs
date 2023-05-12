@@ -89,11 +89,13 @@
         public async void GetAllAsync_ShouldThrowNullExeption_WhenRepositoryReturnsNull()
         {
             // Arrange
+            List<Post> posts = null!;
+
             int likeUserId = 1;
 
             _postRepositoryMock
                 .Setup(x => x.GetAllAsync())
-                .ReturnsAsync(() => throw new ArgumentNullException());
+                .ReturnsAsync(posts);
 
             // Act
             async Task action() => await _postService.GetAllAsync(likeUserId);

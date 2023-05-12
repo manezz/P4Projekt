@@ -72,11 +72,11 @@
         public async void GetAllAsync_ShouldThrowNullExeption_WhenRepositioryReturnsNull()
         {
             // Arrange
-            List<User> users = new();
+            List<User> users = null!;
 
             _userRepositoryMock
                 .Setup(x => x.GetAllAsync())
-                .ReturnsAsync(() => throw new ArgumentNullException());
+                .ReturnsAsync(users);
 
             // Act
             async Task action() => await _userService.GetAllAsync();

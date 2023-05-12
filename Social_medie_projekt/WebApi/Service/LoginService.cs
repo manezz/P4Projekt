@@ -69,7 +69,7 @@
 
         public async Task<SignInResponse> AuthenticateAsync(SignInRequest signIn)
         {
-            Login login = await _loginRepository.GetByEmailAsync(signIn.Email);
+            var login = await _loginRepository.GetByEmailAsync(signIn.Email);
 
             if (login != null)
             {
@@ -112,14 +112,14 @@
 
         public async Task<List<LoginResponse>> GetAllAsync()
         {
-            List<Login>? logins = await _loginRepository.GetAllAsync();
+            List<Login> logins = await _loginRepository.GetAllAsync();
 
-            if (logins != null)
+            if (logins == null)
             {
-                return logins.Select(login => MapLoginToLoginResponse(login)).ToList();
+                throw new ArgumentNullException();
             }
 
-            return null!;
+            return logins.Select(login => MapLoginToLoginResponse(login)).ToList();
         }
 
         public async Task<LoginResponse> GetByIdAsync(int loginId)
