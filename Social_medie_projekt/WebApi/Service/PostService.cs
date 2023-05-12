@@ -162,11 +162,6 @@ namespace WebApi.Service
 
             if (posts != null)
             {
-                //return posts.Select(post =>
-                //    MapPostToPostResponse(post,
-                //    _tagRepository.GetTagsByPostIdAsync(post.PostId).Result,
-                //    _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result)).ToList();
-
                 return posts.Select(post =>
                     MapPostToPostResponse(post,
                     _tagRepository.GetTagsByPostIdAsync(post.PostId).Result ?? new List<Tag>(),

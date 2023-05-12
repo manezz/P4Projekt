@@ -63,5 +63,44 @@
             Assert.IsType<List<PostResponse>>(result);
             Assert.Equal(2, result.Count);
         }
+
+        [Fact]
+        public async void GetAllAsync_ShouldReturnEmptyListOfPostResponses_WhenNoPostsExists()
+        {
+            // Arrange
+            int likeUserId = 1;
+
+            List<Post> posts = new();
+
+            _postRepositoryMock
+                .Setup(x => x.GetAllAsync())
+                .ReturnsAsync(posts);
+
+            // Act
+            var result = await _postService.GetAllAsync(likeUserId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<PostResponse>>(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async void GetAllAsync_ShouldThrowNullExeption_WhenRepositoryReturnsNull()
+        {
+            // Arrange
+            int likeUserId = 1;
+
+            _postRepositoryMock
+                .Setup(x => x.GetAllAsync())
+                .ReturnsAsync(() => throw new ArgumentNullException());
+
+            // Act
+            async Task action() => await _postService.GetAllAsync(likeUserId);
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Contains("Value cannot be null", ex.Message);
+        }
     }
 }
