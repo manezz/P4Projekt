@@ -1,15 +1,18 @@
-﻿namespace WebApi.Service
+﻿using Microsoft.IdentityModel.Tokens;
+
+namespace WebApi.Service
 {
     public interface IPostService
     {
         // Post
-        Task<List<PostResponse>> GetAllPostsAsync(int likeUserId);
+        Task<List<PostResponse>?> GetAllAsync(int likeUserId);
         Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId);
         Task<List<PostResponse?>> GetAllPostsByUserIdAsync(int userId, int likeUserId);
         Task<PostResponse> CreatePostAsync(PostRequest newPost);
         Task<PostResponse?> UpdatePostAsync(int postId, PostUpdateRequest updatePost);
         Task<PostResponse?> DeletePostAsync(int postId);
     }
+
     public class PostService : IPostService
     {
         private readonly IPostRepository _postRepository;
@@ -153,19 +156,24 @@
             };
         }
 
-        public async Task<List<PostResponse>> GetAllPostsAsync(int likeUserId)
+        public async Task<List<PostResponse>?> GetAllAsync(int likeUserId)
         {
             List<Post> posts = await _postRepository.GetAllAsync();
 
-            if (posts == null)
+            if (posts != null)
             {
-                throw new ArgumentNullException();
+                //return posts.Select(post =>
+                //    MapPostToPostResponse(post,
+                //    _tagRepository.GetTagsByPostIdAsync(post.PostId).Result,
+                //    _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result)).ToList();
+
+                return posts.Select(post =>
+                    MapPostToPostResponse(post,
+                    _tagRepository.GetTagsByPostIdAsync(post.PostId).Result ?? new List<Tag>(),
+                    _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result ?? new Like())).ToList();
             }
 
-            return posts.Select(post =>
-            MapPostToPostResponse(post,
-            _tagRepository.GetTagsByPostIdAsync(post.PostId).Result,
-            _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result)).ToList();
+            return null;
         }
 
         public async Task<PostResponse?> GetPostByPostIdAsync(int postId, int likeUserId)

@@ -12,9 +12,9 @@
 
         public int? LikeUserId { get; set; }
 
-        public PostPostLikesResponse PostLikes { get; set; }
+        public PostPostLikesResponse PostLikes { get; set; } = null!;
 
-        public PostUserResponse User { get; set; }
+        public PostUserResponse User { get; set; } = null!;
 
         public List<TagResponse>? Tags { get; set; }
     }
@@ -28,12 +28,12 @@
     {
         public int UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
-        public PostUserUserImageResponse UserImage { get; set; }
+        public PostUserUserImageResponse UserImage { get; set; } = null!;
     }
 
     public class PostUserUserImageResponse
     {
-        public string Image { get; set; }
+        public string Image { get; set; } = string.Empty;
     }
 }
 

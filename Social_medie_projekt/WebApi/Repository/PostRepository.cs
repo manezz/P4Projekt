@@ -2,16 +2,12 @@
 {
     public interface IPostRepository
     {
-
-        // POST
         Task<List<Post>> GetAllAsync();
         Task<Post?> GetByIdAsync(int PostId);
         Task<List<Post>> GetAllByUserIdAsync(int UserId);
         Task<Post> CreateAsync(Post newPost);
         Task<Post?> DeleteByIdAsync(int id);
         Task<Post?> UpdateByIdAsync(int id, Post updatePost);
-
-        // POST UPDATE LIKES
         Task<Post?> UpdatePostLikesByIdAsync(int id, int like);
     }
 

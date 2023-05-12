@@ -19,7 +19,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                List<PostResponse> posts = await _postService.GetAllPostsAsync(currentUser.User.UserId);
+                List<PostResponse> posts = await _postService.GetAllAsync(currentUser.User.UserId);
 
                 if (posts.Count == 0)
                 {

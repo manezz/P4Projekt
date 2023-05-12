@@ -2,10 +2,9 @@
 {
     public interface ITagRepository
     {
-        // TAGS
         Task<List<Tag>> GetAllTagsAsync();
         Task<Tag?> GetTagByIdAsync(int id);
-        Task<List<Tag?>> GetTagsByPostIdAsync(int postId);
+        Task<List<Tag>?> GetTagsByPostIdAsync(int postId);
         Task<Tag?> CreateTagAsync(Tag newTag);
         Task<Tag?> UpdateTagAsync(Tag updateTag);
     }
@@ -22,10 +21,9 @@
         public async Task<List<Tag>> GetAllTagsAsync()
         {
             return await _context.Tag.ToListAsync();
-            //return await _context.Tags.Include(p => p.Posts).ToListAsync();
         }
 
-        public async Task<List<Tag?>> GetTagsByPostIdAsync(int postId)
+        public async Task<List<Tag>?> GetTagsByPostIdAsync(int postId)
         {
             return await _context.PostTag
                 .Include(p => p.Post)
@@ -38,17 +36,17 @@
         public async Task<Tag?> GetTagByIdAsync(int id)
         {
             return await _context.Tag.FindAsync(id);
-            //return await _context.Tags.Include(p => p.Posts).FirstOrDefaultAsync(x => x.TagId == id);
         }
 
         public async Task<Tag?> CreateTagAsync(Tag newTag)
         {
-            //gets id from Tag entity with identical name property
+            // Gets id from Tag entity with identical name property
             var tagId = from tag in _context.Tag
                         where tag.Name == newTag.Name
                         select tag.TagId;
 
-            if (tagId.Any())//If tag exists but not in post, sets id to same as found tag
+            // If tag exists but not in post, sets id to same as found tag
+            if (tagId.Any())
             {
                 newTag.TagId = await tagId.FirstOrDefaultAsync();
                 return newTag;
@@ -57,32 +55,31 @@
             _context.Tag.Add(newTag);
             await _context.SaveChangesAsync();
 
-            newTag = await GetTagByIdAsync(newTag.TagId);
-            return newTag;
+            // Returns the tag with the id that was just created
+            var returnTag = await GetTagByIdAsync(newTag.TagId);
+            return returnTag;
         }
 
         public async Task<Tag?> UpdateTagAsync(Tag updateTag)
         {
-            //var tagl = await GetAllTagsAsync();
-
-            //gets id from Tag entity with identical name property
+            // Gets id from Tag entity with identical name property
             var tagId = from tag in _context.Tag
                         where tag.Name == updateTag.Name
                         select tag.TagId;
 
-            //var postId = from posttag in _context.PostsTags
-            //             where posttag.PostId == 
-
-            if (tagId.Any()) //If tag exists but not in post, sets id to same as found tag
+            //If tag exists but not in post, sets id to same as found tag
+            if (tagId.Any())
             {
                 updateTag.TagId = await tagId.FirstOrDefaultAsync();
                 return updateTag;
             }
+
             _context.Tag.Add(updateTag);
             await _context.SaveChangesAsync();
 
-            updateTag = await GetTagByIdAsync(updateTag.TagId);
-            return updateTag;
+            // Returns the tag with the id that was just created
+            var returnTag = await GetTagByIdAsync(updateTag.TagId);
+            return returnTag;
         }
 
     }
