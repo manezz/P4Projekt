@@ -131,9 +131,9 @@
             // Assert
             Assert.NotNull(result);
             Assert.IsType<LoginResponse>(result);
-            Assert.Equal(login.LoginId, result.LoginId);
-            Assert.Equal(login.Email, result.Email);
-            Assert.Equal(login.Role, result.Role);
+            Assert.Equal(login.LoginId, result?.LoginId);
+            Assert.Equal(login.Email, result?.Email);
+            Assert.Equal(login.Role, result?.Role);
         }
 
         [Fact]
@@ -197,7 +197,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        public async void GetByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arrange
             int loginId = 1;

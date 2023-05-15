@@ -204,6 +204,7 @@ namespace WebApi.Service
             var post = await _postRepository.CreateAsync(MapPostRequestToPost(newPost))
                 ?? throw new ArgumentNullException(null);
 
+            // Maps without tags if tags is null
             if (newPost.Tags == null)
             {
                 return MapPostToPostResponse(post);
@@ -213,6 +214,7 @@ namespace WebApi.Service
 
             _ = tags.Select(tagResponse => _postTagService.CreatePostTagAsync(post.PostId, tagResponse.TagId).Result).ToList();
 
+            // Maps with tags if tags is not null
             return MapPostToPostResponse(post, tags);
         }
 
