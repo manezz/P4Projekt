@@ -243,28 +243,34 @@ namespace WebApi.Service
                 return null;
             }
 
+            // Creates list of Tags, where oldtags does not contain the name of the tag
             var tagCreate = updateTags
                 .Where(x => !(oldtags.Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
 
+            // Creates list of Tags, where updateTags does not contain the name of the tag
             var tagDelete = oldtags
                 .Where(x => !(updateTags.Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
 
+            // Deletes the tags
             var tagsDeleted = tagDelete
                 .Select(x => _postTagService.DeletePostTagByPostIdAsync(postId, x.TagId).Result)
                 .ToList();
 
+            // Creates the tags
             var tagsCreated = tagCreate
                 .Select(x => _tagRepository.CreateTagAsync(x).Result)
                 .ToList();
 
+            // Creates the posttags
             _ = tagsCreated
                 .Select(x => _postTagService.CreatePostTagAsync(post.PostId, x.TagId).Result)
                 .ToList();
 
+            // Gets the current tags
             var currentTags = await _tagRepository.GetTagsByPostIdAsync(postId);
 
             if (currentTags == null)
@@ -272,6 +278,7 @@ namespace WebApi.Service
                 return null;
             }
 
+            // Maps the post with the current tags
             return MapPostToPostResponse(post, currentTags);
         }
 
