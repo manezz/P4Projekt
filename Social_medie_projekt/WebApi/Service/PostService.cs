@@ -220,6 +220,7 @@ namespace WebApi.Service
 
         public async Task<PostResponse?> UpdateByIdAsync(int postId, PostUpdateRequest updatePost)
         {
+            // Gets the old tags
             var oldtags = await _tagRepository.GetTagsByPostIdAsync(postId);
 
             if (oldtags == null)
@@ -227,11 +228,14 @@ namespace WebApi.Service
                 return null;
             }
 
+            // Maps the tags from the request
             var updateTags = updatePost.Tags
                 .Select(x => TagService.MapTagRequestToTag(x))
                 .ToList();
 
+            // Updates the post
             var post = await _postRepository.UpdateByIdAsync(postId, MapPostUpdateRequestToPost(updatePost));
+            // Updates the tags
             var tags = updatePost.Tags.Select(tag => _tagService.UpdateTagAsync(tag).Result).ToList();
 
             if (post == null)
