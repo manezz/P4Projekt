@@ -4,15 +4,15 @@
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options) { }
 
-        public DbSet<Login> Login { get; set; } = null!;
-        public DbSet<User> User { get; set; } = null!;
-        public DbSet<UserImage> UserImage { get; set; } = null!;
-        public DbSet<Post> Post { get; set; } = null!;
-        public DbSet<Like> Like { get; set; } = null!;
-        public DbSet<PostLikes> PostLikes { get; set; } = null!;
-        public DbSet<Follow> Follow { get; set; } = null!;
-        public DbSet<Tag> Tag { get; set; } = null!;
-        public DbSet<PostTag> PostTag { get; set; } = null!;
+        public DbSet<Login> Login { get; set; }
+        public DbSet<User> User { get; set; }
+        public DbSet<UserImage> UserImage { get; set; }
+        public DbSet<Post> Post { get; set; }
+        public DbSet<Like> Like { get; set; }
+        public DbSet<PostLikes> PostLikes { get; set; }
+        public DbSet<Follow> Follow { get; set; }
+        public DbSet<Tag> Tag { get; set; }
+        public DbSet<PostTag> PostTag { get; set; }
 
         public override int SaveChanges()
         {
