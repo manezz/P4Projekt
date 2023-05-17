@@ -109,7 +109,7 @@
             };
 
             _userServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(user);
 
             httpContext.Items["Login"] = currentUser;
@@ -134,7 +134,7 @@
             };
 
             _userServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(() => null);
 
             httpContext.Items["Login"] = currentUser;
@@ -161,7 +161,7 @@
             };
 
             _userServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
 
             httpContext.Items["Login"] = currentUser;

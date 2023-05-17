@@ -147,7 +147,7 @@
                     return Unauthorized(new { message = "Unauthorized" });
                 }
 
-                var loginResponse = await _loginService.DeleteByIdAsync(loginId);
+                var loginResponse = await _loginService.DeleteAsync(loginId);
 
                 if (loginResponse == null)
                 {

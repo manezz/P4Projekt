@@ -2,11 +2,11 @@
 {
     public interface ITagRepository
     {
-        Task<List<Tag>> GetAllTagsAsync();
-        Task<Tag?> GetTagByIdAsync(int id);
-        Task<List<Tag>?> GetTagsByPostIdAsync(int postId);
-        Task<Tag?> CreateTagAsync(Tag newTag);
-        Task<Tag?> UpdateTagAsync(Tag updateTag);
+        Task<List<Tag>> GetAllAsync();
+        Task<Tag?> FindByIdAsync(int tagId);
+        Task<List<Tag>?> FindAllByPostIdAsync(int postId);
+        Task<Tag?> CreateAsync(Tag newTag);
+        Task<Tag?> UpdateAsync(Tag updateTag);
     }
 
     public class TagRepository : ITagRepository
@@ -18,12 +18,12 @@
         }
 
 
-        public async Task<List<Tag>> GetAllTagsAsync()
+        public async Task<List<Tag>> GetAllAsync()
         {
             return await _context.Tag.ToListAsync();
         }
 
-        public async Task<List<Tag>?> GetTagsByPostIdAsync(int postId)
+        public async Task<List<Tag>?> FindAllByPostIdAsync(int postId)
         {
             return await _context.PostTag
                 .Include(p => p.Post)
@@ -33,12 +33,12 @@
                 .ToListAsync();
         }
 
-        public async Task<Tag?> GetTagByIdAsync(int id)
+        public async Task<Tag?> FindByIdAsync(int id)
         {
             return await _context.Tag.FindAsync(id);
         }
 
-        public async Task<Tag?> CreateTagAsync(Tag newTag)
+        public async Task<Tag?> CreateAsync(Tag newTag)
         {
             // Gets id from Tag entity with identical name property
             var tagId = from tag in _context.Tag
@@ -56,11 +56,11 @@
             await _context.SaveChangesAsync();
 
             // Returns the tag with the id that was just created
-            var returnTag = await GetTagByIdAsync(newTag.TagId);
+            var returnTag = await FindByIdAsync(newTag.TagId);
             return returnTag;
         }
 
-        public async Task<Tag?> UpdateTagAsync(Tag updateTag)
+        public async Task<Tag?> UpdateAsync(Tag updateTag)
         {
             // Gets id from Tag entity with identical name property
             var tagId = from tag in _context.Tag
@@ -78,7 +78,7 @@
             await _context.SaveChangesAsync();
 
             // Returns the tag with the id that was just created
-            var returnTag = await GetTagByIdAsync(updateTag.TagId);
+            var returnTag = await FindByIdAsync(updateTag.TagId);
             return returnTag;
         }
 

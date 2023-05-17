@@ -6,7 +6,7 @@
         Task<FollowResponse> DeleteAsync(int userId, int followingId);
         Task<FollowResponse?> FindByIdAsync(int userId, int followingId);
         Task<List<FollowResponse>> FindAllByUserIdAsync(int userId);
-        Task<List<FollowResponse>> FindByFollowingIdAsync(int followerId);
+        Task<List<FollowResponse>> FindAllByFollowingIdAsync(int followerId);
     }
 
     public class FollowService : IFollowService
@@ -76,9 +76,9 @@
         }
 
         // Find all who follows a user
-        public async Task<List<FollowResponse>> FindByFollowingIdAsync(int followingId)
+        public async Task<List<FollowResponse>> FindAllByFollowingIdAsync(int followingId)
         {
-            List<Follow> follow = await _followRepository.FindByFollowingIdAsync(followingId);
+            List<Follow> follow = await _followRepository.FindAllByFollowingIdAsync(followingId);
 
             if (follow == null)
             {

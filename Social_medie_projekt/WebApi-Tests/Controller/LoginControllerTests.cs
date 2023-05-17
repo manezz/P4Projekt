@@ -396,7 +396,7 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
                 .ReturnsAsync(loginResponse);
 
             httpContext.Items["Login"] = loginResponse;
@@ -422,7 +422,7 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null);
 
             httpContext.Items["Login"] = loginResponse;
@@ -448,7 +448,7 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
 
             httpContext.Items["Login"] = loginResponse;

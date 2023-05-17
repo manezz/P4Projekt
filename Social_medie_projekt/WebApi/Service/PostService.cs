@@ -174,7 +174,7 @@ namespace WebApi.Service
         public async Task<PostResponse?> UpdateAsync(int postId, PostUpdateRequest updatePost)
         {
             // Gets the old tags
-            var oldtags = await _tagRepository.GetTagsByPostIdAsync(postId);
+            var oldtags = await _tagRepository.FindAllByPostIdAsync(postId);
 
             if (oldtags == null)
             {
@@ -189,7 +189,7 @@ namespace WebApi.Service
             // Updates the post
             var post = await _postRepository.UpdateAsync(postId, MapPostUpdateRequestToPost(updatePost));
             // Updates the tags
-            var tags = updatePost.Tags.Select(tag => _tagService.UpdateTagAsync(tag).Result).ToList();
+            var tags = updatePost.Tags.Select(tag => _tagService.UpdateAsync(tag).Result).ToList();
 
             if (post == null)
             {
@@ -215,7 +215,7 @@ namespace WebApi.Service
 
             // Creates the tags
             var tagsCreated = tagCreate
-                .Select(x => _tagRepository.CreateTagAsync(x).Result)
+                .Select(x => _tagRepository.CreateAsync(x).Result)
                 .ToList();
 
             // Creates the posttags

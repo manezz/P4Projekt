@@ -5,10 +5,10 @@
     {
         Task<Login> CreateAsync(Login newUser);
         Task<List<Login>> GetAllAsync();
-        Task<Login?> GetByIdAsync(int loginId);
-        Task<Login?> GetByEmailAsync(string email);
-        Task<Login?> UpdateByIdAsync(int loginId, Login updatedLogin);
-        Task<Login?> DeleteByIdAsync(int loginId);
+        Task<Login?> FindByIdAsync(int loginId);
+        Task<Login?> FindByEmailAsync(string email);
+        Task<Login?> UpdateAsync(int loginId, Login updatedLogin);
+        Task<Login?> DeleteAsync(int loginId);
     }
 
     public class LoginRepository : ILoginRepository
@@ -39,7 +39,7 @@
                 .ToListAsync();
         }
 
-        public async Task<Login?> GetByIdAsync(int loginId)
+        public async Task<Login?> FindByIdAsync(int loginId)
         {
             return await _context.Login
                 .Include(login => login.User)
@@ -49,7 +49,7 @@
                 .FirstOrDefaultAsync(login => login.LoginId == loginId);
         }
 
-        public async Task<Login?> GetByEmailAsync(string email)
+        public async Task<Login?> FindByEmailAsync(string email)
         {
             return await _context.Login
                 .Include(L => L.User)
@@ -59,9 +59,9 @@
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public async Task<Login?> UpdateByIdAsync(int loginId, Login updatedLogin)
+        public async Task<Login?> UpdateAsync(int loginId, Login updatedLogin)
         {
-            var login = await GetByIdAsync(loginId);
+            var login = await FindByIdAsync(loginId);
 
             if (login != null)
             {
@@ -73,9 +73,9 @@
             return login;
         }
 
-        public async Task<Login?> DeleteByIdAsync(int loginId)
+        public async Task<Login?> DeleteAsync(int loginId)
         {
-            var login = await GetByIdAsync(loginId);
+            var login = await FindByIdAsync(loginId);
 
             if (login != null)
             {

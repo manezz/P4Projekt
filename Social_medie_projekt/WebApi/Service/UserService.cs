@@ -3,7 +3,7 @@
     public interface IUserService
     {
         Task<List<UserResponse>> GetAllAsync();
-        Task<UserResponse?> GetByIdAsync(int userId, int followUserId);
+        Task<UserResponse?> FindByIdAsync(int userId, int followUserId);
         Task<UserResponse?> UpdateAsync(int userId, UserRequest updatedUser);
     }
 
@@ -103,7 +103,7 @@
             };
         }
 
-        public async Task<UserResponse?> GetByIdAsync(int userId, int followUserId)
+        public async Task<UserResponse?> FindByIdAsync(int userId, int followUserId)
         {
             var user = await _userRepository.FindByIdAsync(userId);
 

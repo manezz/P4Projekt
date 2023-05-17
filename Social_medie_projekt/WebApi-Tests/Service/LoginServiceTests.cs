@@ -182,7 +182,7 @@
             };
 
             _loginRepositoryMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(login);
 
             // Act
@@ -203,7 +203,7 @@
             int loginId = 1;
 
             _loginRepositoryMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                     .ReturnsAsync(() => null);
 
             // Act
@@ -236,7 +236,7 @@
             };
 
             _loginRepositoryMock
-                .Setup(x => x.GetByEmailAsync(It.IsAny<string>()))
+                .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
                 .ReturnsAsync(login);
 
             // Act
@@ -261,7 +261,7 @@
             };
 
             _loginRepositoryMock
-                .Setup(x => x.GetByEmailAsync(It.IsAny<string>()))
+                .Setup(x => x.FindByEmailAsync(It.IsAny<string>()))
                     .ReturnsAsync(() => null!);
 
             // Act
@@ -299,7 +299,7 @@
             };
 
             _loginRepositoryMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<Login>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Login>()))
                 .ReturnsAsync(login);
 
             // Act
@@ -328,7 +328,7 @@
             int loginId = 1;
 
             _loginRepositoryMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<Login>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Login>()))
                 .ReturnsAsync(() => null);
 
             // Act
@@ -357,11 +357,11 @@
             };
 
             _loginRepositoryMock
-                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
                 .ReturnsAsync(login);
 
             // Act
-            var result = await _loginService.DeleteByIdAsync(loginId);
+            var result = await _loginService.DeleteAsync(loginId);
 
             // Assert
             Assert.NotNull(result);
@@ -376,11 +376,11 @@
             int loginId = 1;
 
             _loginRepositoryMock
-                .Setup(x => x.DeleteByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null);
 
             // Act
-            var result = await _loginService.DeleteByIdAsync(loginId);
+            var result = await _loginService.DeleteAsync(loginId);
 
             // Assert
             Assert.Null(result);

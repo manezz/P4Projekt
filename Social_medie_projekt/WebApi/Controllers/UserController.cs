@@ -45,7 +45,7 @@
                     return Unauthorized(new { message = "Unauthrized" });
                 }
 
-                var userResponse = await _userService.GetByIdAsync(userId, currentUser.User.UserId);
+                var userResponse = await _userService.FindByIdAsync(userId, currentUser.User.UserId);
 
                 if (userResponse == null)
                 {

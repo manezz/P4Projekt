@@ -56,11 +56,11 @@
 
         [HttpGet]
         [Route("following/{followingId}")]
-        public async Task<IActionResult> FindByFollowingIdAsync([FromRoute] int followingId)
+        public async Task<IActionResult> FindAllByFollowingIdAsync([FromRoute] int followingId)
         {
             try
             {
-                var followResponse = await _followService.FindByFollowingIdAsync(followingId);
+                var followResponse = await _followService.FindAllByFollowingIdAsync(followingId);
 
                 if (followResponse == null)
                 {

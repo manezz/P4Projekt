@@ -4,10 +4,10 @@
     {
         // Tag
         Task<List<TagResponse>> GetAllAsync();
-        Task<TagResponse?> GetByIdAsync(int Id);
-        Task<List<TagResponse>> GetTagsByPostIdAsync(int postId);
+        Task<TagResponse?> FindByIdAsync(int tagId);
+        Task<List<TagResponse>> FindAllByPostIdAsync(int postId);
         Task<TagResponse> CreateAsync(TagRequest newTag);
-        Task<TagResponse> UpdateTagAsync(TagRequest newTag);
+        Task<TagResponse> UpdateAsync(TagRequest newTag);
     }
 
     public class TagService : ITagService
@@ -38,7 +38,7 @@
 
         public async Task<List<TagResponse>> GetAllAsync()
         {
-            List<Tag> tags = await _tagRepository.GetAllTagsAsync();
+            List<Tag> tags = await _tagRepository.GetAllAsync();
 
             if (tags == null)
             {
@@ -48,9 +48,9 @@
             return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
-        public async Task<TagResponse?> GetByIdAsync(int tagId)
+        public async Task<TagResponse?> FindByIdAsync(int tagId)
         {
-            var tags = await _tagRepository.GetTagByIdAsync(tagId);
+            var tags = await _tagRepository.FindByIdAsync(tagId);
 
             if (tags == null)
             {
@@ -59,9 +59,9 @@
             return MapTagToTagResponse(tags);
         }
 
-        public async Task<List<TagResponse>> GetTagsByPostIdAsync(int postId)
+        public async Task<List<TagResponse>> FindAllByPostIdAsync(int postId)
         {
-            var tags = await _tagRepository.GetTagsByPostIdAsync(postId);
+            var tags = await _tagRepository.FindAllByPostIdAsync(postId);
 
             if (tags == null)
             {
@@ -73,7 +73,7 @@
 
         public async Task<TagResponse> CreateAsync(TagRequest newTag)
         {
-            var tag = await _tagRepository.CreateTagAsync(MapTagRequestToTag(newTag));
+            var tag = await _tagRepository.CreateAsync(MapTagRequestToTag(newTag));
 
             if (tag == null)
             {
@@ -84,7 +84,7 @@
 
         private async Task<Tag> CreateTagAsync(Tag newTag)
         {
-            var tag = await _tagRepository.CreateTagAsync(newTag);
+            var tag = await _tagRepository.CreateAsync(newTag);
 
             if (tag == null)
             {
@@ -94,9 +94,9 @@
             return tag;
         }
 
-        public async Task<TagResponse> UpdateTagAsync(TagRequest newTag)
+        public async Task<TagResponse> UpdateAsync(TagRequest newTag)
         {
-            var tag = await _tagRepository.UpdateTagAsync(MapTagRequestToTag(newTag));
+            var tag = await _tagRepository.UpdateAsync(MapTagRequestToTag(newTag));
 
             if (tag == null)
             {

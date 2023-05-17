@@ -81,7 +81,7 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
+        public async Task<IActionResult> CreateAsync([FromBody] PostRequest newPost)
         {
             try
             {

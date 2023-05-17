@@ -106,7 +106,7 @@
                 .ReturnsAsync(user);
 
             // Act
-            var result = await _userService.GetByIdAsync(userId, followUserId);
+            var result = await _userService.FindByIdAsync(userId, followUserId);
 
             // Assert
             Assert.NotNull(result);
@@ -127,7 +127,7 @@
                     .ReturnsAsync(() => null);
 
             // Act
-            var result = await _userService.GetByIdAsync(userId, followUserId);
+            var result = await _userService.FindByIdAsync(userId, followUserId);
 
             // Assert
             Assert.Null(result);

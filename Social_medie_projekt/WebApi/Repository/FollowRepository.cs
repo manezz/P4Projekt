@@ -6,7 +6,7 @@
         Task<Follow> DeleteAsync(int userId, int followingId);
         Task<Follow?> FindByIdAsync(int userId, int followingId);
         Task<List<Follow>> FindAllByUserIdAsync(int userId);
-        Task<List<Follow>> FindByFollowingIdAsync(int followerId);
+        Task<List<Follow>> FindAllByFollowingIdAsync(int followerId);
     }
 
     public class FollowRepository : IFollowRepository
@@ -58,7 +58,7 @@
         }
 
         // Find all FollowingId who follows user
-        public async Task<List<Follow>> FindByFollowingIdAsync(int followingId)
+        public async Task<List<Follow>> FindAllByFollowingIdAsync(int followingId)
         {
             return await _context.Follow.Where(x => followingId == x.FollowingId).ToListAsync();
         }

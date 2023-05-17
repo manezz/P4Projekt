@@ -7,7 +7,7 @@
         Task<List<LoginResponse>> GetAllAsync();
         Task<LoginResponse> FindByIdAsync(int loginId);
         Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin);
-        Task<LoginResponse?> DeleteByIdAsync(int loginId);
+        Task<LoginResponse?> DeleteAsync(int loginId);
     }
     public class LoginService : ILoginService
     {
@@ -69,7 +69,7 @@
 
         public async Task<SignInResponse> AuthenticateAsync(SignInRequest signIn)
         {
-            var login = await _loginRepository.GetByEmailAsync(signIn.Email);
+            var login = await _loginRepository.FindByEmailAsync(signIn.Email);
 
             if (login != null)
             {
@@ -124,7 +124,7 @@
 
         public async Task<LoginResponse> FindByIdAsync(int loginId)
         {
-            var login = await _loginRepository.GetByIdAsync(loginId);
+            var login = await _loginRepository.FindByIdAsync(loginId);
 
             if (login != null)
             {
@@ -136,7 +136,7 @@
 
         public async Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin)
         {
-            var login = await _loginRepository.UpdateByIdAsync(loginId, MapLoginRequestToLogin(updatedLogin));
+            var login = await _loginRepository.UpdateAsync(loginId, MapLoginRequestToLogin(updatedLogin));
 
             if (login != null)
             {
@@ -146,9 +146,9 @@
             return null;
         }
 
-        public async Task<LoginResponse?> DeleteByIdAsync(int loginId)
+        public async Task<LoginResponse?> DeleteAsync(int loginId)
         {
-            var login = await _loginRepository.DeleteByIdAsync(loginId);
+            var login = await _loginRepository.DeleteAsync(loginId);
 
             if (login != null)
             {

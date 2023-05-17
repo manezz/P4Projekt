@@ -33,11 +33,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{tagId}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] int tagId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int tagId)
         {
             try
             {
-                var tagResponse = await _tagService.GetByIdAsync(tagId);
+                var tagResponse = await _tagService.FindByIdAsync(tagId);
 
                 if (tagResponse == null)
                 {
