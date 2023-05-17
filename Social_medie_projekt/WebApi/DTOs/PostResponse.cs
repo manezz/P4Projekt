@@ -16,7 +16,7 @@
 
         public PostUserResponse User { get; set; } = null!;
 
-        public List<TagResponse>? Tags { get; set; }
+        public List<PostResponseTag>? Tags { get; set; }
     }
 
     public class PostPostLikesResponse
@@ -34,6 +34,12 @@
     public class PostUserUserImageResponse
     {
         public string Image { get; set; } = string.Empty;
+    }
+
+    public class PostResponseTag
+    {
+        public int TagId { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }
 

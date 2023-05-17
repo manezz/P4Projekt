@@ -54,6 +54,11 @@
 
             modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.User.IsDeleted);
 
+            modelBuilder.Entity<Post>()
+                .HasMany(e => e.Tags)
+                .WithMany(e => e.Posts)
+                .UsingEntity<PostTag>();
+
             modelBuilder.Entity<Tag>(e =>
             {
                 e.HasIndex(t => t.Name).IsUnique();

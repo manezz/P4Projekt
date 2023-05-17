@@ -26,6 +26,7 @@
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .OrderByDescending(d => d.Date)
                 .ToListAsync();
         }
@@ -36,6 +37,7 @@
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
@@ -45,6 +47,7 @@
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .Where(x => userId == x.UserId)
                 .ToListAsync();
         }

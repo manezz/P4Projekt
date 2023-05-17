@@ -174,7 +174,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 4, 28, 10, 9, 26, 883, DateTimeKind.Local).AddTicks(5550),
+                            Date = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(151),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -183,7 +183,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 4, 28, 10, 9, 26, 883, DateTimeKind.Local).AddTicks(5554),
+                            Date = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(155),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -322,7 +322,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 4, 28, 10, 9, 26, 883, DateTimeKind.Local).AddTicks(5508),
+                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(110),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -330,7 +330,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 4, 28, 10, 9, 26, 883, DateTimeKind.Local).AddTicks(5512),
+                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(114),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -338,7 +338,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 4, 28, 10, 9, 26, 883, DateTimeKind.Local).AddTicks(5515),
+                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(117),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
@@ -431,13 +431,13 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.Post", "Post")
-                        .WithMany()
+                        .WithMany("PostTags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("PostTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -479,6 +479,13 @@ namespace WebApi.Migrations
                 {
                     b.Navigation("PostLikes")
                         .IsRequired();
+
+                    b.Navigation("PostTags");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
+                {
+                    b.Navigation("PostTags");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>

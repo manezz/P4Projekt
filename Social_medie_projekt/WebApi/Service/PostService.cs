@@ -34,8 +34,8 @@ namespace WebApi.Service
             _postTagService = postTagService;
         }
 
-        // With TagResponse list
-        private static PostResponse MapPostToPostResponse(Post post, List<TagResponse> tags)
+        // With Like
+        private static PostResponse MapPostToPostResponse(Post post, Like like)
         {
             return new PostResponse
             {
@@ -43,6 +43,7 @@ namespace WebApi.Service
                 Title = post.Title,
                 Desc = post.Desc,
                 Date = post.Date,
+                LikeUserId = like.UserId,
                 PostLikes = new PostPostLikesResponse
                 {
                     Likes = post.PostLikes.Likes
@@ -52,70 +53,15 @@ namespace WebApi.Service
                     UserId = post.User.UserId,
                     UserName = post.User.UserName,
                 },
-                Tags = tags
-            };
-        }
-
-        // With Tag list and Like
-        private static PostResponse MapPostToPostResponse(Post post, List<Tag> tags, Like like)
-        {
-            return new PostResponse
-            {
-                PostId = post.PostId,
-                Title = post.Title,
-                Desc = post.Desc,
-                Date = post.Date,
-                LikeUserId = like?.UserId,
-                PostLikes = new PostPostLikesResponse
-                {
-                    Likes = post.PostLikes.Likes
-                },
-                User = new PostUserResponse
-                {
-                    UserId = post.User.UserId,
-                    UserName = post.User.UserName,
-                    UserImage = new PostUserUserImageResponse
-                    {
-                        Image = Convert.ToBase64String(post.User.UserImage.Image)
-                    }
-                },
-                Tags = tags.Select(x => new TagResponse
+                Tags = post.Tags.Select(x => new PostResponseTag
                 {
                     TagId = x.TagId,
                     Name = x.Name,
-                })
-                .ToList()
+                }).ToList()
             };
         }
 
-        // With Tag list
-        private static PostResponse MapPostToPostResponse(Post post, List<Tag> tags)
-        {
-            return new PostResponse
-            {
-                PostId = post.PostId,
-                Title = post.Title,
-                Desc = post.Desc,
-                Date = post.Date,
-                PostLikes = new PostPostLikesResponse
-                {
-                    Likes = post.PostLikes.Likes
-                },
-                User = new PostUserResponse
-                {
-                    UserId = post.User.UserId,
-                    UserName = post.User.UserName,
-                },
-                Tags = tags.Select(x => new TagResponse
-                {
-                    TagId = x.TagId,
-                    Name = x.Name,
-                })
-                .ToList()
-            };
-        }
-
-        // Without tags and like
+        // Without Like
         private static PostResponse MapPostToPostResponse(Post post)
         {
             return new PostResponse
@@ -132,7 +78,12 @@ namespace WebApi.Service
                 {
                     UserId = post.User.UserId,
                     UserName = post.User.UserName,
-                }
+                },
+                Tags = post.Tags.Select(x => new PostResponseTag
+                {
+                    TagId = x.TagId,
+                    Name = x.Name,
+                }).ToList()
             };
         }
 
@@ -165,8 +116,6 @@ namespace WebApi.Service
 
             return posts.Select(post =>
                 MapPostToPostResponse(post,
-                // Gets tags for each post
-                _tagRepository.GetTagsByPostIdAsync(post.PostId).Result ?? new List<Tag>(),
                 // Gets like for each post 
                 _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result ?? new Like())).ToList();
         }
@@ -177,7 +126,7 @@ namespace WebApi.Service
 
             if (post != null)
             {
-                return MapPostToPostResponse(post, _tagRepository.GetTagsByPostIdAsync(postId).Result ?? new List<Tag>(),
+                return MapPostToPostResponse(post,
                     _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result ?? new Like());
             }
 
@@ -192,9 +141,6 @@ namespace WebApi.Service
 
             return post.Select(post =>
                 MapPostToPostResponse(post,
-                // Gets tags for each post
-                _tagRepository.GetTagsByPostIdAsync(post.PostId).Result ?? new List<Tag>(),
-                // Gets like for each post
                 _likeRepository.FindLikeAsync(likeUserId, post.PostId).Result ?? new Like())).ToList();
         }
 
@@ -210,12 +156,19 @@ namespace WebApi.Service
                 return MapPostToPostResponse(post);
             }
 
-            var tags = newPost.Tags.Select(tag => _tagService.CreateTagAsync(tag).Result).ToList();
+            var tags = newPost.Tags
+                .Select(tag => _tagService.CreateTagAsync(tag).Result)
+                .ToList();
 
-            _ = tags.Select(tagResponse => _postTagService.CreatePostTagAsync(post.PostId, tagResponse.TagId).Result).ToList();
+            _ = tags
+                .Select(tagResponse => _postTagService.CreatePostTagAsync(post.PostId, tagResponse.TagId).Result)
+                .ToList();
+
+            var postAfterTags = await _postRepository.GetByIdAsync(post.PostId)
+                ?? throw new ArgumentNullException(null);
 
             // Maps with tags if tags is not null
-            return MapPostToPostResponse(post, tags);
+            return MapPostToPostResponse(postAfterTags);
         }
 
         public async Task<PostResponse?> UpdateByIdAsync(int postId, PostUpdateRequest updatePost)
@@ -270,16 +223,11 @@ namespace WebApi.Service
                 .Select(x => _postTagService.CreatePostTagAsync(post.PostId, x.TagId).Result)
                 .ToList();
 
-            // Gets the current tags
-            var currentTags = await _tagRepository.GetTagsByPostIdAsync(postId);
-
-            if (currentTags == null)
-            {
-                return null;
-            }
+            var postAfterTags = await _postRepository.GetByIdAsync(post.PostId)
+                ?? throw new ArgumentNullException(null);
 
             // Maps the post with the current tags
-            return MapPostToPostResponse(post, currentTags);
+            return MapPostToPostResponse(postAfterTags);
         }
 
         public async Task<PostResponse?> DeleteByIdAsync(int postId)
