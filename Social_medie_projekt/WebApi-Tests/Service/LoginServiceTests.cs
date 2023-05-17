@@ -186,7 +186,7 @@
                 .ReturnsAsync(login);
 
             // Act
-            var result = await _loginService.GetByIdAsync(loginId);
+            var result = await _loginService.FindByIdAsync(loginId);
 
             // Assert
             Assert.NotNull(result);
@@ -207,7 +207,7 @@
                     .ReturnsAsync(() => null);
 
             // Act
-            var result = await _loginService.GetByIdAsync(loginId);
+            var result = await _loginService.FindByIdAsync(loginId);
 
             // Assert
             Assert.Null(result);
@@ -303,7 +303,7 @@
                 .ReturnsAsync(login);
 
             // Act
-            var result = await _loginService.UpdateByIdAsync(loginId, loginRequest);
+            var result = await _loginService.UpdateAsync(loginId, loginRequest);
 
             // Assert
             Assert.NotNull(result);
@@ -332,7 +332,7 @@
                 .ReturnsAsync(() => null);
 
             // Act
-            var result = await _loginService.UpdateByIdAsync(loginId, loginRequest);
+            var result = await _loginService.UpdateAsync(loginId, loginRequest);
 
             // Assert
             Assert.Null(result);

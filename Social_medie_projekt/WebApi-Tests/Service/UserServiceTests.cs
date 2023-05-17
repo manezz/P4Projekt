@@ -102,7 +102,7 @@
             };
 
             _userRepositoryMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(user);
 
             // Act
@@ -123,7 +123,7 @@
             int followUserId = 1;
 
             _userRepositoryMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                     .ReturnsAsync(() => null);
 
             // Act
@@ -156,11 +156,11 @@
             };
 
             _userRepositoryMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<User>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<User>()))
                 .ReturnsAsync(user);
 
             // Act
-            var result = await _userService.UpdateByIdAsync(userId, userRequest);
+            var result = await _userService.UpdateAsync(userId, userRequest);
 
             // Assert
             Assert.NotNull(result);
@@ -185,11 +185,11 @@
             int userId = 1;
 
             _userRepositoryMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<User>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<User>()))
                 .ReturnsAsync(() => null);
 
             // Act
-            var result = await _userService.UpdateByIdAsync(userId, userRequest);
+            var result = await _userService.UpdateAsync(userId, userRequest);
 
             // Assert
             Assert.Null(result);

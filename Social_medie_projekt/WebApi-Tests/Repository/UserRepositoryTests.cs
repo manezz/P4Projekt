@@ -131,7 +131,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _userRepository.GetByIdAsync(userId);
+            var result = await _userRepository.FindByIdAsync(userId);
 
             // Assert
             Assert.NotNull(result);
@@ -146,7 +146,7 @@
             await _context.Database.EnsureDeletedAsync();
 
             // Act
-            var result = await _userRepository.GetByIdAsync(1);
+            var result = await _userRepository.FindByIdAsync(1);
 
             // Assert
             Assert.Null(result);
@@ -187,7 +187,7 @@
             };
 
             // Act
-            var result = await _userRepository.UpdateByIdAsync(userId, updateUser);
+            var result = await _userRepository.UpdateAsync(userId, updateUser);
 
             // Assert
             Assert.NotNull(result);
@@ -214,7 +214,7 @@
             };
 
             // Act
-            var result = await _userRepository.UpdateByIdAsync(userId, updateUser);
+            var result = await _userRepository.UpdateAsync(userId, updateUser);
 
             // Assert
             Assert.Null(result);
@@ -240,7 +240,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _userRepository.DeleteByIdAsync(userId);
+            var result = await _userRepository.DeleteAsync(userId);
 
             // Assert
             Assert.NotNull(result);
@@ -255,7 +255,7 @@
             await _context.Database.EnsureDeletedAsync();
 
             // Act
-            var result = await _userRepository.DeleteByIdAsync(1);
+            var result = await _userRepository.DeleteAsync(1);
 
             // Assert
             Assert.Null(result);

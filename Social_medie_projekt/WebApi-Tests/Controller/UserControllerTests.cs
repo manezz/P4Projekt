@@ -115,7 +115,7 @@
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(1);
+            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(1);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
@@ -140,7 +140,7 @@
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(1);
+            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(1);
 
             // Asset
             Assert.Equal(404, result.StatusCode);
@@ -167,7 +167,7 @@
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.GetByIdAsync(userId);
+            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(userId);
 
             // Asset
             Assert.Equal(500, result.StatusCode);
@@ -201,13 +201,13 @@
             };
 
             _userServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
                 .ReturnsAsync(userResponse);
 
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, updateUser);
+            var result = (IStatusCodeActionResult)await _userController.UpdateAsync(userId, updateUser);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
@@ -234,13 +234,13 @@
             };
 
             _userServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
                 .ReturnsAsync(() => null);
 
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, new UserRequest());
+            var result = (IStatusCodeActionResult)await _userController.UpdateAsync(userId, new UserRequest());
 
             // Asset
             Assert.Equal(404, result.StatusCode);
@@ -266,13 +266,13 @@
             };
 
             _userServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<UserRequest>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
 
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.UpdateByIdAsync(userId, updateUser);
+            var result = (IStatusCodeActionResult)await _userController.UpdateAsync(userId, updateUser);
 
             // Asset
             Assert.Equal(500, result.StatusCode);

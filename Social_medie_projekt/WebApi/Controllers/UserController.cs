@@ -34,7 +34,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{userId}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] int userId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
         {
             try
             {
@@ -62,7 +62,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{userid}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int userId, [FromBody] UserRequest updatedUser)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int userId, [FromBody] UserRequest updatedUser)
         {
             try
             {
@@ -73,7 +73,7 @@
                     return Unauthorized(new { message = "Unauthrized" });
                 }
 
-                var userResponse = await _userService.UpdateByIdAsync(userId, updatedUser);
+                var userResponse = await _userService.UpdateAsync(userId, updatedUser);
 
                 if (userResponse == null)
                 {

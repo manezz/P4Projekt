@@ -76,7 +76,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{loginId}")]
-        public async Task<IActionResult> GetByIdAsync([FromRoute] int loginId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int loginId)
         {
             try
             {
@@ -87,7 +87,7 @@
                     return Unauthorized(new { message = "Unauthorized" });
                 }
 
-                var loginResponse = await _loginService.GetByIdAsync(loginId);
+                var loginResponse = await _loginService.FindByIdAsync(loginId);
 
                 if (loginResponse == null)
                 {
@@ -106,7 +106,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{loginId}")]
-        public async Task<IActionResult> UpdateByIdAsync([FromRoute] int loginId, [FromBody] LoginRequest updatedLogin)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int loginId, [FromBody] LoginRequest updatedLogin)
         {
             try
             {
@@ -117,7 +117,7 @@
                     return Unauthorized(new { message = "Unauthorized" });
                 }
 
-                var loginResponse = await _loginService.UpdateByIdAsync(loginId, updatedLogin);
+                var loginResponse = await _loginService.UpdateAsync(loginId, updatedLogin);
 
                 if (loginResponse == null)
                 {
@@ -136,7 +136,7 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{loginId}")]
-        public async Task<IActionResult> DeleteByIdAsync([FromRoute] int loginId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int loginId)
         {
             try
             {

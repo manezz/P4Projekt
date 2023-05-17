@@ -2,11 +2,11 @@
 {
     public interface IFollowService
     {
-        Task<FollowResponse> Follow(FollowRequest newFollow);
-        Task<FollowResponse> Unfollow(int userId, int followingId);
-        Task<FollowResponse?> FindFollow(int userId, int followingId);
-        Task<List<FollowResponse>> FindUsersFollowing(int followingId);
-        Task<List<FollowResponse>> FindUsersFollowers(int followerId);
+        Task<FollowResponse> CreateAsync(FollowRequest newFollow);
+        Task<FollowResponse> DeleteAsync(int userId, int followingId);
+        Task<FollowResponse?> FindByIdAsync(int userId, int followingId);
+        Task<List<FollowResponse>> FindAllByUserIdAsync(int userId);
+        Task<List<FollowResponse>> FindByFollowingIdAsync(int followerId);
     }
 
     public class FollowService : IFollowService
@@ -37,9 +37,9 @@
         }
 
         // Creates a new follow relationship
-        public async Task<FollowResponse> Follow(FollowRequest newFollow)
+        public async Task<FollowResponse> CreateAsync(FollowRequest newFollow)
         {
-            var follow = await _followRepository.Follow(MapFollowRequestToFollow(newFollow));
+            var follow = await _followRepository.CreateAsync(MapFollowRequestToFollow(newFollow));
 
             if (follow == null)
             {
@@ -50,9 +50,9 @@
         }
 
         // Deletes an existing follow relationship
-        public async Task<FollowResponse> Unfollow(int userId, int followingId)
+        public async Task<FollowResponse> DeleteAsync(int userId, int followingId)
         {
-            var follow = await _followRepository.Unfollow(userId, followingId);
+            var follow = await _followRepository.DeleteAsync(userId, followingId);
 
             if (follow == null)
             {
@@ -63,9 +63,9 @@
         }
 
         // Finds a specific follow relationship
-        public async Task<FollowResponse?> FindFollow(int userId, int followingId)
+        public async Task<FollowResponse?> FindByIdAsync(int userId, int followingId)
         {
-            var follow = await _followRepository.FindFollow(userId, followingId);
+            var follow = await _followRepository.FindByIdAsync(userId, followingId);
 
             if (follow == null)
             {
@@ -76,9 +76,9 @@
         }
 
         // Find all who follows a user
-        public async Task<List<FollowResponse>> FindUsersFollowers(int followingId)
+        public async Task<List<FollowResponse>> FindByFollowingIdAsync(int followingId)
         {
-            List<Follow> follow = await _followRepository.FindUsersFollowers(followingId);
+            List<Follow> follow = await _followRepository.FindByFollowingIdAsync(followingId);
 
             if (follow == null)
             {
@@ -89,9 +89,9 @@
         }
 
         // Find all follows from a user
-        public async Task<List<FollowResponse>> FindUsersFollowing(int userId)
+        public async Task<List<FollowResponse>> FindAllByUserIdAsync(int userId)
         {
-            List<Follow> follow = await _followRepository.FindUsersFollowing(userId);
+            List<Follow> follow = await _followRepository.FindAllByUserIdAsync(userId);
 
             if (follow == null)
             {

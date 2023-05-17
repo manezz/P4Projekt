@@ -150,13 +150,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(login);
 
             httpContext.Items["Login"] = login;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.FindByIdAsync(loginId);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
@@ -176,13 +176,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => null!);
 
             httpContext.Items["Login"] = login;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.FindByIdAsync(loginId);
 
             // Asset
             Assert.Equal(404, result.StatusCode);
@@ -202,13 +202,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
 
             httpContext.Items["Login"] = login;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.GetByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.FindByIdAsync(loginId);
 
             // Asset
             Assert.Equal(500, result.StatusCode);
@@ -306,13 +306,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(loginResponse);
 
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+            var result = (IStatusCodeActionResult)await _loginController.UpdateAsync(loginId, updateLogin);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
@@ -338,13 +338,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(() => null);
 
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+            var result = (IStatusCodeActionResult)await _loginController.UpdateAsync(loginId, updateLogin);
 
             // Asset
             Assert.Equal(404, result.StatusCode);
@@ -370,13 +370,13 @@
             };
 
             _loginServiceMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<LoginRequest>()))
                 .ReturnsAsync(() => throw new Exception("This is an exception"));
 
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.UpdateByIdAsync(loginId, updateLogin);
+            var result = (IStatusCodeActionResult)await _loginController.UpdateAsync(loginId, updateLogin);
 
             // Asset
             Assert.Equal(500, result.StatusCode);
@@ -402,7 +402,7 @@
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.DeleteAsync(loginId);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
@@ -428,7 +428,7 @@
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.DeleteAsync(loginId);
 
             // Asset
             Assert.Equal(404, result.StatusCode);
@@ -454,7 +454,7 @@
             httpContext.Items["Login"] = loginResponse;
 
             // Act
-            var result = (IStatusCodeActionResult)await _loginController.DeleteByIdAsync(loginId);
+            var result = (IStatusCodeActionResult)await _loginController.DeleteAsync(loginId);
 
             // Asset
             Assert.Equal(500, result.StatusCode);

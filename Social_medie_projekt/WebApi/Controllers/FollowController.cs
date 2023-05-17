@@ -14,11 +14,11 @@
 
         [HttpGet]
         [Route("{userId}/{followingId}")]
-        public async Task<IActionResult> FindFollow([FromRoute] int userId, [FromRoute] int followingId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int userId, [FromRoute] int followingId)
         {
             try
             {
-                FollowResponse? followResponse = await _followService.FindFollow(userId, followingId);
+                FollowResponse? followResponse = await _followService.FindByIdAsync(userId, followingId);
 
                 if (followResponse == null)
                 {
@@ -35,11 +35,11 @@
 
         [HttpGet]
         [Route("find-followers/{userId}")]
-        public async Task<IActionResult> FindUsersFollowing([FromRoute] int userId)
+        public async Task<IActionResult> FindAllByUserIdAsync([FromRoute] int userId)
         {
             try
             {
-                var followResponse = await _followService.FindUsersFollowing(userId);
+                var followResponse = await _followService.FindAllByUserIdAsync(userId);
 
                 if (followResponse == null)
                 {
@@ -56,11 +56,11 @@
 
         [HttpGet]
         [Route("following/{followingId}")]
-        public async Task<IActionResult> FindUsersFollowers([FromRoute] int followingId)
+        public async Task<IActionResult> FindByFollowingIdAsync([FromRoute] int followingId)
         {
             try
             {
-                var followResponse = await _followService.FindUsersFollowers(followingId);
+                var followResponse = await _followService.FindByFollowingIdAsync(followingId);
 
                 if (followResponse == null)
                 {
@@ -80,11 +80,11 @@
 
         [HttpPost]
         [Route("follow")]
-        public async Task<IActionResult> Follow([FromBody] FollowRequest follow)
+        public async Task<IActionResult> CreateAsync([FromBody] FollowRequest follow)
         {
             try
             {
-                FollowResponse followResponse = await _followService.Follow(follow);
+                FollowResponse followResponse = await _followService.CreateAsync(follow);
 
                 return Ok(followResponse);
             }
@@ -96,11 +96,11 @@
 
         [HttpDelete]
         [Route("unfollow/{userId}/{followingId}")]
-        public async Task<IActionResult> Unfollow([FromRoute] int userId, [FromRoute] int followingId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int userId, [FromRoute] int followingId)
         {
             try
             {
-                var followResponse = await _followService.Unfollow(userId, followingId);
+                var followResponse = await _followService.DeleteAsync(userId, followingId);
 
                 if (followResponse == null)
                 {

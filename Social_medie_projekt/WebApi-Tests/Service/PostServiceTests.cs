@@ -185,11 +185,11 @@
             };
 
             _postRepositoryMock
-                .Setup(x => x.GetByIdAsync(postId))
+                .Setup(x => x.FindByIdAsync(postId))
                 .ReturnsAsync(post);
 
             // Act
-            var result = await _postService.GetByIdAsync(postId, likeUserId);
+            var result = await _postService.FindByIdAsync(postId, likeUserId);
 
             // Assert
             Assert.NotNull(result);
@@ -207,17 +207,17 @@
             int likeUserId = 1;
 
             _postRepositoryMock
-                .Setup(x => x.GetByIdAsync(It.IsAny<int>()))
+                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
                     .ReturnsAsync(() => null!);
 
             // Act
-            var result = await _postService.GetByIdAsync(postId, likeUserId);
+            var result = await _postService.FindByIdAsync(postId, likeUserId);
 
             // Assert
             Assert.Null(result);
         }
 
-        // Creat Tests for UpdateByIdAsync
+        // Creat Tests for UpdateAsync
         [Fact]
         public async void UpdateByIdAsync_ShouldReturnPostResponse_WhenPostUpdateIsSuccess()
         {
@@ -242,11 +242,11 @@
             };
 
             _postRepositoryMock
-                .Setup(x => x.UpdateByIdAsync(It.IsAny<int>(), It.IsAny<Post>()))
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Post>()))
                 .ReturnsAsync(post);
 
             // Act
-            var result = await _postService.UpdateByIdAsync(postId, postUpdateRequest);
+            var result = await _postService.UpdateAsync(postId, postUpdateRequest);
 
             // Assert
             Assert.NotNull(result);

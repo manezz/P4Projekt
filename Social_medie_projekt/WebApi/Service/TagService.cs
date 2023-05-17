@@ -3,10 +3,10 @@
     public interface ITagService
     {
         // Tag
-        Task<List<TagResponse>> GetAllTagsAsync();
-        Task<TagResponse?> GetTagById(int Id);
+        Task<List<TagResponse>> GetAllAsync();
+        Task<TagResponse?> GetByIdAsync(int Id);
         Task<List<TagResponse>> GetTagsByPostIdAsync(int postId);
-        Task<TagResponse> CreateTagAsync(TagRequest newTag);
+        Task<TagResponse> CreateAsync(TagRequest newTag);
         Task<TagResponse> UpdateTagAsync(TagRequest newTag);
     }
 
@@ -18,12 +18,6 @@
             _tagRepository = tagRepository;
         }
 
-
-        // ----------------------------------------------
-        // ------------- TAG RES/REQ --------------------
-        // ----------------------------------------------
-
-
         private static TagResponse MapTagToTagResponse(Tag tag)
         {
             return new TagResponse
@@ -33,8 +27,7 @@
             };
         }
 
-
-        // public bc using in PostService
+        // public bc using in PostService FIX
         public static Tag MapTagRequestToTag(TagRequest tagRequest)
         {
             return new Tag
@@ -43,10 +36,7 @@
             };
         }
 
-
-
-        // ---------------------- TAGS ----------------------
-        public async Task<List<TagResponse>> GetAllTagsAsync()
+        public async Task<List<TagResponse>> GetAllAsync()
         {
             List<Tag> tags = await _tagRepository.GetAllTagsAsync();
 
@@ -58,7 +48,7 @@
             return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
-        public async Task<TagResponse?> GetTagById(int tagId)
+        public async Task<TagResponse?> GetByIdAsync(int tagId)
         {
             var tags = await _tagRepository.GetTagByIdAsync(tagId);
 
@@ -81,7 +71,7 @@
             return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
-        public async Task<TagResponse> CreateTagAsync(TagRequest newTag)
+        public async Task<TagResponse> CreateAsync(TagRequest newTag)
         {
             var tag = await _tagRepository.CreateTagAsync(MapTagRequestToTag(newTag));
 

@@ -2,10 +2,10 @@
 {
     public interface IPostTagService
     {
-        Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId);
-        Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId);
-        Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId);
-        Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId);
+        Task<List<PostTagResponse>> FindAllByPostIdAsync(int postId);
+        Task<PostTagResponse> CreateAsync(int postId, int tagId);
+        Task<PostTagResponse> UpdateAsync(int postId, int tagId);
+        Task<PostTagResponse> DeleteAsync(int postId, int tagId);
     }
     public class PostTagService : IPostTagService
     {
@@ -45,9 +45,9 @@
             };
         }
 
-        public async Task<List<PostTagResponse>> GetPostTagsByPostIdAsync(int postId)
+        public async Task<List<PostTagResponse>> FindAllByPostIdAsync(int postId)
         {
-            var postTags = await _postTagRepository.GetPostTagsByPostId(postId);
+            var postTags = await _postTagRepository.FindAllByPostIdAsync(postId);
 
             if (postTags == null)
             {
@@ -57,9 +57,9 @@
             return postTags.Select(posttag => MapPostTagToPostTagResponse(posttag)).ToList();
         }
 
-        public async Task<PostTagResponse> CreatePostTagAsync(int postId, int tagId)
+        public async Task<PostTagResponse> CreateAsync(int postId, int tagId)
         {
-            var postTag = await _postTagRepository.CreatePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postTagRepository.CreateAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {
@@ -69,10 +69,10 @@
             return MapPostTagToPostTagResponse(postTag);
         }
 
-        public async Task<PostTagResponse> UpdatePostTagByPostIdAsync(int postId, int tagId)
+        public async Task<PostTagResponse> UpdateAsync(int postId, int tagId)
         {
 
-            var postTag = await _postTagRepository.UpdatePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postTagRepository.UpdateAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {
@@ -83,9 +83,9 @@
             return MapPostTagToPostTagResponse(postTag);
         }
 
-        public async Task<PostTagResponse> DeletePostTagByPostIdAsync(int postId, int tagId)
+        public async Task<PostTagResponse> DeleteAsync(int postId, int tagId)
         {
-            var postTag = await _postTagRepository.DeletePostTagAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postTagRepository.DeleteAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {

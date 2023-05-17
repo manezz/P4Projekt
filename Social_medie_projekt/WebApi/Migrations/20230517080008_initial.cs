@@ -65,7 +65,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Follow",
+                name: "CreateAsync",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -219,7 +219,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Follow",
+                table: "CreateAsync",
                 columns: new[] { "FollowingId", "UserId" },
                 values: new object[,]
                 {
@@ -314,7 +314,7 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Follow");
+                name: "CreateAsync");
 
             migrationBuilder.DropTable(
                 name: "Like");

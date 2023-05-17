@@ -22,7 +22,7 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.CreateAsync", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -32,7 +32,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("UserId", "FollowingId");
 
-                    b.ToTable("Follow");
+                    b.ToTable("CreateAsync");
 
                     b.HasData(
                         new
@@ -376,10 +376,10 @@ namespace WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.CreateAsync", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany("Follow")
+                        .WithMany("CreateAsync")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -490,7 +490,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
-                    b.Navigation("Follow");
+                    b.Navigation("CreateAsync");
 
                     b.Navigation("Posts");
 

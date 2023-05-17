@@ -127,7 +127,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _postRepository.GetByIdAsync(postId);
+            var result = await _postRepository.FindByIdAsync(postId);
 
             // Assert
             Assert.NotNull(result);
@@ -144,7 +144,7 @@
             int postId = 1;
 
             // Act
-            var result = await _postRepository.GetByIdAsync(postId);
+            var result = await _postRepository.FindByIdAsync(postId);
 
             // Assert
             Assert.Null(result);
@@ -179,7 +179,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _postRepository.GetAllByUserIdAsync(userId);
+            var result = await _postRepository.FindAllByUserIdAsync(userId);
 
             // Assert
             Assert.NotNull(result);
@@ -196,7 +196,7 @@
             int userId = 1;
 
             // Act
-            var result = await _postRepository.GetAllByUserIdAsync(userId);
+            var result = await _postRepository.FindAllByUserIdAsync(userId);
 
             // Assert
             Assert.NotNull(result);
@@ -231,7 +231,7 @@
             };
 
             // Act
-            var result = await _postRepository.UpdateByIdAsync(postId, updatePost);
+            var result = await _postRepository.UpdateAsync(postId, updatePost);
 
             // Assert
             Assert.NotNull(result);
@@ -257,7 +257,7 @@
             };
 
             // Act
-            var result = await _postRepository.UpdateByIdAsync(postId, updatePost);
+            var result = await _postRepository.UpdateAsync(postId, updatePost);
 
             // Assert
             Assert.Null(result);
@@ -282,7 +282,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _postRepository.DeleteByIdAsync(postId);
+            var result = await _postRepository.DeleteAsync(postId);
 
             // Assert
             Assert.NotNull(result);
@@ -299,7 +299,7 @@
             int postId = 1;
 
             // Act
-            var result = await _postRepository.DeleteByIdAsync(postId);
+            var result = await _postRepository.DeleteAsync(postId);
 
             // Assert
             Assert.Null(result);
@@ -329,7 +329,7 @@
             await _context.SaveChangesAsync();
 
             // Act
-            var result = await _postRepository.UpdatePostLikesByIdAsync(postId, like);
+            var result = await _postRepository.UpdatePostLikesAsync(postId, like);
 
             // Assert
             Assert.NotNull(result);

@@ -14,11 +14,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{userId}/{postId}")]
-        public async Task<IActionResult> FindLikeAsync([FromRoute] int userId, [FromRoute] int postId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
-                LikeResponse? likeResponse = await _likeService.FindLikeAsync(userId, postId);
+                LikeResponse? likeResponse = await _likeService.FindByIdAsync(userId, postId);
 
                 if (likeResponse == null)
                 {
@@ -36,11 +36,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetAllLikesFromUserAsync([FromRoute] int userId)
+        public async Task<IActionResult> FindAllByUserIdAsync([FromRoute] int userId)
         {
             try
             {
-                var likeResponse = await _likeService.GetAllLikesFromUserAsync(userId);
+                var likeResponse = await _likeService.FindAllByUserIdAsync(userId);
 
                 if (likeResponse == null)
                 {
@@ -57,11 +57,11 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> LikePostAsync([FromBody] LikeRequest like)
+        public async Task<IActionResult> CreateAsync([FromBody] LikeRequest like)
         {
             try
             {
-                LikeResponse likeResponse = await _likeService.CreateLikeAsync(like);
+                LikeResponse likeResponse = await _likeService.CreateAsync(like);
 
                 return Ok(likeResponse);
             }
@@ -74,11 +74,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{userId}/{postId}")]
-        public async Task<IActionResult> UnlikePostAsync([FromRoute] int userId, [FromRoute] int postId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int userId, [FromRoute] int postId)
         {
             try
             {
-                var likeResponse = await _likeService.DeleteLikeAsync(userId, postId);
+                var likeResponse = await _likeService.DeleteAsync(userId, postId);
 
                 if (likeResponse == null)
                 {
