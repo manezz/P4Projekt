@@ -164,7 +164,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnLoginResponse_WhenLoginExists()
+        public async void FindByIdAsync_ShouldReturnLoginResponse_WhenLoginExists()
         {
             // Arrange
             int loginId = 1;
@@ -197,7 +197,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arrange
             int loginId = 1;
@@ -272,7 +272,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnLoginResponse_WhenUpdateIsSuccess()
+        public async void UpdateAsync_ShouldReturnLoginResponse_WhenUpdateIsSuccess()
         {
             // Arrange
             LoginRequest loginRequest = new()
@@ -313,7 +313,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void UpdateAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arrange
             LoginRequest loginRequest = new()
@@ -339,7 +339,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnLoginResponse_WhenDeleteIsSuccess()
+        public async void DeleteAsync_ShouldReturnLoginResponse_WhenDeleteIsSuccess()
         {
             // Arrange
             int loginId = 1;
@@ -370,7 +370,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        public async void DeleteAsync_ShouldReturnNull_WhenLoginDoesNotExists()
         {
             // Arrange
             int loginId = 1;

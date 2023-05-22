@@ -353,5 +353,54 @@ namespace WebApi_Tests.Service
             // Assert
             Assert.Null(result);
         }
+
+        // Write Tests for DeleteAsync
+        [Fact]
+        public async void DeleteAsync_ShuldReturnPostReponse_WhenDeleteSuccess()
+        {
+            // Arrange
+            int postId = 1;
+
+            Post post = new()
+            {
+                PostId = postId,
+                Title = "Title1",
+                Desc = "Desc1",
+                PostLikes = new(),
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            _postRepositoryMock
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(post);
+
+            // Act
+            var result = await _postService.DeleteAsync(postId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<PostResponse>(result);
+            Assert.Equal(postId, result?.PostId);
+        }
+
+        [Fact]
+        public async void DeleteAsync_ShuldReturnNull_WhenPostDoesNotExist()
+        {
+            // Arrange
+            int postId = 1;
+
+            _postRepositoryMock
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            // Act
+            var result = await _postService.DeleteAsync(postId);
+
+            // Assert
+            Assert.Null(result);
+        }
     }
 }
