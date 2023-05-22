@@ -137,7 +137,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode200_WhenLoginExists()
+        public async void FindByIdAsync_ShouldReturnStatusCode200_WhenLoginExists()
         {
             // Arrange
             int loginId = 1;
@@ -163,7 +163,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
         {
             // Arrange
             int loginId = 1;
@@ -189,7 +189,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void FindByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             int loginId = 1;

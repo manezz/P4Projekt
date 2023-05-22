@@ -122,6 +122,84 @@ namespace WebApi_Tests.Controller
         }
 
         [Fact]
+        public async void FindAllByUserIdAsync_ShouldReturnStatusCode200_WhenPostsExist()
+        {
+            // Arrange
+            int userId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            List<PostResponse> posts = new()
+            {
+                new PostResponse()
+                {
+                    PostId = 1,
+                    Title = "Test 1",
+                    Desc = "Test 1",
+                    LikeUserId = 1,
+                    PostLikes = new(),
+                    User = new(),
+                    Tags = new()
+                },
+                new PostResponse()
+                {
+                    PostId = 2,
+                    Title = "Test 2",
+                    Desc = "Test 2",
+                    LikeUserId = 2,
+                    PostLikes = new(),
+                    User = new(),
+                    Tags = new()
+                }
+            };
+
+            _postServiceMock
+                .Setup(x => x.FindAllByUserIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(posts);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.FindAllByUserIdAsync(userId);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void FindAllByUserIdAsyncShouldReturnStatusCode404_WhenPostsDoesNotExist()
+        {
+            // Arrange
+            int userId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _postServiceMock
+                .Setup(x => x.FindAllByUserIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.FindAllByUserIdAsync(userId);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
         public async void FindByIdAsync_ShouldReturnStatusCode200_WhenPostExist()
         {
             // Arrange
