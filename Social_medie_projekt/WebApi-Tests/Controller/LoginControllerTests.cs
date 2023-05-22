@@ -10,7 +10,7 @@
         {
             _loginController = new(_loginServiceMock.Object)
             {
-                ControllerContext = new ControllerContext()
+                ControllerContext = new()
                 {
                     HttpContext = httpContext
                 }

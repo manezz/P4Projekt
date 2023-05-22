@@ -168,7 +168,7 @@ namespace WebApi_Tests.Service
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnPostResponse_WhenPostExists()
+        public async void FindByIdAsync_ShouldReturnPostResponse_WhenPostExists()
         {
             // Arrange
             int postId = 1;
@@ -202,7 +202,7 @@ namespace WebApi_Tests.Service
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
         {
             // Arrange
             int postId = 1;
@@ -220,7 +220,7 @@ namespace WebApi_Tests.Service
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnPostResponse_WhenPostUpdateIsSuccess()
+        public async void UpdateAsync_ShouldReturnPostResponse_WhenPostUpdateIsSuccess()
         {
             // Arrange
             PostUpdateRequest postUpdateRequest = new()
@@ -258,7 +258,7 @@ namespace WebApi_Tests.Service
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnPostResponseWithTags_WhenPostUpdateIsSuccessAndTagsAreNotNull()
+        public async void UpdateAsync_ShouldReturnPostResponseWithTags_WhenPostUpdateIsSuccessAndTagsAreNotNull()
         {
             // Arrange
             List<Tag> oldTags = new()
@@ -333,7 +333,7 @@ namespace WebApi_Tests.Service
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        public async void UpdateAsync_ShouldReturnNull_WhenPostDoesNotExist()
         {
             // Arange
             PostUpdateRequest postUpdateRequest = new()
@@ -354,7 +354,6 @@ namespace WebApi_Tests.Service
             Assert.Null(result);
         }
 
-        // Write Tests for DeleteAsync
         [Fact]
         public async void DeleteAsync_ShuldReturnPostReponse_WhenDeleteSuccess()
         {

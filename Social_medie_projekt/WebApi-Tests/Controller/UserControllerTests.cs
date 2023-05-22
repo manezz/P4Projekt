@@ -21,25 +21,25 @@
         public async void GetAllAsync_ShouldReturnStatusCode200_WhenUsersExists()
         {
             // Arrange
-            List<UserResponse> users = new();
-
-            users.Add(new UserResponse()
+            List<UserResponse> users = new()
             {
-                UserId = 1,
-                UserName = "Tester 1",
-                FollowUserId = 1,
-                Login = new(),
-                UserImage = new()
-            });
-
-            users.Add(new UserResponse()
-            {
-                UserId = 2,
-                UserName = "Tester 2",
-                FollowUserId = 2,
-                Login = new(),
-                UserImage = new()
-            });
+                new UserResponse()
+                {
+                    UserId = 1,
+                    UserName = "Tester 1",
+                    FollowUserId = 1,
+                    Login = new(),
+                    UserImage = new()
+                },
+                new UserResponse()
+                {
+                    UserId = 2,
+                    UserName = "Tester 2",
+                    FollowUserId = 2,
+                    Login = new(),
+                    UserImage = new()
+                }
+            };
 
             _userServiceMock
                 .Setup(x => x.GetAllAsync())
@@ -87,7 +87,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode200_WhenUserExists()
+        public async void FindByIdAsync_ShouldReturnStatusCode200_WhenUserExist()
         {
             // Arrange
             int userId = 1;
@@ -115,16 +115,18 @@
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(1);
+            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(userId);
 
             // Asset
             Assert.Equal(200, result.StatusCode);
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
         {
             // Arrange
+            int userId = 1;
+
             LoginResponse currentUser = new()
             {
                 User = new()
@@ -140,14 +142,14 @@
             httpContext.Items["Login"] = currentUser;
 
             // Act
-            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(1);
+            var result = (IStatusCodeActionResult)await _userController.FindByIdAsync(userId);
 
             // Asset
             Assert.Equal(404, result.StatusCode);
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void FindByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             int userId = 1;
@@ -174,7 +176,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode200_WhenUserIsUpdated()
+        public async void UpdateAsync_ShouldReturnStatusCode200_WhenUserIsUpdated()
         {
             // Arrange
             int userId = 1;
@@ -214,7 +216,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
+        public async void UpdateAsync_ShouldReturnStatusCode404_WhenUserDoesNotExist()
         {
             // Arrange
             int userId = 1;
@@ -247,7 +249,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void UpdateAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             int userId = 1;
