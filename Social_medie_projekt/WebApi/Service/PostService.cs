@@ -1,6 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-
-namespace WebApi.Service
+﻿namespace WebApi.Service
 {
     public interface IPostService
     {
@@ -174,11 +172,18 @@ namespace WebApi.Service
         public async Task<PostResponse?> UpdateAsync(int postId, PostUpdateRequest updatePost)
         {
             // Gets the old tags
-            var oldtags = await _tagRepository.FindAllByPostIdAsync(postId);
+            var oldTags = await _tagRepository.FindAllByPostIdAsync(postId);
 
-            if (oldtags == null)
+            // Updates the post
+            var post = await _postRepository.UpdateAsync(postId, MapPostUpdateRequestToPost(updatePost));
+
+            if (post == null)
             {
                 return null;
+            }
+            else if (oldTags == null)
+            {
+                return MapPostToPostResponse(post);
             }
 
             // Maps the tags from the request
@@ -186,24 +191,17 @@ namespace WebApi.Service
                 .Select(x => TagService.MapTagRequestToTag(x))
                 .ToList();
 
-            // Updates the post
-            var post = await _postRepository.UpdateAsync(postId, MapPostUpdateRequestToPost(updatePost));
             // Updates the tags
             var tags = updatePost.Tags.Select(tag => _tagService.UpdateAsync(tag).Result).ToList();
 
-            if (post == null)
-            {
-                return null;
-            }
-
-            // Creates list of Tags, where oldtags does not contain the name of the tag
+            // Creates list of Tags, where oldTags does not contain the name of the tag
             var tagCreate = updateTags
-                .Where(x => !(oldtags.Select(z => z.Name))
+                .Where(x => !(oldTags.Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
 
             // Creates list of Tags, where updateTags does not contain the name of the tag
-            var tagDelete = oldtags
+            var tagDelete = oldTags
                 .Where(x => !(updateTags.Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
@@ -223,8 +221,12 @@ namespace WebApi.Service
                 .Select(x => _postTagService.CreateAsync(post.PostId, x.TagId).Result)
                 .ToList();
 
-            var postAfterTags = await _postRepository.FindByIdAsync(post.PostId)
-                ?? throw new ArgumentNullException(null);
+            var postAfterTags = await _postRepository.FindByIdAsync(post.PostId);
+
+            if (postAfterTags == null)
+            {
+                return null;
+            }
 
             // Maps the post with the current tags
             return MapPostToPostResponse(postAfterTags);

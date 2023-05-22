@@ -313,7 +313,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExists()
+        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arrange
             LoginRequest loginRequest = new()

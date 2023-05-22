@@ -17,7 +17,6 @@
             _context = context;
         }
 
-
         public async Task<List<Tag>> GetAllAsync()
         {
             return await _context.Tag.ToListAsync();
