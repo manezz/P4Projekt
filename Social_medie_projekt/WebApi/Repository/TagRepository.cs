@@ -30,6 +30,9 @@
                 .Where(x => x.PostId == postId)
                 .Select(x => x.Tag)
                 .ToListAsync();
+
+            //return await _context.Tag
+            //    .Include(p => p.Posts)
         }
 
         public async Task<Tag?> FindByIdAsync(int id)
