@@ -287,7 +287,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode200_WhenLoginIsUpdated()
+        public async void UpdateAsync_ShouldReturnStatusCode200_WhenLoginIsUpdated()
         {
             // Arrange
             LoginRequest updateLogin = new()
@@ -319,7 +319,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        public async void UpdateAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
         {
             // Arrange
             LoginRequest updateLogin = new()
@@ -351,7 +351,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void UpdateAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             LoginRequest updateLogin = new()
@@ -383,7 +383,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnStatusCode200_WhenLoginIsDeleted()
+        public async void DeleteAsync_ShouldReturnStatusCode200_WhenLoginIsDeleted()
         {
             // Arrange
             int loginId = 1;
@@ -409,7 +409,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
+        public async void DeleteAsync_ShouldReturnStatusCode404_WhenLoginDoesNotExist()
         {
             // Arrange
             int loginId = 1;
@@ -435,7 +435,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        public async void DeleteAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
         {
             // Arrange
             int loginId = 1;

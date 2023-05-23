@@ -103,6 +103,13 @@
         {
             try
             {
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+
+                if (currentUser == null || !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
+                {
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
                 var postResponse = await _postService.UpdateAsync(postId, updatedPost);
 
                 if (postResponse == null)
@@ -127,7 +134,7 @@
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
+                if (currentUser == null || !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }

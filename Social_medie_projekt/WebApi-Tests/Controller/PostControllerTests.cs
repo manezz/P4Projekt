@@ -200,6 +200,33 @@ namespace WebApi_Tests.Controller
         }
 
         [Fact]
+        public async void FindAllByUserIdAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int userId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _postServiceMock
+                .Setup(x => x.FindAllByUserIdAsync(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.FindAllByUserIdAsync(userId);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
         public async void FindByIdAsync_ShouldReturnStatusCode200_WhenPostExist()
         {
             // Arrange
@@ -361,6 +388,211 @@ namespace WebApi_Tests.Controller
 
             // Act
             var result = (IStatusCodeActionResult)await _postController.CreateAsync(newPost);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateAsync_ShouldReturnStatusCode200_WhenPostIsUpdated()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            PostUpdateRequest postUpdateRequest = new()
+            {
+                Title = "Test 1",
+                Desc = "Test 1",
+                Tags = new()
+            };
+
+            PostResponse postResponse = new()
+            {
+                PostId = 1,
+                Title = "Test 1",
+                Desc = "Test 1",
+                LikeUserId = 1,
+                PostLikes = new(),
+                User = new(),
+                Tags = new()
+            };
+
+            _postServiceMock
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<PostUpdateRequest>()))
+                .ReturnsAsync(postResponse);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.UpdateAsync(postId, postUpdateRequest);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateAsync_ShouldReturnStatusCode404_WhenPostDoesNotExist()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            PostUpdateRequest postUpdateRequest = new()
+            {
+                Title = "Test 1",
+                Desc = "Test 1",
+                Tags = new()
+            };
+
+            _postServiceMock
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<PostUpdateRequest>()))
+                .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.UpdateAsync(postId, postUpdateRequest);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void UpdateAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            PostUpdateRequest postUpdateRequest = new()
+            {
+                Title = "Test 1",
+                Desc = "Test 1",
+                Tags = new()
+            };
+
+            _postServiceMock
+                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<PostUpdateRequest>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.UpdateAsync(postId, postUpdateRequest);
+
+            // Asset
+            Assert.Equal(500, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteAsync_ShouldReturnStatusCode200_WhenPostIsDeleted()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            PostResponse postResponse = new()
+            {
+                PostId = 1,
+                Title = "Test 1",
+                Desc = "Test 1",
+                LikeUserId = 1,
+                PostLikes = new(),
+                User = new(),
+                Tags = new()
+            };
+
+            _postServiceMock
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(postResponse);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.DeleteAsync(postId);
+
+            // Asset
+            Assert.Equal(200, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteAsync_ShouldReturnStatusCode404_WhenPostDoesNotExist()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _postServiceMock
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => null);
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.DeleteAsync(postId);
+
+            // Asset
+            Assert.Equal(404, result.StatusCode);
+        }
+
+        [Fact]
+        public async void DeleteAsync_ShouldReturnStatusCode500_WhenExceptionIsRaised()
+        {
+            // Arrange
+            int postId = 1;
+
+            LoginResponse currentUser = new()
+            {
+                User = new()
+                {
+                    UserId = 1
+                }
+            };
+
+            _postServiceMock
+                .Setup(x => x.DeleteAsync(It.IsAny<int>()))
+                .ReturnsAsync(() => throw new Exception("This is an exception"));
+
+            httpContext.Items["Login"] = currentUser;
+
+            // Act
+            var result = (IStatusCodeActionResult)await _postController.DeleteAsync(postId);
 
             // Asset
             Assert.Equal(500, result.StatusCode);
