@@ -113,7 +113,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnLogin_WhenLoginExists()
+        public async void FindByIdAsync_ShouldReturnLogin_WhenLoginExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -140,7 +140,7 @@
         }
 
         [Fact]
-        public async void GeByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -153,7 +153,7 @@
         }
 
         [Fact]
-        public async void GetByEmailAsync_ShouldReturnLogin_WhenLoginExists()
+        public async void FindByEmailAsync_ShouldReturnLogin_WhenLoginExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -180,7 +180,7 @@
         }
 
         [Fact]
-        public async void GeByEmailAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void FindByEmailAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -193,7 +193,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldChangeValuesOnLogin_WhenLoginExist()
+        public async void UpdateAsync_ShouldChangeValuesOnLogin_WhenLoginExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -229,7 +229,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void UpdateAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -252,7 +252,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnDeletedLogin_WhenLoginIsDeleted()
+        public async void DeleteAsync_ShouldReturnDeletedLogin_WhenLoginIsDeleted()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -280,7 +280,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnNull_WhenLoginDoesNotExist()
+        public async void DeleteAsync_ShouldReturnNull_WhenLoginDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();

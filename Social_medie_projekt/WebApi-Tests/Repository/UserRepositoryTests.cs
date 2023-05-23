@@ -113,7 +113,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnUser_WhenUserExists()
+        public async void FindByIdAsync_ShouldReturnUser_WhenUserExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -140,7 +140,7 @@
         }
 
         [Fact]
-        public async void GeByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -153,7 +153,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldChangeValuesOnUsers_WhenUsersExists()
+        public async void UpdateAsync_ShouldChangeValuesOnUsers_WhenUsersExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -199,7 +199,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        public async void UpdateAsync_ShouldReturnNull_WhenUserDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -221,7 +221,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnDeletedUser_WhenUserIsDeleted()
+        public async void DeleteAsync_ShouldReturnDeletedUser_WhenUserIsDeleted()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -249,7 +249,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnNull_WhenUserDoesNotExist()
+        public async void DeleteAsync_ShouldReturnNull_WhenUserDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();

@@ -110,7 +110,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnPost_WherePostExists()
+        public async void FindByIdAsync_ShouldReturnPost_WherePostExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -136,7 +136,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        public async void FindByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -151,7 +151,7 @@
         }
 
         [Fact]
-        public async void GetAllByUserIdAsync_ShouldReturnListOfPosts_WhenPostsExists()
+        public async void FindAllByUserIdAsync_ShouldReturnListOfPosts_WhenPostsExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -188,7 +188,7 @@
         }
 
         [Fact]
-        public async void GetAllByUserIdAsync_ShouldReturnEmptyListOfPosts_WhenNoPostsExists()
+        public async void FindAllByUserIdAsync_ShouldReturnEmptyListOfPosts_WhenNoPostsExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -205,7 +205,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldChangeValuesOnPosts_WhenPostsExists()
+        public async void UpdateAsync_ShouldChangeValuesOnPosts_WhenPostsExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -242,7 +242,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        public async void UpdateAsync_ShouldReturnNull_WhenPostDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -264,7 +264,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnDeletedPost_WhenPostIsDeleted()
+        public async void DeleteAsync_ShouldReturnDeletedPost_WhenPostIsDeleted()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -291,7 +291,7 @@
         }
 
         [Fact]
-        public async void DeleteByIdAsync_ShouldReturnNull_WhenPostDoesNotExist()
+        public async void DeleteAsync_ShouldReturnNull_WhenPostDoesNotExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
@@ -306,7 +306,7 @@
         }
 
         [Fact]
-        public async void UpdatePostLikesByIdAsync_ShouldChangeValuesOnPost_WhenPostExist()
+        public async void UpdatePostLikesAsync_ShouldChangeValuesOnPost_WhenPostExist()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();

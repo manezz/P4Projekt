@@ -87,7 +87,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnUserResponse_WhenUserExists()
+        public async void FindByIdAsync_ShouldReturnUserResponse_WhenUserExists()
         {
             // Arrange
             int userId = 1;
@@ -116,7 +116,7 @@
         }
 
         [Fact]
-        public async void GetByIdAsync_ShouldReturnNull_WhenUserDoesNotExists()
+        public async void FindByIdAsync_ShouldReturnNull_WhenUserDoesNotExists()
         {
             // Arrange
             int userId = 1;
@@ -134,7 +134,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnUserResponse_WhenUpdateIsSuccess()
+        public async void UpdateAsync_ShouldReturnUserResponse_WhenUpdateIsSuccess()
         {
             // Arrange
             UserRequest userRequest = new()
@@ -171,7 +171,7 @@
         }
 
         [Fact]
-        public async void UpdateByIdAsync_ShouldReturnNull_WhenUserDoesNotExists()
+        public async void UpdateAsync_ShouldReturnNull_WhenUserDoesNotExists()
         {
             // Arrange
             UserRequest userRequest = new()
