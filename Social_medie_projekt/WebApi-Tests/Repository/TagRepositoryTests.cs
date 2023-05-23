@@ -128,5 +128,89 @@
             Assert.IsType<List<Tag>>(result);
             Assert.Empty(result);
         }
+
+        [Fact]
+        public async void FindByIdAsync_ShouldReturnTag_WhereTagExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int tagId = 1;
+
+            _context.Tag.Add(
+                new Tag
+                {
+                    TagId = tagId,
+                    Name = "Test1",
+                });
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _tagRepository.FindByIdAsync(tagId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Tag>(result);
+            Assert.Equal(tagId, result.TagId);
+        }
+
+        [Fact]
+        public async void FindByIdAsync_ShouldReturnNull_WhenTagDoesNotExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int tagId = 1;
+
+            // Act
+            var result = await _tagRepository.FindByIdAsync(tagId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void CreateAsync_ShouldAddNewIdToTag_WhenSavingToDatabase()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int expectedNewId = 1;
+
+            Tag tag = new()
+            {
+                Name = "Test1"
+            };
+
+            // Act
+            var result = await _tagRepository.CreateAsync(tag);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Tag>(result);
+            Assert.Equal(expectedNewId, result.TagId);
+        }
+
+        //[Fact]
+        //public async void CreateAsync_ShouldFailToAddNewTag_WhenTagIdAlreadyExists()
+        //{
+        //    // Arange
+        //    await _context.Database.EnsureDeletedAsync();
+
+        //    Tag tag = new()
+        //    {
+        //        TagId = 1,
+        //        Name = "Test1"
+        //    };
+
+        //    var result = await _tagRepository.CreateAsync(tag);
+
+        //    // Act
+        //    async Task action() => await _tagRepository.CreateAsync(tag);
+
+        //    // Assert
+        //    var ex = await Assert.ThrowsAsync<ArgumentException>(action);
+        //    Assert.Contains("An item with the same key has already been added", ex.Message);
+        //}
     }
 }
