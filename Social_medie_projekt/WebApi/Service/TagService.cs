@@ -2,12 +2,10 @@
 {
     public interface ITagService
     {
-        // Tag
         Task<List<TagResponse>> GetAllAsync();
         Task<TagResponse?> FindByIdAsync(int tagId);
         Task<List<TagResponse>> FindAllByPostIdAsync(int postId);
         Task<TagResponse> CreateAsync(TagRequest newTag);
-        Task<TagResponse> UpdateAsync(TagRequest newTag);
     }
 
     public class TagService : ITagService
@@ -81,28 +79,6 @@
             }
             return MapTagToTagResponse(tag);
         }
-
-        private async Task<Tag> CreateTagAsync(Tag newTag)
-        {
-            var tag = await _tagRepository.CreateAsync(newTag);
-
-            if (tag == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return tag;
-        }
-
-        public async Task<TagResponse> UpdateAsync(TagRequest newTag)
-        {
-            var tag = await _tagRepository.UpdateAsync(MapTagRequestToTag(newTag));
-
-            if (tag == null)
-            {
-                throw new ArgumentNullException();
-            }
-            return MapTagToTagResponse(tag);
-        }
     }
 }
+

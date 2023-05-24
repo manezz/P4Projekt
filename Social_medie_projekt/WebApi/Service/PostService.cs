@@ -192,7 +192,7 @@
                 .ToList();
 
             // Updates the tags
-            var tags = updatePost.Tags.Select(tag => _tagService.UpdateAsync(tag).Result).ToList();
+            var tags = updatePost.Tags.Select(tag => _tagService.CreateAsync(tag).Result).ToList();
 
             // Creates list of Tags, where oldTags does not contain the name of the tag
             var tagCreate = updateTags
