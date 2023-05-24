@@ -102,18 +102,25 @@ namespace WebApi.Service
 
             // Creates the Tags
             var tags = updateTags
-                .Select(tagRequest => _tagRepository.CreateAsync(MapTagRequestToTag(tagRequest)).Result)
+                .Where(x => !(tagsExists
+                    .Select(z => z.Name))
+                .Contains(x.Name))
+                .Select(tag => _tagRepository.CreateAsync(tag).Result)
                 .ToList();
+
+            var tagCreateNew = updateTags
 
             // Creates list of Tags, where oldTags does not contain the name of the tag
             var tagCreate = updateTags
-                .Where(x => !(oldTags.Select(z => z.Name))
+                .Where(x => !(oldTags
+                    .Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
 
             // Creates list of Tags, where updateTags does not contain the name of the tag
             var tagDelete = oldTags
-                .Where(x => !(updateTags.Select(z => z.Name))
+                .Where(x => !(updateTags
+                    .Select(z => z.Name))
                 .Contains(x.Name))
                 .ToList();
 
