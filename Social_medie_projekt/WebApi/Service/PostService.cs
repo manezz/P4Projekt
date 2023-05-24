@@ -171,9 +171,6 @@
 
         public async Task<PostResponse?> UpdateAsync(int postId, PostUpdateRequest updatePost)
         {
-            // Gets the old tags
-            var oldTags = await _tagRepository.FindAllByPostIdAsync(postId);
-
             // Updates the post
             var post = await _postRepository.UpdateAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
@@ -181,45 +178,13 @@
             {
                 return null;
             }
-            else if (oldTags == null)
+
+            var updatedTags = await _tagService.UpdateBulkByPostIdAsync(postId, updatePost.Tags);
+
+            if (updatedTags == null)
             {
                 return MapPostToPostResponse(post);
             }
-
-            // Maps the tags from the request
-            var updateTags = updatePost.Tags
-                .Select(x => TagService.MapTagRequestToTag(x))
-                .ToList();
-
-            // Updates the tags
-            var tags = updatePost.Tags.Select(tag => _tagService.CreateAsync(tag).Result).ToList();
-
-            // Creates list of Tags, where oldTags does not contain the name of the tag
-            var tagCreate = updateTags
-                .Where(x => !(oldTags.Select(z => z.Name))
-                .Contains(x.Name))
-                .ToList();
-
-            // Creates list of Tags, where updateTags does not contain the name of the tag
-            var tagDelete = oldTags
-                .Where(x => !(updateTags.Select(z => z.Name))
-                .Contains(x.Name))
-                .ToList();
-
-            // Deletes the tags
-            var tagsDeleted = tagDelete
-                .Select(x => _postTagService.DeleteAsync(postId, x.TagId).Result)
-                .ToList();
-
-            // Creates the tags
-            var tagsCreated = tagCreate
-                .Select(x => _tagRepository.CreateAsync(x).Result)
-                .ToList();
-
-            // Creates the posttags
-            _ = tagsCreated
-                .Select(x => _postTagService.CreateAsync(post.PostId, x.TagId).Result)
-                .ToList();
 
             var postAfterTags = await _postRepository.FindByIdAsync(post.PostId);
 
