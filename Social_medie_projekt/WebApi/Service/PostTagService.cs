@@ -85,7 +85,7 @@
 
         public async Task<PostTagResponse> DeleteAsync(int postId, int tagId)
         {
-            var postTag = await _postTagRepository.DeleteAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postTagRepository.DeleteAsync(postId, tagId);
 
             if (postTag == null)
             {

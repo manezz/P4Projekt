@@ -3,9 +3,10 @@
     public interface IPostTagRepository
     {
         Task<List<PostTag>> FindAllByPostIdAsync(int postId);
+        Task<PostTag?> FindByIdAsync(int postId, int tagId);
         Task<PostTag> CreateAsync(PostTag newPostsTag);
-        Task<PostTag> DeleteAsync(PostTag newPostsTag);
-        Task<PostTag> UpdateAsync(PostTag newPostsTag);
+        Task<PostTag> UpdateAsync(PostTag newPostTag);
+        Task<PostTag?> DeleteAsync(int postId, int tagId);
     }
 
     public class PostTagRepository : IPostTagRepository
@@ -25,6 +26,11 @@
                 .Where(p => p.PostId == postId)
                 .Select(p => p)
                 .ToListAsync();
+        }
+
+        public async Task<PostTag?> FindByIdAsync(int postId, int tagId)
+        {
+            return await _context.PostTag.FindAsync(postId, tagId);
         }
 
         public async Task<PostTag> CreateAsync(PostTag postTag)
@@ -52,12 +58,17 @@
             return postsTag;
         }
 
-        public async Task<PostTag> DeleteAsync(PostTag postsTag)
+        public async Task<PostTag?> DeleteAsync(int postId, int tagId)
         {
-            _context.Remove(postsTag);
-            _context.PostTag.Remove(postsTag);
-            await _context.SaveChangesAsync();
-            return postsTag;
+            var postTag = await FindByIdAsync(postId, tagId);
+
+            if (postTag != null)
+            {
+                _context.Remove(postTag);
+                await _context.SaveChangesAsync();
+            }
+
+            return postTag;
         }
     }
 }

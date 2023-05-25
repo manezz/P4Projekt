@@ -14,11 +14,11 @@ namespace WebApi.Service
     public class TagService : ITagService
     {
         private readonly ITagRepository _tagRepository;
-        private readonly IPostTagService _postTagService;
-        public TagService(ITagRepository tagRepository, IPostTagService postTagService)
+        private readonly IPostTagRepository _postTagRepository;
+        public TagService(ITagRepository tagRepository, IPostTagRepository postTagRepository)
         {
             _tagRepository = tagRepository;
-            _postTagService = postTagService;
+            _postTagRepository = postTagRepository;
         }
 
         private static TagResponse MapTagToTagResponse(Tag tag)
@@ -36,6 +36,15 @@ namespace WebApi.Service
             return new Tag
             {
                 Name = tagRequest.Name
+            };
+        }
+
+        private static PostTag MapPostIdAndTagIdToPostTag(int postId, int tagId)
+        {
+            return new PostTag
+            {
+                PostId = postId,
+                TagId = tagId,
             };
         }
 
@@ -76,39 +85,34 @@ namespace WebApi.Service
 
         public async Task<TagResponse> CreateAsync(TagRequest newTag)
         {
-            var tag = await _tagRepository.CreateAsync(MapTagRequestToTag(newTag));
+            var mapTag = MapTagRequestToTag(newTag);
 
-            if (tag == null)
+            var tagExists = await _tagRepository.FindByNameAsync(mapTag.Name);
+
+            if (tagExists != null)
             {
-                throw new ArgumentNullException();
+                return MapTagToTagResponse(tagExists);
             }
-            return MapTagToTagResponse(tag);
+
+            var tag = await _tagRepository.CreateAsync(mapTag);
+
+            return tag == null ? throw new ArgumentNullException(null) : MapTagToTagResponse(tag);
         }
 
         public async Task<List<TagResponse>?> UpdateBulkByPostIdAsync(int postId, List<TagRequest> tagRequests)
         {
             // Gets the old tags
-            var oldTags = await FindAllByPostIdAsync(postId);
+            var oldTags = await _tagRepository.FindAllByPostIdAsync(postId);
+
+            if (oldTags == null)
+            {
+                return null!;
+            }
 
             // Maps the tags from the request
             var updateTags = tagRequests
                 .Select(tagRequests => MapTagRequestToTag(tagRequests))
                 .ToList();
-
-            // Checks if the tags already exists
-            var tagsExists = updateTags
-                .Select(x => _tagRepository.FindByNameAsync(x.Name).Result)
-                .ToList();
-
-            // Creates the Tags
-            var tags = updateTags
-                .Where(x => !(tagsExists
-                    .Select(z => z.Name))
-                .Contains(x.Name))
-                .Select(tag => _tagRepository.CreateAsync(tag).Result)
-                .ToList();
-
-            var tagCreateNew = updateTags
 
             // Creates list of Tags, where oldTags does not contain the name of the tag
             var tagCreate = updateTags
@@ -126,20 +130,22 @@ namespace WebApi.Service
 
             // Deletes the tags
             var tagsDeleted = tagDelete
-                .Select(x => _postTagService.DeleteAsync(postId, x.TagId).Result)
+                .Select(x => _postTagRepository.DeleteAsync(postId, x.TagId).Result)
                 .ToList();
 
             // Creates the tags
             var tagsCreated = tagCreate
-                .Select(x => _tagRepository.CreateAsync(x).Result)
+                .Select(x => _tagRepository.FindByNameAsync(x.Name).Result ?? _tagRepository.CreateAsync(x).Result)
                 .ToList();
 
             // Creates the posttags
             _ = tagsCreated
-                .Select(x => _postTagService.CreateAsync(post.PostId, x.TagId).Result)
+                .Select(x => _postTagRepository.CreateAsync(MapPostIdAndTagIdToPostTag(postId, x.TagId)).Result)
                 .ToList();
 
-            return null;
+            return tagsCreated
+                .Select(x => MapTagToTagResponse(x))
+                .ToList();
         }
 
 
