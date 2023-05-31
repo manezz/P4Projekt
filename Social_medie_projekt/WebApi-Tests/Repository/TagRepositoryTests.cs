@@ -190,5 +190,26 @@
             Assert.IsType<Tag>(result);
             Assert.Equal(expectedNewId, result.TagId);
         }
+
+        [Fact]
+        public async void CreateAsync_ShouldFailToAddNewLogin_WhenLoginIdAlreadyExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            Tag tag = new()
+            {
+                Name = "Test1"
+            };
+
+            var result = await _tagRepository.CreateAsync(tag);
+
+            // Act
+            async Task action() => await _tagRepository.CreateAsync(tag);
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentException>(action);
+            Assert.Contains("An item with the same key has already been added", ex.Message);
+        }
     }
 }

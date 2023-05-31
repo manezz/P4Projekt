@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Any;
+using System.Linq;
+using WebApi.DTOs;
 
 namespace WebApi_Tests.Service
 {
@@ -261,10 +264,10 @@ namespace WebApi_Tests.Service
         public async void UpdateAsync_ShouldReturnPostResponseWithTags_WhenPostUpdateIsSuccessAndTagsAreNotNull()
         {
             // Arrange
-            List<Tag> oldTags = new()
+            List<TagResponse> updatedTags = new()
             {
-                new Tag { TagId = 1, Name = "Tag1" },
-                new Tag { TagId = 2, Name = "Tag2" }
+                new TagResponse { TagId = 1, Name = "Tag1" },
+                new TagResponse { TagId = 2, Name = "Tag2" }
             };
 
             PostUpdateRequest postUpdateRequest = new()
@@ -308,9 +311,9 @@ namespace WebApi_Tests.Service
                 }
             };
 
-            _tagRepositoryMock
-                .Setup(x => x.FindAllByPostIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(oldTags);
+            _tagServiceMock
+                .Setup(x => x.UpdateBulkByPostIdAsync(It.IsAny<int>(), new List<TagRequest>()))
+                .ReturnsAsync(updatedTags);
 
             _postRepositoryMock
                 .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Post>()))
