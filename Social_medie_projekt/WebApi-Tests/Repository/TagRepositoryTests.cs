@@ -170,6 +170,46 @@
         }
 
         [Fact]
+        public async void FindByNameAsync_ShouldReturnTag_WhereTagExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            string tagName = "Test1";
+
+            _context.Tag.Add(
+                new Tag
+                {
+                    TagId = 1,
+                    Name = tagName,
+                });
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _tagRepository.FindByNameAsync(tagName);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<Tag>(result);
+            Assert.Equal(tagName, result.Name);
+        }
+
+        [Fact]
+        public async void FindByNameAsync_ShouldReturnNull_WhenTagDoesNotExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            string tagName = "Test1";
+
+            // Act
+            var result = await _tagRepository.FindByNameAsync(tagName);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
         public async void CreateAsync_ShouldAddNewIdToTag_WhenSavingToDatabase()
         {
             // Arange
@@ -192,7 +232,7 @@
         }
 
         [Fact]
-        public async void CreateAsync_ShouldFailToAddNewLogin_WhenLoginIdAlreadyExists()
+        public async void CreateAsync_ShouldFailToAddNewTag_WhenTagIdAlreadyExists()
         {
             // Arange
             await _context.Database.EnsureDeletedAsync();
