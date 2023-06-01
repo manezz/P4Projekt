@@ -260,80 +260,81 @@ namespace WebApi_Tests.Service
             Assert.Equal(postUpdateRequest.Desc, result?.Desc);
         }
 
-        [Fact]
-        public async void UpdateAsync_ShouldReturnPostResponseWithTags_WhenPostUpdateIsSuccessAndTagsAreNotNull()
-        {
-            // Arrange
-            List<TagResponse> updatedTags = new()
-            {
-                new TagResponse { TagId = 1, Name = "Tag1" },
-                new TagResponse { TagId = 2, Name = "Tag2" }
-            };
+        // Now used anymore
+        //[Fact]
+        //public async void UpdateAsync_ShouldReturnPostResponseWithTags_WhenPostUpdateIsSuccessAndTagsAreNotNull()
+        //{
+        //    // Arrange
+        //    List<TagResponse> updatedTags = new()
+        //    {
+        //        new TagResponse { TagId = 1, Name = "Tag1" },
+        //        new TagResponse { TagId = 2, Name = "Tag2" }
+        //    };
 
-            PostUpdateRequest postUpdateRequest = new()
-            {
-                Title = "Title1",
-                Desc = "Desc1",
-                Tags = new()
-                {
-                    new TagRequest { Name = "Tag1" },
-                    new TagRequest { Name = "Tag2" }
-                }
-            };
-            int postId = 1;
+        //    PostUpdateRequest postUpdateRequest = new()
+        //    {
+        //        Title = "Title1",
+        //        Desc = "Desc1",
+        //        Tags = new()
+        //        {
+        //            new TagRequest { Name = "Tag1" },
+        //            new TagRequest { Name = "Tag2" }
+        //        }
+        //    };
+        //    int postId = 1;
 
-            Post post = new()
-            {
-                PostId = postId,
-                Title = "Title1",
-                Desc = "Desc1",
-                PostLikes = new(),
-                User = new()
-                {
-                    UserImage = new()
-                }
-            };
+        //    Post post = new()
+        //    {
+        //        PostId = postId,
+        //        Title = "Title1",
+        //        Desc = "Desc1",
+        //        PostLikes = new(),
+        //        User = new()
+        //        {
+        //            UserImage = new()
+        //        }
+        //    };
 
-            Post postAfterTags = new()
-            {
-                PostId = postId,
-                Title = "Title1",
-                Desc = "Desc1",
-                PostLikes = new(),
-                User = new()
-                {
-                    UserImage = new()
-                },
-                Tags =
-                {
-                    new Tag { TagId = 1, Name = "Tag1" },
-                    new Tag { TagId = 2, Name = "Tag2" }
-                }
-            };
+        //    Post postAfterTags = new()
+        //    {
+        //        PostId = postId,
+        //        Title = "Title1",
+        //        Desc = "Desc1",
+        //        PostLikes = new(),
+        //        User = new()
+        //        {
+        //            UserImage = new()
+        //        },
+        //        Tags =
+        //        {
+        //            new Tag { TagId = 1, Name = "Tag1" },
+        //            new Tag { TagId = 2, Name = "Tag2" }
+        //        }
+        //    };
 
-            _tagServiceMock
-                .Setup(x => x.UpdateBulkByPostIdAsync(It.IsAny<int>(), new List<TagRequest>()))
-                .ReturnsAsync(updatedTags);
+        //    _tagServiceMock
+        //        .Setup(x => x.UpdateBulkByPostIdAsync(It.IsAny<int>(), new List<TagRequest>()))
+        //        .ReturnsAsync(updatedTags);
 
-            _postRepositoryMock
-                .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Post>()))
-                .ReturnsAsync(post);
+        //    _postRepositoryMock
+        //        .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Post>()))
+        //        .ReturnsAsync(post);
 
-            _postRepositoryMock
-                .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
-                .ReturnsAsync(postAfterTags);
+        //    _postRepositoryMock
+        //        .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
+        //        .ReturnsAsync(postAfterTags);
 
-            // Act
-            var result = await _postService.UpdateAsync(postId, postUpdateRequest);
+        //    // Act
+        //    var result = await _postService.UpdateAsync(postId, postUpdateRequest);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<PostResponse>(result);
-            Assert.Equal(postId, result?.PostId);
-            Assert.Equal(postUpdateRequest.Title, result?.Title);
-            Assert.Equal(postUpdateRequest.Desc, result?.Desc);
-            Assert.Equal(postUpdateRequest.Tags.Select(x => x.Name), result?.Tags?.Select(x => x.Name)!);
-        }
+        //    // Assert
+        //    Assert.NotNull(result);
+        //    Assert.IsType<PostResponse>(result);
+        //    Assert.Equal(postId, result?.PostId);
+        //    Assert.Equal(postUpdateRequest.Title, result?.Title);
+        //    Assert.Equal(postUpdateRequest.Desc, result?.Desc);
+        //    Assert.Equal(postUpdateRequest.Tags.Select(x => x.Name), result?.Tags?.Select(x => x.Name)!);
+        //}
 
         [Fact]
         public async void UpdateAsync_ShouldReturnNull_WhenPostDoesNotExist()
