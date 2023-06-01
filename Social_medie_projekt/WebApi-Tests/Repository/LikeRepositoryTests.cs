@@ -44,6 +44,44 @@
             Assert.Equal(postId, result.PostId);
         }
 
+        [Fact]
+        public async void FindByIdAsync_ShouldReturnNull_WhenLikeDoesNotExist()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            var userId = 1;
+            var postId = 1;
+
+            // Act
+            var result = await _likeRepository.FindByIdAsync(userId, postId);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async void CreateAsync_ShouldFailToAddNewLike_WhenLikeIdAlreadyExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            Like like = new()
+            {
+                UserId = 1,
+                PostId = 1,
+            };
+
+            var result = await _likeRepository.CreateAsync(like);
+
+            // Act
+            async Task action() => await _likeRepository.CreateAsync(like);
+
+            // Assert
+            var ex = await Assert.ThrowsAsync<ArgumentException>(action);
+            Assert.Contains("An item with the same key has already been added", ex.Message);
+        }
+
         //Test not working, maybe fix later
         // Problem could maybe be because it has a composite key or
         // the UserId does not have IsUnique set to false in the inmemory database

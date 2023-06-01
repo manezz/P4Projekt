@@ -5,7 +5,7 @@
         Task<Like?> FindByIdAsync(int userId, int postId);
         Task<List<Like>?> FindAllByUserIdAsync(int userId);
         Task<Like> CreateAsync(Like newLike);
-        Task<Like> DeleteAsync(int userId, int postId);
+        Task<Like?> DeleteAsync(int userId, int postId);
     }
 
     public class LikeRepository : ILikeRepository
@@ -33,17 +33,12 @@
 
         public async Task<Like> CreateAsync(Like like)
         {
-            if (await FindByIdAsync(like.UserId, like.PostId) != null)
-            {
-                throw new Exception("Post aldready liked");
-            }
-
             _context.Like.Add(like);
             await _context.SaveChangesAsync();
             return like;
         }
 
-        public async Task<Like> DeleteAsync(int userId, int postId)
+        public async Task<Like?> DeleteAsync(int userId, int postId)
         {
             var like = await FindByIdAsync(userId, postId);
 
