@@ -110,6 +110,9 @@ namespace WebApi.Migrations
 
                     b.HasKey("LoginId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Login");
 
                     b.HasData(
@@ -174,7 +177,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3438),
+                            Date = new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3100),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -183,7 +186,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3442),
+                            Date = new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3104),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -322,7 +325,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3391),
+                            Created = new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3056),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -330,7 +333,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3395),
+                            Created = new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3060),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -338,7 +341,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3398),
+                            Created = new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3063),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"

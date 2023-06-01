@@ -213,9 +213,9 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3391), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3395), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3398), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3056), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3060), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3063), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
@@ -232,8 +232,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3438), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3442), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3100), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 6, 1, 14, 28, 20, 565, DateTimeKind.Local).AddTicks(3104), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -286,6 +286,12 @@ namespace WebApi.Migrations
                 name: "IX_Like_UserId",
                 table: "Like",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Login_Email",
+                table: "Login",
+                column: "Email",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Post_UserId",
