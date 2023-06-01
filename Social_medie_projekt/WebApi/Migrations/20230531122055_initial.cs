@@ -65,7 +65,7 @@ namespace WebApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CreateAsync",
+                name: "Follow",
                 columns: table => new
                 {
                     UserId = table.Column<int>(type: "int", nullable: false),
@@ -213,13 +213,13 @@ namespace WebApi.Migrations
                 columns: new[] { "UserId", "Created", "IsDeleted", "LoginId", "UserName" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(110), false, 1, "tester 1" },
-                    { 2, new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(114), false, 2, "222test222" },
-                    { 3, new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(117), false, 3, "user 3" }
+                    { 1, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3391), false, 1, "tester 1" },
+                    { 2, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3395), false, 2, "222test222" },
+                    { 3, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3398), false, 3, "user 3" }
                 });
 
             migrationBuilder.InsertData(
-                table: "CreateAsync",
+                table: "Follow",
                 columns: new[] { "FollowingId", "UserId" },
                 values: new object[,]
                 {
@@ -232,8 +232,8 @@ namespace WebApi.Migrations
                 columns: new[] { "PostId", "Date", "Desc", "IsDeleted", "Title", "UserId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(151), "tadnawdnada", false, "testestestest", 1 },
-                    { 2, new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(155), "Woooooo!", false, "Test!", 2 }
+                    { 1, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3438), "tadnawdnada", false, "testestestest", 1 },
+                    { 2, new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3442), "Woooooo!", false, "Test!", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -314,7 +314,7 @@ namespace WebApi.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CreateAsync");
+                name: "Follow");
 
             migrationBuilder.DropTable(
                 name: "Like");

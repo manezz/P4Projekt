@@ -22,7 +22,7 @@ namespace WebApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApi.Database.Entities.CreateAsync", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -32,7 +32,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("UserId", "FollowingId");
 
-                    b.ToTable("CreateAsync");
+                    b.ToTable("Follow");
 
                     b.HasData(
                         new
@@ -174,7 +174,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(151),
+                            Date = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3438),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -183,7 +183,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(155),
+                            Date = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3442),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -322,7 +322,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(110),
+                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3391),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -330,7 +330,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(114),
+                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3395),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -338,7 +338,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 5, 17, 10, 0, 8, 364, DateTimeKind.Local).AddTicks(117),
+                            Created = new DateTime(2023, 5, 31, 14, 20, 55, 54, DateTimeKind.Local).AddTicks(3398),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
@@ -376,10 +376,10 @@ namespace WebApi.Migrations
                         });
                 });
 
-            modelBuilder.Entity("WebApi.Database.Entities.CreateAsync", b =>
+            modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithMany("CreateAsync")
+                        .WithMany("Follow")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -490,7 +490,7 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
                 {
-                    b.Navigation("CreateAsync");
+                    b.Navigation("Follow");
 
                     b.Navigation("Posts");
 

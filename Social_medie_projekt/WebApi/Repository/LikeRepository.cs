@@ -20,9 +20,7 @@
         public async Task<Like?> FindByIdAsync(int userId, int postId)
         {
             return await _context.Like
-                .Where(x => userId == x.UserId)
-                .Where(y => postId == y.PostId)
-                .FirstOrDefaultAsync();
+                .FindAsync(userId, postId);
         }
 
         public async Task<List<Like>?> FindAllByUserIdAsync(int userId)
