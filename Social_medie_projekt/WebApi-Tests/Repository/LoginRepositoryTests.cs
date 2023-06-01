@@ -145,8 +145,10 @@
             // Arange
             await _context.Database.EnsureDeletedAsync();
 
+            var loginId = 1;
+
             // Act
-            var result = await _loginRepository.FindByIdAsync(1);
+            var result = await _loginRepository.FindByIdAsync(loginId);
 
             // Assert
             Assert.Null(result);

@@ -19,11 +19,6 @@
 
         public async Task<Login> CreateAsync(Login newUser)
         {
-            if (_context.User.Any(u => u.Login.Email.ToLower() == newUser.Email.ToLower()))
-            {
-                throw new Exception(string.Format("User already exists", newUser.Email));
-            }
-
             _context.Login.Add(newUser);
             await _context.SaveChangesAsync();
             return newUser;
