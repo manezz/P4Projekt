@@ -5,7 +5,6 @@
         Task<List<PostTag>> FindAllByPostIdAsync(int postId);
         Task<PostTag?> FindByIdAsync(int postId, int tagId);
         Task<PostTag> CreateAsync(PostTag newPostsTag);
-        Task<PostTag> UpdateAsync(PostTag newPostTag);
         Task<PostTag?> DeleteAsync(int postId, int tagId);
     }
 
@@ -38,19 +37,6 @@
             _context.PostTag.Add(postTag);
             await _context.SaveChangesAsync();
             return postTag;
-        }
-
-        public async Task<PostTag> UpdateAsync(PostTag postsTag)
-        {
-            var postag = await _context.PostTag
-                .Where(x => x.PostId == postsTag.PostId)
-                .Where(x => x.TagId == postsTag.TagId)
-                .Select(x => x)
-                .ToListAsync();
-
-            _context.PostTag.Add(postsTag);
-            await _context.SaveChangesAsync();
-            return postsTag;
         }
 
         public async Task<PostTag?> DeleteAsync(int postId, int tagId)

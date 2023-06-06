@@ -72,7 +72,7 @@
         public async Task<PostTagResponse> UpdateAsync(int postId, int tagId)
         {
 
-            var postTag = await _postTagRepository.UpdateAsync(MapPostTagRequestToPostTag(postId, tagId));
+            var postTag = await _postTagRepository.CreateAsync(MapPostTagRequestToPostTag(postId, tagId));
 
             if (postTag == null)
             {
