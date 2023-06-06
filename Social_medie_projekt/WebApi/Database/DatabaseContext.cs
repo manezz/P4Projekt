@@ -75,6 +75,11 @@
                 .WithOne()
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Follow>()
+                .HasOne(x => x.FollowingUser)
+                .WithOne()
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Login>().HasData(
                 new Login
                 {
@@ -139,12 +144,12 @@
                 new Follow
                 {
                     UserId = 1,
-                    FollowingId = 2
+                    FollowingUserId = 2
                 },
                 new Follow
                 {
                     UserId = 2,
-                    FollowingId = 1
+                    FollowingUserId = 1
                 });
 
             modelBuilder.Entity<Post>().HasData(

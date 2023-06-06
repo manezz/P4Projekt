@@ -61,7 +61,7 @@
                 Follow = user.Follow.Select(x => new UserFollowResponse
                 {
                     UserId = x.UserId,
-                    FollowingId = x.FollowingId,
+                    FollowingId = x.FollowingUserId,
                 }).ToList()
             };
         }
@@ -73,7 +73,7 @@
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Created = user.Created,
-                FollowUserId = follow?.FollowingId,
+                FollowUserId = follow?.FollowingUserId,
                 Login = new UserLoginResponse
                 {
                     LoginId = user.Login.LoginId,
@@ -98,7 +98,7 @@
                 Follow = user.Follow.Select(x => new UserFollowResponse
                 {
                     UserId = x.UserId,
-                    FollowingId = x.FollowingId,
+                    FollowingId = x.FollowingUserId,
                 }).ToList()
             };
         }

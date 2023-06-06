@@ -53,7 +53,7 @@
         public async Task<List<Follow>> FindAllByFollowingIdAsync(int followingId)
         {
             return await _context.Follow
-                .Where(x => followingId == x.FollowingId)
+                .Where(x => followingId == x.FollowingUserId)
                 .ToListAsync();
         }
     }

@@ -28,7 +28,7 @@ namespace WebApi_Tests.Repository
             Follow follow = new()
             {
                 UserId = 1,
-                FollowingId = 1
+                FollowingUserId = 1
             };
 
             var result = await _followRepository.CreateAsync(follow);

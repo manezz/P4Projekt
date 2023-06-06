@@ -23,7 +23,7 @@
             return new Follow
             {
                 UserId = followRequest.UserId,
-                FollowingId = followRequest.FollowingId
+                FollowingUserId = followRequest.FollowingId
             };
         }
 
@@ -32,7 +32,7 @@
             return new FollowResponse
             {
                 UserId = follow.UserId,
-                FollowingId = follow.FollowingId,
+                FollowingId = follow.FollowingUserId,
             };
         }
 
