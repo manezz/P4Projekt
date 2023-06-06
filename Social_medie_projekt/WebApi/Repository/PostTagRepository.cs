@@ -42,16 +42,11 @@
 
         public async Task<PostTag> UpdateAsync(PostTag postsTag)
         {
-            var postag2 = from posttag in _context.PostTag
-                          where posttag.PostId == postsTag.PostId
-                          where posttag.TagId != postsTag.TagId
-                          select posttag;
-
             var postag = await _context.PostTag
                 .Where(x => x.PostId == postsTag.PostId)
                 .Where(x => x.TagId == postsTag.TagId)
                 .Select(x => x)
-            .ToListAsync();
+                .ToListAsync();
 
             _context.PostTag.Add(postsTag);
             await _context.SaveChangesAsync();
