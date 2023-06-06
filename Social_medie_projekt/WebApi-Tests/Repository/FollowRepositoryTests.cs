@@ -41,46 +41,46 @@ namespace WebApi_Tests.Repository
             Assert.Contains("An item with the same key has already been added", ex.Message);
         }
 
-        //[Fact]
-        //public async void FindAllByUserIdAsync_ShouldReturnListOfFollows_WhenFollowsExists()
-        //{
-        //    // Arange
-        //    await _context.Database.EnsureDeletedAsync();
+        [Fact]
+        public async void FindAllByUserIdAsync_ShouldReturnListOfFollows_WhenFollowsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
 
-        //    int userId = 1;
+            int userId = 1;
 
-        //    User user = new()
-        //    {
-        //        UserId = userId,
-        //    };
-        //    _context.User.Add(user);
+            User user = new()
+            {
+                UserId = userId,
+            };
+            _context.User.Add(user);
 
-        //    _context.Follow.AddRange(
-        //        new Follow
-        //        {
-        //            User = user,
-        //            Following = new()
-        //            {
-        //                UserId = 2
-        //            }
-        //        },
-        //        new Follow
-        //        {
-        //            User = user,
-        //            Following = new()
-        //            {
-        //                UserId = 3
-        //            }
-        //        });
-        //    await _context.SaveChangesAsync();
+            _context.Follow.AddRange(
+                new Follow
+                {
+                    User = user,
+                    FollowingUser = new()
+                    {
+                        UserId = 2
+                    }
+                },
+                new Follow
+                {
+                    User = user,
+                    FollowingUser = new()
+                    {
+                        UserId = 3
+                    }
+                });
+            await _context.SaveChangesAsync();
 
-        //    // Act
-        //    var result = await _followRepository.FindAllByPostIdAsync(post);
+            // Act
+            var result = await _followRepository.FindAllByUserIdAsync(userId);
 
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Assert.IsType<List<PostTag>>(result);
-        //    Assert.Equal(2, result.Count);
-        //}
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Follow>>(result);
+            Assert.Equal(2, result.Count);
+        }
     }
 }
