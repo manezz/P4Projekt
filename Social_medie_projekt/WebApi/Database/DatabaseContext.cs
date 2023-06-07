@@ -72,12 +72,15 @@
 
             modelBuilder.Entity<Like>()
                 .HasOne(x => x.User)
-                .WithOne()
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Follow>().HasIndex(x => new { x.FollowingUserId })
+                .IsUnique(false);
 
             modelBuilder.Entity<Follow>()
                 .HasOne(x => x.FollowingUser)
-                .WithOne()
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Login>().HasData(

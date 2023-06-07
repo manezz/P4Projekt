@@ -12,7 +12,7 @@ using WebApi.Database;
 namespace WebApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20230606123819_initial")]
+    [Migration("20230607085100_initial")]
     partial class initial
     {
         /// <inheritdoc />
@@ -35,8 +35,7 @@ namespace WebApi.Migrations
 
                     b.HasKey("UserId", "FollowingUserId");
 
-                    b.HasIndex("FollowingUserId")
-                        .IsUnique();
+                    b.HasIndex("FollowingUserId");
 
                     b.ToTable("Follow");
 
@@ -183,7 +182,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 6, 6, 14, 38, 18, 878, DateTimeKind.Local).AddTicks(7157),
+                            Date = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2960),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -192,7 +191,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 6, 6, 14, 38, 18, 878, DateTimeKind.Local).AddTicks(7161),
+                            Date = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2965),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -331,7 +330,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 6, 6, 14, 38, 18, 878, DateTimeKind.Local).AddTicks(7111),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2874),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -339,7 +338,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 6, 6, 14, 38, 18, 878, DateTimeKind.Local).AddTicks(7114),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2879),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -347,7 +346,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 6, 6, 14, 38, 18, 878, DateTimeKind.Local).AddTicks(7117),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2883),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
@@ -388,8 +387,8 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.User", "FollowingUser")
-                        .WithOne()
-                        .HasForeignKey("WebApi.Database.Entities.Follow", "FollowingUserId")
+                        .WithMany()
+                        .HasForeignKey("FollowingUserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -413,8 +412,8 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("WebApi.Database.Entities.Like", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
