@@ -1,6 +1,4 @@
-﻿using WebApi.Database.Entities;
-
-namespace WebApi_Tests.Repository
+﻿namespace WebApi_Tests.Repository
 {
     public class FollowRepositoryTests
     {
@@ -76,6 +74,65 @@ namespace WebApi_Tests.Repository
 
             // Act
             var result = await _followRepository.FindAllByUserIdAsync(userId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Follow>>(result);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
+        public async void FindAllByFollowUserIdAsync_ShouldReturnEmptyListOfFollows_WhenNoFollowsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int userId = 1;
+
+            // Act
+            var result = await _followRepository.FindAllByUserIdAsync(userId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Follow>>(result);
+            Assert.Empty(result);
+        }
+
+        [Fact]
+        public async void FindAllFollowingUserIdAsync_ShouldReturnListOfFollows_WhenFollowsExists()
+        {
+            // Arange
+            await _context.Database.EnsureDeletedAsync();
+
+            int followingUserId = 1;
+
+            User followingUser = new()
+            {
+                UserId = followingUserId
+            };
+            _context.User.Add(followingUser);
+
+            _context.Follow.AddRange(
+                new Follow
+                {
+                    User = new User()
+                    {
+                        UserId = 2
+                    },
+                    FollowingUser = followingUser
+                },
+                new Follow
+                {
+                    User = new User()
+                    {
+                        UserId = 3
+                    },
+                    FollowingUser = followingUser
+                });
+            await _context.SaveChangesAsync();
+
+            // Actt
+            var result = await _followRepository.FindAllByFollowingUserIdAsync(followingUserId);
 
             // Assert
             Assert.NotNull(result);
