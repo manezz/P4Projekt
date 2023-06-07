@@ -61,6 +61,61 @@
         }
 
         [Fact]
+        public async void FindAllByUserIdAsync_ShouldReturnListOfLikes_WhereLikesExists()
+        {
+            // Arangeet
+            await _context.Database.EnsureDeletedAsync();
+
+            int userId = 1;
+
+            _context.User.Add(
+                new User
+                {
+                    UserId = userId,
+                });
+
+            _context.Post.AddRange(
+                new Post
+                {
+                    PostId = 1,
+                    User = new()
+                    {
+                        UserId = 2,
+                    }
+                },
+                new Post
+                {
+                    PostId = 2,
+                    User = new()
+                    {
+                        UserId = 3,
+                    }
+                });
+
+            _context.Like.AddRange(
+                new Like
+                {
+                    UserId = userId,
+                    PostId = 1,
+                },
+                new Like
+                {
+                    UserId = userId,
+                    PostId = 2,
+                });
+
+            await _context.SaveChangesAsync();
+
+            // Act
+            var result = await _likeRepository.FindAllByUserIdAsync(userId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<Like>>(result);
+            Assert.Equal(2, result.Count);
+        }
+
+        [Fact]
         public async void CreateAsync_ShouldFailToAddNewLike_WhenLikeIdAlreadyExists()
         {
             // Arange
@@ -125,68 +180,5 @@
             // Assert
             Assert.Null(result);
         }
-
-        //Test not working, maybe fix later
-        // Problem could maybe be because it has a composite key or
-        // the UserId does not have IsUnique set to false in the inmemory database
-        //[Fact]
-        //public async void FindAllByUserIdAsync_ShouldReturnListOfLikes_WhereLikesExists()
-        //{
-        //    // Arange
-        //    await _context.Database.EnsureDeletedAsync();
-
-        //    int userId = 1;
-
-        //    _context.User.Add(
-        //        new User
-        //        {
-        //            UserId = userId,
-        //        });
-
-        //    _context.Post.Add(
-        //        new Post
-        //        {
-        //            PostId = 1,
-        //            User = new()
-        //            {
-        //                UserId = 2,
-        //            }
-        //        });
-        //    _context.Post.Add(
-        //        new Post
-        //        {
-        //            PostId = 2,
-        //            User = new()
-        //            {
-        //                UserId = 3,
-        //            }
-        //        });
-
-        //    _context.Like.Add(
-        //        new Like
-        //        {
-        //            UserId = userId,
-        //            PostId = 1,
-        //        });
-        //    _context.Like.Add(
-        //        new Like
-        //        {
-        //            UserId = userId,
-        //            PostId = 2,
-        //        });
-
-        //    await _context.SaveChangesAsync();
-
-        //    // Act
-        //    var result = await _likeRepository.FindAllByUserIdAsync(userId);
-
-        //    // Assert
-        //    Assert.NotNull(result);
-        //    Assert.IsType<List<Like>>(result);
-        //    Assert.Equal(2, result.Count);
-        //}
-
-
-
     }
 }
