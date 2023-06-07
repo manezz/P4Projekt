@@ -32,7 +32,6 @@
             _postTagService = postTagService;
         }
 
-        // With Like
         private static PostResponse MapPostToPostResponse(Post post, Like like)
         {
             return new PostResponse
@@ -59,7 +58,6 @@
             };
         }
 
-        // Without Like
         private static PostResponse MapPostToPostResponse(Post post)
         {
             return new PostResponse
@@ -108,13 +106,11 @@
 
         public async Task<List<PostResponse>> GetAllAsync(int likeUserId)
         {
-            // Throws ArgumentNullException if posts is null
             List<Post> posts = await _postRepository.GetAllAsync()
                 ?? throw new ArgumentNullException(null);
 
             return posts.Select(post =>
                 MapPostToPostResponse(post,
-                // Gets like for each post 
                 _likeRepository.FindByIdAsync(likeUserId, post.PostId).Result ?? new Like())).ToList();
         }
 
@@ -133,7 +129,6 @@
 
         public async Task<List<PostResponse>?> FindAllByUserIdAsync(int userId, int likeUserId)
         {
-            // Throws ArgumentNullException if posts is null
             List<Post> post = await _postRepository.FindAllByUserIdAsync(userId)
                 ?? throw new ArgumentNullException(null);
 
@@ -144,11 +139,9 @@
 
         public async Task<PostResponse> CreateAsync(PostRequest newPost)
         {
-            // Throws ArgumentNullException if post is null
             var post = await _postRepository.CreateAsync(MapPostRequestToPost(newPost))
                 ?? throw new ArgumentNullException(null);
 
-            // Maps without tags if tags is null
             if (newPost.Tags == null)
             {
                 return MapPostToPostResponse(post);
@@ -165,13 +158,11 @@
             var postAfterTags = await _postRepository.FindByIdAsync(post.PostId)
                 ?? throw new ArgumentNullException(null);
 
-            // Maps with tags if tags is not null
             return MapPostToPostResponse(postAfterTags);
         }
 
         public async Task<PostResponse?> UpdateAsync(int postId, PostUpdateRequest updatePost)
         {
-            // Updates the post
             var post = await _postRepository.UpdateAsync(postId, MapPostUpdateRequestToPost(updatePost));
 
             if (post == null)
@@ -179,7 +170,7 @@
                 return null;
             }
 
-            var updatedTags = await _tagService.UpdateBulkByPostIdAsync(postId, updatePost.Tags);
+            var updatedTags = await _tagService.UpdateBatchByPostIdAsync(postId, updatePost.Tags);
 
             if (updatedTags == null)
             {
@@ -193,7 +184,6 @@
                 return null;
             }
 
-            // Maps the post with the current tags
             return MapPostToPostResponse(postAfterTags);
         }
 

@@ -1,6 +1,4 @@
-﻿using WebApi.Database.Entities;
-
-namespace WebApi.Service
+﻿namespace WebApi.Service
 {
     public interface ITagService
     {
@@ -8,7 +6,7 @@ namespace WebApi.Service
         Task<TagResponse?> FindByIdAsync(int tagId);
         Task<List<TagResponse>> FindAllByPostIdAsync(int postId);
         Task<TagResponse> CreateAsync(TagRequest newTag);
-        Task<List<TagResponse>?> UpdateBulkByPostIdAsync(int postId, List<TagRequest> tagRequests);
+        Task<List<TagResponse>?> UpdateBatchByPostIdAsync(int postId, List<TagRequest> tagRequests);
     }
 
     public class TagService : ITagService
@@ -30,7 +28,6 @@ namespace WebApi.Service
             };
         }
 
-        // public bc using in PostService FIX
         public static Tag MapTagRequestToTag(TagRequest tagRequest)
         {
             return new Tag
@@ -99,9 +96,8 @@ namespace WebApi.Service
             return tag == null ? throw new ArgumentNullException(null) : MapTagToTagResponse(tag);
         }
 
-        public async Task<List<TagResponse>?> UpdateBulkByPostIdAsync(int postId, List<TagRequest> tagRequests)
+        public async Task<List<TagResponse>?> UpdateBatchByPostIdAsync(int postId, List<TagRequest> tagRequests)
         {
-            // Gets the old tags
             var oldTags = await _tagRepository.FindAllByPostIdAsync(postId);
 
             if (oldTags == null)
