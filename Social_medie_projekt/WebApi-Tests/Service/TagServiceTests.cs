@@ -1,4 +1,6 @@
-﻿namespace WebApi_Tests.Service
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace WebApi_Tests.Service
 {
     public class TagServiceTests
     {
@@ -130,6 +132,49 @@
             // Assert
             var ex = await Assert.ThrowsAsync<ArgumentNullException>(action);
             Assert.Contains("Value cannot be null", ex.Message);
+        }
+
+        [Fact]
+        public async void FindByIdAsync_ShouldReturnTagResponse_WhenTagExists()
+        {
+            // Arrange
+            int tagId = 1;
+
+            Tag tag = new()
+            {
+                TagId = tagId,
+                Name = "Tag1"
+            };
+
+            _tagRepositoryMock
+                .Setup(x => x.FindByIdAsync(tagId))
+                .ReturnsAsync(tag);
+
+            // Act
+            var result = await _tagService.FindByIdAsync(tagId);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<TagResponse>(result);
+            Assert.Equal(tag.TagId, result?.TagId);
+            Assert.Equal(tag.Name, result?.Name);
+        }
+
+        [Fact]
+        public async void FindByIdAsync_ShouldReturnNull_WhenTagDoesNotExist()
+        {
+            // Arrange
+            int tagId = 1;
+
+            _tagRepositoryMock
+                    .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
+                    .ReturnsAsync(() => null!);
+
+            // Act
+            var result = await _tagService.FindByIdAsync(tagId);
+
+            // Assert
+            Assert.Null(result);
         }
     }
 }

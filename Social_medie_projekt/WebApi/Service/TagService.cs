@@ -4,7 +4,6 @@
     {
         Task<List<TagResponse>> GetAllAsync();
         Task<TagResponse?> FindByIdAsync(int tagId);
-        Task<List<TagResponse>> FindAllByPostIdAsync(int postId);
         Task<TagResponse> CreateAsync(TagRequest newTag);
         Task<List<TagResponse>?> UpdateBatchByPostIdAsync(int postId, List<TagRequest> tagRequests);
     }
@@ -66,18 +65,6 @@
                 return null;
             }
             return MapTagToTagResponse(tags);
-        }
-
-        public async Task<List<TagResponse>> FindAllByPostIdAsync(int postId)
-        {
-            var tags = await _tagRepository.FindAllByPostIdAsync(postId);
-
-            if (tags == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            return tags.Select(Tag => MapTagToTagResponse(Tag)).ToList();
         }
 
         public async Task<TagResponse> CreateAsync(TagRequest newTag)
