@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace WebApi_Tests.Service
 {
@@ -175,6 +176,79 @@ namespace WebApi_Tests.Service
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Fact]
+        public async void UpdateBatchByPostIdAsync_ShouldReturnListOfTagResponses_WhenPostUpdateIsSuccessAndTagsAreNotNull()
+        {
+            // Arrange
+            List<TagResponse> updatedTags = new()
+            {
+                new TagResponse { TagId = 1, Name = "Tag1" },
+                new TagResponse { TagId = 2, Name = "Tag2" }
+            };
+
+            List<TagRequest> tagRequests = new()
+            {
+                new TagRequest { Name = "Tag1" },
+                new TagRequest { Name = "Tag2" }
+            };
+            int postId = 1;
+
+            Post post = new()
+            {
+                PostId = postId,
+                Title = "Title1",
+                Desc = "Desc1",
+                PostLikes = new(),
+                User = new()
+                {
+                    UserImage = new()
+                }
+            };
+
+            Post postAfterTags = new()
+            {
+                PostId = postId,
+                Title = "Title1",
+                Desc = "Desc1",
+                PostLikes = new(),
+                User = new()
+                {
+                    UserImage = new()
+                },
+                Tags =
+                {
+                    new Tag { TagId = 1, Name = "Tag1" },
+                    new Tag { TagId = 2, Name = "Tag2" }
+                }
+            };
+
+            tagRequests.Select(y => y.Name).ToList();
+
+            _tagRepositoryMock
+                .Setup(x => tagRequests.Select(y => x.CreateAsync(y)) CreateAsync())
+                .ReturnsAsync(updatedTags)
+
+            //_tagServiceMock
+            //    .Setup(x => x.UpdateBulkByPostIdAsync(It.IsAny<int>(), new List<TagRequest>()))
+            //    .ReturnsAsync(updatedTags);
+
+            //_postRepositoryMock
+            //    .Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<Post>()))
+            //    .ReturnsAsync(post);
+
+            //_postRepositoryMock
+            //    .Setup(x => x.FindByIdAsync(It.IsAny<int>()))
+            //    .ReturnsAsync(postAfterTags);
+
+            // Act
+            var result = await _tagService.UpdateBatchByPostIdAsync(postId, tagRequests);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<List<TagResponse>>(result);
+            Assert.Equal(tagRequests.Select(x => x.Name), result?.Select(x => x.Name)!);
         }
     }
 }
