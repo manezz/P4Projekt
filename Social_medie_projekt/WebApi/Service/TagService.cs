@@ -126,7 +126,14 @@
                 .Select(x => _postTagRepository.CreateAsync(MapPostIdAndTagIdToPostTag(postId, x.TagId)).Result)
                 .ToList();
 
-            return tagsCreated
+            var newTags = await _tagRepository.FindAllByPostIdAsync(postId);
+
+            if (newTags == null)
+            {
+                return null;
+            }
+
+            return newTags
                 .Select(x => MapTagToTagResponse(x))
                 .ToList();
         }
