@@ -2,7 +2,7 @@
 {
     public class TestDatabaseFixture
     {
-        private const string ConnectionString = @"Server=(localdb)\\MSSQLLocalDB;Database=BlogDBTest;Trusted_Connection=True";
+        private const string ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BlogDB";
 
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
