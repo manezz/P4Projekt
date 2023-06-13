@@ -6,29 +6,22 @@ namespace WebApi_Tests.Database
 {
     public class LoginDatabaseTests : IClassFixture<TestDatabaseFixture>
     {
-        //private readonly LoginRepository _loginRepository;
+        private readonly LoginRepository _loginRepository;
+        private readonly DatabaseContext _context;
+        private readonly TestDatabaseFixture _fixture;
 
         public LoginDatabaseTests(TestDatabaseFixture fixture)
-            => Fixture = fixture;
+        {
+            _fixture = fixture;
 
-        //public LoginDatabaseTests(TestDatabaseFixture fixture)
-        //{
-        //    Fixture = fixture;
+            _context = _fixture.CreateContext();
 
-        //    var _context = Fixture.CreateContext();
-
-        //    _loginRepository = new LoginRepository(_context);
-        //}
-
-        public TestDatabaseFixture Fixture { get; }
+            _loginRepository = new LoginRepository(_context);
+        }
 
         [Fact]
         public async void GetAllAsync_ShouldReturnListOfLogins_WhereLoginsExists()
         {
-            // Arange
-            using var _context = Fixture.CreateContext();
-            LoginRepository _loginRepository = new(_context);
-
             _context.Database.BeginTransaction();
 
             string email1 = "Test50@mail.dk";

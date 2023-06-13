@@ -2,7 +2,7 @@
 {
     public class TestDatabaseFixture
     {
-        private const string ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BlogDB";
+        private const string ConnectionString = "Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = BlogDBTest";
 
         private static readonly object _lock = new();
         private static bool _databaseInitialized;
@@ -25,7 +25,7 @@
         }
 
         public DatabaseContext CreateContext()
-            => new DatabaseContext(
+            => new(
                 new DbContextOptionsBuilder<DatabaseContext>()
                 .UseSqlServer(ConnectionString)
                 .Options);
