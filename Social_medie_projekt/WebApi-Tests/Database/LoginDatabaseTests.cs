@@ -1,8 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using WebApi_Tests.Database.Fixture;
-
-namespace WebApi_Tests.Database
+﻿namespace WebApi_Tests.Database
 {
     public class LoginDatabaseTests : IClassFixture<TestDatabaseFixture>
     {
