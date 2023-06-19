@@ -18,6 +18,7 @@
         [Fact]
         public async void GetAllAsync_ShouldReturnListOfLogins_WhereLoginsExists()
         {
+            // Arange
             _context.Database.BeginTransaction();
 
             string email1 = "Test50@mail.dk";
