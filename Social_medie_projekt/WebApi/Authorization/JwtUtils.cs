@@ -13,8 +13,6 @@
             _appSettings = appSettings.Value;
         }
 
-
-
         public string GenerateJwtToken(Login login)
         {
             JwtSecurityTokenHandler tokenHandler = new();

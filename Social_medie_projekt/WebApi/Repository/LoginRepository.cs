@@ -3,12 +3,12 @@
 
     public interface ILoginRepository
     {
-        Task<Login> RegisterAsync(Login newUser);
-        Task<List<Login>> GetAllLoginAsync();
-        Task<Login?> FindLoginByIdAsync(int loginId);
-        Task<Login?> FindLoginByEmailAsync(string email);
-        Task<Login?> UpdateLoginById(int loginId, Login updatedLogin);
-        Task<Login?> DeleteLoginByIdAsync(int loginId);
+        Task<Login> CreateAsync(Login newUser);
+        Task<List<Login>> GetAllAsync();
+        Task<Login?> FindByIdAsync(int loginId);
+        Task<Login?> FindByEmailAsync(string email);
+        Task<Login?> UpdateAsync(int loginId, Login updatedLogin);
+        Task<Login?> DeleteAsync(int loginId);
     }
 
     public class LoginRepository : ILoginRepository
@@ -17,19 +17,14 @@
 
         public LoginRepository(DatabaseContext context) { _context = context; }
 
-        public async Task<Login> RegisterAsync(Login newUser)
+        public async Task<Login> CreateAsync(Login newUser)
         {
-            if (_context.User.Any(u => u.Login.Email.ToLower() == newUser.Email.ToLower()))
-            {
-                throw new Exception(string.Format("User already exists", newUser.Email));
-            }
-
             _context.Login.Add(newUser);
             await _context.SaveChangesAsync();
             return newUser;
         }
 
-        public async Task<List<Login>> GetAllLoginAsync()
+        public async Task<List<Login>> GetAllAsync()
         {
             return await _context.Login
                 .Include(login => login.User)
@@ -39,7 +34,7 @@
                 .ToListAsync();
         }
 
-        public async Task<Login?> FindLoginByIdAsync(int loginId)
+        public async Task<Login?> FindByIdAsync(int loginId)
         {
             return await _context.Login
                 .Include(login => login.User)
@@ -49,7 +44,7 @@
                 .FirstOrDefaultAsync(login => login.LoginId == loginId);
         }
 
-        public async Task<Login?> FindLoginByEmailAsync(string email)
+        public async Task<Login?> FindByEmailAsync(string email)
         {
             return await _context.Login
                 .Include(L => L.User)
@@ -59,13 +54,12 @@
                 .FirstOrDefaultAsync(x => x.Email == email);
         }
 
-        public async Task<Login?> UpdateLoginById(int loginId, Login updatedLogin)
+        public async Task<Login?> UpdateAsync(int loginId, Login updatedLogin)
         {
-            var login = await FindLoginByIdAsync(loginId);
+            var login = await FindByIdAsync(loginId);
 
             if (login != null)
             {
-                login.Role = updatedLogin.Role;
                 login.Email = updatedLogin.Email;
                 login.Password = updatedLogin.Password;
 
@@ -74,9 +68,9 @@
             return login;
         }
 
-        public async Task<Login?> DeleteLoginByIdAsync(int loginId)
+        public async Task<Login?> DeleteAsync(int loginId)
         {
-            var login = await FindLoginByIdAsync(loginId);
+            var login = await FindByIdAsync(loginId);
 
             if (login != null)
             {

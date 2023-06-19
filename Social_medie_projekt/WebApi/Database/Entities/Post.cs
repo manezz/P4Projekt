@@ -20,8 +20,12 @@
         [Column(TypeName = "bit")]
         public bool IsDeleted { get; set; }
 
-        public PostLikes? PostLikes { get; set; }
+        public PostLikes PostLikes { get; set; } = null!;
 
-        public User? User { get; set; }
+        public User User { get; set; } = null!;
+
+        public List<PostTag> PostTags { get; } = new();
+
+        public List<Tag> Tags { get; } = new();
     }
 }

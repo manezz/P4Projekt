@@ -13,15 +13,15 @@
 
         [Authorize(Role.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAllUsersAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                List<UserResponse> users = await _userService.GetAllUsersAsync();
+                List<UserResponse> users = await _userService.GetAllAsync();
 
                 if (users.Count == 0)
                 {
-                    return NotFound();
+                    return NoContent();
                 }
                 return Ok(users);
             }
@@ -34,13 +34,18 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{userId}")]
-        public async Task<IActionResult> FindUserById([FromRoute] int userId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int userId)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var userResponse = await _userService.FindUserAsync(userId, currentUser.User.UserId);
+                if (currentUser == null || userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
+                {
+                    return Unauthorized(new { message = "Unauthrized" });
+                }
+
+                var userResponse = await _userService.FindByIdAsync(userId, currentUser.User.UserId);
 
                 if (userResponse == null)
                 {
@@ -57,18 +62,18 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{userid}")]
-        public async Task<IActionResult> EditUser([FromRoute] int userId, [FromBody] UserRequest updatedUser)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int userId, [FromBody] UserRequest updatedUser)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
+                if (currentUser == null || userId != currentUser.User.UserId && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthrized" });
                 }
 
-                var userResponse = await _userService.UpdateUserAsync(userId, updatedUser);
+                var userResponse = await _userService.UpdateAsync(userId, updatedUser);
 
                 if (userResponse == null)
                 {

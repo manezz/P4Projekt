@@ -9,6 +9,6 @@
         [Column(TypeName = "varbinary(max)")]
         public byte[] Image { get; set; } = Array.Empty<byte>();
 
-        public User? User { get; set; }
+        public User User { get; set; } = null!;
     }
 }

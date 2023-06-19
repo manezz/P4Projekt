@@ -2,23 +2,13 @@
 {
     public interface IPostRepository
     {
-
-        // POST
         Task<List<Post>> GetAllAsync();
-        Task<Post?> GetPostByPostIdAsync(int PostId);
-        Task<List<Post>> GetAllPostsByUserIdAsync(int UserId);
-        Task<Post> CreatePostAsync(Post newPost);
-        Task<Post> DeletePostAsync(int id);
-        Task<Post> UpdatePostAsync(int id, Post updatePost);
-
-        // POST UPDATE LIKES
-        Task<Post> UpdatePostLikesAsync(int id, int like);
-
-        // POSTTAGS
-        Task<List<PostTag>> GetPostTagsByPostId(int postId);
-        Task<PostTag> CreatePostTagAsync(PostTag newPostsTag);
-        Task<PostTag> DeletePostTagAsync(PostTag newPostsTag);
-        Task<PostTag> UpdatePostTagAsync(PostTag newPostsTag);
+        Task<Post?> FindByIdAsync(int PostId);
+        Task<List<Post>> FindAllByUserIdAsync(int UserId);
+        Task<Post> CreateAsync(Post newPost);
+        Task<Post?> DeleteAsync(int id);
+        Task<Post?> UpdateAsync(int id, Post updatePost);
+        Task<Post?> UpdatePostLikesAsync(int id, int like);
     }
 
     public class PostRepository : IPostRepository
@@ -36,39 +26,42 @@
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .OrderByDescending(d => d.Date)
                 .ToListAsync();
         }
 
-        public async Task<Post?> GetPostByPostIdAsync(int postId)
+        public async Task<Post?> FindByIdAsync(int postId)
         {
             return await _context.Post
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .FirstOrDefaultAsync(x => postId == x.PostId);
         }
 
-        public async Task<List<Post>> GetAllPostsByUserIdAsync(int userId)
+        public async Task<List<Post>> FindAllByUserIdAsync(int userId)
         {
             return await _context.Post
                 .Include(c => c.User)
                 .ThenInclude(user => user.UserImage)
                 .Include(x => x.PostLikes)
+                .Include(x => x.Tags)
                 .Where(x => userId == x.UserId)
                 .ToListAsync();
         }
 
-        public async Task<Post> CreatePostAsync(Post newPost)
+        public async Task<Post> CreateAsync(Post newPost)
         {
             _context.Post.Add(newPost);
             await _context.SaveChangesAsync();
             return newPost;
         }
 
-        public async Task<Post> UpdatePostAsync(int id, Post updatePost)
+        public async Task<Post?> UpdateAsync(int id, Post updatePost)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await FindByIdAsync(id);
 
             if (post != null)
             {
@@ -82,9 +75,9 @@
             return post;
         }
 
-        public async Task<Post> DeletePostAsync(int id)
+        public async Task<Post?> DeleteAsync(int id)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await FindByIdAsync(id);
 
             if (post != null)
             {
@@ -95,9 +88,9 @@
         }
 
         // For adding removing a like from the PostLikes count
-        public async Task<Post> UpdatePostLikesAsync(int id, int like)
+        public async Task<Post?> UpdatePostLikesAsync(int id, int like)
         {
-            var post = await GetPostByPostIdAsync(id);
+            var post = await FindByIdAsync(id);
 
             if (post != null)
             {
@@ -108,49 +101,6 @@
             }
 
             return post;
-        }
-
-        public async Task<List<PostTag>> GetPostTagsByPostId(int postId)
-        {
-            return await _context.PostTag
-                .Include(p => p.Post)
-                .Include(t => t.Tag)
-                .Where(p => p.PostId == postId)
-                .Select(p => p)
-                .ToListAsync();
-        }
-
-        public async Task<PostTag> CreatePostTagAsync(PostTag postTag)
-        {
-            _context.PostTag.Add(postTag);
-            await _context.SaveChangesAsync();
-            return postTag;
-        }
-
-        public async Task<PostTag> UpdatePostTagAsync(PostTag postsTag)
-        {
-            var postag2 = from posttag in _context.PostTag
-                          where posttag.PostId == postsTag.PostId
-                          where posttag.TagId != postsTag.TagId
-                          select posttag;
-
-            var postag = await _context.PostTag
-                .Where(x => x.PostId == postsTag.PostId)
-                .Where(x => x.TagId == postsTag.TagId)
-                .Select(x => x)
-                .ToListAsync();
-
-            _context.PostTag.Add(postsTag);
-            await _context.SaveChangesAsync();
-            return postsTag;
-        }
-
-        public async Task<PostTag> DeletePostTagAsync(PostTag postsTag)
-        {
-            _context.Remove(postsTag);
-            _context.PostTag.Remove(postsTag);
-            await _context.SaveChangesAsync();
-            return postsTag;
         }
     }
 }

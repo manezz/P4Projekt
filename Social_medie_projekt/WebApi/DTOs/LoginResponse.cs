@@ -8,7 +8,7 @@
 
         public Role Role { get; set; }
 
-        public LoginUserResponse User { get; set; } = new();
+        public LoginUserResponse User { get; set; } = null!;
     }
 
     public class LoginUserResponse

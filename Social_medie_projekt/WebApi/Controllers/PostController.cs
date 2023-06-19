@@ -13,13 +13,13 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAllPostsAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                List<PostResponse> posts = await _postService.GetAllPostsAsync(currentUser.User.UserId);
+                List<PostResponse> posts = await _postService.GetAllAsync(currentUser.User.UserId);
 
                 if (posts.Count == 0)
                 {
@@ -36,13 +36,13 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{postId}")]
-        public async Task<IActionResult> GetPostByPostIdAsync([FromRoute] int postId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int postId)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var postResponse = await _postService.GetPostByPostIdAsync(postId, currentUser.User.UserId);
+                var postResponse = await _postService.FindByIdAsync(postId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -59,13 +59,13 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("user/{userId}")]
-        public async Task<IActionResult> GetAllPostsByUserIdAsync([FromRoute] int userId)
+        public async Task<IActionResult> FindAllByUserIdAsync([FromRoute] int userId)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                var postResponse = await _postService.GetAllPostsByUserIdAsync(userId, currentUser.User.UserId);
+                var postResponse = await _postService.FindAllByUserIdAsync(userId, currentUser.User.UserId);
 
                 if (postResponse == null)
                 {
@@ -81,11 +81,11 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> CreatePostAsync([FromBody] PostRequest newPost)
+        public async Task<IActionResult> CreateAsync([FromBody] PostRequest newPost)
         {
             try
             {
-                var postResponse = await _postService.CreatePostAsync(newPost);
+                var postResponse = await _postService.CreateAsync(newPost);
 
                 return Ok(postResponse);
             }
@@ -99,11 +99,18 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpPut]
         [Route("{postId}")]
-        public async Task<IActionResult> UpdatePostAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
+        public async Task<IActionResult> UpdateAsync([FromRoute] int postId, [FromBody] PostUpdateRequest updatedPost)
         {
             try
             {
-                var postResponse = await _postService.UpdatePostAsync(postId, updatedPost);
+                LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
+
+                if (currentUser == null || !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
+                {
+                    return Unauthorized(new { message = "Unauthorized" });
+                }
+
+                var postResponse = await _postService.UpdateAsync(postId, updatedPost);
 
                 if (postResponse == null)
                 {
@@ -121,18 +128,18 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpDelete]
         [Route("{postId}")]
-        public async Task<IActionResult> DeletePostAsync([FromRoute] int postId)
+        public async Task<IActionResult> DeleteAsync([FromRoute] int postId)
         {
             try
             {
                 LoginResponse? currentUser = (LoginResponse?)HttpContext.Items["Login"];
 
-                if (currentUser != null && !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
+                if (currentUser == null || !currentUser.User.Posts.Exists(x => x.PostId == postId) && currentUser.Role != Role.Admin)
                 {
                     return Unauthorized(new { message = "Unauthorized" });
                 }
 
-                var postResponse = await _postService.DeletePostAsync(postId);
+                var postResponse = await _postService.DeleteAsync(postId);
 
                 if (postResponse == null)
                 {

@@ -9,6 +9,6 @@
         [Column(TypeName = "int")]
         public int Likes { get; set; } = 0;
 
-        public Post Post { get; set; }
+        public Post Post { get; set; } = null!;
     }
 }

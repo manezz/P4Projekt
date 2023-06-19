@@ -17,7 +17,7 @@ namespace WebApi.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.3")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -27,10 +27,12 @@ namespace WebApi.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FollowingId")
+                    b.Property<int>("FollowingUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "FollowingId");
+                    b.HasKey("UserId", "FollowingUserId");
+
+                    b.HasIndex("FollowingUserId");
 
                     b.ToTable("Follow");
 
@@ -38,12 +40,12 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            FollowingId = 2
+                            FollowingUserId = 2
                         },
                         new
                         {
                             UserId = 2,
-                            FollowingId = 1
+                            FollowingUserId = 1
                         });
                 });
 
@@ -110,6 +112,9 @@ namespace WebApi.Migrations
 
                     b.HasKey("LoginId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Login");
 
                     b.HasData(
@@ -174,7 +179,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 1,
-                            Date = new DateTime(2023, 4, 24, 8, 3, 34, 720, DateTimeKind.Local).AddTicks(1512),
+                            Date = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2960),
                             Desc = "tadnawdnada",
                             IsDeleted = false,
                             Title = "testestestest",
@@ -183,7 +188,7 @@ namespace WebApi.Migrations
                         new
                         {
                             PostId = 2,
-                            Date = new DateTime(2023, 4, 24, 8, 3, 34, 720, DateTimeKind.Local).AddTicks(1516),
+                            Date = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2965),
                             Desc = "Woooooo!",
                             IsDeleted = false,
                             Title = "Test!",
@@ -322,7 +327,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 1,
-                            Created = new DateTime(2023, 4, 24, 8, 3, 34, 720, DateTimeKind.Local).AddTicks(1472),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2874),
                             IsDeleted = false,
                             LoginId = 1,
                             UserName = "tester 1"
@@ -330,7 +335,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 2,
-                            Created = new DateTime(2023, 4, 24, 8, 3, 34, 720, DateTimeKind.Local).AddTicks(1476),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2879),
                             IsDeleted = false,
                             LoginId = 2,
                             UserName = "222test222"
@@ -338,7 +343,7 @@ namespace WebApi.Migrations
                         new
                         {
                             UserId = 3,
-                            Created = new DateTime(2023, 4, 24, 8, 3, 34, 720, DateTimeKind.Local).AddTicks(1479),
+                            Created = new DateTime(2023, 6, 7, 10, 51, 0, 253, DateTimeKind.Local).AddTicks(2883),
                             IsDeleted = false,
                             LoginId = 3,
                             UserName = "user 3"
@@ -378,11 +383,19 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.Follow", b =>
                 {
+                    b.HasOne("WebApi.Database.Entities.User", "FollowingUser")
+                        .WithMany()
+                        .HasForeignKey("FollowingUserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("WebApi.Database.Entities.User", "User")
                         .WithMany("Follow")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("FollowingUser");
 
                     b.Navigation("User");
                 });
@@ -396,8 +409,8 @@ namespace WebApi.Migrations
                         .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("WebApi.Database.Entities.Like", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -431,13 +444,13 @@ namespace WebApi.Migrations
             modelBuilder.Entity("WebApi.Database.Entities.PostTag", b =>
                 {
                     b.HasOne("WebApi.Database.Entities.Post", "Post")
-                        .WithMany()
+                        .WithMany("PostTags")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("WebApi.Database.Entities.Tag", "Tag")
-                        .WithMany()
+                        .WithMany("PostTags")
                         .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -471,12 +484,21 @@ namespace WebApi.Migrations
 
             modelBuilder.Entity("WebApi.Database.Entities.Login", b =>
                 {
-                    b.Navigation("User");
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.Post", b =>
                 {
-                    b.Navigation("PostLikes");
+                    b.Navigation("PostLikes")
+                        .IsRequired();
+
+                    b.Navigation("PostTags");
+                });
+
+            modelBuilder.Entity("WebApi.Database.Entities.Tag", b =>
+                {
+                    b.Navigation("PostTags");
                 });
 
             modelBuilder.Entity("WebApi.Database.Entities.User", b =>
@@ -485,7 +507,8 @@ namespace WebApi.Migrations
 
                     b.Navigation("Posts");
 
-                    b.Navigation("UserImage");
+                    b.Navigation("UserImage")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

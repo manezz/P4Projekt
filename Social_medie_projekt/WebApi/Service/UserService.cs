@@ -2,9 +2,9 @@
 {
     public interface IUserService
     {
-        Task<List<UserResponse>> GetAllUsersAsync();
-        Task<UserResponse> FindUserAsync(int userId, int followUserId);
-        Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser);
+        Task<List<UserResponse>> GetAllAsync();
+        Task<UserResponse?> FindByIdAsync(int userId, int followUserId);
+        Task<UserResponse?> UpdateAsync(int userId, UserRequest updatedUser);
     }
 
     public class UserService : IUserService
@@ -61,7 +61,7 @@
                 Follow = user.Follow.Select(x => new UserFollowResponse
                 {
                     UserId = x.UserId,
-                    FollowingId = x.FollowingId,
+                    FollowingId = x.FollowingUserId,
                 }).ToList()
             };
         }
@@ -73,7 +73,7 @@
                 UserId = user.UserId,
                 UserName = user.UserName,
                 Created = user.Created,
-                followUserId = follow?.FollowingId,
+                FollowUserId = follow?.FollowingUserId,
                 Login = new UserLoginResponse
                 {
                     LoginId = user.Login.LoginId,
@@ -98,25 +98,25 @@
                 Follow = user.Follow.Select(x => new UserFollowResponse
                 {
                     UserId = x.UserId,
-                    FollowingId = x.FollowingId,
+                    FollowingId = x.FollowingUserId,
                 }).ToList()
             };
         }
 
-        public async Task<UserResponse> FindUserAsync(int userId, int followUserId)
+        public async Task<UserResponse?> FindByIdAsync(int userId, int followUserId)
         {
-            var user = await _userRepository.FindUserByIdAsync(userId);
+            var user = await _userRepository.FindByIdAsync(userId);
 
             if (user != null)
             {
-                return MapUserToUserResponse(user, _followRepository.FindFollow(userId, followUserId).Result);
+                return MapUserToUserResponse(user, _followRepository.FindByIdAsync(userId, followUserId).Result);
             }
             return null;
         }
 
-        public async Task<List<UserResponse>> GetAllUsersAsync()
+        public async Task<List<UserResponse>> GetAllAsync()
         {
-            List<User> user = await _userRepository.GetAllUsersAsync();
+            List<User> user = await _userRepository.GetAllAsync();
 
             if (user == null)
             {
@@ -125,16 +125,15 @@
             return user.Select(user => MapUserToUserResponse(user)).ToList();
         }
 
-        public async Task<UserResponse> UpdateUserAsync(int userId, UserRequest updatedUser)
+        public async Task<UserResponse?> UpdateAsync(int userId, UserRequest updatedUser)
         {
-            var user = await _userRepository.UpdateUserAsync(userId, MapUserRequestToUser(updatedUser));
+            var user = await _userRepository.UpdateAsync(userId, MapUserRequestToUser(updatedUser));
 
-            if (user == null)
+            if (user != null)
             {
-                throw new ArgumentNullException();
+                return MapUserToUserResponse(user);
             }
-
-            return MapUserToUserResponse(user);
+            return null;
         }
     }
 }

@@ -54,6 +54,14 @@
 
             modelBuilder.Entity<Follow>().HasQueryFilter(x => !x.User.IsDeleted);
 
+            modelBuilder.Entity<Login>().HasIndex(x => new { x.Email })
+                .IsUnique(true);
+
+            modelBuilder.Entity<Post>()
+                .HasMany(e => e.Tags)
+                .WithMany(e => e.Posts)
+                .UsingEntity<PostTag>();
+
             modelBuilder.Entity<Tag>(e =>
             {
                 e.HasIndex(t => t.Name).IsUnique();
@@ -64,7 +72,15 @@
 
             modelBuilder.Entity<Like>()
                 .HasOne(x => x.User)
-                .WithOne()
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Follow>().HasIndex(x => new { x.FollowingUserId })
+                .IsUnique(false);
+
+            modelBuilder.Entity<Follow>()
+                .HasOne(x => x.FollowingUser)
+                .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<Login>().HasData(
@@ -131,12 +147,12 @@
                 new Follow
                 {
                     UserId = 1,
-                    FollowingId = 2
+                    FollowingUserId = 2
                 },
                 new Follow
                 {
                     UserId = 2,
-                    FollowingId = 1
+                    FollowingUserId = 1
                 });
 
             modelBuilder.Entity<Post>().HasData(

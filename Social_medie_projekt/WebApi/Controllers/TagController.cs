@@ -12,11 +12,11 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
-        public async Task<IActionResult> GetAllTagsAsync()
+        public async Task<IActionResult> GetAllAsync()
         {
             try
             {
-                List<TagResponse> tags = await _tagService.GetAllTagsAsync();
+                List<TagResponse> tags = await _tagService.GetAllAsync();
 
                 if (tags.Count == 0)
                 {
@@ -33,11 +33,11 @@
         [Authorize(Role.User, Role.Admin)]
         [HttpGet]
         [Route("{tagId}")]
-        public async Task<IActionResult> GetTagByIdAsync([FromRoute] int tagId)
+        public async Task<IActionResult> FindByIdAsync([FromRoute] int tagId)
         {
             try
             {
-                var tagResponse = await _tagService.GetTagById(tagId);
+                var tagResponse = await _tagService.FindByIdAsync(tagId);
 
                 if (tagResponse == null)
                 {
@@ -53,11 +53,11 @@
 
         [Authorize(Role.User, Role.Admin)]
         [HttpPost]
-        public async Task<IActionResult> CreateTagAsync([FromBody] TagRequest newTag)
+        public async Task<IActionResult> CreateAsync([FromBody] TagRequest newTag)
         {
             try
             {
-                TagResponse tagResponse = await _tagService.CreateTagAsync(newTag);
+                TagResponse tagResponse = await _tagService.CreateAsync(newTag);
 
                 return Ok(tagResponse);
             }

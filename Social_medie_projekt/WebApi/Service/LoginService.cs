@@ -2,12 +2,12 @@
 {
     public interface ILoginService
     {
-        Task<SignInResponse> AuthenticateUser(SignInRequest sign);
-        Task<LoginResponse> RegisterAsync(LoginRequest newUser);
-        Task<List<LoginResponse>> GetAllLoginAsync();
-        Task<LoginResponse> FindLoginByIdAsync(int loginId);
-        Task<LoginResponse?> UpdateLoginAsync(int loginId, LoginRequest updatedLogin);
-        Task<LoginResponse?> DeleteLoginAsync(int loginId);
+        Task<SignInResponse> AuthenticateAsync(SignInRequest sign);
+        Task<LoginResponse> CreateAsync(LoginRequest newUser);
+        Task<List<LoginResponse>> GetAllAsync();
+        Task<LoginResponse> FindByIdAsync(int loginId);
+        Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin);
+        Task<LoginResponse?> DeleteAsync(int loginId);
     }
     public class LoginService : ILoginService
     {
@@ -67,42 +67,40 @@
             };
         }
 
-        public async Task<SignInResponse> AuthenticateUser(SignInRequest signIn)
+        public async Task<SignInResponse> AuthenticateAsync(SignInRequest signIn)
         {
-            Login? login = await _loginRepository.FindLoginByEmailAsync(signIn.Email);
+            var login = await _loginRepository.FindByEmailAsync(signIn.Email);
 
-            if (login == null)
+            if (login != null)
             {
-                throw new ArgumentNullException();
-            }
-
-            if (login.Password == signIn.Password)
-            {
-                SignInResponse response = new()
+                if (login.Password == signIn.Password)
                 {
-                    LoginId = login.LoginId,
-                    Email = login.Email,
-                    Role = login.Role,
-                    User = new()
+                    SignInResponse response = new()
                     {
-                        UserId = login.User.UserId,
-                        UserName = login.User.UserName,
-                        Created = login.User.Created,
-                        UserImage = new()
+                        LoginId = login.LoginId,
+                        Email = login.Email,
+                        Role = login.Role,
+                        User = new()
                         {
-                            Image = Convert.ToBase64String(login.User.UserImage.Image)
-                        }
-                    },
-                    Token = _jwtUtils.GenerateJwtToken(login)
-                };
-                return response;
+                            UserId = login.User.UserId,
+                            UserName = login.User.UserName,
+                            Created = login.User.Created,
+                            UserImage = new()
+                            {
+                                Image = Convert.ToBase64String(login.User.UserImage.Image)
+                            }
+                        },
+                        Token = _jwtUtils.GenerateJwtToken(login)
+                    };
+                    return response;
+                }
             }
-            return null;
+            return null!;
         }
 
-        public async Task<LoginResponse> RegisterAsync(LoginRequest newUser)
+        public async Task<LoginResponse> CreateAsync(LoginRequest newUser)
         {
-            var user = await _loginRepository.RegisterAsync(MapLoginRequestToLogin(newUser));
+            var user = await _loginRepository.CreateAsync(MapLoginRequestToLogin(newUser));
 
             if (user == null)
             {
@@ -112,9 +110,9 @@
             return MapLoginToLoginResponse(user);
         }
 
-        public async Task<List<LoginResponse>> GetAllLoginAsync()
+        public async Task<List<LoginResponse>> GetAllAsync()
         {
-            List<Login> logins = await _loginRepository.GetAllLoginAsync();
+            List<Login> logins = await _loginRepository.GetAllAsync();
 
             if (logins == null)
             {
@@ -124,9 +122,21 @@
             return logins.Select(login => MapLoginToLoginResponse(login)).ToList();
         }
 
-        public async Task<LoginResponse> FindLoginByIdAsync(int loginId)
+        public async Task<LoginResponse> FindByIdAsync(int loginId)
         {
-            var login = await _loginRepository.FindLoginByIdAsync(loginId);
+            var login = await _loginRepository.FindByIdAsync(loginId);
+
+            if (login != null)
+            {
+                return MapLoginToLoginResponse(login);
+            }
+
+            return null!;
+        }
+
+        public async Task<LoginResponse?> UpdateAsync(int loginId, LoginRequest updatedLogin)
+        {
+            var login = await _loginRepository.UpdateAsync(loginId, MapLoginRequestToLogin(updatedLogin));
 
             if (login != null)
             {
@@ -136,21 +146,9 @@
             return null;
         }
 
-        public async Task<LoginResponse?> UpdateLoginAsync(int loginId, LoginRequest updatedLogin)
+        public async Task<LoginResponse?> DeleteAsync(int loginId)
         {
-            var login = await _loginRepository.UpdateLoginById(loginId, MapLoginRequestToLogin(updatedLogin));
-
-            if (login != null)
-            {
-                return MapLoginToLoginResponse(login);
-            }
-
-            return null;
-        }
-
-        public async Task<LoginResponse?> DeleteLoginAsync(int loginId)
-        {
-            var login = await _loginRepository.DeleteLoginByIdAsync(loginId);
+            var login = await _loginRepository.DeleteAsync(loginId);
 
             if (login != null)
             {

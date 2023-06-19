@@ -17,12 +17,12 @@
         [Column(TypeName = "bit")]
         public bool IsDeleted { get; set; }
 
-        public Login? Login { get; set; }
+        public Login Login { get; set; } = null!;
 
-        public UserImage? UserImage { get; set; }
+        public UserImage UserImage { get; set; } = null!;
 
-        public List<Post>? Posts { get; set; } = new();
+        public List<Post> Posts { get; set; } = new();
 
-        public List<Follow>? Follow { get; set; } = new();
+        public List<Follow> Follow { get; set; } = new();
     }
 }
