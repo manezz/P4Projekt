@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WebApi.DAL\WebApi.DAL.csproj" />
+    <ProjectReference Include="..\WebApi.BLL\WebApi.BLL.csproj" />
   </ItemGroup>
 
 </Project>

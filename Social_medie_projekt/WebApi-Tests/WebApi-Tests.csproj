@@ -35,7 +35,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebApi.DAL\WebApi.DAL.csproj" />
-    <ProjectReference Include="..\WebApi\WebApi.csproj" />
+    <ProjectReference Include="..\WebApi\WebApi.API.csproj" />
   </ItemGroup>
 
 </Project>
