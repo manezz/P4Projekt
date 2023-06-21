@@ -1,4 +1,4 @@
-﻿namespace WebApi.Repository
+﻿namespace WebApi.DAL.Repository
 {
     public interface IPostTagRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace WebApi.Database.Entities
+﻿namespace WebApi.DAL.Database.Entities
 {
     public class User : ISoftDelete
     {

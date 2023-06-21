@@ -1,4 +1,4 @@
-﻿namespace WebApi.Database
+﻿namespace WebApi.DAL.Database
 {
     public class DatabaseContext : DbContext
     {

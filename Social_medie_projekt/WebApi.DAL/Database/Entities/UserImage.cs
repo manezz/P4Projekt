@@ -1,4 +1,4 @@
-﻿namespace WebApi.Database.Entities
+﻿namespace WebApi.DAL.Database.Entities
 {
     [PrimaryKey(nameof(UserId))]
     public class UserImage

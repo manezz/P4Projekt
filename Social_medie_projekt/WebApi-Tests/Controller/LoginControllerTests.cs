@@ -1,4 +1,6 @@
-﻿namespace WebApi_Tests.Controller
+﻿using WebApi.SharedKernel.DTOs;
+
+namespace WebApi_Tests.Controller
 {
     public class LoginControllerTests
     {

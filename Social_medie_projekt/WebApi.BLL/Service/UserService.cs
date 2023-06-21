@@ -1,11 +1,10 @@
-﻿namespace WebApi.Service
+﻿namespace WebApi.BLL.Service
 {
     public interface IUserService
     {
         Task<List<UserResponse>> GetAllAsync();
         Task<UserResponse?> FindByIdAsync(int userId, int followUserId);
         Task<UserResponse?> UpdateAsync(int userId, UserRequest updatedUser);
-        Task UpdateAsync(int userId, UserRequest updatedUser);
     }
 
     public class UserService : IUserService

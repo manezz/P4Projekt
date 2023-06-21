@@ -1,4 +1,5 @@
 ﻿using WebApi.Database.Entities;
+using WebApi.SharedKernel.DTOs;
 
 namespace WebApi_Tests.Controller
 {

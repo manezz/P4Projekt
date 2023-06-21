@@ -1,4 +1,4 @@
-﻿namespace WebApi.Controllers
+﻿namespace WebApi.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

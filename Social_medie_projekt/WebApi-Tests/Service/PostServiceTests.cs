@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Any;
 using System.Linq;
-using WebApi.DTOs;
+using WebApi.SharedKernel.DTOs;
 
 namespace WebApi_Tests.Service
 {

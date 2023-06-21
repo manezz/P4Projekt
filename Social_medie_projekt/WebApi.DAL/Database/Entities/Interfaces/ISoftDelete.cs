@@ -1,4 +1,4 @@
-﻿namespace WebApi.Database.Entities.Interfaces
+﻿namespace WebApi.DAL.Database.Entities.Interfaces
 {
     public interface ISoftDelete
     {

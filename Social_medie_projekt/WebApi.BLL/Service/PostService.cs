@@ -1,4 +1,4 @@
-﻿namespace WebApi.Service
+﻿namespace WebApi.BLL.Service
 {
     public interface IPostService
     {

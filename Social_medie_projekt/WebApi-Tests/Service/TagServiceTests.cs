@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using WebApi.SharedKernel.DTOs;
 
 namespace WebApi_Tests.Service
 {

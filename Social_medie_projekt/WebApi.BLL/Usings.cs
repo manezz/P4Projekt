@@ -1,3 +1,3 @@
-﻿global using WebApi.Database.Entities;
-global using WebApi.DTOs;
-global using WebApi.Repository;
+﻿global using WebApi.DAL.Database.Entities;
+global using WebApi.DAL.Repository;
+global using WebApi.SharedKernel.DTOs;

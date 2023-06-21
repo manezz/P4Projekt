@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WebApi.BLL\WebApi.BLL.csproj" />
+    <ProjectReference Include="..\WebApi.SharedKernel\WebApi.SharedKernel.csproj" />
   </ItemGroup>
 
 </Project>

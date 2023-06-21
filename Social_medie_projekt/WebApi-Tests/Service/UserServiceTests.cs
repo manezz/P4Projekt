@@ -1,4 +1,6 @@
-﻿namespace WebApi_Tests.Service
+﻿using WebApi.SharedKernel.DTOs;
+
+namespace WebApi_Tests.Service
 {
     public class UserServiceTests
     {
